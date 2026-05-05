@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Activity, AlertTriangle, LayoutDashboard, Users } from 'lucide-react'
-import { Button, cn } from '@medix/ui'
+import { Activity, LayoutDashboard, Users } from 'lucide-react'
+import { cn } from '@medix/ui'
 import { Dashboard } from './Dashboard'
 import { PatientPage } from './PatientPage'
 
@@ -21,12 +21,6 @@ const navLinks: { id: Page; label: string; icon: typeof LayoutDashboard }[] = [
 
 export function App() {
   const [page, setPage] = useState<Page>('dashboard')
-  const [error, setError] = useState<Error | null>(null)
-
-  function go(next: Page) {
-    setError(null)
-    setPage(next)
-  }
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -42,7 +36,11 @@ export function App() {
         </div>
         <nav className="p-3 flex flex-col gap-1">
           {navLinks.map(({ id, label, icon: Icon }) => (
-            <NavButton key={id} active={page === id} onClick={() => go(id)}>
+            <NavButton
+              key={id}
+              active={page === id}
+              onClick={() => setPage(id)}
+            >
               <Icon className="h-4 w-4" />
               {label}
             </NavButton>
@@ -65,7 +63,7 @@ export function App() {
                   key={id}
                   compact
                   active={page === id}
-                  onClick={() => go(id)}
+                  onClick={() => setPage(id)}
                 >
                   <Icon className="h-4 w-4" />
                   <span className="hidden sm:inline">{label}</span>
@@ -75,23 +73,10 @@ export function App() {
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
-          {error ? (
-            <div className="mx-auto max-w-md mt-12 rounded-lg border bg-card p-6 text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10 text-destructive">
-                <AlertTriangle className="h-6 w-6" />
-              </div>
-              <h2 className="text-lg font-semibold">Something went wrong</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {error.message}
-              </p>
-              <Button onClick={() => setError(null)} className="mt-4">
-                Try again
-              </Button>
-            </div>
-          ) : page === 'dashboard' ? (
-            <Dashboard onNavigate={() => go('patients')} onError={setError} />
+          {page === 'dashboard' ? (
+            <Dashboard onNavigate={() => setPage('patients')} />
           ) : (
-            <PatientPage onError={setError} />
+            <PatientPage />
           )}
         </main>
       </div>

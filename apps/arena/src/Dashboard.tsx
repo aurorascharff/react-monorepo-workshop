@@ -10,10 +10,9 @@ import type { Patient } from './types'
 
 type DashboardProps = {
   onNavigate: () => void
-  onError: (error: Error) => void
 }
 
-export function Dashboard({ onNavigate, onError }: DashboardProps) {
+export function Dashboard({ onNavigate }: DashboardProps) {
   const [patients, setPatients] = useState<Patient[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -22,9 +21,8 @@ export function Dashboard({ onNavigate, onError }: DashboardProps) {
   useEffect(() => {
     fetchPatients()
       .then((data) => setPatients(data))
-      .catch((err) => onError(err))
       .finally(() => setIsLoading(false))
-  }, [onError])
+  }, [])
 
   // TODO Module 3: This is "derived state in useState + useEffect" — an anti-pattern.
   // The counts can be computed directly during render. Remove `stats` state and

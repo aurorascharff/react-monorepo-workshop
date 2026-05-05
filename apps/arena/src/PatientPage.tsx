@@ -38,11 +38,7 @@ import type { Journal, JournalStatus, Patient } from './types'
 // Move the inline `STATUS_STYLES` map below into a `<StatusBadge>` in
 // `@medix/ui` so medix.com can use it too.
 
-type PatientPageProps = {
-  onError: (error: Error) => void
-}
-
-export function PatientPage({ onError }: PatientPageProps) {
+export function PatientPage() {
   const [patients, setPatients] = useState<Patient[]>([])
   const [isLoadingPatients, setIsLoadingPatients] = useState(true)
 
@@ -57,9 +53,8 @@ export function PatientPage({ onError }: PatientPageProps) {
   useEffect(() => {
     fetchPatients()
       .then((data) => setPatients(data))
-      .catch((err) => onError(err))
       .finally(() => setIsLoadingPatients(false))
-  }, [onError])
+  }, [])
 
   // TODO Module 3: This effect *syncs* `selectedPatient` with `selectedId`.
   // Don't store derived data in state — compute `selectedPatient` from
@@ -88,7 +83,6 @@ export function PatientPage({ onError }: PatientPageProps) {
       <PatientDetail
         patient={selectedPatient}
         onBack={() => setSelectedId(null)}
-        onError={onError}
       />
     )
   }
@@ -191,11 +185,9 @@ function formatDate(date: string): string {
 function PatientDetail({
   patient,
   onBack,
-  onError,
 }: {
   patient: Patient
   onBack: () => void
-  onError: (error: Error) => void
 }) {
   const [journals, setJournals] = useState<Journal[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -207,15 +199,14 @@ function PatientDetail({
     setIsLoading(true)
     fetchJournals(patient.id)
       .then((data) => setJournals(data))
-      .catch((err) => onError(err))
       .finally(() => setIsLoading(false))
-  }, [patient.id, onError])
+  }, [patient.id])
 
   function handleStatusChange(journalId: string, status: JournalStatus) {
     // TODO Module 4: Switch to `useMutation` + `queryClient.invalidateQueries`.
-    updateJournalStatus(journalId, status)
-      .then(() => fetchJournals(patient.id).then(setJournals))
-      .catch((err) => onError(err))
+    updateJournalStatus(journalId, status).then(() =>
+      fetchJournals(patient.id).then(setJournals),
+    )
   }
 
   function handleCreated(journal: Journal) {
