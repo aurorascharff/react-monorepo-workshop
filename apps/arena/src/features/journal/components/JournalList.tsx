@@ -1,6 +1,6 @@
 import { useJournals } from '../hooks/useJournals'
 import { JournalEntry } from './JournalEntry'
-import { Spinner } from '../../../components/Spinner'
+import { Spinner } from '@medix/ui'
 import { ErrorBoundary } from '../../../components/ErrorBoundary'
 
 type JournalListProps = {

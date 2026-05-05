@@ -3,6 +3,7 @@ import { Layout } from './layouts/Layout'
 import { DashboardPage } from './pages/DashboardPage'
 import { PatientListPage } from './pages/PatientListPage'
 import { PatientDetailPage } from './pages/PatientDetailPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 
 export function AppRoutes() {
   return (
@@ -11,6 +12,7 @@ export function AppRoutes() {
         <Route index element={<DashboardPage />} />
         <Route path="patients" element={<PatientListPage />} />
         <Route path="patients/:id" element={<PatientDetailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   )

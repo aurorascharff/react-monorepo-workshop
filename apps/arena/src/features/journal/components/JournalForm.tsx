@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Button, Input, Label, Textarea } from '@medix/ui'
+import { Button, Input, Label, Textarea, DatePicker } from '@medix/ui'
 import { createJournal } from '../../../lib/api'
 
 const journalSchema = z.object({
@@ -31,6 +31,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<JournalFormData>({
     resolver: zodResolver(journalSchema),
@@ -73,12 +74,16 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
 
       <div className="mb-4 space-y-1">
         <Label htmlFor="date">Date</Label>
-        <Input
-          id="date"
-          type="date"
-          {...register('date')}
-          defaultValue={new Date().toISOString().slice(0, 10)}
-          className="w-auto"
+        <Controller
+          name="date"
+          control={control}
+          render={({ field }) => (
+            <DatePicker
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Pick a date"
+            />
+          )}
         />
         {errors.date && (
           <p className="text-xs text-destructive">{errors.date.message}</p>

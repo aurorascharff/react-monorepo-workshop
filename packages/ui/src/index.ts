@@ -29,4 +29,10 @@ export {
   SelectScrollDownButton,
 } from './base/select'
 export { Textarea } from './base/textarea'
+export { Skeleton } from './base/skeleton'
+export { Spinner } from './base/spinner'
+export { Popover, PopoverTrigger, PopoverContent } from './base/popover'
+export { Calendar } from './base/calendar'
+export type { CalendarProps } from './base/calendar'
+export { DatePicker } from './base/date-picker'
 export { cn } from './lib/utils'

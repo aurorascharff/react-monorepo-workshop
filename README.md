@@ -1,46 +1,61 @@
-# Medix Arena — React Monorepo Workshop
+# Real-World React — Monorepo, APIs, and Best Practice
 
-A full-stack monorepo workshop teaching modern client-side React patterns. The codebase is a fictional healthcare journal system ("Klinikk"), but the patterns — monorepo layout, shared UI, TanStack Query, RHF + Zod, error and suspense boundaries — are domain-agnostic and reusable for any web workshop.
+A full-day hands-on workshop for developers building production React applications. Participants build **Medix Arena** — a clinical journal SPA — from a pre-wired starter into a fully featured application, covering the architecture decisions, tooling, and patterns that separate hobby projects from production codebases. The healthcare domain is just a teaching vehicle; every pattern is domain-agnostic and directly transferable.
 
-## Stack
+Across five modules, participants work through feature-folder architecture and shared component libraries, URL-driven routing with React Router v7, minimal state with custom hooks, declarative data fetching with TanStack Query, and schema-validated forms with React Hook Form and Zod.
 
-- [React 19](https://react.dev) + [React Router v7](https://reactrouter.com) (SPA)
-- [TanStack Query v5](https://tanstack.com/query) — data fetching and caching
-- [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) — forms and validation
-- [Hono](https://hono.dev) + [Drizzle ORM](https://orm.drizzle.team) + SQLite — API and database
-- [Tailwind CSS v4](https://tailwindcss.com) — styling
-- [Turborepo](https://turbo.build) — monorepo
+## Tech stack
 
-## Structure
+| Layer | Tool |
+| --- | --- |
+| UI framework | [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler) |
+| Routing | [React Router v7](https://reactrouter.com) (SPA mode) |
+| Data fetching | [TanStack Query v5](https://tanstack.com/query) |
+| Forms | [React Hook Form](https://react-hook-form.com) + [Zod v4](https://zod.dev) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com) + shadcn-style component library |
+| API | [Hono](https://hono.dev) + [Drizzle ORM](https://orm.drizzle.team) + SQLite (pre-written) |
+| Monorepo | [Turborepo](https://turbo.build) + npm workspaces |
+| Testing | [Vitest](https://vitest.dev) + [React Testing Library](https://testing-library.com) |
+
+## Monorepo structure
 
 ```
 apps/
-  arena/        — React Router v7 SPA (the workshop target)
+  arena/        — React Router v7 SPA (workshop target)
   api/          — Hono REST API (pre-written, OpenAPI + Scalar docs)
-  klinikk.no/   — Next.js public marketing site
+  medix.com/    — Next.js marketing site (reference)
 packages/
-  ui/           — Shared design system (`@medix/ui`)
+  ui/           — Shared design system (@medix/ui)
 ```
+
+## Repository branches
+
+| Branch | Purpose |
+| --- | --- |
+| `main` | **Solution** — completed reference implementation |
+| `starter` | **Starting point for participants** — pre-written API, empty arena shell |
+
+**As the workshop holder:** work on `main`. Participants clone and check out `starter`. If a participant falls behind or wants to skip a module they can `git pull origin main` to fast-forward to the solution.
 
 ## Getting started
 
 **Requirements:** Node.js v20+
 
 ```bash
-git clone https://github.com/aurorascharff/medix-workshop.git
-cd medix-workshop
+git clone https://github.com/aurorascharff/workshop-dips.git
+cd workshop-dips
 npm install
 npm run db:seed
 npm run dev
 ```
 
-`npm run dev` starts **all three apps at once** via Turborepo — no need to run them separately.
+`npm run dev` starts all apps at once via Turborepo.
 
-| App         | URL                   |
-| ----------- | --------------------- |
+| App | URL |
+| --- | --- |
 | Arena (SPA) | http://localhost:5173 |
-| API + docs  | http://localhost:3001 |
-| klinikk.no  | http://localhost:3000 |
+| API + docs | http://localhost:3001 |
+| medix.com | http://localhost:3000 |
 
 ## Commands
 
@@ -63,20 +78,9 @@ GitHub Copilot is configured via `.github/copilot-instructions.md`, and the [`ve
 
 ## CI
 
-GitHub Actions runs `lint`, `typecheck`, `test`, and `build` on every push and pull request to `main`. The workflow lives at [.github/workflows/ci.yml](.github/workflows/ci.yml) and mirrors the local commands — anything that passes locally will pass in CI.
-
-```bash
-npm ci
-npm run db:seed
-npm run lint
-npm run typecheck
-npm run test
-npm run build
-```
-
-Manual runs are available from the Actions tab (`workflow_dispatch`) or via `gh workflow run ci.yml`.
+GitHub Actions runs `lint`, `typecheck`, `test`, and `build` on every push and pull request to `main`.
 
 ## Workshop materials
 
-- [plan.md](plan.md) — day-of agenda, theory, demos
+- [plan.md](plan.md) — day-of agenda, theory, and demos
 - [tasks.md](tasks.md) — module goals and acceptance criteria

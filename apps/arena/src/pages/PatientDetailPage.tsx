@@ -6,7 +6,7 @@ import { PatientHeader } from '../features/patients/components/PatientHeader'
 import { JournalList } from '../features/journal/components/JournalList'
 import { JournalForm } from '../features/journal/components/JournalForm'
 import { ErrorBoundary } from '../components/ErrorBoundary'
-import { Spinner } from '../components/Spinner'
+import { Spinner } from '@medix/ui'
 
 function PatientDetail({ id }: { id: string }) {
   const { data: patient } = useSuspenseQuery({

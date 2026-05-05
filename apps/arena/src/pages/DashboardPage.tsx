@@ -1,15 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
-import { fetchPatients } from '../lib/api'
-import { Spinner } from '../components/Spinner'
+import { Spinner } from '@medix/ui'
+import { usePatients } from '../features/patients/hooks/usePatients'
 
 export function DashboardPage() {
-  const { data: patients, isLoading } = useQuery({
-    queryKey: ['patients'],
-    queryFn: fetchPatients,
-  })
+  const { data: patients, isLoading } = usePatients()
 
   if (isLoading) return <Spinner />
 

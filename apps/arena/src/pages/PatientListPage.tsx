@@ -1,17 +1,13 @@
-import { useQuery } from '@tanstack/react-query'
-import { fetchPatients } from '../lib/api'
 import { PatientList } from '../features/patients/components/PatientList'
-import { Spinner } from '../components/Spinner'
+import { Spinner } from '@medix/ui'
+import { usePatients } from '../features/patients/hooks/usePatients'
 
 export function PatientListPage() {
   const {
     data: patients,
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ['patients'],
-    queryFn: fetchPatients,
-  })
+  } = usePatients()
 
   return (
     <div>
