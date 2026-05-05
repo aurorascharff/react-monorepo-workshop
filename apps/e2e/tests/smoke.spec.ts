@@ -3,7 +3,9 @@ import { expect, test } from '@playwright/test'
 test('dashboard renders with seeded patient stats', async ({ page }) => {
   await page.goto('/')
 
-  await expect(page.getByRole('heading', { name: /good morning/i })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: /good morning/i }),
+  ).toBeVisible()
   await expect(page.getByText(/total patients/i)).toBeVisible()
 
   // Recent patients list shows at least one seeded entry

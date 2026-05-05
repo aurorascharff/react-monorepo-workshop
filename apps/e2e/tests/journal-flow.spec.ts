@@ -23,9 +23,11 @@ test('opens a patient and creates a journal entry', async ({ page }) => {
     .first()
     .click()
 
-  await page.getByLabel(/content/i).fill(
-    'New entry created by Playwright e2e test. Patient stable, no acute issues.',
-  )
+  await page
+    .getByLabel(/content/i)
+    .fill(
+      'New entry created by Playwright e2e test. Patient stable, no acute issues.',
+    )
 
   await page.getByRole('button', { name: /save entry/i }).click()
 

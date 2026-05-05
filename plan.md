@@ -125,7 +125,8 @@ _Format: Demo + codealong_
 - ESLint and Prettier: show config, show errors highlighted in the editor, show format-on-save — make sure everyone has it working
 - TypeScript strict mode: types for props, events, and API responses. Ask: what's familiar from C#? (Interfaces ≈ types, generics, nullable)
 - React Compiler: enabled by default — it memoizes automatically, you don't need `useMemo`/`useCallback` manually. Leave it on and trust it.
-- Vitest + React Testing Library: pre-configured but not used actively today — it's there and set up correctly
+- Vitest + React Testing Library: pre-configured with a few example tests (`StatusBadge`, `useDebounce`, `usePatientFilter`, `JournalForm` validation). We don't add new tests today, but they're there as a reference for how to test hooks, components, and form validation. Run with `npm test`.
+- End-to-end tests: `apps/e2e/` runs Playwright against the real `apps/arena` SPA + `apps/api` server (smoke + journal-creation flow). Out of scope for the workshop, but mention it: this is what the testing pyramid looks like in a real monorepo — unit tests in each app, e2e in its own workspace. Run with `npm run e2e`.
 - AI setup: GitHub Copilot enabled, nested `AGENTS.md` files at every boundary, `copilot-instructions.md` points at the root one, `/react-best-practices` skill available as a slash command in chat
 
 **Walk through the repo structure**
