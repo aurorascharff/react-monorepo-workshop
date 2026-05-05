@@ -23,11 +23,13 @@ Participants work inside a realistic Turborepo monorepo containing an SPA, a Nex
 **Per module:**
 
 ```
-5 min   — Theory intro (slides)
-15 min  — Individual coding (TODOs in the codebase)
-10 min  — Group discussion
-10 min  — Walkthrough / live-code
+5 min       — Theory intro (slides)
+15–25 min   — Individual coding (TODOs in the codebase)
+10 min      — Group discussion
+10 min      — Walkthrough / live-code
 ```
+
+Coding time varies per module — see each module's "Individual coding" heading. Module 1 and Module 5 get longer blocks because they touch more files.
 
 ---
 
@@ -46,12 +48,16 @@ Participants work inside a realistic Turborepo monorepo containing an SPA, a Nex
 | Testing   | Vitest + React Testing Library (pre-configured)           |
 | AI        | GitHub Copilot + `copilot-instructions.md` + agent skills |
 
-**Repos:**
+**Repo:**
 
-- `medix-workshop` — finished solution (built first)
-- `medix-workshop-starter` — participant starting point (derived from the finished version by introducing deliberate bugs and TODOs)
+A single repo (`medix-workshop`) with two branches:
 
-> The codebase uses fictional names (**Klinikk**, **Arena**) instead of real product names so the material is reusable as a generic monorepo React workshop.
+- `main` — finished solution (instructor reference)
+- `starter` — participant starting point, with deliberate bugs and TODOs per module
+
+Participants who fall behind can `git pull origin main` to fast-forward to the solution.
+
+> The codebase uses fictional names (**Medix**, **Arena**) instead of real product names so the material is reusable as a generic monorepo React workshop.
 
 **Repo structure:**
 
@@ -59,14 +65,14 @@ Participants work inside a realistic Turborepo monorepo containing an SPA, a Nex
 apps/
   arena/        ← React Router v7 SPA (the journal app — workshop target)
   api/          ← Hono API (pre-written, OpenAPI + Scalar docs at /)
-  klinikk.no/   ← Next.js (marketing site — SSR, SEO, static content)
+  medix.com/    ← Next.js (marketing site — SSR, SEO, static content)
 packages/
   ui/           ← shared component library (`@medix/ui`, shadcn base + custom)
 ```
 
 `turbo dev` starts every app in parallel. The API is pre-written — participants don't need to touch it, but they're free to read it. The SQLite file ships in the repo with seed data (patients, journal entries). The API exposes an interactive docs UI (Scalar) at its root URL, so participants can explore the endpoints visually.
 
-**Domain:** `arena/` is a journal system inspired by Norwegian hospital EHRs — patient list, journal entries, forms. `klinikk.no/` is a simple marketing site that consumes `packages/ui` and demonstrates why Next.js makes sense for content-heavy public pages (SEO, static generation, SSR). The healthcare framing is teaching context only — the underlying patterns are domain-agnostic.
+**Domain:** `arena/` is a journal system inspired by Norwegian hospital EHRs — patient list, journal entries, forms. `medix.com/` is a simple marketing site that consumes `packages/ui` and demonstrates why Next.js makes sense for content-heavy public pages (SEO, static generation, SSR). The healthcare framing is teaching context only — the underlying patterns are domain-agnostic.
 
 **Audience background:** Primarily .NET/C# developers with a WPF/MVVM background. Comfortable with object-oriented thinking, data binding, and layered architecture — but limited React and browser-paradigm experience. Use this actively: components ≈ views, state ≈ viewmodel, props ≈ data binding.
 
@@ -110,7 +116,7 @@ _Format: Demo + codealong_
 **Set up the repo**
 
 - README.md: walk through `npm install`, `npm run db:seed`, `npm run dev` — run together and verify everything is up
-- Show the ports: Arena at `localhost:5173`, API at `localhost:3001` (Scalar docs at root), klinikk.no at `localhost:3000`
+- Show the ports: Arena at `localhost:5173`, API at `localhost:3001` (Scalar docs at root), medix.com at `localhost:3000`
 - Turborepo: show that all apps start in parallel from one command — explain the monorepo concept briefly (workspaces, shared packages, task graph)
 - ESLint and Prettier: show config, show errors highlighted in the editor, show format-on-save — make sure everyone has it working
 - TypeScript strict mode: types for props, events, and API responses. Ask: what's familiar from C#? (Interfaces ≈ types, generics, nullable)
@@ -143,9 +149,9 @@ _Format: Fix it + Build it_
 
 **Theory (5 min):** Feature-based structure, component responsibility, error boundary placement. Participants are used to large classes with many responsibilities — in React the goal is small focused components, and folder structure should reflect what the app _does_, not what kind of file it is.
 
-**Starting point:** Everything sits flat in `src/` — one big `App.tsx`, no feature split, status styling duplicated as inline class names.
+**Starting point:** Everything sits flat in `src/` — one big `App.tsx` (the starter has no `router.tsx` yet — we add that in Module 2), no feature split, status styling duplicated as inline class names. The starter introduces a single monolithic `PatientPage.tsx` that we'll break apart.
 
-**Individual coding (15 min):**
+**Individual coding (25 min):**
 
 _Fix it: Structure_
 
@@ -154,14 +160,14 @@ _Fix it: Structure_
    - `src/features/journal/` — journal list, entry
    - `src/components/` — shared UI bits
 2. Break `PatientPage.tsx` (one big monolith) into `PatientList`, `PatientCard`, `PatientHeader`
-3. Add an `<ErrorBoundary>` in `Layout` around `<Outlet>` — throw an error manually and watch it get caught
+3. Add a top-level `<ErrorBoundary>` in `Layout` around `<Outlet>` — throw an error manually and watch it get caught. (We'll add **local** boundaries near suspending data in Module 4.)
 
 _Build it: Reuse_
 
 4. Look at `packages/ui/src/base/` — generic shadcn primitives (`Badge`, `Button`, `Card`, `Input`, `Select`)
 5. Build a domain-specific `<StatusBadge>` that wraps `<Badge>` from base and maps `JournalStatus` (`active` / `closed` / `draft`) to the right variant and label — place it in `packages/ui/src/StatusBadge.tsx`
 6. Export it from `packages/ui/src/index.ts`
-7. Import and use it in both `arena` and `klinikk.no` — change one status color and watch both apps update
+7. Import and use it in both `arena` and `medix.com` — change one status color and watch both apps update
 
 **Group discussion (10 min):** What did you split out? What was hard to decide?
 
@@ -206,6 +212,8 @@ _Format: Fix it_
 
 **Starting point:** Several `useEffect` anti-patterns scattered across components — `setState` inside `useEffect`, duplicated logic across components, unnecessary state.
 
+> **Heads-up:** Leave the data-fetching `useEffect`s alone for now — we replace those with TanStack Query in Module 4. This module is about derived/synced state only.
+
 **Individual coding (15 min):**
 
 1. Find and remove `useEffect` that sets state based on other state — compute derived state directly in render instead
@@ -224,13 +232,13 @@ _Format: Fix it_
 
 **Starting point:** Data is fetched with `useEffect` + `fetch` + a manual `isLoading` boolean. No caching, no race condition handling.
 
-**Individual coding (15 min):**
+**Individual coding (20 min):**
 
 1. Replace `useEffect`-fetching of the patient list with `useQuery`
    - Add a loading state (spinner/skeleton)
    - Add an error state
 2. Replace `useEffect`-fetching of a single patient with `useSuspenseQuery`
-   - Wire it up with the `<ErrorBoundary>` from Module 1 and a local `<Suspense>`
+   - Wrap the call site in a **local** `<Suspense>` and a **local** `<ErrorBoundary>` so the rest of the page (sidebar, header) stays visible. The Layout-level boundary from Module 1 is the catch-all; this local one is the contextual fallback.
    - Watch the page suspend while data loads
 3. Add a `useMutation` to update journal status
    - Invalidate the relevant query on success so the list updates automatically
@@ -249,7 +257,7 @@ _Format: Fix it_
 
 **Starting point:** An uncontrolled `<form>` with `onSubmit` reading from `event.target`. No validation, manual error state.
 
-**Individual coding (15 min):**
+**Individual coding (20 min):**
 
 1. Wire the form up to `useForm()` from React Hook Form
 2. Write a Zod schema for a new journal entry:
@@ -258,7 +266,8 @@ _Format: Fix it_
    - Content: required, minimum 10 characters
 3. Connect the Zod schema to React Hook Form via `zodResolver`
 4. Show inline error messages under each field
-5. Submit to the API with `useMutation` — show server error messages if the request fails
+5. Disable the submit button while the form is invalid or submitting (`!formState.isValid || formState.isSubmitting`)
+6. Submit to the API with `useMutation` — show server error messages if the request fails
 
 **Group discussion (10 min):** What happens when the server returns an error? How do you handle it?
 
@@ -284,7 +293,7 @@ _Format: Slides_
 - [x] Configure ESLint, Prettier, `copilot-instructions.md` in the finished version
 - [x] Set up Vitest + RTL pre-configured (not used today, but ready)
 - [x] Verify `turbo dev` works on a fresh clone (macOS — and Windows if relevant)
-- [ ] Build the starter version (`medix-workshop-starter`): introduce deliberate bugs and TODOs per module
+- [ ] Build the `starter` branch: introduce deliberate bugs and TODOs per module
 - [x] Write task descriptions — see [tasks.md](tasks.md)
 - [ ] Build slides (intro, module intros, wrap-up)
 - [ ] Solo dry-run of the entire workshop

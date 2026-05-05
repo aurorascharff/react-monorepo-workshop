@@ -7,7 +7,7 @@ dist/
 out/
 *.tsbuildinfo
 
-# Database (behold klinikk.sqlite i repo - inneholder seed-data)
+# Database (keep medix.sqlite in repo - contains seed data)
 # *.sqlite
 
 # Environment

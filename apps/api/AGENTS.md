@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`apps/api` is the Hono REST API. **Pre-written for the workshop — do not modify during exercises.** Participants may read it to understand the contract.
+`apps/api` is the Hono REST API. It is the system of record for patients and journal entries, consumed by `apps/arena`.
 
 ## Structure
 

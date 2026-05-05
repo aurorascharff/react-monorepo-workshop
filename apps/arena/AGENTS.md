@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`apps/arena` is the Vite + React 19 SPA. It is the **workshop target** — most exercises happen here.
+`apps/arena` is the Vite + React 19 SPA. It is the clinician-facing journal app — the primary product surface.
 
 ## Structure
 

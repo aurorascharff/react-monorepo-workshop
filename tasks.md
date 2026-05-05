@@ -1,7 +1,7 @@
 # Module Tasks
 
-All tasks happen in `apps/arena/`, starting from the `medix-workshop-starter` codebase.  
-Reference solution lives in `medix-workshop` (the finished version).
+All tasks happen in `apps/arena/`, starting from the `starter` branch.  
+Reference solution lives on `main` (the finished version).
 
 > Step-by-step instructions live in [plan.md](plan.md).  
 > This file describes the **goal** for each module — _what_ should be true when you're done, not the steps to get there.
@@ -49,7 +49,7 @@ Reference solution lives in `medix-workshop` (the finished version).
 - Loading and error states are visible to the user
 - The cache is reused across navigation (fast back/forward)
 - Mutations update relevant queries automatically
-- Network errors are caught by an error boundary
+- Suspense-driven queries surface failures through a contextual error boundary so the surrounding shell stays visible
 
 ---
 
