@@ -1,10 +1,11 @@
 import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { OpenAPIHono } from '@hono/zod-openapi'
+import { Scalar } from '@scalar/hono-api-reference'
 import { cors } from 'hono/cors'
 import { patientsRouter } from './routes/patients'
 import { journalsRouter } from './routes/journals'
 
-const app = new Hono()
+const app = new OpenAPIHono()
 
 app.use(
   '*',
@@ -18,10 +19,27 @@ app.use(
 app.route('/patients', patientsRouter)
 app.route('/journals', journalsRouter)
 
-app.get('/', (c) => c.json({ status: 'Workshop API kører' }))
+app.doc('/openapi.json', {
+  openapi: '3.1.0',
+  info: {
+    version: '1.0.0',
+    title: 'Klinikk Workshop API',
+    description: 'Patient and journal endpoints for the Klinikk Arena workshop.',
+  },
+})
+
+app.get(
+  '/',
+  Scalar({
+    url: '/openapi.json',
+    pageTitle: 'Klinikk API',
+    theme: 'default',
+  }),
+)
 
 const PORT = 3001
 
 serve({ fetch: app.fetch, port: PORT }, () => {
-  console.log(`API kjører på http://localhost:${PORT}`)
+  console.log(`API running at http://localhost:${PORT}`)
+  console.log(`API docs: http://localhost:${PORT}/`)
 })

@@ -8,7 +8,7 @@
 - **React Hook Form + Zod** for forms and validation
 - **Tailwind CSS v3** for styling
 - **TypeScript** with strict mode
-- **Hono** API at `http://localhost:3001`
+- **Hono** API (Drizzle + SQLite)
 
 ## Repo Structure
 

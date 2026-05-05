@@ -40,13 +40,14 @@ Fasit finnes i `dips-workshop` (ferdig versjon).
 
 ### Oppgaver
 
-1. Sett opp `createBrowserRouter` med ruter:
-   - `/patients` — pasientliste
-   - `/patients/:id` — pasientdetalj
-   - `/journal/:id` — journaloppføring
-2. Erstatt betinget rendering med `<RouterProvider>` og `<Outlet>` i layout
-3. Bytt hardkodede `<a href>`-lenker til `<Link>` og `<NavLink>` i sidebar
-4. Les `:id` med `useParams` i pasientdetalj-siden og bruk den til å hente riktig pasient
+1. Wrap appen i `<BrowserRouter>` i `main.tsx`
+2. Sett opp ruter med `<Routes>` og `<Route>` i en egen `AppRoutes`-komponent:
+   - `/` — dashboard
+   - `/pasienter` — pasientliste
+   - `/pasienter/:id` — pasientdetalj
+3. Bruk en delt `<Layout>` med `<Outlet>` som forelder-rute
+4. Bytt hardkodede `<a href>`-lenker til `<Link>` og `<NavLink>` i sidebar
+5. Les `:id` med `useParams` i pasientdetalj-siden og bruk den til å hente riktig pasient
 
 **Akseptansekriterier:**
 

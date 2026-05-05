@@ -40,7 +40,7 @@ export default function OmOssPage() {
           <CardContent>
             <p className="text-3xl font-bold">85%</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              av norske sykehus bruker DIPS
+              av norske sykehus bruker Klinikk
             </p>
           </CardContent>
         </Card>

@@ -2,7 +2,7 @@ import { Component, type ReactNode } from 'react'
 
 type Props = {
   children: ReactNode
-  fallback?: ReactNode
+  fallback?: ReactNode | ((error: Error, reset: () => void) => ReactNode)
 }
 
 type State = {
@@ -20,13 +20,21 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error }
   }
 
+  reset = () => {
+    this.setState({ hasError: false, error: null })
+  }
+
   render() {
-    if (this.state.hasError) {
+    if (this.state.hasError && this.state.error) {
+      const { fallback } = this.props
+      if (typeof fallback === 'function') {
+        return fallback(this.state.error, this.reset)
+      }
       return (
-        this.props.fallback ?? (
+        fallback ?? (
           <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive">
             <p className="font-semibold">Noe gikk galt</p>
-            <p className="text-sm">{this.state.error?.message}</p>
+            <p className="text-sm">{this.state.error.message}</p>
           </div>
         )
       )

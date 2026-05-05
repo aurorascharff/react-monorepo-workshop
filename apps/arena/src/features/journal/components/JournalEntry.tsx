@@ -1,5 +1,4 @@
 import {
-  StatusBadge,
   Card,
   CardContent,
   Select,
@@ -50,7 +49,6 @@ export function JournalEntry({ oppforing, pasientId }: JournalEntryProps) {
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <StatusBadge status={oppforing.status} />
             <Select
               value={oppforing.status}
               disabled={isPending}

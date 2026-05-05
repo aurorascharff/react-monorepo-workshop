@@ -15,26 +15,18 @@ function PasientDetalj({ id }: { id: string }) {
   })
 
   return (
-    <div>
-      <Link
-        to="/pasienter"
-        className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        ← Tilbake til pasientliste
-      </Link>
+    <>
       <PatientHeader pasient={pasient} />
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div>
-          <h2 className="mb-4 text-lg font-semibold">
-            Journaloppføringer
-          </h2>
+          <h2 className="mb-4 text-lg font-semibold">Journaloppføringer</h2>
           <JournalList pasientId={id} />
         </div>
         <div>
           <JournalForm pasientId={id} />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -44,10 +36,25 @@ export function PasientDetaljPage() {
   if (!id) return null
 
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<Spinner />}>
-        <PasientDetalj id={id} />
-      </Suspense>
-    </ErrorBoundary>
+    <div>
+      <Link
+        to="/pasienter"
+        className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        ← Tilbake til pasientliste
+      </Link>
+      <ErrorBoundary
+        fallback={(error) => (
+          <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive">
+            <p className="font-semibold">Kunne ikke laste pasient</p>
+            <p className="text-sm">{error.message}</p>
+          </div>
+        )}
+      >
+        <Suspense fallback={<Spinner />}>
+          <PasientDetalj id={id} />
+        </Suspense>
+      </ErrorBoundary>
+    </div>
   )
 }
