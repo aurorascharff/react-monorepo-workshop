@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 import { Mail, Phone, MapPin, Building2 } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Get in touch with the Medix team. We are here to help.',
+}
 
 const offices = [
   {
@@ -23,7 +29,7 @@ const contactPoints = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'contact@klinikk.example',
+    value: 'contact@medix.example',
   },
   {
     icon: Phone,

@@ -1,11 +1,17 @@
+import type { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'Learn about Medix — our mission, team, and the hospitals we serve.',
+}
 
 export default function AboutPage() {
   return (
     <div className="py-16">
       <h1 className="text-4xl font-bold tracking-tight mb-4">About</h1>
       <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        Klinikk delivers journal systems and a healthcare platform for hospitals
+        Medix delivers journal systems and a healthcare platform for hospitals
         across the country.
       </p>
 
@@ -41,7 +47,7 @@ export default function AboutPage() {
           <CardContent>
             <p className="text-3xl font-bold">85%</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              of national hospitals run on Klinikk
+              of national hospitals run on Medix
             </p>
           </CardContent>
         </Card>

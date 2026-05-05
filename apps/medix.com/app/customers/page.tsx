@@ -1,12 +1,18 @@
+import type { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 import { Building2, MapPin } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Customers',
+  description: 'Hospitals and health systems across every region trust Medix for their clinical workflows.',
+}
 
 const customers = [
   {
     name: 'Central University Hospital',
     region: 'Region North',
     quote:
-      'Klinikk has changed how we work with patient journeys. Clinicians spend less time on documentation and more time with patients.',
+      'Medix has changed how we work with patient journeys. Clinicians spend less time on documentation and more time with patients.',
     role: 'Department Head',
   },
   {
@@ -37,7 +43,7 @@ export default function CustomersPage() {
     <div className="py-16">
       <h1 className="text-4xl font-bold tracking-tight mb-4">Customers</h1>
       <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        Klinikk is in use at hospitals across every healthcare region — from
+        Medix is in use at hospitals across every healthcare region — from
         coast to coast.
       </p>
 

@@ -82,7 +82,7 @@ export default function Home() {
             modern hospitals
           </h1>
           <p className="mt-6 text-xl text-muted-foreground">
-            Klinikk delivers journal systems, mobile access, and an integration
+            Medix delivers journal systems, mobile access, and an integration
             platform for hospitals nationwide.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -152,7 +152,7 @@ export default function Home() {
 
       <section className="py-16 border-t">
         <h2 className="text-3xl font-semibold tracking-tight mb-12">
-          Why Klinikk?
+          Why Medix?
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {features.map(({ icon: Icon, title, description }) => (
