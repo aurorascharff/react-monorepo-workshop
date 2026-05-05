@@ -61,6 +61,23 @@ packages/
 
 ---
 
+## Dagoversikt
+
+| Tid | Sesjon |
+|---|---|
+| 09:00 | Intro: Tenke web |
+| 09:30 | Oppsett |
+| 10:15 | **Modul 1: Arkitektur og Gjenbruk** — fix struktur → bygg komponentbibliotek |
+| 11:15 | **Modul 2: Routing** + Next.js demo |
+| 12:00 | Lunsj |
+| 13:00 | **Modul 3: State og Effects** |
+| 13:45 | **Modul 4: TanStack Query** |
+| 14:30 | Pause |
+| 14:45 | **Modul 5: Skjema** |
+| 15:40 | Avslutning + sertifiseringspitch |
+
+---
+
 ## Agenda
 
 ### 09:00 — Intro: Tenke web
@@ -75,77 +92,112 @@ packages/
 ### 09:30 — Oppsett
 *Format: Demo + codealong*
 
+> **NB:** 40 personer på delt WiFi — be dem klone på forhånd.
+
 - Klon repo og monorepo-struktur
 - Gjennomgang av tooling: ESLint, Prettier, TypeScript-config
+- TypeScript i React — typer for props, hendelser, API-svar; hva WPF-utviklere allerede kan overføre
 - React Compiler er skrudd på — hva det gjør og hvorfor vi lar det stå på
+- Vitest + React Testing Library er pre-konfigurert — vi bruker det ikke i dag, men det er der og klart til bruk
 - AI-oppsett: GitHub Copilot, `copilot-instructions.md`, agent skills og React best practices
-- Kjør appen — se journalsystemet
+- Kjør appen — se journalsystemet (`npm run db:seed` resetter testdata hvis noe går galt)
 
-### 10:15 — Modul 1: Arkitektur
-*Format: Fix it*
+### 10:15 — Modul 1: Arkitektur og Gjenbruk
+*Format: Fix it + Build it*
 
-- Feature-basert mappestruktur
-- Komponentansvar og gjenbruk
-- Prosjektkonvensjoner: filnavn, eksporter, mappestruktur
+**Teori (5 min):** Feature-basert struktur, komponentansvar, Error Boundary-plassering
+
+> *Kontekst:* Deltakerne er vant til store klasser med mye ansvar. I React er målet små, fokuserte komponenter — og mappestrukturen bør reflektere hva appen *gjør*, ikke hva slags fil det er.
+
+**Individuell koding (15 min):**
+- Fix it: flat mappestruktur → feature-basert, bryt opp store komponenter, legg til Error Boundary
+- Build it: ta `<StatusBadge>` ut i `packages/ui`, importer den i begge apper
 
 *Feil i codebase:* Flat mappestruktur, store komponenter som gjør for mye, ingen feature-inndeling
 
-### 11:00 — Modul 2: Routing
+**Gruppediskusjon (10 min):** Hva skilte dere ut? Hva var vanskelig å avgjøre?
+
+**Felles gjennomgang (10 min):** Live-code fasit, vis komponent i begge apper
+
+*Kort nevnt:* Supply chain-risiko — nå som dere vet hvor enkelt det er å lage en pakke, hvor enkelt er det å snike inn malicious code? `npm audit` og lockfiles på to minutter.
+
+### 11:15 — Modul 2: Routing
 *Format: Fix it + demo*
 
-- Fil-basert routing i React Router v7
-- Nested routes og layouts
-- Link, NavLink, useParams, useNavigate
+**Teori (5 min):** Fordeler med client-side routing — ingen full reload, bookmark-støtte, tilstandsbevaring på tvers av navigasjon, URL som single source of truth. Fil-basert routing, nested routes, React Router v7 vs Next.js `app/`. Latency under navigasjon — hva viser du brukeren mens neste side laster?
+
+> *Kontekst:* Deltakerne er vant til navigasjon uten URL. I React er URL-en alltid synkronisert med hva brukeren ser — den kan deles, bokmerkes og brukes som applikasjonens tilstand.
+
+**Individuell koding (15 min):**
+- Erstatt manuell navigasjonslogikk med React Router-komponenter
+- Sett opp nested routes og layouts
+- Bruk `useParams` og `useNavigate` der det trengs
 
 *Feil i codebase:* Manuell navigasjonslogikk, hardkodede stier, ingen nested routes
 
-*Demo:* Åpne `apps/dips.no/` — vis `app/`-struktur, `page.tsx`, `loading.tsx`, `layout.tsx`, Server Components som henter data direkte. *"Hva er likt? Hva er annerledes? Og hvorfor passer Next.js bedre her enn i Arena?"*
+**Gruppediskusjon (10 min):** Hva er forskjellen på en SPA-router og filbasert routing i et framework?
 
-### 11:45 — Modul 3: Komponentbibliotek + Supply Chain
-*Format: Exercise + diskusjon*
+**Felles gjennomgang + demo (10 min):** Live-code fasit, åpne `apps/dips.no/` — vis `app/`-struktur, `page.tsx`, `loading.tsx`, `layout.tsx`. *"Hva er likt? Hva er annerledes? Og hvorfor passer Next.js bedre her enn i Arena?"*
 
-- Lag en komponent i `packages/ui` (f.eks. `<StatusBadge>`)
-- Se at den dukker opp i begge apper — endre ett sted, alle steder endres
-- Kollega skal kunne importere og bruke den
+### 12:00 — Lunsj
 
-*Diskusjon:* Supply chain-risiko — hvor enkelt er det å snike inn malicious code i en npm-pakke? Live-demo av et minimalt eksempel. `npm audit`, lockfiles, scoped packages.
-
-### 12:30 — Lunsj
-
-### 13:15 — Modul 4: State og Effects
+### 13:00 — Modul 3: State og Effects
 *Format: Fix it*
 
-- Rules of React — renhet, idempotens, ingen sideeffekter i render
-- Derived state — ikke lagre det som kan beregnes
-- Når `useEffect` er feil verktøy
-- Custom hooks — trekk ut gjenbrukbar logikk
-- `useRef` og hva det faktisk løser
+**Teori (5 min):** Rules of React, derived state, når `useEffect` er feil verktøy
+
+> *Kontekst:* Deltakerne er vant til å trigge logikk fra events og property-setters. I React er komponenter rene funksjoner — side-effekter håndteres eksplisitt, og det som kan beregnes bør ikke lagres.
+
+**Individuell koding (15 min):**
+- Fjern `setState` kalt inne i `useEffect`
+- Erstatt duplisert logikk med custom hooks
+- Beregn derived state direkte i render i stedet for å lagre den
 
 *Feil i codebase:* `setState` kalt inne i `useEffect`, duplisert logikk på tvers av komponenter, overflødig state
 
-### 14:00 — Modul 5: TanStack Query
+**Gruppediskusjon (10 min):** Når er `useEffect` riktig? Hva skulle du brukt i stedet?
+
+**Felles gjennomgang (10 min):** Live-code fasit, nevn `useRef` kort som en annen escape hatch — mutable verdier som ikke skal trigge re-render, eller direkte DOM-tilgang
+
+### 13:45 — Modul 4: TanStack Query
 *Format: Fix it*
 
-- Caching og bakgrunnsoppdatering
-- Loading states og error states
-- `useSuspenseQuery` og Error Boundary
-- Race conditions — hvorfor de oppstår og hvordan unngå dem
+**Teori (5 min):** Tilbake til introen — latency, loading states og race conditions. Hva skjer egentlig når du fetch-er data i en komponent? Hva caching gir deg, og hvordan TanStack Query løser problemene vi så på starten av dagen.
+
+> *Kontekst:* Deltakerne er vant til å skrive async-infrastruktur selv (loading-flagg, try/catch, cancel-logikk). TanStack Query gir alt dette ut av boksen — målet er å vise hva de får gratis.
+
+**Individuell koding (15 min):**
+- Erstatt `useEffect`-datafetching med `useQuery` / `useSuspenseQuery`
+- Legg til loading state og error state
+- Kombiner med Error Boundary fra Modul 1
 
 *Feil i codebase:* `useEffect`-basert datafetching uten loading/error-håndtering, ingen caching
 
-### 14:45 — Pause
+**Gruppediskusjon (10 min):** Hva skjer med race conditions nå? Hva fikk dere gratis fra cachen?
 
-### 15:00 — Modul 6: Skjema
+**Felles gjennomgang (10 min):** Live-code fasit, vis bakgrunnsoppdatering og devtools
+
+### 14:30 — Pause
+
+### 14:45 — Modul 5: Skjema
 *Format: Fix it*
 
-- Kontrollerte vs ukontrollerte inputs
-- React Hook Form + Zod
-- Validering og feilhåndtering
-- Server-kommunikasjon fra skjema
+**Teori (5 min):** Kontrollerte vs ukontrollerte inputs, hvorfor skjemavalidering hører hjemme i schema, ikke i komponenten
+
+> *Kontekst:* Deltakerne er vant til sterk validering på server-siden. Målet er å vise at Zod gir samme trygghet på klienten — og at skjemalogikk ikke hører hjemme spredd utover i komponenter. **NB:** API-en skal også validere innkommende data med Zod — nevn dette eksplisitt: klientvalidering er for UX, servervalidering er for sikkerhet.
+
+**Individuell koding (15 min):**
+- Koble skjema til React Hook Form
+- Legg til Zod-schema for validering
+- Vis feilmeldinger og håndter server-respons
 
 *Feil i codebase:* Ukontrollert skjema uten validering, manuell error-state
 
-### 15:40 — Avslutning
+**Gruppediskusjon (10 min):** Hva skjer når serveren returnerer feil? Hvordan håndterer dere det?
+
+**Felles gjennomgang (10 min):** Live-code fasit, vis full submit-flyt mot API
+
+### 15:40 — Avslutning *(20 min)*
 *Format: Slides*
 
 - Hva vi dekket i dag
@@ -158,10 +210,10 @@ packages/
 
 - [ ] Bygg ferdig versjon (`dips-workshop`): monorepo med `apps/arena/`, `apps/api/`, `apps/dips.no/`, `packages/ui/`
 - [ ] Skriv Hono API med endepunkter for pasienter og journaloppføringer
-- [ ] Sett opp SQLite + Drizzle med seed-data
+- [ ] Sett opp SQLite + Drizzle med seed-data + `npm run db:seed` reset-script
 - [ ] Konfigurer ESLint, Prettier, Vitest, `copilot-instructions.md` i ferdig versjon
+- [ ] Test at `turbo dev` fungerer på en fersk klone (macOS — og Windows hvis aktuelt)
 - [ ] Lag starter-versjon (`dips-workshop-starter`): introduser bevisste feil og TODOs per modul
-- [ ] Skriv oppgavebeskrivelser (task descriptions) med klare TODOs og akseptansekriterier
+- [x] Skriv oppgavebeskrivelser — se [tasks.md](tasks.md)
 - [ ] Lag slides (intro, modul-intros, avslutning)
-- [ ] Oppdater `prereqs.md` med repo-URL når klar
 - [ ] Gjennomfør solo dry-run av hele workshopen
