@@ -28,15 +28,6 @@ packages/
   ui/           — Shared design system (@medix/ui)
 ```
 
-## Repository branches
-
-| Branch | Purpose |
-| --- | --- |
-| `main` | **Solution** — completed reference implementation |
-| `starter` | **Starting point for participants** — pre-written API, empty arena shell |
-
-**As the workshop holder:** work on `main`. Participants clone and check out `starter`. If a participant falls behind or wants to skip a module they can `git pull origin main` to fast-forward to the solution.
-
 ## Getting started
 
 **Requirements:** Node.js v20+

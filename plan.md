@@ -55,7 +55,9 @@ A single repo (`medix-workshop`) with two branches:
 - `main` — finished solution (instructor reference)
 - `starter` — participant starting point, with deliberate bugs and TODOs per module
 
-Participants who fall behind can `git pull origin main` to fast-forward to the solution.
+**On workshop day** the instructor creates a fresh repo seeded from `starter` (e.g. `git clone --branch starter --single-branch … && git remote set-url origin <new-repo>`). Live-coding commits go into that fresh repo so the workshop authoring repo stays clean. Participants clone the same fresh repo and follow along.
+
+Participants who fall behind can copy any file from `main` of the authoring repo, or pull a reference solution branch published alongside the workshop repo, to fast-forward to the next module's starting point.
 
 > The codebase uses fictional names (**Medix**, **Arena**) instead of real product names so the material is reusable as a generic monorepo React workshop.
 
