@@ -97,6 +97,8 @@ packages/
 
 ## Agenda
 
+> **Note:** Each module's **"Starting point"** describes what participants see on the `starter` branch. The instructor demos the finished version on `main`.
+
 ### 09:00 — Intro: Thinking in web
 
 _Format: Slides_
@@ -127,7 +129,7 @@ _Format: Demo + codealong_
 **Walk through the repo structure**
 
 - `apps/arena/` — React Router v7 SPA, the app we work in all day
-  - Show `src/` — currently quite flat, we fix that in Module 1
+  - Show `src/` on the **starter** branch — currently quite flat. We'll arrive at a feature-folder split in Module 1; the solution on `main` is the destination.
   - Show `main.tsx`: `QueryClientProvider`, `<BrowserRouter>` — two providers, this is where everything starts
   - Run the app and show the journal system live: patient list, click into a patient, journal entries
 - `apps/api/` — Hono API, pre-written, participants don't need to touch it

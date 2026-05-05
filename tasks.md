@@ -59,6 +59,6 @@ Reference solution lives on `main` (the finished version).
 
 - Validation is defined in a Zod schema, not scattered across the component
 - Error messages appear per field
-- Submit is disabled or blocked while the form is invalid
+- Submit is disabled while the form is invalid or submitting
 - A successful submit updates the UI without a manual refresh
 - Server errors are surfaced to the user in a meaningful way
