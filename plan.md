@@ -94,20 +94,39 @@ packages/
 
 > **NB:** 40 personer på delt WiFi — be dem klone på forhånd.
 
-- Klon repo og monorepo-struktur
-- Gjennomgang av tooling: ESLint, Prettier, TypeScript-config
-- TypeScript i React — typer for props, hendelser, API-svar; hva WPF-utviklere allerede kan overføre
-- React Compiler er skrudd på — hva det gjør og hvorfor vi lar det stå på
-- Vitest + React Testing Library er pre-konfigurert — vi bruker det ikke i dag, men det er der og klart til bruk
-- AI-oppsett: GitHub Copilot, `copilot-instructions.md`, agent skills og React best practices
-- Kjør appen — se journalsystemet (`npm run db:seed` resetter testdata hvis noe går galt)
+**Sett opp repo**
+
+- README.md: vis `npm install`, `npm run db:seed`, `npm run dev` — kjør sammen og verifiser at alt kjører
+- Vis portene: Arena på `localhost:5173`, API på `localhost:3001`, dips.no på `localhost:3000`
+- Turbo dev: vis at alle apper starter parallelt med én kommando — forklar monorepo-konseptet kort
+- ESLint og Prettier: vis config, vis at feil markeres i editoren, vis at format on save fungerer — sjekk at alle har det oppe
+- TypeScript strict mode: typer for props, hendelser og API-svar. Spør: hva kjenner dere igjen fra C#? (Interfaces ≈ typer, generics, nullable)
+- React Compiler: skrudd på som standard — den memoizerer automatisk, dere trenger ikke `useMemo`/`useCallback` manuelt. Vi lar den stå på og stoler på den.
+- Vitest + React Testing Library: pre-konfigurert og klart, men vi bruker det ikke aktivt i dag — det er der og det er satt opp riktig
+- AI-oppsett: GitHub Copilot aktivert, `copilot-instructions.md` peker til `AGENTS.md`, `/react-best-practices`-skill er tilgjengelig som slash-kommando i chat
+
+**Gå gjennom repo-strukturen**
+
+- `apps/arena/` — React Router v7 SPA, journalsystem, dette er appen vi jobber i hele dagen
+  - Vis `src/` — per nå er det ganske flatt, vi fikser det i Modul 1
+  - Vis `main.tsx`: `QueryClientProvider`, `RouterProvider` — to providers, alt starter her
+  - Kjør appen og vis journalsystemet live: pasientliste, klikk inn på en pasient, journaloppføringer
+- `apps/api/` — Hono API, ferdigskrevet, deltakere trenger ikke røre den
+  - Vis `src/routes/` — to filer, `patients.ts` og `journals.ts`, enkle REST-endepunkter
+  - Vis `src/db/schema.ts` — Drizzle-schema, to tabeller: `patients` og `journals`
+  - `npm run db:seed` tilbakestiller til original seed-data hvis noe går galt
+  - Vis `GET /patients` i nettleser eller Postman så de ser JSON-responsen
+- `apps/dips.no/` — Next.js markedsføringsside, bruker `packages/ui`
+  - Kort: dette er her for å demonstrere forskjellen mellom SPA og server-side rendering — vi kommer tilbake til det i Modul 2
+- `packages/ui/` — delt komponentbibliotek
+  - Vis `src/StatusBadge.tsx` og `src/index.ts` — én komponent eksportert herfra
+  - Begge apper importerer fra `@dips/ui` — endring ett sted, alle apper oppdateres
+  - Vi bygger på dette i Modul 1
 
 ### 10:15 — Modul 1: Arkitektur og Gjenbruk
 *Format: Fix it + Build it*
 
-**Teori (5 min):** Feature-basert struktur, komponentansvar, Error Boundary-plassering
-
-> *Kontekst:* Deltakerne er vant til store klasser med mye ansvar. I React er målet små, fokuserte komponenter — og mappestrukturen bør reflektere hva appen *gjør*, ikke hva slags fil det er.
+**Teori (5 min):** Feature-basert struktur, komponentansvar, Error Boundary-plassering. Deltakerne er vant til store klasser med mye ansvar — i React er målet små, fokuserte komponenter, og mappestrukturen bør reflektere hva appen *gjør*, ikke hva slags fil det er.
 
 **Individuell koding (15 min):**
 - Fix it: flat mappestruktur → feature-basert, bryt opp store komponenter, legg til Error Boundary
@@ -118,15 +137,15 @@ packages/
 **Gruppediskusjon (10 min):** Hva skilte dere ut? Hva var vanskelig å avgjøre?
 
 **Felles gjennomgang (10 min):** Live-code fasit, vis komponent i begge apper
+- *Komponentbibliotek:* Ett definisjonspunkt, brukes i alle apper — endre én farge og begge apper oppdateres. WPF-analogi: `ResourceDictionary` / `Style`. Trenger ikke publiseres til npm — workspace-pakken er nok.
+- *Hvorfor ikke skrive alt selv?* Universell utforming er lovpålagt i helsetjenesten og genuint vanskelig: riktig `<Dialog>` krever focus-trap, `aria-modal`, scroll-lock, Escape-håndtering. DIPS har et internt designsystem som sannsynligvis håndterer dette — finn ut hva det bruker under panseret og bruk det.
 
 *Kort nevnt:* Supply chain-risiko — nå som dere vet hvor enkelt det er å lage en pakke, hvor enkelt er det å snike inn malicious code? `npm audit` og lockfiles på to minutter.
 
 ### 11:15 — Modul 2: Routing
 *Format: Fix it + demo*
 
-**Teori (5 min):** Fordeler med client-side routing — ingen full reload, bookmark-støtte, tilstandsbevaring på tvers av navigasjon, URL som single source of truth. Fil-basert routing, nested routes, React Router v7 vs Next.js `app/`. Latency under navigasjon — hva viser du brukeren mens neste side laster?
-
-> *Kontekst:* Deltakerne er vant til navigasjon uten URL. I React er URL-en alltid synkronisert med hva brukeren ser — den kan deles, bokmerkes og brukes som applikasjonens tilstand.
+**Teori (5 min):** Fordeler med client-side routing — ingen full reload, bookmark-støtte, tilstandsbevaring på tvers av navigasjon, URL som single source of truth. Fil-basert routing, nested routes, React Router v7 vs Next.js `app/`. Latency under navigasjon — hva viser du brukeren mens neste side laster? Deltakerne er vant til navigasjon uten URL — i React er URL-en alltid synkronisert med hva brukeren ser, kan deles og bokmerkes.
 
 **Individuell koding (15 min):**
 - Erstatt manuell navigasjonslogikk med React Router-komponenter
@@ -144,9 +163,7 @@ packages/
 ### 13:00 — Modul 3: State og Effects
 *Format: Fix it*
 
-**Teori (5 min):** Rules of React, derived state, når `useEffect` er feil verktøy
-
-> *Kontekst:* Deltakerne er vant til å trigge logikk fra events og property-setters. I React er komponenter rene funksjoner — side-effekter håndteres eksplisitt, og det som kan beregnes bør ikke lagres.
+**Teori (5 min):** Rules of React, derived state, når `useEffect` er feil verktøy. Deltakerne er vant til å trigge logikk fra events og property-setters — i React er komponenter rene funksjoner, side-effekter håndteres eksplisitt, og det som kan beregnes bør ikke lagres.
 
 **Individuell koding (15 min):**
 - Fjern `setState` kalt inne i `useEffect`
@@ -162,9 +179,7 @@ packages/
 ### 13:45 — Modul 4: TanStack Query
 *Format: Fix it*
 
-**Teori (5 min):** Tilbake til introen — latency, loading states og race conditions. Hva skjer egentlig når du fetch-er data i en komponent? Hva caching gir deg, og hvordan TanStack Query løser problemene vi så på starten av dagen.
-
-> *Kontekst:* Deltakerne er vant til å skrive async-infrastruktur selv (loading-flagg, try/catch, cancel-logikk). TanStack Query gir alt dette ut av boksen — målet er å vise hva de får gratis.
+**Teori (5 min):** Tilbake til introen — latency, loading states og race conditions. Hva skjer egentlig når du fetch-er data i en komponent? Hva caching gir deg, og hvordan TanStack Query løser problemene vi så på starten av dagen. Deltakerne er vant til å skrive async-infrastruktur selv (loading-flagg, try/catch, cancel-logikk) — målet er å vise hva de får gratis.
 
 **Individuell koding (15 min):**
 - Erstatt `useEffect`-datafetching med `useQuery` / `useSuspenseQuery`
@@ -182,9 +197,7 @@ packages/
 ### 14:45 — Modul 5: Skjema
 *Format: Fix it*
 
-**Teori (5 min):** Kontrollerte vs ukontrollerte inputs, hvorfor skjemavalidering hører hjemme i schema, ikke i komponenten
-
-> *Kontekst:* Deltakerne er vant til sterk validering på server-siden. Målet er å vise at Zod gir samme trygghet på klienten — og at skjemalogikk ikke hører hjemme spredd utover i komponenter. **NB:** API-en skal også validere innkommende data med Zod — nevn dette eksplisitt: klientvalidering er for UX, servervalidering er for sikkerhet.
+**Teori (5 min):** Kontrollerte vs ukontrollerte inputs, hvorfor skjemavalidering hører hjemme i schema, ikke i komponenten. Deltakerne er vant til sterk validering på server-siden — Zod gir samme trygghet på klienten.
 
 **Individuell koding (15 min):**
 - Koble skjema til React Hook Form
@@ -196,6 +209,7 @@ packages/
 **Gruppediskusjon (10 min):** Hva skjer når serveren returnerer feil? Hvordan håndterer dere det?
 
 **Felles gjennomgang (10 min):** Live-code fasit, vis full submit-flyt mot API
+- *NB:* API-en validerer også innkommende data med Zod — nevn dette eksplisitt: klientvalidering er for UX, servervalidering er for sikkerhet.
 
 ### 15:40 — Avslutning *(20 min)*
 *Format: Slides*
