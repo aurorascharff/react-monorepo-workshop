@@ -16,6 +16,13 @@ app.use(
   }),
 )
 
+// Artificial latency so loading states are visible during the workshop.
+const ARTIFICIAL_DELAY_MS = 600
+app.use('*', async (_c, next) => {
+  await new Promise((resolve) => setTimeout(resolve, ARTIFICIAL_DELAY_MS))
+  await next()
+})
+
 app.route('/patients', patientsRouter)
 app.route('/journals', journalsRouter)
 
