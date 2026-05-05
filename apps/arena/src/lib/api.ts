@@ -1,4 +1,4 @@
-import type { JournalStatus } from '@dips/ui'
+import type { JournalStatus } from '@klinikk/ui'
 import type { Pasient, JournalOppforing } from '../types'
 
 const BASE_URL = 'http://localhost:3001'

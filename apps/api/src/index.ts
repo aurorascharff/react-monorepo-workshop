@@ -18,7 +18,7 @@ app.use(
 app.route('/patients', patientsRouter)
 app.route('/journals', journalsRouter)
 
-app.get('/', (c) => c.json({ status: 'DIPS Workshop API kjører' }))
+app.get('/', (c) => c.json({ status: 'Workshop API kører' }))
 
 const PORT = 3001
 

@@ -1,6 +1,15 @@
-import { StatusBadge } from '@dips/ui'
+import {
+  StatusBadge,
+  Card,
+  CardContent,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@klinikk/ui'
 import type { JournalOppforing } from '../../../types'
-import type { JournalStatus } from '@dips/ui'
+import type { JournalStatus } from '@klinikk/ui'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { oppdaterJournalStatus } from '../../../lib/api'
 
@@ -29,32 +38,42 @@ export function JournalEntry({ oppforing, pasientId }: JournalEntryProps) {
   })
 
   return (
-    <article className="rounded-lg border border-gray-200 bg-white p-5">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <h3 className="font-semibold text-gray-900">{oppforing.tittel}</h3>
-          <p className="text-sm text-gray-500">{formaterDato(oppforing.dato)}</p>
+    <Card>
+      <CardContent className="p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold leading-none tracking-tight">
+              {oppforing.tittel}
+            </h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              {formaterDato(oppforing.dato)}
+            </p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <StatusBadge status={oppforing.status} />
+            <Select
+              value={oppforing.status}
+              disabled={isPending}
+              onValueChange={(value) => mutate(value as JournalStatus)}
+            >
+              <SelectTrigger className="w-32 h-8 text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {statusValg.map((s) => (
+                  <SelectItem key={s.value} value={s.value}>
+                    {s.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <StatusBadge status={oppforing.status} />
-          <select
-            value={oppforing.status}
-            disabled={isPending}
-            onChange={(e) => mutate(e.target.value as JournalStatus)}
-            className="rounded border border-gray-300 px-2 py-1 text-xs disabled:opacity-50"
-          >
-            {statusValg.map((s) => (
-              <option key={s.value} value={s.value}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <p className="mt-3 text-sm leading-relaxed text-gray-700">
-        {oppforing.innhold}
-      </p>
-    </article>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          {oppforing.innhold}
+        </p>
+      </CardContent>
+    </Card>
   )
 }
 

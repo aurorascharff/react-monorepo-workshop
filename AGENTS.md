@@ -36,13 +36,13 @@ packages/ui/    — Shared component library, import from here
 
 ## API Endpoints
 
-| Method | Path | Description |
-|---|---|---|
-| GET | `/patients` | List all patients |
-| GET | `/patients/:id` | Get a single patient |
-| GET | `/journals/pasient/:pasientId` | Get journal entries for a patient |
-| POST | `/journals/pasient/:pasientId` | Create a new journal entry |
-| PATCH | `/journals/:id/status` | Update journal entry status |
+| Method | Path                           | Description                       |
+| ------ | ------------------------------ | --------------------------------- |
+| GET    | `/patients`                    | List all patients                 |
+| GET    | `/patients/:id`                | Get a single patient              |
+| GET    | `/journals/pasient/:pasientId` | Get journal entries for a patient |
+| POST   | `/journals/pasient/:pasientId` | Create a new journal entry        |
+| PATCH  | `/journals/:id/status`         | Update journal entry status       |
 
 ## Workshop Context
 

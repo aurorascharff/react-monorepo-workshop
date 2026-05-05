@@ -1,25 +1,17 @@
-import { createBrowserRouter, Navigate } from 'react-router'
-import { Layout } from './components/Layout'
-import { PasientListePage } from './PasientListePage'
-import { PasientDetaljPage } from './PasientDetaljPage'
+import { Routes, Route } from 'react-router'
+import { Layout } from './layouts/Layout'
+import { DashboardPage } from './pages/DashboardPage'
+import { PasientListePage } from './pages/PasientListePage'
+import { PasientDetaljPage } from './pages/PasientDetaljPage'
 
-export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <Navigate to="/pasienter" replace />,
-      },
-      {
-        path: 'pasienter',
-        element: <PasientListePage />,
-      },
-      {
-        path: 'pasienter/:id',
-        element: <PasientDetaljPage />,
-      },
-    ],
-  },
-])
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<DashboardPage />} />
+        <Route path="pasienter" element={<PasientListePage />} />
+        <Route path="pasienter/:id" element={<PasientDetaljPage />} />
+      </Route>
+    </Routes>
+  )
+}

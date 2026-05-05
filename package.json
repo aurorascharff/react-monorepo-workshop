@@ -1,7 +1,8 @@
 {
-  "name": "dips-workshop",
+  "name": "klinikk-workshop",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "npm@11.13.0",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -17,9 +18,9 @@
     "db:seed": "npm run db:seed --workspace=apps/api"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "prettier": "^3.0.0",
-    "turbo": "^2.5.0",
-    "typescript": "^5.8.0"
+    "@types/node": "^25.6.0",
+    "prettier": "^3.8.3",
+    "turbo": "^2.9.9",
+    "typescript": "^6.0.3"
   }
 }

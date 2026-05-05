@@ -5,8 +5,9 @@ node_modules/
 dist/
 .next/
 out/
+*.tsbuildinfo
 
-# Database (behold dips.sqlite i repo - inneholder seed-data)
+# Database (behold klinikk.sqlite i repo - inneholder seed-data)
 # *.sqlite
 
 # Environment

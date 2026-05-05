@@ -20,13 +20,16 @@ Fasit finnes i `dips-workshop` (ferdig versjon).
 
 ### Build it: Gjenbruk
 
-4. Ta `<StatusBadge>` (viser journalstatus: aktiv / avsluttet / utkast) ut av `arena/` og flytt den til `packages/ui`
-5. Eksporter den fra `packages/ui/index.ts`
-6. Importer og bruk den i begge apper — endre fargen på én status og se at begge apper oppdateres
+4. Se på `packages/ui/src/base/` — generiske shadcn-primitives (`Badge`, `Button`, `Card`, `Input`, `Select`)
+5. Bygg en domenespesifikk `<StatusBadge>` som wrapper `<Badge>` fra base og mapper `JournalStatus` (`aktiv` / `avsluttet` / `utkast`) til riktig variant og label — plasser den i `packages/ui/src/StatusBadge.tsx`
+6. Eksporter den fra `packages/ui/src/index.ts`
+7. Importer og bruk den i begge apper — endre fargen på én status og se at begge apper oppdateres
 
 **Akseptansekriterier:**
+
 - Ingen komponent er ansvarlig for mer enn én ting
-- `<StatusBadge>` er definert ett sted og brukes i begge apper
+- `<StatusBadge>` er bygget på toppen av `<Badge>`-primitiven, ikke fra grunnen
+- Domenelogikk (status → farge/label) bor i `<StatusBadge>`, ikke spredt i appene
 - En kastet feil i pasientlisten krasjer ikke hele appen
 
 ---
@@ -46,6 +49,7 @@ Fasit finnes i `dips-workshop` (ferdig versjon).
 4. Les `:id` med `useParams` i pasientdetalj-siden og bruk den til å hente riktig pasient
 
 **Akseptansekriterier:**
+
 - Nettleseren viser riktig URL for hver side
 - Siden kan bookmerkes og lastes direkte (ikke bare via navigasjon)
 - Aktiv lenke i sidebar er visuelt markert med `<NavLink>`
@@ -63,6 +67,7 @@ Fasit finnes i `dips-workshop` (ferdig versjon).
 3. Trekk ut søke- og filterlogikk som går igjen i to komponenter til en felles `usePatientFilter`-hook
 
 **Akseptansekriterier:**
+
 - Ingen `useEffect` setter state som kan beregnes fra eksisterende state
 - `usePatientFilter` kan importeres og brukes i begge komponenter uten duplisering
 - ESLint rapporterer ingen `react-hooks`-advarsler
@@ -85,6 +90,7 @@ Fasit finnes i `dips-workshop` (ferdig versjon).
    - Invalider pasient-query etter vellykket mutation så listen oppdateres automatisk
 
 **Akseptansekriterier:**
+
 - Ingen `useEffect` brukes til datafetching
 - Hurtig navigasjon frem og tilbake viser cachet data umiddelbart
 - En nettverksfeil fanges av Error Boundary — appen krasjer ikke
@@ -107,6 +113,7 @@ Fasit finnes i `dips-workshop` (ferdig versjon).
 5. Send data til API med `useMutation` — vis server-feilmelding hvis requesten feiler
 
 **Akseptansekriterier:**
+
 - Skjema kan ikke submittes med ugyldig data
 - Feilmeldinger vises per felt, ikke som en global alert
 - Vellykket submit invaliderer journal-query og viser oppdatert liste

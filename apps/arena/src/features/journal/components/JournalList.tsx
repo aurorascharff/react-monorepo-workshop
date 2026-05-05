@@ -9,7 +9,11 @@ type JournalListProps = {
 }
 
 export function JournalList({ pasientId }: JournalListProps) {
-  const { data: journaler, isLoading, error } = useQuery({
+  const {
+    data: journaler,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['journals', pasientId],
     queryFn: () => hentJournaler(pasientId),
   })
@@ -18,7 +22,7 @@ export function JournalList({ pasientId }: JournalListProps) {
 
   if (error) {
     return (
-      <div className="rounded-md bg-red-50 p-4 text-red-800">
+      <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive text-sm">
         Kunne ikke laste journaler: {error.message}
       </div>
     )
@@ -26,7 +30,7 @@ export function JournalList({ pasientId }: JournalListProps) {
 
   if (!journaler || journaler.length === 0) {
     return (
-      <p className="text-center text-gray-500 py-8">
+      <p className="text-center text-muted-foreground py-8">
         Ingen journaloppføringer ennå
       </p>
     )
@@ -34,7 +38,7 @@ export function JournalList({ pasientId }: JournalListProps) {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {journaler.map((oppforing) => (
           <JournalEntry
             key={oppforing.id}

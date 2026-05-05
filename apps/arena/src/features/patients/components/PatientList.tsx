@@ -1,3 +1,11 @@
+import {
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@klinikk/ui'
 import { usePatientFilter } from '../hooks/usePatientFilter'
 import { PatientCard } from './PatientCard'
 import type { Pasient } from '../../../types'
@@ -13,30 +21,32 @@ export function PatientList({ pasienter }: PatientListProps) {
   return (
     <div>
       <div className="mb-6 flex gap-3">
-        <input
+        <Input
           type="text"
           value={sok}
           onChange={(e) => setSok(e.target.value)}
           placeholder="Søk etter navn eller diagnose..."
-          className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1"
         />
-        <select
+        <Select
           value={kjonnFilter}
-          onChange={(e) =>
-            setKjonnFilter(e.target.value as 'alle' | 'mann' | 'kvinne')
+          onValueChange={(value) =>
+            setKjonnFilter(value as 'alle' | 'mann' | 'kvinne')
           }
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="alle">Alle</option>
-          <option value="mann">Mann</option>
-          <option value="kvinne">Kvinne</option>
-        </select>
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="alle">Alle</SelectItem>
+            <SelectItem value="mann">Mann</SelectItem>
+            <SelectItem value="kvinne">Kvinne</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {filtrertePasienter.length === 0 ? (
-        <p className="text-center text-gray-500 py-8">
-          Ingen pasienter funnet
-        </p>
+        <p className="text-center text-muted-foreground py-8">Ingen pasienter funnet</p>
       ) : (
         <div className="grid gap-3">
           {filtrertePasienter.map((pasient) => (

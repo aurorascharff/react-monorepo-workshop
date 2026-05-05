@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@dips/ui'],
+  transpilePackages: ['@klinikk/ui'],
 }
 
 export default nextConfig

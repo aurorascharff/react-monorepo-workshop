@@ -1,4 +1,4 @@
-import type { JournalStatus } from '@dips/ui'
+import type { JournalStatus } from '@klinikk/ui'
 
 export type Pasient = {
   id: string

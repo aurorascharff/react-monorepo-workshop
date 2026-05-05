@@ -3,6 +3,6 @@ import Database from 'better-sqlite3'
 import * as schema from './schema'
 import path from 'path'
 
-const sqlite = new Database(path.join(__dirname, '../../data/dips.sqlite'))
+const sqlite = new Database(path.join(__dirname, '../../data/klinikk.sqlite'))
 
 export const db = drizzle(sqlite, { schema })

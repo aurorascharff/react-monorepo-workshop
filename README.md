@@ -8,7 +8,7 @@ A full-stack journal system built with modern React patterns. Used as the codeba
 - [TanStack Query v5](https://tanstack.com/query) — data fetching and caching
 - [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) — forms and validation
 - [Hono](https://hono.dev) + [Drizzle ORM](https://orm.drizzle.team) + SQLite — API and database
-- [Tailwind CSS v3](https://tailwindcss.com) — styling
+- [Tailwind CSS v4](https://tailwindcss.com) — styling
 - [Turborepo](https://turbo.build) — monorepo
 
 ## Structure
@@ -34,10 +34,12 @@ npm run db:seed
 npm run dev
 ```
 
-| App | URL |
-|---|---|
-| Arena | http://localhost:5173 |
-| API | http://localhost:3001 |
+`npm run dev` starts **all three apps at once** via Turborepo — no need to run them separately.
+
+| App     | URL                   |
+| ------- | --------------------- |
+| Arena   | http://localhost:5173 |
+| API     | http://localhost:3001 |
 | dips.no | http://localhost:3000 |
 
 ## Commands
@@ -56,4 +58,3 @@ npm run db:seed       # Reset database to seed data
 ## AI
 
 Includes GitHub Copilot configuration via `AGENTS.md` and the [`vercel-react-best-practices`](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices) skill (available as `/react-best-practices` in Copilot Chat).
-

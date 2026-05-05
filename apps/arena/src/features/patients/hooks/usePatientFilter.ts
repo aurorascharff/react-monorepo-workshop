@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import type { Pasient } from '../../types'
+import type { Pasient } from '../../../types'
 
 export function usePatientFilter(pasienter: Pasient[]) {
   const [sok, setSok] = useState('')
-  const [kjonnFilter, setKjonnFilter] = useState<
-    'alle' | 'mann' | 'kvinne'
-  >('alle')
+  const [kjonnFilter, setKjonnFilter] = useState<'alle' | 'mann' | 'kvinne'>(
+    'alle',
+  )
 
   const filtrertePasienter = pasienter.filter((p) => {
     const matcherSok =
