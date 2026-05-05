@@ -1,4 +1,6 @@
-import type { JournalStatus } from '@medix/ui'
+// In Module 1 we extract `JournalStatus` (and a `<StatusBadge>` wrapper)
+// into `@medix/ui` so both apps share one source of truth.
+export type JournalStatus = 'active' | 'closed' | 'draft'
 
 export type Patient = {
   id: string

@@ -8,13 +8,30 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react'
-import {
-  StatusBadge,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@medix/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
+
+// TODO Module 1: Replace this inline status with `<StatusBadge status={...} />`
+// imported from `@medix/ui`. The same component is used in apps/arena.
+const statusStyles = {
+  active: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  closed: 'bg-muted text-muted-foreground border-transparent',
+  draft: 'bg-amber-50 text-amber-700 border-amber-200',
+} as const
+const statusLabels = {
+  active: 'Active',
+  closed: 'Closed',
+  draft: 'Draft',
+} as const
+type Status = keyof typeof statusStyles
+function StatusPill({ status }: { status: Status }) {
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${statusStyles[status]}`}
+    >
+      {statusLabels[status]}
+    </span>
+  )
+}
 
 const solutions = [
   {
@@ -143,7 +160,7 @@ export default function Home() {
                 <p className="mb-4 text-sm text-muted-foreground">
                   {description}
                 </p>
-                <StatusBadge status={status} />
+                <StatusPill status={status} />
               </CardContent>
             </Card>
           ))}

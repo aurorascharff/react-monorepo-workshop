@@ -1,23 +1,51 @@
-import { Link } from 'react-router'
+/* eslint-disable react-hooks/set-state-in-effect --
+ * Modules 3 and 4 remove these effects entirely. Disabled on the starter so
+ * `npm run lint` passes; remove this directive once those modules are done.
+ */
+import { useEffect, useState } from 'react'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
-import { Spinner } from '@medix/ui'
-import { usePatients } from '../features/patients/hooks/usePatients'
+import { Card, CardContent, CardHeader, CardTitle, Spinner } from '@medix/ui'
+import { fetchPatients } from './lib/api'
+import type { Patient } from './types'
 
-export function DashboardPage() {
-  const { data: patients, isLoading } = usePatients()
+type DashboardProps = {
+  onNavigate: () => void
+  onError: (error: Error) => void
+}
+
+export function Dashboard({ onNavigate, onError }: DashboardProps) {
+  const [patients, setPatients] = useState<Patient[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // TODO Module 4: Replace useEffect + fetch with `useQuery`.
+  // Caching, deduplication, race-condition handling, retries — for free.
+  useEffect(() => {
+    fetchPatients()
+      .then((data) => setPatients(data))
+      .catch((err) => onError(err))
+      .finally(() => setIsLoading(false))
+  }, [onError])
+
+  // TODO Module 3: This is "derived state in useState + useEffect" — an anti-pattern.
+  // The counts can be computed directly during render. Remove `stats` state and
+  // its useEffect; just compute them inline below.
+  const [stats, setStats] = useState({ total: 0, female: 0, male: 0 })
+  useEffect(() => {
+    setStats({
+      total: patients.length,
+      female: patients.filter((p) => p.gender === 'female').length,
+      male: patients.filter((p) => p.gender === 'male').length,
+    })
+  }, [patients])
 
   if (isLoading) return <Spinner />
 
-  const total = patients?.length ?? 0
-  const female = patients?.filter((p) => p.gender === 'female').length ?? 0
-  const male = patients?.filter((p) => p.gender === 'male').length ?? 0
-  const recentPatients = patients?.slice(0, 5) ?? []
+  const recentPatients = patients.slice(0, 5)
 
-  const stats = [
-    { label: 'Total patients', value: total, icon: Users },
-    { label: 'Female', value: female, icon: UserRound },
-    { label: 'Male', value: male, icon: UserRound },
+  const statCards = [
+    { label: 'Total patients', value: stats.total, icon: Users },
+    { label: 'Female', value: stats.female, icon: UserRound },
+    { label: 'Male', value: stats.male, icon: UserRound },
   ]
 
   return (
@@ -26,12 +54,12 @@ export function DashboardPage() {
         <p className="text-sm font-medium text-primary">Overview</p>
         <h1 className="text-3xl font-bold tracking-tight">Good morning</h1>
         <p className="text-muted-foreground">
-          You have {total} patients under follow-up today.
+          You have {stats.total} patients under follow-up today.
         </p>
       </header>
 
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {stats.map(({ label, value, icon: Icon }) => (
+        {statCards.map(({ label, value, icon: Icon }) => (
           <Card key={label}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
@@ -55,20 +83,22 @@ export function DashboardPage() {
                 Jump straight into the journal
               </p>
             </div>
-            <Link
-              to="/patients"
+            <button
+              type="button"
+              onClick={onNavigate}
               className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
             >
               See all <ArrowRight className="h-4 w-4" />
-            </Link>
+            </button>
           </CardHeader>
           <CardContent className="p-0">
             <ul className="divide-y">
               {recentPatients.map((p) => (
                 <li key={p.id}>
-                  <Link
-                    to={`/patients/${p.id}`}
-                    className="flex items-center justify-between gap-4 px-6 py-3 transition-colors hover:bg-accent"
+                  <button
+                    type="button"
+                    onClick={onNavigate}
+                    className="flex w-full items-center justify-between gap-4 px-6 py-3 text-left transition-colors hover:bg-accent"
                   >
                     <div className="flex flex-col">
                       <span className="font-medium">{p.name}</span>
@@ -77,7 +107,7 @@ export function DashboardPage() {
                       </span>
                     </div>
                     <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -93,12 +123,13 @@ export function DashboardPage() {
             <p className="text-sm text-primary-foreground/80">
               Search, filter, and document patient journeys — all in one system.
             </p>
-            <Link
-              to="/patients"
+            <button
+              type="button"
+              onClick={onNavigate}
               className="inline-flex w-fit items-center gap-1 rounded-md bg-primary-foreground px-3 py-2 text-sm font-medium text-primary hover:bg-primary-foreground/90"
             >
               Go to patient list <ArrowRight className="h-4 w-4" />
-            </Link>
+            </button>
           </CardContent>
         </Card>
       </section>

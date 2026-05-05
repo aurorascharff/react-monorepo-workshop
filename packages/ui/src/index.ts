@@ -1,6 +1,3 @@
-export { StatusBadge } from './StatusBadge'
-export type { JournalStatus } from './StatusBadge'
-
 // Base components (shadcn-style primitives)
 export { Button, buttonVariants } from './base/button'
 export type { ButtonProps } from './base/button'
