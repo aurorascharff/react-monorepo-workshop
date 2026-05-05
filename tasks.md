@@ -1,64 +1,64 @@
-# Oppgaver per modul
+# Module Tasks
 
-Alle oppgaver gjøres i `apps/arena/` med utgangspunkt i starter-codebase.  
-Fasit finnes i `dips-workshop` (ferdig versjon).
+All tasks happen in `apps/arena/`, starting from the `klinikk-workshop-starter` codebase.  
+Reference solution lives in `klinikk-workshop` (the finished version).
 
-> Detaljer om hvordan modulene gjennomføres ligger i [plan.md](plan.md).  
-> Her beskriver vi **målet** for hver modul — _hva_ som skal være sant når dere er ferdige, ikke steg for steg hvordan dere kommer dit.
-
----
-
-## Modul 1 — Arkitektur og Gjenbruk
-
-**Mål:** Gjør codebasen lesbar og gjenbrukbar.
-
-- Filene er organisert etter _hva appen gjør_, ikke etter filtype
-- Hver komponent har ett ansvar
-- Domenelogikk (f.eks. status → farge) bor i komponentbiblioteket, ikke spredt i appene
-- En feil i én del av siden krasjer ikke hele appen
+> Step-by-step instructions live in [plan.md](plan.md).  
+> This file describes the **goal** for each module — _what_ should be true when you're done, not the steps to get there.
 
 ---
 
-## Modul 2 — Routing
+## Module 1 — Architecture & Reuse
 
-**Mål:** URL-en er kilden til sannhet for hva brukeren ser.
+**Goal:** Make the codebase readable and reusable.
 
-- Hver side har sin egen URL og kan bokmerkes
-- Navigasjon skjer uten full sidelast
-- Felles UI (header, sidebar) deles mellom sider uten duplisering
-- Aktiv side er visuelt tydelig i navigasjonen
-
----
-
-## Modul 3 — State og Effects
-
-**Mål:** State er minimal og avledet der det er mulig.
-
-- Det som kan beregnes blir beregnet — ikke lagret
-- Ingen `useEffect` som synkroniserer state med annen state
-- Logikk som brukes flere steder er trukket ut til en hook
-- ESLint rapporterer ingen `react-hooks`-advarsler
+- Files are organized by _what the app does_, not by file type
+- Each component has a single responsibility
+- Domain logic (e.g. status → color) lives in the component library, not scattered across apps
+- An error in one part of the page does not crash the whole app
 
 ---
 
-## Modul 4 — TanStack Query
+## Module 2 — Routing
 
-**Mål:** Data håndteres deklarativt — vi beskriver _hva_ vi vil ha, ikke _hvordan_ vi henter det.
+**Goal:** The URL is the source of truth for what the user sees.
 
-- Ingen `useEffect` brukes til datafetching
-- Loading- og error-tilstander er synlige for brukeren
-- Cache gjenbrukes på tvers av navigasjon (rask back/forward)
-- Mutasjoner oppdaterer relevante queries automatisk
-- Nettverksfeil fanges av en Error Boundary
+- Each page has its own URL and can be bookmarked
+- Navigation happens without a full page reload
+- Shared UI (header, sidebar) is shared across pages without duplication
+- The active page is visually clear in the navigation
 
 ---
 
-## Modul 5 — Skjema
+## Module 3 — State & Effects
 
-**Mål:** Ugyldig data slipper aldri gjennom skjemaet.
+**Goal:** State is minimal and derived where possible.
 
-- Validering er definert i et Zod-schema, ikke spredt i komponenten
-- Feilmeldinger vises per felt
-- Submit er deaktivert eller blokkert ved ugyldig tilstand
-- Vellykket innsending oppdaterer UI uten manuell refresh
-- Server-feil vises forståelig til brukeren
+- Anything computable is computed — not stored
+- No `useEffect` synchronizing state with other state
+- Logic used in multiple places is extracted into a hook
+- ESLint reports no `react-hooks` warnings
+
+---
+
+## Module 4 — TanStack Query
+
+**Goal:** Data is handled declaratively — we describe _what_ we want, not _how_ to fetch it.
+
+- No `useEffect` is used for data fetching
+- Loading and error states are visible to the user
+- The cache is reused across navigation (fast back/forward)
+- Mutations update relevant queries automatically
+- Network errors are caught by an error boundary
+
+---
+
+## Module 5 — Forms
+
+**Goal:** Invalid data never leaves the form.
+
+- Validation is defined in a Zod schema, not scattered across the component
+- Error messages appear per field
+- Submit is disabled or blocked while the form is invalid
+- A successful submit updates the UI without a manual refresh
+- Server errors are surfaced to the user in a meaningful way

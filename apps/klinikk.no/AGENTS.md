@@ -1,0 +1,28 @@
+# klinikk.no — Agent Instructions
+
+## Purpose
+
+`apps/klinikk.no` is the public Next.js marketing site. It exists in the workshop to **contrast** with the SPA in `apps/arena` — same component library, different rendering model.
+
+## Structure
+
+- `app/` — Next.js App Router
+- `app/layout.tsx` — sticky header, footer, shared shell
+- `app/page.tsx` — landing
+- `app/produkter`, `app/kunder`, `app/kontakt`, `app/om-oss` — marketing pages
+- `app/globals.css` — Tailwind v4 + theme tokens (mirrors `apps/arena`)
+
+## Rules
+
+1. Optimize for public rendering, crawlability, and fast first load.
+2. **Public-only.** No patient or journal data. No authenticated workflows.
+3. Prefer Server Components and static generation. Only opt into client components when interactivity demands it.
+4. Use shared primitives from `@klinikk/ui`. Do not redefine `Button`, `Card`, `StatusBadge`, etc.
+5. Marketing copy is in Norwegian. Match the visual language of `apps/arena` (warm stone + emerald theme).
+
+## Validation
+
+```bash
+npm run lint --workspace=apps/klinikk.no
+npm run build --workspace=apps/klinikk.no
+```

@@ -1,284 +1,290 @@
-# Workshop Plan: Best Practice og Moderne React
+# Workshop Plan: Real-World React — Monorepo, APIs, and Best Practice
 
-**Kursholder:** Aurora Scharff  
-**Varighet:** En dag, kl. 09:00–16:00  
-**Deltakere:** Inntil 40 personer (~8–10 grupper à 4–5)  
-**Sted:** Gullhaug Torg 5, Nydalen
+**Instructor:** Aurora Scharff  
+**Duration:** One day, 09:00–16:00  
+**Audience:** Up to 40 participants (~8–10 groups of 4–5)  
+**Location:** Gullhaug Torg 5, Nydalen
 
 ---
 
+## Theme
+
+Most React tutorials show you `useState` and `useEffect` in an isolated component. Real apps look different — many screens, code shared across multiple applications, real APIs, loading and error states that have to be trustworthy in production. This workshop is about that reality.
+
+Participants work inside a realistic Turborepo monorepo containing an SPA, a Next.js marketing site, and a pre-written Hono API. Across five hands-on modules they fix deliberate problems in an existing codebase and learn why patterns like shared component libraries, error boundaries, declarative data fetching, and schema-validated forms belong in any serious React app.
+
 ## Format
 
-- Codebase er bevisst "feil" — deltakere fikser det per modul
-- Ny funksjonalitet live-codes av kursholder
-- Sakte og samtalende — les kode sammen, spørsmål velkommen
-- Ferdig tidlig? Rett opp hånda og hjelp andre i gruppen
+- The codebase is intentionally "wrong" — participants fix it module by module
+- New functionality is live-coded by the instructor
+- Slow and conversational — read code together, questions welcome
+- Done early? Raise your hand and help others in your group
 
-**Per modul:**
+**Per module:**
 
 ```
-5 min   — Teori-intro (slides)
-15 min  — Individuell koding (TODOs i codebase)
-10 min  — Gruppediskusjon
-10 min  — Felles gjennomgang / live-code
+5 min   — Theory intro (slides)
+15 min  — Individual coding (TODOs in the codebase)
+10 min  — Group discussion
+10 min  — Walkthrough / live-code
 ```
 
 ---
 
 ## Tech Stack
 
-| Kategori  | Valg                                                      |
+| Area      | Choice                                                    |
 | --------- | --------------------------------------------------------- |
-| Rammeverk | React Router v7 (SPA)                                     |
-| Backend   | Hono (pre-skrevet, kjører lokalt)                         |
+| Framework | React Router v7 (SPA)                                     |
+| Backend   | Hono (pre-written, runs locally)                          |
 | Database  | SQLite + Drizzle ORM                                      |
 | Monorepo  | Turborepo                                                 |
 | Styling   | Tailwind CSS + shadcn/ui                                  |
 | Data      | TanStack Query                                            |
-| Skjema    | React Hook Form + Zod                                     |
+| Forms     | React Hook Form + Zod                                     |
 | Tooling   | ESLint, Prettier, TypeScript                              |
-| Testing   | Vitest + React Testing Library (pre-konfigurert)          |
+| Testing   | Vitest + React Testing Library (pre-configured)           |
 | AI        | GitHub Copilot + `copilot-instructions.md` + agent skills |
 
 **Repos:**
 
-- `dips-workshop` — ferdig løsning (bygges først)
-- `dips-workshop-starter` — utgangspunkt for deltakere (lages fra ferdig versjon ved å introdusere bevisste feil og TODOs)
+- `klinikk-workshop` — finished solution (built first)
+- `klinikk-workshop-starter` — participant starting point (derived from the finished version by introducing deliberate bugs and TODOs)
 
-> Repoet og pakker er navngitt rundt fiktive **Klinikk** og **Arena** — ingen direkte DIPS-referanser i kildekoden.
+> The codebase uses fictional names (**Klinikk**, **Arena**) instead of real product names so the material is reusable as a generic monorepo React workshop.
 
-**Repo-struktur:**
+**Repo structure:**
 
 ```
 apps/
-  arena/        ← React Router v7 SPA (journalsystem — workshop-appen)
-  api/          ← Hono API (pre-skrevet, OpenAPI + Scalar-docs på /)
-  klinikk.no/   ← Next.js (markedsføringsside — SSR, SEO, statisk innhold)
+  arena/        ← React Router v7 SPA (the journal app — workshop target)
+  api/          ← Hono API (pre-written, OpenAPI + Scalar docs at /)
+  klinikk.no/   ← Next.js (marketing site — SSR, SEO, static content)
 packages/
-  ui/           ← delt komponentbibliotek (`@klinikk/ui`, shadcn-base + custom)
+  ui/           ← shared component library (`@klinikk/ui`, shadcn base + custom)
 ```
 
-`turbo dev` starter alle apper parallelt. API-en er ferdigskrevet — deltakere trenger ikke røre den, men kan lese og forstå den. SQLite-fil er inkludert i repo med seed-data (pasienter, journaloppføringer). API-en eksponerer en interaktiv dokumentasjons-UI (Scalar) på rot-URL-en, slik at deltakere kan utforske endepunktene visuelt.
+`turbo dev` starts every app in parallel. The API is pre-written — participants don't need to touch it, but they're free to read it. The SQLite file ships in the repo with seed data (patients, journal entries). The API exposes an interactive docs UI (Scalar) at its root URL, so participants can explore the endpoints visually.
 
-**App-domene:** `arena/` er et journalsystem inspirert av norske sykehus-EPJ — pasientliste, journaloppføringer, skjemaer. `klinikk.no/` er en enkel markedsføringsside som bruker komponenter fra `packages/ui` og demonstrerer hvorfor Next.js gir mening for innholdsrike, offentlige sider (SEO, statisk generering, SSR).
+**Domain:** `arena/` is a journal system inspired by Norwegian hospital EHRs — patient list, journal entries, forms. `klinikk.no/` is a simple marketing site that consumes `packages/ui` and demonstrates why Next.js makes sense for content-heavy public pages (SEO, static generation, SSR). The healthcare framing is teaching context only — the underlying patterns are domain-agnostic.
 
-**Deltakerbakgrunn:** Primært .NET/C#-utviklere med bakgrunn i WPF og MVVM. Kjent med objektorientert tenking, databinding og lag-arkitektur — men lite erfaring med React og nettleser-paradigmet. Bruk dette aktivt: komponenter ≈ views, state ≈ viewmodel, props ≈ databinding.
+**Audience background:** Primarily .NET/C# developers with a WPF/MVVM background. Comfortable with object-oriented thinking, data binding, and layered architecture — but limited React and browser-paradigm experience. Use this actively: components ≈ views, state ≈ viewmodel, props ≈ data binding.
 
 ---
 
-## Dagoversikt
+## Day at a glance
 
-| Tid   | Sesjon                                                                       |
-| ----- | ---------------------------------------------------------------------------- |
-| 09:00 | Intro: Tenke web                                                             |
-| 09:30 | Oppsett                                                                      |
-| 10:15 | **Modul 1: Arkitektur og Gjenbruk** — fix struktur → bygg komponentbibliotek |
-| 11:15 | **Modul 2: Routing** + Next.js demo                                          |
-| 12:00 | Lunsj                                                                        |
-| 13:00 | **Modul 3: State og Effects**                                                |
-| 13:45 | **Modul 4: TanStack Query**                                                  |
-| 14:30 | Pause                                                                        |
-| 14:45 | **Modul 5: Skjema**                                                          |
-| 15:40 | Avslutning + sertifiseringspitch                                             |
+| Time  | Session                                                                    |
+| ----- | -------------------------------------------------------------------------- |
+| 09:00 | Intro: Thinking in web                                                     |
+| 09:30 | Setup                                                                      |
+| 10:15 | **Module 1: Architecture & Reuse** — fix structure → build component lib   |
+| 11:15 | **Module 2: Routing** + Next.js demo                                       |
+| 12:00 | Lunch                                                                      |
+| 13:00 | **Module 3: State & Effects**                                              |
+| 13:45 | **Module 4: TanStack Query**                                               |
+| 14:30 | Break                                                                      |
+| 14:45 | **Module 5: Forms**                                                        |
+| 15:40 | Wrap-up + certification pitch                                              |
 
 ---
 
 ## Agenda
 
-### 09:00 — Intro: Tenke web
+### 09:00 — Intro: Thinking in web
 
 _Format: Slides_
 
-- CSR vs SSR, hydration og ytelse
-- Latency, loading states og race conditions — vi ser på problemene _før_ vi løser dem
-- Kort ærlig oversikt over Next.js, Server Components, RSC
-  - _"Vi holder eget kurs om server-side React — i dag fokuserer vi på SPA og client-side best practices"_
-- Hva vi skal bygge i dag
+- CSR vs SSR, hydration, and performance
+- Latency, loading states, and race conditions — we look at the problems _before_ we solve them
+- Brief honest overview of Next.js, Server Components, RSC
+  - _"We run a separate course on server-side React — today is SPA and client-side best practices"_
+- What we're building today
 
-### 09:30 — Oppsett
+### 09:30 — Setup
 
 _Format: Demo + codealong_
 
-> **NB:** 40 personer på delt WiFi — be dem klone på forhånd.
+> **Note:** 40 people on shared WiFi — ask them to clone in advance.
 
-**Sett opp repo**
+**Set up the repo**
 
-- README.md: vis `npm install`, `npm run db:seed`, `npm run dev` — kjør sammen og verifiser at alt kjører
-- Vis portene: Arena på `localhost:5173`, API på `localhost:3001` (Scalar-docs på rot), klinikk.no på `localhost:3000`
-- Turbo dev: vis at alle apper starter parallelt med én kommando — forklar monorepo-konseptet kort
-- ESLint og Prettier: vis config, vis at feil markeres i editoren, vis at format on save fungerer — sjekk at alle har det oppe
-- TypeScript strict mode: typer for props, hendelser og API-svar. Spør: hva kjenner dere igjen fra C#? (Interfaces ≈ typer, generics, nullable)
-- React Compiler: skrudd på som standard — den memoizerer automatisk, dere trenger ikke `useMemo`/`useCallback` manuelt. Vi lar den stå på og stoler på den.
-- Vitest + React Testing Library: pre-konfigurert og klart, men vi bruker det ikke aktivt i dag — det er der og det er satt opp riktig
-- AI-oppsett: GitHub Copilot aktivert, `copilot-instructions.md` peker til `AGENTS.md`, `/react-best-practices`-skill er tilgjengelig som slash-kommando i chat
+- README.md: walk through `npm install`, `npm run db:seed`, `npm run dev` — run together and verify everything is up
+- Show the ports: Arena at `localhost:5173`, API at `localhost:3001` (Scalar docs at root), klinikk.no at `localhost:3000`
+- Turborepo: show that all apps start in parallel from one command — explain the monorepo concept briefly (workspaces, shared packages, task graph)
+- ESLint and Prettier: show config, show errors highlighted in the editor, show format-on-save — make sure everyone has it working
+- TypeScript strict mode: types for props, events, and API responses. Ask: what's familiar from C#? (Interfaces ≈ types, generics, nullable)
+- React Compiler: enabled by default — it memoizes automatically, you don't need `useMemo`/`useCallback` manually. Leave it on and trust it.
+- Vitest + React Testing Library: pre-configured but not used actively today — it's there and set up correctly
+- AI setup: GitHub Copilot enabled, nested `AGENTS.md` files at every boundary, `copilot-instructions.md` points at the root one, `/react-best-practices` skill available as a slash command in chat
 
-**Gå gjennom repo-strukturen**
+**Walk through the repo structure**
 
-- `apps/arena/` — React Router v7 SPA, journalsystem, dette er appen vi jobber i hele dagen
-  - Vis `src/` — per nå er det ganske flatt, vi fikser det i Modul 1
-  - Vis `main.tsx`: `QueryClientProvider`, `<BrowserRouter>` — to providers, alt starter her
-  - Kjør appen og vis journalsystemet live: pasientliste, klikk inn på en pasient, journaloppføringer
-- `apps/api/` — Hono API, ferdigskrevet, deltakere trenger ikke røre den
-  - Vis `src/routes/` — to filer, `patients.ts` og `journals.ts`, OpenAPI-rutere via `@hono/zod-openapi`
-  - Vis `src/db/schema.ts` — Drizzle-schema, to tabeller: `patients` og `journals`
-  - `npm run db:seed` tilbakestiller til original seed-data hvis noe går galt
-  - Åpne `http://localhost:3001/` — Scalar-docs UI, klikk gjennom endepunktene live
-- `apps/klinikk.no/` — Next.js markedsføringsside, bruker `packages/ui`
-  - Kort: dette er her for å demonstrere forskjellen mellom SPA og server-side rendering — vi kommer tilbake til det i Modul 2
-- `packages/ui/` — delt komponentbibliotek (`@klinikk/ui`)
-  - Vis `src/base/` — generiske shadcn-primitives (`Badge`, `Button`, `Card`, `Input`, `Label`, `Select`, `Textarea`) hentet inn fra shadcn CLI
-  - Vis `src/StatusBadge.tsx` — domenespesifikk wrapper rundt `<Badge>` som mapper `JournalStatus` til farge og label
-  - Eksporter via `src/index.ts`. Begge apper importerer fra `@klinikk/ui` — endring ett sted, alle apper oppdateres
-  - Vi bygger på dette i Modul 1
+- `apps/arena/` — React Router v7 SPA, the app we work in all day
+  - Show `src/` — currently quite flat, we fix that in Module 1
+  - Show `main.tsx`: `QueryClientProvider`, `<BrowserRouter>` — two providers, this is where everything starts
+  - Run the app and show the journal system live: patient list, click into a patient, journal entries
+- `apps/api/` — Hono API, pre-written, participants don't need to touch it
+  - Show `src/routes/` — two files, `patients.ts` and `journals.ts`, OpenAPI routers via `@hono/zod-openapi`
+  - Show `src/db/schema.ts` — Drizzle schema, two tables: `patients` and `journals`
+  - `npm run db:seed` resets to the original seed data if anything goes wrong
+  - Open `http://localhost:3001/` — Scalar docs UI, click through the endpoints live
+- `apps/klinikk.no/` — Next.js marketing site, consumes `packages/ui`
+  - Brief: this is here to demonstrate the SPA vs server-side rendering contrast — we come back to it in Module 2
+- `packages/ui/` — shared component library (`@klinikk/ui`)
+  - Show `src/base/` — generic shadcn primitives (`Badge`, `Button`, `Card`, `Input`, `Label`, `Select`, `Textarea`) imported via the shadcn CLI
+  - Show `src/StatusBadge.tsx` — domain-specific wrapper around `<Badge>` that maps `JournalStatus` to color and label
+  - Exported via `src/index.ts`. Both apps import from `@klinikk/ui` — change one place, both apps update
+  - We build on this in Module 1
 
-### 10:15 — Modul 1: Arkitektur og Gjenbruk
+### 10:15 — Module 1: Architecture & Reuse
 
 _Format: Fix it + Build it_
 
-**Teori (5 min):** Feature-basert struktur, komponentansvar, Error Boundary-plassering. Deltakerne er vant til store klasser med mye ansvar — i React er målet små, fokuserte komponenter, og mappestrukturen bør reflektere hva appen _gjør_, ikke hva slags fil det er.
+**Theory (5 min):** Feature-based structure, component responsibility, error boundary placement. Participants are used to large classes with many responsibilities — in React the goal is small focused components, and folder structure should reflect what the app _does_, not what kind of file it is.
 
-**Utgangspunkt:** Alt ligger flatt i `src/` — én stor `App.tsx`, ingen feature-inndeling, status-styling duplisert som inline klassenavn.
+**Starting point:** Everything sits flat in `src/` — one big `App.tsx`, no feature split, status styling duplicated as inline class names.
 
-**Individuell koding (15 min):**
+**Individual coding (15 min):**
 
-_Fix it: Struktur_
+_Fix it: Structure_
 
-1. Flytt filer inn i feature-mapper:
-   - `src/features/patients/` — pasientliste, pasientkort, pasientheader
-   - `src/features/journal/` — journalvisning, journaloppføring
-   - `src/components/` — delte UI-komponenter
-2. Bryt opp `PatientPage.tsx` (stor monolitt) i `PatientList`, `PatientCard`, `PatientHeader`
-3. Legg til en `<ErrorBoundary>` i `Layout` rundt `<Outlet>` — kast en feil manuelt og se at den fanges
+1. Move files into feature folders:
+   - `src/features/patients/` — patient list, card, header
+   - `src/features/journal/` — journal list, entry
+   - `src/components/` — shared UI bits
+2. Break `PatientPage.tsx` (one big monolith) into `PatientList`, `PatientCard`, `PatientHeader`
+3. Add an `<ErrorBoundary>` in `Layout` around `<Outlet>` — throw an error manually and watch it get caught
 
-_Build it: Gjenbruk_
+_Build it: Reuse_
 
-4. Se på `packages/ui/src/base/` — generiske shadcn-primitives (`Badge`, `Button`, `Card`, `Input`, `Select`)
-5. Bygg en domenespesifikk `<StatusBadge>` som wrapper `<Badge>` fra base og mapper `JournalStatus` (`aktiv` / `avsluttet` / `utkast`) til riktig variant og label — plasser den i `packages/ui/src/StatusBadge.tsx`
-6. Eksporter den fra `packages/ui/src/index.ts`
-7. Importer og bruk den i både `arena` og `klinikk.no` — endre fargen på én status og se at begge apper oppdateres
+4. Look at `packages/ui/src/base/` — generic shadcn primitives (`Badge`, `Button`, `Card`, `Input`, `Select`)
+5. Build a domain-specific `<StatusBadge>` that wraps `<Badge>` from base and maps `JournalStatus` (`aktiv` / `avsluttet` / `utkast`) to the right variant and label — place it in `packages/ui/src/StatusBadge.tsx`
+6. Export it from `packages/ui/src/index.ts`
+7. Import and use it in both `arena` and `klinikk.no` — change one status color and watch both apps update
 
-**Gruppediskusjon (10 min):** Hva skilte dere ut? Hva var vanskelig å avgjøre?
+**Group discussion (10 min):** What did you split out? What was hard to decide?
 
-**Felles gjennomgang (10 min):** Live-code fasit, vis komponent i begge apper
+**Walkthrough (10 min):** Live-code the solution, show the component used in both apps
 
-- _To-lags komponentbibliotek:_ `base/` er generiske shadcn-primitives (`Badge`, `Button`, `Card`...) — selve roten. På toppen bygger vi domenespesifikke wrappers som `<StatusBadge>` som kjenner forretningslogikken (`aktiv` → grønn). Appene bruker wrapperne, ikke primitivene direkte når det finnes domenebegrep — én endring i mapping og hele systemet følger med.
-- _Komponentbibliotek:_ Ett definisjonspunkt, brukes i alle apper — endre én farge og begge apper oppdateres. WPF-analogi: `ResourceDictionary` / `Style`. Trenger ikke publiseres til npm — workspace-pakken er nok.
-- _Hvorfor ikke skrive alt selv?_ Universell utforming er lovpålagt i helsetjenesten og genuint vanskelig: riktig `<Dialog>` krever focus-trap, `aria-modal`, scroll-lock, Escape-håndtering. DIPS har et internt designsystem som sannsynligvis håndterer dette — finn ut hva det bruker under panseret og bruk det.
+- _Two-layer component library:_ `base/` is generic shadcn primitives (`Badge`, `Button`, `Card`...) — the foundation. On top we build domain-specific wrappers like `<StatusBadge>` that know the business logic (`aktiv` → green). Apps consume the wrappers, not the primitives directly when a domain concept exists — one mapping change updates the entire system.
+- _Component library:_ One source of truth, used everywhere — change one color and both apps update. WPF analogy: `ResourceDictionary` / `Style`. Doesn't need to be published to npm — workspace packages are enough.
+- _Why not write everything yourself?_ Accessibility is legally required in healthcare and genuinely hard: a correct `<Dialog>` needs focus trap, `aria-modal`, scroll lock, Escape handling. Most large companies have an internal design system that handles this — figure out what it's built on (Radix, React Aria, headless libraries) and build on top of that instead of writing primitives yourself.
 
-_Kort nevnt:_ Supply chain-risiko — nå som dere vet hvor enkelt det er å lage en pakke, hvor enkelt er det å snike inn malicious code? `npm audit` og lockfiles på to minutter.
+_Briefly mentioned:_ Supply chain risk — now that you've seen how easy it is to publish a package, how easy is it to slip in malicious code? `npm audit` and lockfiles in two minutes.
 
-### 11:15 — Modul 2: Routing
+### 11:15 — Module 2: Routing
 
 _Format: Fix it + demo_
 
-**Teori (5 min):** Fordeler med client-side routing — ingen full reload, bookmark-støtte, tilstandsbevaring på tvers av navigasjon, URL som single source of truth. `<BrowserRouter>` + `<Routes>` deklarativt, nested routes med `<Outlet>`, React Router v7 vs Next.js `app/`. Latency under navigasjon — hva viser du brukeren mens neste side laster? Deltakerne er vant til navigasjon uten URL — i React er URL-en alltid synkronisert med hva brukeren ser, kan deles og bokmerkes.
+**Theory (5 min):** Client-side routing benefits — no full reload, bookmark support, state preservation across navigation, URL as single source of truth. `<BrowserRouter>` + `<Routes>` declaratively, nested routes with `<Outlet>`, React Router v7 vs Next.js `app/`. Latency during navigation — what do you show the user while the next page loads? Participants are used to navigation without URLs — in React the URL is always synchronized with what the user sees, can be shared and bookmarked.
 
-**Utgangspunkt:** Navigasjon med `window.location.href`, betinget rendering i `App.tsx`, ingen React Router.
+**Starting point:** Navigation via `window.location.href`, conditional rendering inside `App.tsx`, no React Router.
 
-**Individuell koding (15 min):**
+**Individual coding (15 min):**
 
-1. Wrap appen i `<BrowserRouter>` i `main.tsx`
-2. Sett opp ruter med `<Routes>` og `<Route>` i en egen `AppRoutes`-komponent:
+1. Wrap the app in `<BrowserRouter>` in `main.tsx`
+2. Define routes with `<Routes>` and `<Route>` in a dedicated `AppRoutes` component:
    - `/` — dashboard
-   - `/pasienter` — pasientliste
-   - `/pasienter/:id` — pasientdetalj
-3. Bruk en delt `<Layout>` med `<Outlet>` som forelder-rute
-4. Bytt hardkodede `<a href>`-lenker til `<Link>` og `<NavLink>` i sidebar
-5. Les `:id` med `useParams` i pasientdetalj-siden og bruk den til å hente riktig pasient
+   - `/pasienter` — patient list
+   - `/pasienter/:id` — patient detail
+3. Use a shared `<Layout>` with `<Outlet>` as the parent route
+4. Replace hardcoded `<a href>` links with `<Link>` and `<NavLink>` in the sidebar
+5. Read `:id` with `useParams` in the patient detail page and use it to fetch the right patient
 
-**Gruppediskusjon (10 min):** Hva er forskjellen på en SPA-router og filbasert routing i et framework?
+**Group discussion (10 min):** What's the difference between an SPA router and file-based routing in a framework?
 
-**Felles gjennomgang + demo (10 min):** Live-code fasit, åpne `apps/klinikk.no/` — vis `app/`-struktur, `page.tsx`, `loading.tsx`, `layout.tsx`. _"Hva er likt? Hva er annerledes? Og hvorfor passer Next.js bedre her enn i Arena?"_
+**Walkthrough + demo (10 min):** Live-code the solution, open `apps/klinikk.no/` — show the `app/` structure, `page.tsx`, `loading.tsx`, `layout.tsx`. _"What's the same? What's different? And why does Next.js fit this app better than Arena?"_
 
-### 12:00 — Lunsj
+### 12:00 — Lunch
 
-### 13:00 — Modul 3: State og Effects
-
-_Format: Fix it_
-
-**Teori (5 min):** Rules of React, derived state, når `useEffect` er feil verktøy. Deltakerne er vant til å trigge logikk fra events og property-setters — i React er komponenter rene funksjoner, side-effekter håndteres eksplisitt, og det som kan beregnes bør ikke lagres.
-
-**Utgangspunkt:** Flere `useEffect`-anti-patterns spredt i komponenter — `setState` inne i `useEffect`, duplisert logikk på tvers av komponenter, overflødig state.
-
-**Individuell koding (15 min):**
-
-1. Finn og fjern `useEffect` som setter state basert på annen state — beregn derived state direkte i render i stedet
-2. Finn og fjern `useEffect` som synkroniserer to state-verdier — slå dem sammen til én kilde
-3. Trekk ut søke- og filterlogikk som går igjen i to komponenter til en felles `usePatientFilter`-hook
-
-**Gruppediskusjon (10 min):** Når er `useEffect` riktig? Hva skulle du brukt i stedet?
-
-**Felles gjennomgang (10 min):** Live-code fasit, nevn `useRef` kort som en annen escape hatch — mutable verdier som ikke skal trigge re-render, eller direkte DOM-tilgang
-
-### 13:45 — Modul 4: TanStack Query
+### 13:00 — Module 3: State & Effects
 
 _Format: Fix it_
 
-**Teori (5 min):** Tilbake til introen — latency, loading states og race conditions. Hva skjer egentlig når du fetch-er data i en komponent? Hva caching gir deg, og hvordan TanStack Query løser problemene vi så på starten av dagen. Deltakerne er vant til å skrive async-infrastruktur selv (loading-flagg, try/catch, cancel-logikk) — målet er å vise hva de får gratis.
+**Theory (5 min):** Rules of React, derived state, when `useEffect` is the wrong tool. Participants are used to triggering logic from events and property setters — in React, components are pure functions, side effects are explicit, and anything you can compute should not be stored.
 
-**Utgangspunkt:** Data hentes med `useEffect` + `fetch` + manuell `isLoading`-boolean. Ingen caching, ingen race condition-håndtering.
+**Starting point:** Several `useEffect` anti-patterns scattered across components — `setState` inside `useEffect`, duplicated logic across components, unnecessary state.
 
-**Individuell koding (15 min):**
+**Individual coding (15 min):**
 
-1. Erstatt `useEffect`-fetching av pasientliste med `useQuery`
-   - Legg til loading state (spinner/skeleton)
-   - Legg til error state
-2. Erstatt `useEffect`-fetching av enkeltpasient med `useSuspenseQuery`
-   - Koble til `<ErrorBoundary>` fra Modul 1 og en lokal `<Suspense>`
-   - Se at siden suspender mens data lastes
-3. Legg til `useMutation` for å oppdatere journalstatus
-   - Invalider relevant query etter vellykket mutation så listen oppdateres automatisk
+1. Find and remove `useEffect` that sets state based on other state — compute derived state directly in render instead
+2. Find and remove `useEffect` that synchronizes two state values — collapse into one source
+3. Extract search-and-filter logic that appears in two components into a shared `usePatientFilter` hook
 
-**Gruppediskusjon (10 min):** Hva skjer med race conditions nå? Hva fikk dere gratis fra cachen?
+**Group discussion (10 min):** When _is_ `useEffect` the right call? What should you have used instead?
 
-**Felles gjennomgang (10 min):** Live-code fasit, vis bakgrunnsoppdatering og devtools
+**Walkthrough (10 min):** Live-code the solution, briefly mention `useRef` as another escape hatch — mutable values that shouldn't trigger re-render, or direct DOM access
 
-### 14:30 — Pause
-
-### 14:45 — Modul 5: Skjema
+### 13:45 — Module 4: TanStack Query
 
 _Format: Fix it_
 
-**Teori (5 min):** Kontrollerte vs ukontrollerte inputs, hvorfor skjemavalidering hører hjemme i schema, ikke i komponenten. Deltakerne er vant til sterk validering på server-siden — Zod gir samme trygghet på klienten.
+**Theory (5 min):** Back to the intro — latency, loading states, race conditions. What actually happens when you fetch data in a component? What caching gives you, and how TanStack Query solves the problems we looked at this morning. Participants are used to writing async infrastructure themselves (loading flags, try/catch, cancel logic) — the goal is showing what they get for free.
 
-**Utgangspunkt:** Et ukontrollert `<form>` med `onSubmit` som leser fra `event.target`. Ingen validering, manuell error-state.
+**Starting point:** Data is fetched with `useEffect` + `fetch` + a manual `isLoading` boolean. No caching, no race condition handling.
 
-**Individuell koding (15 min):**
+**Individual coding (15 min):**
 
-1. Koble skjemaet til `useForm()` fra React Hook Form
-2. Skriv et Zod-schema for ny journaloppføring:
-   - Tittel: påkrevd, maks 100 tegn
-   - Dato: påkrevd
-   - Innhold: påkrevd, minimum 10 tegn
-3. Koble Zod-schema til React Hook Form med `zodResolver`
-4. Vis inline feilmeldinger under hvert felt
-5. Send data til API med `useMutation` — vis server-feilmelding hvis requesten feiler
+1. Replace `useEffect`-fetching of the patient list with `useQuery`
+   - Add a loading state (spinner/skeleton)
+   - Add an error state
+2. Replace `useEffect`-fetching of a single patient with `useSuspenseQuery`
+   - Wire it up with the `<ErrorBoundary>` from Module 1 and a local `<Suspense>`
+   - Watch the page suspend while data loads
+3. Add a `useMutation` to update journal status
+   - Invalidate the relevant query on success so the list updates automatically
 
-**Gruppediskusjon (10 min):** Hva skjer når serveren returnerer feil? Hvordan håndterer dere det?
+**Group discussion (10 min):** What happens with race conditions now? What did you get for free from the cache?
 
-**Felles gjennomgang (10 min):** Live-code fasit, vis full submit-flyt mot API
+**Walkthrough (10 min):** Live-code the solution, show background updates and the devtools
 
-- _NB:_ API-en validerer også innkommende data med Zod — nevn dette eksplisitt: klientvalidering er for UX, servervalidering er for sikkerhet.
+### 14:30 — Break
 
-### 15:40 — Avslutning _(20 min)_
+### 14:45 — Module 5: Forms
+
+_Format: Fix it_
+
+**Theory (5 min):** Controlled vs uncontrolled inputs, why form validation belongs in a schema, not in the component. Participants are used to strict server-side validation — Zod gives the same guarantees on the client.
+
+**Starting point:** An uncontrolled `<form>` with `onSubmit` reading from `event.target`. No validation, manual error state.
+
+**Individual coding (15 min):**
+
+1. Wire the form up to `useForm()` from React Hook Form
+2. Write a Zod schema for a new journal entry:
+   - Title: required, max 100 characters
+   - Date: required
+   - Content: required, minimum 10 characters
+3. Connect the Zod schema to React Hook Form via `zodResolver`
+4. Show inline error messages under each field
+5. Submit to the API with `useMutation` — show server error messages if the request fails
+
+**Group discussion (10 min):** What happens when the server returns an error? How do you handle it?
+
+**Walkthrough (10 min):** Live-code the solution, show the full submit flow against the API
+
+- _Note:_ The API also validates incoming data with Zod — call this out explicitly: client validation is for UX, server validation is for security.
+
+### 15:40 — Wrap-up _(20 min)_
 
 _Format: Slides_
 
-- Hva vi dekket i dag
-- Hva som er igjen i curriculum — TypeScript dybde, testing, Zustand, Context, sikkerhet
-- React-sertifisering: læringssti, hva testes, lenker
+- What we covered today
+- What's left in the curriculum — TypeScript depth, testing, Zustand, Context, security
+- React certification: learning path, what's tested, links
 
 ---
 
-## Gjenstående å gjøre
+## Remaining work
 
-- [x] Bygg ferdig versjon (`dips-workshop`): monorepo med `apps/arena/`, `apps/api/`, `apps/klinikk.no/`, `packages/ui/`
-- [x] Skriv Hono API med endepunkter for pasienter og journaloppføringer (OpenAPI + Scalar-docs)
-- [x] Sett opp SQLite + Drizzle med seed-data + `npm run db:seed` reset-script
-- [x] Konfigurer ESLint, Prettier, `copilot-instructions.md` i ferdig versjon
-- [x] Sett opp Vitest + RTL pre-konfigurert (ikke i bruk i dag, men klart)
-- [x] Test at `turbo dev` fungerer på en fersk klone (macOS — og Windows hvis aktuelt)
-- [ ] Lag starter-versjon (`dips-workshop-starter`): introduser bevisste feil og TODOs per modul
-- [x] Skriv oppgavebeskrivelser — se [tasks.md](tasks.md)
-- [ ] Lag slides (intro, modul-intros, avslutning)
-- [ ] Gjennomfør solo dry-run av hele workshopen
+- [x] Build the finished version (`klinikk-workshop`): monorepo with `apps/arena/`, `apps/api/`, `apps/klinikk.no/`, `packages/ui/`
+- [x] Write the Hono API with patient and journal endpoints (OpenAPI + Scalar docs)
+- [x] Set up SQLite + Drizzle with seed data + `npm run db:seed` reset script
+- [x] Configure ESLint, Prettier, `copilot-instructions.md` in the finished version
+- [x] Set up Vitest + RTL pre-configured (not used today, but ready)
+- [x] Verify `turbo dev` works on a fresh clone (macOS — and Windows if relevant)
+- [ ] Build the starter version (`klinikk-workshop-starter`): introduce deliberate bugs and TODOs per module
+- [x] Write task descriptions — see [tasks.md](tasks.md)
+- [ ] Build slides (intro, module intros, wrap-up)
+- [ ] Solo dry-run of the entire workshop
