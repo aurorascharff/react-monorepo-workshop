@@ -1,19 +1,19 @@
 import { useState } from 'react'
-import type { Pasient } from '../../../types'
+import type { Patient } from '../../../types'
 
-export function usePatientFilter(pasienter: Pasient[]) {
-  const [sok, setSok] = useState('')
-  const [kjonnFilter, setKjonnFilter] = useState<'alle' | 'mann' | 'kvinne'>(
-    'alle',
+export function usePatientFilter(patients: Patient[]) {
+  const [search, setSearch] = useState('')
+  const [genderFilter, setGenderFilter] = useState<'all' | 'male' | 'female'>(
+    'all',
   )
 
-  const filtrertePasienter = pasienter.filter((p) => {
-    const matcherSok =
-      p.navn.toLowerCase().includes(sok.toLowerCase()) ||
-      p.diagnose.toLowerCase().includes(sok.toLowerCase())
-    const matcherKjonn = kjonnFilter === 'alle' || p.kjonn === kjonnFilter
-    return matcherSok && matcherKjonn
+  const filteredPatients = patients.filter((p) => {
+    const matchesSearch =
+      p.name.toLowerCase().includes(search.toLowerCase()) ||
+      p.diagnosis.toLowerCase().includes(search.toLowerCase())
+    const matchesGender = genderFilter === 'all' || p.gender === genderFilter
+    return matchesSearch && matchesGender
   })
 
-  return { sok, setSok, kjonnFilter, setKjonnFilter, filtrertePasienter }
+  return { search, setSearch, genderFilter, setGenderFilter, filteredPatients }
 }

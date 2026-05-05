@@ -1,30 +1,30 @@
-import { Card, CardContent, Badge } from '@klinikk/ui'
-import type { Pasient } from '../../../types'
+import { Card, CardContent, Badge } from '@medix/ui'
+import type { Patient } from '../../../types'
 
 type PatientHeaderProps = {
-  pasient: Pasient
+  patient: Patient
 }
 
-export function PatientHeader({ pasient }: PatientHeaderProps) {
+export function PatientHeader({ patient }: PatientHeaderProps) {
   return (
     <Card>
       <CardContent className="p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">{pasient.navn}</h1>
+            <h1 className="text-2xl font-bold tracking-tight">{patient.name}</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Født: {formaterDato(pasient.fodselsdato)} ·{' '}
-              {pasient.kjonn === 'mann' ? 'Mann' : 'Kvinne'}
+              Born: {formatDate(patient.dateOfBirth)} ·{' '}
+              {patient.gender === 'male' ? 'Male' : 'Female'}
             </p>
           </div>
           <div className="text-right shrink-0">
-            <p className="text-xs text-muted-foreground">Pasient-ID</p>
-            <p className="font-mono text-sm font-medium">{pasient.id}</p>
+            <p className="text-xs text-muted-foreground">Patient ID</p>
+            <p className="font-mono text-sm font-medium">{patient.id}</p>
           </div>
         </div>
         <div className="mt-4">
           <Badge variant="secondary" className="text-sm">
-            {pasient.diagnose}
+            {patient.diagnosis}
           </Badge>
         </div>
       </CardContent>
@@ -32,8 +32,8 @@ export function PatientHeader({ pasient }: PatientHeaderProps) {
   )
 }
 
-function formaterDato(dato: string): string {
-  return new Date(dato).toLocaleDateString('nb-NO', {
+function formatDate(date: string): string {
+  return new Date(date).toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

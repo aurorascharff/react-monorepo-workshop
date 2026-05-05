@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@klinikk/ui": "*",
+    "@medix/ui": "*",
     "@tanstack/react-query": "^5.100.9",
     "@tanstack/react-query-devtools": "^5.100.9",
     "react": "^19.2.5",

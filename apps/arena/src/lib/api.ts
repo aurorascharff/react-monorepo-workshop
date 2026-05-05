@@ -1,39 +1,37 @@
-import type { JournalStatus } from '@klinikk/ui'
-import type { Pasient, JournalOppforing } from '../types'
+import type { JournalStatus } from '@medix/ui'
+import type { Patient, Journal } from '../types'
 
 const BASE_URL = 'http://localhost:3001'
 
-export async function hentPasienter(): Promise<Pasient[]> {
+export async function fetchPatients(): Promise<Patient[]> {
   const res = await fetch(`${BASE_URL}/patients`)
-  if (!res.ok) throw new Error('Kunne ikke hente pasienter')
+  if (!res.ok) throw new Error('Failed to fetch patients')
   return res.json()
 }
 
-export async function hentPasient(id: string): Promise<Pasient> {
+export async function fetchPatient(id: string): Promise<Patient> {
   const res = await fetch(`${BASE_URL}/patients/${id}`)
-  if (!res.ok) throw new Error('Kunne ikke hente pasient')
+  if (!res.ok) throw new Error('Failed to fetch patient')
   return res.json()
 }
 
-export async function hentJournaler(
-  pasientId: string,
-): Promise<JournalOppforing[]> {
-  const res = await fetch(`${BASE_URL}/journals/pasient/${pasientId}`)
-  if (!res.ok) throw new Error('Kunne ikke hente journaler')
+export async function fetchJournals(patientId: string): Promise<Journal[]> {
+  const res = await fetch(`${BASE_URL}/journals/patient/${patientId}`)
+  if (!res.ok) throw new Error('Failed to fetch journal entries')
   return res.json()
 }
 
-export type NyJournal = {
-  tittel: string
-  dato: string
-  innhold: string
+export type NewJournal = {
+  title: string
+  date: string
+  content: string
 }
 
-export async function opprettJournal(
-  pasientId: string,
-  data: NyJournal,
-): Promise<JournalOppforing> {
-  const res = await fetch(`${BASE_URL}/journals/pasient/${pasientId}`, {
+export async function createJournal(
+  patientId: string,
+  data: NewJournal,
+): Promise<Journal> {
+  const res = await fetch(`${BASE_URL}/journals/patient/${patientId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -41,21 +39,21 @@ export async function opprettJournal(
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
     throw new Error(
-      (err as { error?: string }).error ?? 'Kunne ikke opprette journal',
+      (err as { error?: string }).error ?? 'Failed to create journal entry',
     )
   }
   return res.json()
 }
 
-export async function oppdaterJournalStatus(
+export async function updateJournalStatus(
   journalId: string,
   status: JournalStatus,
-): Promise<JournalOppforing> {
+): Promise<Journal> {
   const res = await fetch(`${BASE_URL}/journals/${journalId}/status`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ status }),
   })
-  if (!res.ok) throw new Error('Kunne ikke oppdatere status')
+  if (!res.ok) throw new Error('Failed to update status')
   return res.json()
 }

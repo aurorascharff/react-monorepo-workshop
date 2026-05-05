@@ -2,9 +2,8 @@ import Database from 'better-sqlite3'
 import path from 'path'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import { patients, journals } from './schema'
-import { sql } from 'drizzle-orm'
 
-const dbPath = path.join(__dirname, '../../data/klinikk.sqlite')
+const dbPath = path.join(__dirname, '../../data/medix.sqlite')
 const sqlite = new Database(dbPath)
 const db = drizzle(sqlite)
 
@@ -12,70 +11,70 @@ function seed() {
   console.log('Seeding database...')
 
   sqlite.exec(`
-    CREATE TABLE IF NOT EXISTS patients (
+    DROP TABLE IF EXISTS journals;
+    DROP TABLE IF EXISTS patients;
+
+    CREATE TABLE patients (
       id TEXT PRIMARY KEY,
-      navn TEXT NOT NULL,
-      fodselsdato TEXT NOT NULL,
-      kjonn TEXT NOT NULL,
-      diagnose TEXT NOT NULL
+      name TEXT NOT NULL,
+      date_of_birth TEXT NOT NULL,
+      gender TEXT NOT NULL,
+      diagnosis TEXT NOT NULL
     );
 
-    CREATE TABLE IF NOT EXISTS journals (
+    CREATE TABLE journals (
       id TEXT PRIMARY KEY,
-      pasient_id TEXT NOT NULL REFERENCES patients(id),
-      tittel TEXT NOT NULL,
-      dato TEXT NOT NULL,
-      innhold TEXT NOT NULL,
+      patient_id TEXT NOT NULL REFERENCES patients(id),
+      title TEXT NOT NULL,
+      date TEXT NOT NULL,
+      content TEXT NOT NULL,
       status TEXT NOT NULL
     );
   `)
-
-  db.delete(journals).run()
-  db.delete(patients).run()
 
   db.insert(patients)
     .values([
       {
         id: 'p1',
-        navn: 'Kari Nordmann',
-        fodselsdato: '1975-03-12',
-        kjonn: 'kvinne',
-        diagnose: 'Type 2 diabetes mellitus',
+        name: 'Mary Smith',
+        dateOfBirth: '1975-03-12',
+        gender: 'female',
+        diagnosis: 'Type 2 diabetes mellitus',
       },
       {
         id: 'p2',
-        navn: 'Ole Hansen',
-        fodselsdato: '1960-07-28',
-        kjonn: 'mann',
-        diagnose: 'Hypertensjon',
+        name: 'Robert Hansen',
+        dateOfBirth: '1960-07-28',
+        gender: 'male',
+        diagnosis: 'Hypertension',
       },
       {
         id: 'p3',
-        navn: 'Ingrid Berg',
-        fodselsdato: '1988-11-05',
-        kjonn: 'kvinne',
-        diagnose: 'Astma bronkiale',
+        name: 'Emily Bergman',
+        dateOfBirth: '1988-11-05',
+        gender: 'female',
+        diagnosis: 'Bronchial asthma',
       },
       {
         id: 'p4',
-        navn: 'Tor Eriksen',
-        fodselsdato: '1952-01-19',
-        kjonn: 'mann',
-        diagnose: 'Koronarsykdom',
+        name: 'Thomas Erickson',
+        dateOfBirth: '1952-01-19',
+        gender: 'male',
+        diagnosis: 'Coronary artery disease',
       },
       {
         id: 'p5',
-        navn: 'Marit Johansen',
-        fodselsdato: '1993-06-30',
-        kjonn: 'kvinne',
-        diagnose: 'Revmatoid artritt',
+        name: 'Margaret Johnson',
+        dateOfBirth: '1993-06-30',
+        gender: 'female',
+        diagnosis: 'Rheumatoid arthritis',
       },
       {
         id: 'p6',
-        navn: 'Erik Olsen',
-        fodselsdato: '1968-09-14',
-        kjonn: 'mann',
-        diagnose: 'Kronisk nyresvikt',
+        name: 'Eric Olson',
+        dateOfBirth: '1968-09-14',
+        gender: 'male',
+        diagnosis: 'Chronic kidney disease',
       },
     ])
     .run()
@@ -84,83 +83,83 @@ function seed() {
     .values([
       {
         id: 'j1',
-        pasientId: 'p1',
-        tittel: 'Rutinekontroll blodsukkermåling',
-        dato: '2025-04-10',
-        innhold:
-          'Pasienten møtte til rutinekontroll. HbA1c målt til 7.2%, som er akseptabelt men noe høyt. Pasienten rapporterer god etterlevelse av medikamentell behandling. Kostholdsrådgivning gitt. Neste kontroll om 3 måneder.',
-        status: 'avsluttet',
+        patientId: 'p1',
+        title: 'Routine blood glucose check',
+        date: '2025-04-10',
+        content:
+          'Patient attended routine follow-up. HbA1c measured at 7.2%, acceptable but slightly elevated. Patient reports good adherence to medication. Dietary counseling provided. Next check-in in 3 months.',
+        status: 'closed',
       },
       {
         id: 'j2',
-        pasientId: 'p1',
-        tittel: 'Oppfølging fotundersøkelse',
-        dato: '2025-05-01',
-        innhold:
-          'Undersøkelse av føtter viser ingen tegn til nevropati eller sår. Pasienten instruert i daglig fotpleie. Videre oppfølging hos podolog anbefalt.',
-        status: 'aktiv',
+        patientId: 'p1',
+        title: 'Foot examination follow-up',
+        date: '2025-05-01',
+        content:
+          'Foot exam shows no signs of neuropathy or ulceration. Patient instructed in daily foot care. Referral to podiatrist recommended for ongoing review.',
+        status: 'active',
       },
       {
         id: 'j3',
-        pasientId: 'p2',
-        tittel: 'Blodtrykksmåling og medisinering',
-        dato: '2025-04-22',
-        innhold:
-          'Blodtrykk målt til 148/92 mmHg. Noe høyt. Dosen av Amlodipine økes fra 5 mg til 10 mg daglig. Pasienten anbefales å redusere saltinntak og øke fysisk aktivitet. Kontroll om 4 uker.',
-        status: 'aktiv',
+        patientId: 'p2',
+        title: 'Blood pressure and medication review',
+        date: '2025-04-22',
+        content:
+          'Blood pressure measured at 148/92 mmHg, somewhat elevated. Amlodipine dose increased from 5 mg to 10 mg daily. Patient advised to reduce salt intake and increase physical activity. Follow-up in 4 weeks.',
+        status: 'active',
       },
       {
         id: 'j4',
-        pasientId: 'p2',
-        tittel: 'Notat: Pasientsamtale',
-        dato: '2025-05-02',
-        innhold: 'Kort samtale om livsstilsendringer.',
-        status: 'utkast',
+        patientId: 'p2',
+        title: 'Note: patient conversation',
+        date: '2025-05-02',
+        content: 'Brief conversation about lifestyle changes.',
+        status: 'draft',
       },
       {
         id: 'j5',
-        pasientId: 'p3',
-        tittel: 'Spirometriundersøkelse',
-        dato: '2025-03-15',
-        innhold:
-          'FEV1/FVC ratio: 0.72. Mild til moderat obstruksjon. Inhalasjonsteknikkopplæring gjennomgått. Pasienten fikk utdelt ny inhalator med spacer. Symptomene rapporteres som under god kontroll ved riktig bruk.',
-        status: 'avsluttet',
+        patientId: 'p3',
+        title: 'Spirometry test',
+        date: '2025-03-15',
+        content:
+          'FEV1/FVC ratio: 0.72. Mild to moderate obstruction. Inhaler technique reviewed. Patient issued new inhaler with spacer. Symptoms reported as well-controlled with correct use.',
+        status: 'closed',
       },
       {
         id: 'j6',
-        pasientId: 'p3',
-        tittel: 'Allergitest resultater',
-        dato: '2025-05-03',
-        innhold:
-          'Prikketesting viser positiv reaksjon for husstøvmidd og bjørkepollen. Antihistamin anbefalt i pollenesesong. Henvisning til allergolog sendt.',
-        status: 'aktiv',
+        patientId: 'p3',
+        title: 'Allergy test results',
+        date: '2025-05-03',
+        content:
+          'Skin prick testing positive for house dust mite and birch pollen. Antihistamine recommended during pollen season. Referral to allergist sent.',
+        status: 'active',
       },
       {
         id: 'j7',
-        pasientId: 'p4',
-        tittel: 'EKG og hjerteundersøkelse',
-        dato: '2025-04-05',
-        innhold:
-          'EKG viser sinusrytme uten tegn til akutt iskemi. Troponin T negativ x2. Pasienten rapporterer stabil angina pectoris med god effekt av nitrospray. Kolesterol kontrollert: LDL 2.1 mmol/L. Behandling videreføres.',
-        status: 'avsluttet',
+        patientId: 'p4',
+        title: 'ECG and cardiac evaluation',
+        date: '2025-04-05',
+        content:
+          'ECG shows sinus rhythm with no signs of acute ischemia. Troponin T negative x2. Patient reports stable angina pectoris with good response to nitrospray. Cholesterol controlled: LDL 2.1 mmol/L. Treatment continued.',
+        status: 'closed',
       },
       {
         id: 'j8',
-        pasientId: 'p5',
-        tittel: 'Leddstatus og inflammasjonsmarkører',
-        dato: '2025-04-28',
-        innhold:
-          'CRP: 18 mg/L (moderat forhøyet). DAS28 score: 3.8. Svelling i MCP-ledd bilateralt. Metotrexat dosen justert. Kalsium og vitamin D tilskudd gitt. Pasienten vil starte fysioterapi 2x ukentlig.',
-        status: 'aktiv',
+        patientId: 'p5',
+        title: 'Joint status and inflammation markers',
+        date: '2025-04-28',
+        content:
+          'CRP: 18 mg/L (moderately elevated). DAS28 score: 3.8. Bilateral MCP joint swelling. Methotrexate dose adjusted. Calcium and vitamin D supplements added. Patient will begin physiotherapy 2x weekly.',
+        status: 'active',
       },
       {
         id: 'j9',
-        pasientId: 'p6',
-        tittel: 'Nyrefunksjonstest eGFR',
-        dato: '2025-04-18',
-        innhold:
-          'eGFR: 28 mL/min/1.73m². Stadiet klassifiseres som CKD stadium 4. Pasienten er henvist til nefrolog for vurdering av dialysestart. Ernæringsrådgivning igangsatt. Strengt proteinholdige matvarer begrenses.',
-        status: 'aktiv',
+        patientId: 'p6',
+        title: 'Renal function test eGFR',
+        date: '2025-04-18',
+        content:
+          'eGFR: 28 mL/min/1.73m². Classified as CKD stage 4. Patient referred to nephrologist for evaluation of dialysis start. Nutritional counseling initiated. High-protein foods to be limited.',
+        status: 'active',
       },
     ])
     .run()

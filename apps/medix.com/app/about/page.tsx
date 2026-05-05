@@ -1,57 +1,58 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@klinikk/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 
-export default function OmOssPage() {
+export default function AboutPage() {
   return (
     <div className="py-16">
-      <h1 className="text-4xl font-bold tracking-tight mb-4">Om oss</h1>
+      <h1 className="text-4xl font-bold tracking-tight mb-4">About</h1>
       <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        Klinikk leverer journalsystem og helseplattform til sykehus over hele
+        Klinikk delivers journal systems and a healthcare platform for hospitals
+        across the country.
       </p>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-16">
         <Card>
           <CardHeader>
-            <CardTitle>Grunnlagt</CardTitle>
+            <CardTitle>Founded</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">1987</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              i Bodø, Norge
+              and still going
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Ansatte</CardTitle>
+            <CardTitle>Employees</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">600+</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              fordelt på flere kontorer
+              across multiple offices
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Sykehus</CardTitle>
+            <CardTitle>Hospitals</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">85%</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              av norske sykehus bruker Klinikk
+              of national hospitals run on Klinikk
             </p>
           </CardContent>
         </Card>
       </div>
 
       <section className="prose max-w-2xl">
-        <h2 className="text-2xl font-semibold mb-4">Vår misjon</h2>
+        <h2 className="text-2xl font-semibold mb-4">Our mission</h2>
         <p className="text-muted-foreground leading-relaxed">
-          Vi bygger digitale verktøy som gjør det enklere for klinikere å gi
-          god behandling. Pasientsikkerhet, brukervennlighet og kliniske
-          arbeidsflyter er kjernen i alt vi gjør.
+          We build digital tools that make it easier for clinicians to deliver
+          good care. Patient safety, usability, and clinical workflows are at
+          the heart of everything we do.
         </p>
       </section>
     </div>

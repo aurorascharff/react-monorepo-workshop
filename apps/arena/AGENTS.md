@@ -23,7 +23,7 @@ Reusable primitives belong in `packages/ui`, not here.
 2. Use `useMutation` + `queryClient.invalidateQueries` after mutations.
 3. Validate forms with a Zod schema wired through `zodResolver`.
 4. Wrap `useSuspenseQuery` callsites in a local `<Suspense>` and a contextual `<ErrorBoundary>`. The Layout-level boundary is the catch-all; targeted ones keep the shell visible.
-5. Import `StatusBadge`, `JournalStatus`, `Button`, `Card`, etc. from `@klinikk/ui`. Do not redefine them.
+5. Import `StatusBadge`, `JournalStatus`, `Button`, `Card`, etc. from `@medix/ui`. Do not redefine them.
 6. Compute derived state in render — do not store it in `useState` and sync via `useEffect`.
 
 ## Validation

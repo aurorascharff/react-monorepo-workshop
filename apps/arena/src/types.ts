@@ -1,18 +1,18 @@
-import type { JournalStatus } from '@klinikk/ui'
+import type { JournalStatus } from '@medix/ui'
 
-export type Pasient = {
+export type Patient = {
   id: string
-  navn: string
-  fodselsdato: string
-  kjonn: 'mann' | 'kvinne'
-  diagnose: string
+  name: string
+  dateOfBirth: string
+  gender: 'male' | 'female'
+  diagnosis: string
 }
 
-export type JournalOppforing = {
+export type Journal = {
   id: string
-  pasientId: string
-  tittel: string
-  dato: string
-  innhold: string
+  patientId: string
+  title: string
+  date: string
+  content: string
   status: JournalStatus
 }

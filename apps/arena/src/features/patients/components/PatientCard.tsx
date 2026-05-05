@@ -1,41 +1,41 @@
 import { Link } from 'react-router'
-import { Card, CardContent } from '@klinikk/ui'
-import type { Pasient } from '../../../types'
+import { Card, CardContent } from '@medix/ui'
+import type { Patient } from '../../../types'
 
 type PatientCardProps = {
-  pasient: Pasient
+  patient: Patient
 }
 
-export function PatientCard({ pasient }: PatientCardProps) {
-  const alder = beregnAlder(pasient.fodselsdato)
+export function PatientCard({ patient }: PatientCardProps) {
+  const age = calculateAge(patient.dateOfBirth)
 
   return (
-    <Link to={`/pasienter/${pasient.id}`} className="block text-inherit no-underline">
+    <Link to={`/patients/${patient.id}`} className="block text-inherit no-underline">
       <Card className="transition-shadow hover:shadow-md cursor-pointer">
         <CardContent className="p-4">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="font-semibold">{pasient.navn}</h3>
+              <h3 className="font-semibold">{patient.name}</h3>
               <p className="text-sm text-muted-foreground">
-                {alder} år · {pasient.kjonn === 'mann' ? 'Mann' : 'Kvinne'}
+                {age} years · {patient.gender === 'male' ? 'Male' : 'Female'}
               </p>
             </div>
-            <span className="text-xs text-muted-foreground">ID: {pasient.id}</span>
+            <span className="text-xs text-muted-foreground">ID: {patient.id}</span>
           </div>
-          <p className="mt-2 text-sm text-muted-foreground">{pasient.diagnose}</p>
+          <p className="mt-2 text-sm text-muted-foreground">{patient.diagnosis}</p>
         </CardContent>
       </Card>
     </Link>
   )
 }
 
-function beregnAlder(fodselsdato: string): number {
-  const fodt = new Date(fodselsdato)
-  const idag = new Date()
-  let alder = idag.getFullYear() - fodt.getFullYear()
-  const maned = idag.getMonth() - fodt.getMonth()
-  if (maned < 0 || (maned === 0 && idag.getDate() < fodt.getDate())) {
-    alder--
+function calculateAge(dateOfBirth: string): number {
+  const born = new Date(dateOfBirth)
+  const today = new Date()
+  let age = today.getFullYear() - born.getFullYear()
+  const month = today.getMonth() - born.getMonth()
+  if (month < 0 || (month === 0 && today.getDate() < born.getDate())) {
+    age--
   }
-  return alder
+  return age
 }

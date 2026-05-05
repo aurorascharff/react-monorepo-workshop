@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react'
-import { StatusBadge } from '@klinikk/ui'
+import { StatusBadge } from '@medix/ui'
 
 describe('StatusBadge', () => {
   it('renders the correct label for each status', () => {
-    const { rerender } = render(<StatusBadge status="aktiv" />)
-    expect(screen.getByText('Aktiv')).toBeInTheDocument()
+    const { rerender } = render(<StatusBadge status="active" />)
+    expect(screen.getByText('Active')).toBeInTheDocument()
 
-    rerender(<StatusBadge status="avsluttet" />)
-    expect(screen.getByText('Avsluttet')).toBeInTheDocument()
+    rerender(<StatusBadge status="closed" />)
+    expect(screen.getByText('Closed')).toBeInTheDocument()
 
-    rerender(<StatusBadge status="utkast" />)
-    expect(screen.getByText('Utkast')).toBeInTheDocument()
+    rerender(<StatusBadge status="draft" />)
+    expect(screen.getByText('Draft')).toBeInTheDocument()
   })
 })

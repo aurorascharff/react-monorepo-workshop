@@ -13,7 +13,7 @@
 
 ## Package Intent
 
-- `ui/` (`@klinikk/ui`) — shared design system
+- `ui/` (`@medix/ui`) — shared design system
   - `src/base/` — generic shadcn primitives (`Badge`, `Button`, `Card`, `Input`, `Label`, `Select`, `Textarea`)
   - `src/StatusBadge.tsx`, `src/types.ts`, etc. — domain wrappers and shared types built on top of `base/`
   - Two-layer pattern: apps consume domain wrappers; wrappers consume primitives. One mapping change updates every app.

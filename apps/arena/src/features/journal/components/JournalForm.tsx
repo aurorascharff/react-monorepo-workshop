@@ -2,29 +2,29 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Button, Input, Label, Textarea } from '@klinikk/ui'
-import { opprettJournal } from '../../../lib/api'
+import { Button, Input, Label, Textarea } from '@medix/ui'
+import { createJournal } from '../../../lib/api'
 
 const journalSchema = z.object({
-  tittel: z
+  title: z
     .string()
-    .min(1, 'Tittel er påkrevd')
-    .max(100, 'Tittel kan ikke være lengre enn 100 tegn'),
-  dato: z.string().min(1, 'Dato er påkrevd'),
-  innhold: z
+    .min(1, 'Title is required')
+    .max(100, 'Title cannot be longer than 100 characters'),
+  date: z.string().min(1, 'Date is required'),
+  content: z
     .string()
-    .min(10, 'Innhold må være minst 10 tegn')
-    .min(1, 'Innhold er påkrevd'),
+    .min(10, 'Content must be at least 10 characters')
+    .min(1, 'Content is required'),
 })
 
 type JournalFormData = z.infer<typeof journalSchema>
 
 type JournalFormProps = {
-  pasientId: string
+  patientId: string
   onSuccess?: () => void
 }
 
-export function JournalForm({ pasientId, onSuccess }: JournalFormProps) {
+export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
   const queryClient = useQueryClient()
 
   const {
@@ -37,9 +37,9 @@ export function JournalForm({ pasientId, onSuccess }: JournalFormProps) {
   })
 
   const { mutate, isPending, error } = useMutation({
-    mutationFn: (data: JournalFormData) => opprettJournal(pasientId, data),
+    mutationFn: (data: JournalFormData) => createJournal(patientId, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journals', pasientId] })
+      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
       reset()
       onSuccess?.()
     },
@@ -50,9 +50,7 @@ export function JournalForm({ pasientId, onSuccess }: JournalFormProps) {
       onSubmit={handleSubmit((data) => mutate(data))}
       className="rounded-lg border bg-card p-6"
     >
-      <h2 className="mb-4 text-lg font-semibold">
-        Ny journaloppføring
-      </h2>
+      <h2 className="mb-4 text-lg font-semibold">New journal entry</h2>
 
       {error && (
         <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
@@ -61,47 +59,47 @@ export function JournalForm({ pasientId, onSuccess }: JournalFormProps) {
       )}
 
       <div className="mb-4 space-y-1">
-        <Label htmlFor="tittel">Tittel</Label>
+        <Label htmlFor="title">Title</Label>
         <Input
-          id="tittel"
+          id="title"
           type="text"
-          {...register('tittel')}
-          placeholder="Kort beskrivelse av oppføringen"
+          {...register('title')}
+          placeholder="Short description of the entry"
         />
-        {errors.tittel && (
-          <p className="text-xs text-destructive">{errors.tittel.message}</p>
+        {errors.title && (
+          <p className="text-xs text-destructive">{errors.title.message}</p>
         )}
       </div>
 
       <div className="mb-4 space-y-1">
-        <Label htmlFor="dato">Dato</Label>
+        <Label htmlFor="date">Date</Label>
         <Input
-          id="dato"
+          id="date"
           type="date"
-          {...register('dato')}
+          {...register('date')}
           defaultValue={new Date().toISOString().slice(0, 10)}
           className="w-auto"
         />
-        {errors.dato && (
-          <p className="text-xs text-destructive">{errors.dato.message}</p>
+        {errors.date && (
+          <p className="text-xs text-destructive">{errors.date.message}</p>
         )}
       </div>
 
       <div className="mb-6 space-y-1">
-        <Label htmlFor="innhold">Innhold</Label>
+        <Label htmlFor="content">Content</Label>
         <Textarea
-          id="innhold"
+          id="content"
           rows={5}
-          {...register('innhold')}
-          placeholder="Kliniske observasjoner, tiltak og vurderinger..."
+          {...register('content')}
+          placeholder="Clinical observations, interventions, and assessments..."
         />
-        {errors.innhold && (
-          <p className="text-xs text-destructive">{errors.innhold.message}</p>
+        {errors.content && (
+          <p className="text-xs text-destructive">{errors.content.message}</p>
         )}
       </div>
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? 'Lagrer...' : 'Lagre oppføring'}
+        {isPending ? 'Saving...' : 'Save entry'}
       </Button>
     </form>
   )

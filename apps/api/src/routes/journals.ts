@@ -8,7 +8,7 @@ import {
   IdParam,
   JournalSchema,
   NewJournalSchema,
-  PasientIdParam,
+  PatientIdParam,
   UpdateStatusSchema,
 } from '../schemas'
 
@@ -16,10 +16,10 @@ export const journalsRouter = new OpenAPIHono()
 
 const listForPatientRoute = createRoute({
   method: 'get',
-  path: '/pasient/{pasientId}',
+  path: '/patient/{patientId}',
   tags: ['Journals'],
   summary: 'List journal entries for a patient',
-  request: { params: PasientIdParam },
+  request: { params: PatientIdParam },
   responses: {
     200: {
       content: { 'application/json': { schema: JournalSchema.array() } },
@@ -29,11 +29,11 @@ const listForPatientRoute = createRoute({
 })
 
 journalsRouter.openapi(listForPatientRoute, async (c) => {
-  const { pasientId } = c.req.valid('param')
+  const { patientId } = c.req.valid('param')
   const entries = await db
     .select()
     .from(journals)
-    .where(eq(journals.pasientId, pasientId))
+    .where(eq(journals.patientId, patientId))
   return c.json(entries, 200)
 })
 
@@ -71,11 +71,11 @@ journalsRouter.openapi(getRoute, async (c) => {
 
 const createRouteSpec = createRoute({
   method: 'post',
-  path: '/pasient/{pasientId}',
+  path: '/patient/{patientId}',
   tags: ['Journals'],
   summary: 'Create a new journal entry',
   request: {
-    params: PasientIdParam,
+    params: PatientIdParam,
     body: {
       content: { 'application/json': { schema: NewJournalSchema } },
     },
@@ -89,20 +89,20 @@ const createRouteSpec = createRoute({
 })
 
 journalsRouter.openapi(createRouteSpec, async (c) => {
-  const { pasientId } = c.req.valid('param')
+  const { patientId } = c.req.valid('param')
   const body = c.req.valid('json')
 
-  const ny = {
+  const entry = {
     id: randomUUID(),
-    pasientId,
-    tittel: body.tittel,
-    dato: body.dato,
-    innhold: body.innhold,
-    status: 'utkast' as const,
+    patientId,
+    title: body.title,
+    date: body.date,
+    content: body.content,
+    status: 'draft' as const,
   }
 
-  await db.insert(journals).values(ny)
-  return c.json(ny, 201)
+  await db.insert(journals).values(entry)
+  return c.json(entry, 201)
 })
 
 const updateStatusRoute = createRoute({

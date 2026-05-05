@@ -1,4 +1,4 @@
-# Klinikk Arena — React Monorepo Workshop
+# Medix Arena — React Monorepo Workshop
 
 A full-stack monorepo workshop teaching modern client-side React patterns. The codebase is a fictional healthcare journal system ("Klinikk"), but the patterns — monorepo layout, shared UI, TanStack Query, RHF + Zod, error and suspense boundaries — are domain-agnostic and reusable for any web workshop.
 
@@ -19,7 +19,7 @@ apps/
   api/          — Hono REST API (pre-written, OpenAPI + Scalar docs)
   klinikk.no/   — Next.js public marketing site
 packages/
-  ui/           — Shared design system (`@klinikk/ui`)
+  ui/           — Shared design system (`@medix/ui`)
 ```
 
 ## Getting started
@@ -27,8 +27,8 @@ packages/
 **Requirements:** Node.js v20+
 
 ```bash
-git clone https://github.com/aurorascharff/klinikk-workshop.git
-cd klinikk-workshop
+git clone https://github.com/aurorascharff/medix-workshop.git
+cd medix-workshop
 npm install
 npm run db:seed
 npm run dev
@@ -57,7 +57,7 @@ npm run db:seed       # Reset database to seed data
 
 ## AI
 
-Includes nested `AGENTS.md` files (root + `apps/`, `apps/arena/`, `apps/api/`, `apps/klinikk.no/`, `packages/`) that scope context to each boundary. Read the nearest `AGENTS.md` before editing.
+Includes nested `AGENTS.md` files (root + `apps/`, `apps/arena/`, `apps/api/`, `apps/medix.com/`, `packages/`) that scope context to each boundary. Read the nearest `AGENTS.md` before editing.
 
 GitHub Copilot is configured via `.github/copilot-instructions.md`, and the [`vercel-react-best-practices`](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices) skill is available as `/react-best-practices` in Copilot Chat.
 

@@ -6,32 +6,32 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@klinikk/ui'
-import type { JournalOppforing } from '../../../types'
-import type { JournalStatus } from '@klinikk/ui'
+} from '@medix/ui'
+import type { Journal } from '../../../types'
+import type { JournalStatus } from '@medix/ui'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { oppdaterJournalStatus } from '../../../lib/api'
+import { updateJournalStatus } from '../../../lib/api'
 
 type JournalEntryProps = {
-  oppforing: JournalOppforing
-  pasientId: string
+  entry: Journal
+  patientId: string
 }
 
-const statusValg: { value: JournalStatus; label: string }[] = [
-  { value: 'utkast', label: 'Utkast' },
-  { value: 'aktiv', label: 'Aktiv' },
-  { value: 'avsluttet', label: 'Avsluttet' },
+const statusOptions: { value: JournalStatus; label: string }[] = [
+  { value: 'draft', label: 'Draft' },
+  { value: 'active', label: 'Active' },
+  { value: 'closed', label: 'Closed' },
 ]
 
-export function JournalEntry({ oppforing, pasientId }: JournalEntryProps) {
+export function JournalEntry({ entry, patientId }: JournalEntryProps) {
   const queryClient = useQueryClient()
 
   const { mutate, isPending } = useMutation({
     mutationFn: (status: JournalStatus) =>
-      oppdaterJournalStatus(oppforing.id, status),
+      updateJournalStatus(entry.id, status),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['journals', pasientId],
+        queryKey: ['journals', patientId],
       })
     },
   })
@@ -42,15 +42,15 @@ export function JournalEntry({ oppforing, pasientId }: JournalEntryProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold leading-none tracking-tight">
-              {oppforing.tittel}
+              {entry.title}
             </h3>
             <p className="text-sm text-muted-foreground mt-1">
-              {formaterDato(oppforing.dato)}
+              {formatDate(entry.date)}
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <Select
-              value={oppforing.status}
+              value={entry.status}
               disabled={isPending}
               onValueChange={(value) => mutate(value as JournalStatus)}
             >
@@ -58,7 +58,7 @@ export function JournalEntry({ oppforing, pasientId }: JournalEntryProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {statusValg.map((s) => (
+                {statusOptions.map((s) => (
                   <SelectItem key={s.value} value={s.value}>
                     {s.label}
                   </SelectItem>
@@ -68,15 +68,15 @@ export function JournalEntry({ oppforing, pasientId }: JournalEntryProps) {
           </div>
         </div>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          {oppforing.innhold}
+          {entry.content}
         </p>
       </CardContent>
     </Card>
   )
 }
 
-function formaterDato(dato: string): string {
-  return new Date(dato).toLocaleDateString('nb-NO', {
+function formatDate(date: string): string {
+  return new Date(date).toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

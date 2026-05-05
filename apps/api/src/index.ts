@@ -23,8 +23,8 @@ app.doc('/openapi.json', {
   openapi: '3.1.0',
   info: {
     version: '1.0.0',
-    title: 'Klinikk Workshop API',
-    description: 'Patient and journal endpoints for the Klinikk Arena workshop.',
+    title: 'Medix Workshop API',
+    description: 'Patient and journal endpoints for the Medix Arena workshop.',
   },
 })
 
@@ -32,7 +32,7 @@ app.get(
   '/',
   Scalar({
     url: '/openapi.json',
-    pageTitle: 'Klinikk API',
+    pageTitle: 'Medix API',
     theme: 'default',
   }),
 )

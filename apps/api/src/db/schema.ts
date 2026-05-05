@@ -1,22 +1,22 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const patients = sqliteTable('patients', {
   id: text('id').primaryKey(),
-  navn: text('navn').notNull(),
-  fodselsdato: text('fodselsdato').notNull(),
-  kjonn: text('kjonn', { enum: ['mann', 'kvinne'] }).notNull(),
-  diagnose: text('diagnose').notNull(),
+  name: text('name').notNull(),
+  dateOfBirth: text('date_of_birth').notNull(),
+  gender: text('gender', { enum: ['male', 'female'] }).notNull(),
+  diagnosis: text('diagnosis').notNull(),
 })
 
 export const journals = sqliteTable('journals', {
   id: text('id').primaryKey(),
-  pasientId: text('pasient_id')
+  patientId: text('patient_id')
     .notNull()
     .references(() => patients.id),
-  tittel: text('tittel').notNull(),
-  dato: text('dato').notNull(),
-  innhold: text('innhold').notNull(),
+  title: text('title').notNull(),
+  date: text('date').notNull(),
+  content: text('content').notNull(),
   status: text('status', {
-    enum: ['aktiv', 'avsluttet', 'utkast'],
+    enum: ['active', 'closed', 'draft'],
   }).notNull(),
 })

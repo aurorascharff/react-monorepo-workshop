@@ -48,8 +48,8 @@ Participants work inside a realistic Turborepo monorepo containing an SPA, a Nex
 
 **Repos:**
 
-- `klinikk-workshop` — finished solution (built first)
-- `klinikk-workshop-starter` — participant starting point (derived from the finished version by introducing deliberate bugs and TODOs)
+- `medix-workshop` — finished solution (built first)
+- `medix-workshop-starter` — participant starting point (derived from the finished version by introducing deliberate bugs and TODOs)
 
 > The codebase uses fictional names (**Klinikk**, **Arena**) instead of real product names so the material is reusable as a generic monorepo React workshop.
 
@@ -61,7 +61,7 @@ apps/
   api/          ← Hono API (pre-written, OpenAPI + Scalar docs at /)
   klinikk.no/   ← Next.js (marketing site — SSR, SEO, static content)
 packages/
-  ui/           ← shared component library (`@klinikk/ui`, shadcn base + custom)
+  ui/           ← shared component library (`@medix/ui`, shadcn base + custom)
 ```
 
 `turbo dev` starts every app in parallel. The API is pre-written — participants don't need to touch it, but they're free to read it. The SQLite file ships in the repo with seed data (patients, journal entries). The API exposes an interactive docs UI (Scalar) at its root URL, so participants can explore the endpoints visually.
@@ -129,12 +129,12 @@ _Format: Demo + codealong_
   - Show `src/db/schema.ts` — Drizzle schema, two tables: `patients` and `journals`
   - `npm run db:seed` resets to the original seed data if anything goes wrong
   - Open `http://localhost:3001/` — Scalar docs UI, click through the endpoints live
-- `apps/klinikk.no/` — Next.js marketing site, consumes `packages/ui`
+- `apps/medix.com/` — Next.js marketing site, consumes `packages/ui`
   - Brief: this is here to demonstrate the SPA vs server-side rendering contrast — we come back to it in Module 2
-- `packages/ui/` — shared component library (`@klinikk/ui`)
+- `packages/ui/` — shared component library (`@medix/ui`)
   - Show `src/base/` — generic shadcn primitives (`Badge`, `Button`, `Card`, `Input`, `Label`, `Select`, `Textarea`) imported via the shadcn CLI
   - Show `src/StatusBadge.tsx` — domain-specific wrapper around `<Badge>` that maps `JournalStatus` to color and label
-  - Exported via `src/index.ts`. Both apps import from `@klinikk/ui` — change one place, both apps update
+  - Exported via `src/index.ts`. Both apps import from `@medix/ui` — change one place, both apps update
   - We build on this in Module 1
 
 ### 10:15 — Module 1: Architecture & Reuse
@@ -159,7 +159,7 @@ _Fix it: Structure_
 _Build it: Reuse_
 
 4. Look at `packages/ui/src/base/` — generic shadcn primitives (`Badge`, `Button`, `Card`, `Input`, `Select`)
-5. Build a domain-specific `<StatusBadge>` that wraps `<Badge>` from base and maps `JournalStatus` (`aktiv` / `avsluttet` / `utkast`) to the right variant and label — place it in `packages/ui/src/StatusBadge.tsx`
+5. Build a domain-specific `<StatusBadge>` that wraps `<Badge>` from base and maps `JournalStatus` (`active` / `closed` / `draft`) to the right variant and label — place it in `packages/ui/src/StatusBadge.tsx`
 6. Export it from `packages/ui/src/index.ts`
 7. Import and use it in both `arena` and `klinikk.no` — change one status color and watch both apps update
 
@@ -167,7 +167,7 @@ _Build it: Reuse_
 
 **Walkthrough (10 min):** Live-code the solution, show the component used in both apps
 
-- _Two-layer component library:_ `base/` is generic shadcn primitives (`Badge`, `Button`, `Card`...) — the foundation. On top we build domain-specific wrappers like `<StatusBadge>` that know the business logic (`aktiv` → green). Apps consume the wrappers, not the primitives directly when a domain concept exists — one mapping change updates the entire system.
+- _Two-layer component library:_ `base/` is generic shadcn primitives (`Badge`, `Button`, `Card`...) — the foundation. On top we build domain-specific wrappers like `<StatusBadge>` that know the business logic (`active` → green). Apps consume the wrappers, not the primitives directly when a domain concept exists — one mapping change updates the entire system.
 - _Component library:_ One source of truth, used everywhere — change one color and both apps update. WPF analogy: `ResourceDictionary` / `Style`. Doesn't need to be published to npm — workspace packages are enough.
 - _Why not write everything yourself?_ Accessibility is legally required in healthcare and genuinely hard: a correct `<Dialog>` needs focus trap, `aria-modal`, scroll lock, Escape handling. Most large companies have an internal design system that handles this — figure out what it's built on (Radix, React Aria, headless libraries) and build on top of that instead of writing primitives yourself.
 
@@ -186,15 +186,15 @@ _Format: Fix it + demo_
 1. Wrap the app in `<BrowserRouter>` in `main.tsx`
 2. Define routes with `<Routes>` and `<Route>` in a dedicated `AppRoutes` component:
    - `/` — dashboard
-   - `/pasienter` — patient list
-   - `/pasienter/:id` — patient detail
+   - `/patients` — patient list
+   - `/patients/:id` — patient detail
 3. Use a shared `<Layout>` with `<Outlet>` as the parent route
 4. Replace hardcoded `<a href>` links with `<Link>` and `<NavLink>` in the sidebar
 5. Read `:id` with `useParams` in the patient detail page and use it to fetch the right patient
 
 **Group discussion (10 min):** What's the difference between an SPA router and file-based routing in a framework?
 
-**Walkthrough + demo (10 min):** Live-code the solution, open `apps/klinikk.no/` — show the `app/` structure, `page.tsx`, `loading.tsx`, `layout.tsx`. _"What's the same? What's different? And why does Next.js fit this app better than Arena?"_
+**Walkthrough + demo (10 min):** Live-code the solution, open `apps/medix.com/` — show the `app/` structure, `page.tsx`, `loading.tsx`, `layout.tsx`. _"What's the same? What's different? And why does Next.js fit this app better than Arena?"_
 
 ### 12:00 — Lunch
 
@@ -278,13 +278,13 @@ _Format: Slides_
 
 ## Remaining work
 
-- [x] Build the finished version (`klinikk-workshop`): monorepo with `apps/arena/`, `apps/api/`, `apps/klinikk.no/`, `packages/ui/`
+- [x] Build the finished version (`medix-workshop`): monorepo with `apps/arena/`, `apps/api/`, `apps/medix.com/`, `packages/ui/`
 - [x] Write the Hono API with patient and journal endpoints (OpenAPI + Scalar docs)
 - [x] Set up SQLite + Drizzle with seed data + `npm run db:seed` reset script
 - [x] Configure ESLint, Prettier, `copilot-instructions.md` in the finished version
 - [x] Set up Vitest + RTL pre-configured (not used today, but ready)
 - [x] Verify `turbo dev` works on a fresh clone (macOS — and Windows if relevant)
-- [ ] Build the starter version (`klinikk-workshop-starter`): introduce deliberate bugs and TODOs per module
+- [ ] Build the starter version (`medix-workshop-starter`): introduce deliberate bugs and TODOs per module
 - [x] Write task descriptions — see [tasks.md](tasks.md)
 - [ ] Build slides (intro, module intros, wrap-up)
 - [ ] Solo dry-run of the entire workshop

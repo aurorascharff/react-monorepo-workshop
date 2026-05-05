@@ -1,37 +1,29 @@
-import { useQuery } from '@tanstack/react-query'
-import { hentJournaler } from '../../../lib/api'
+import { useJournals } from '../hooks/useJournals'
 import { JournalEntry } from './JournalEntry'
 import { Spinner } from '../../../components/Spinner'
 import { ErrorBoundary } from '../../../components/ErrorBoundary'
 
 type JournalListProps = {
-  pasientId: string
+  patientId: string
 }
 
-export function JournalList({ pasientId }: JournalListProps) {
-  const {
-    data: journaler,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['journals', pasientId],
-    queryFn: () => hentJournaler(pasientId),
-  })
+export function JournalList({ patientId }: JournalListProps) {
+  const { data: entries, isLoading, error } = useJournals(patientId)
 
   if (isLoading) return <Spinner />
 
   if (error) {
     return (
       <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive text-sm">
-        Kunne ikke laste journaler: {error.message}
+        Failed to load journal entries: {error.message}
       </div>
     )
   }
 
-  if (!journaler || journaler.length === 0) {
+  if (!entries || entries.length === 0) {
     return (
       <p className="text-center text-muted-foreground py-8">
-        Ingen journaloppføringer ennå
+        No journal entries yet
       </p>
     )
   }
@@ -39,11 +31,11 @@ export function JournalList({ pasientId }: JournalListProps) {
   return (
     <ErrorBoundary>
       <div className="flex flex-col gap-3">
-        {journaler.map((oppforing) => (
+        {entries.map((entry) => (
           <JournalEntry
-            key={oppforing.id}
-            oppforing={oppforing}
-            pasientId={pasientId}
+            key={entry.id}
+            entry={entry}
+            patientId={patientId}
           />
         ))}
       </div>

@@ -1,7 +1,7 @@
 # Module Tasks
 
-All tasks happen in `apps/arena/`, starting from the `klinikk-workshop-starter` codebase.  
-Reference solution lives in `klinikk-workshop` (the finished version).
+All tasks happen in `apps/arena/`, starting from the `medix-workshop-starter` codebase.  
+Reference solution lives in `medix-workshop` (the finished version).
 
 > Step-by-step instructions live in [plan.md](plan.md).  
 > This file describes the **goal** for each module — _what_ should be true when you're done, not the steps to get there.

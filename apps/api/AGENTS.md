@@ -17,7 +17,7 @@
 
 1. Routes are defined with `createRoute({ method, path, request, responses })` and registered with `app.openapi(route, handler)`. New endpoints must follow the same pattern so the OpenAPI spec stays accurate.
 2. All request/response shapes go through Zod schemas in `src/schemas.ts`. Do not inline ad-hoc shapes in handlers.
-3. Validation messages and OpenAPI text are in **English**. Domain field names (`pasientId`, `tittel`, `fodselsdato`, status enum) stay Norwegian to match the shared domain model.
+3. Validation messages, OpenAPI text, and domain field names are all in **English** (`patientId`, `title`, `dateOfBirth`, status enum `active`/`closed`/`draft`).
 4. Use `c.req.valid('param' | 'json')` to read validated input. Never read `c.req.raw` directly when a schema exists.
 5. Server-side validation is the security boundary; client validation is for UX.
 
@@ -27,8 +27,8 @@
 | ------ | ------------------------------- |
 | GET    | `/patients`                     |
 | GET    | `/patients/{id}`                |
-| GET    | `/journals/pasient/{pasientId}` |
-| POST   | `/journals/pasient/{pasientId}` |
+| GET    | `/journals/patient/{patientId}` |
+| POST   | `/journals/patient/{patientId}` |
 | PATCH  | `/journals/{id}/status`         |
 
 Interactive docs: `http://localhost:3001/`

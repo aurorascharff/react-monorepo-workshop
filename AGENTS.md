@@ -11,7 +11,7 @@ A modern React monorepo workshop. The codebase is a fictional healthcare journal
 2. Stay inside the correct boundary:
    - `apps/arena/` — React Router v7 SPA (the workshop app)
    - `apps/api/` — Hono API, pre-written, do not modify
-   - `apps/klinikk.no/` — Next.js marketing site
+   - `apps/medix.com/` — Next.js marketing site
    - `packages/ui/` — shared component library
 3. Do not duplicate UI, types, or domain logic across apps — move shared code to `packages/`.
 4. Workshop materials: [plan.md](plan.md) (how the day runs), [tasks.md](tasks.md) (module goals).
@@ -24,7 +24,7 @@ apps/
   api/           Hono + Drizzle + SQLite (pre-written)
   klinikk.no/    Next.js public marketing site
 packages/
-  ui/            Shared design system (`@klinikk/ui`)
+  ui/            Shared design system (`@medix/ui`)
 ```
 
 ## Tech Stack
@@ -42,11 +42,11 @@ packages/
 
 A fictional EHR ("electronic health record") used purely as a teaching domain.
 
-- **Pasient**: `id`, `navn`, `fodselsdato`, `kjonn` (`'mann' | 'kvinne'`), `diagnose`
-- **JournalOppforing**: `id`, `pasientId`, `tittel`, `dato`, `innhold`, `status`
-- **JournalStatus**: `'aktiv' | 'avsluttet' | 'utkast'` — imported from `@klinikk/ui`
+- **Patient**: `id`, `name`, `dateOfBirth`, `gender` (`'male' | 'female'`), `diagnosis`
+- **Journal**: `id`, `patientId`, `title`, `date`, `content`, `status`
+- **JournalStatus**: `'active' | 'closed' | 'draft'` — imported from `@medix/ui`
 
-Norwegian field names are intentional (the workshop is run in Norwegian); the patterns themselves are language-agnostic.
+The healthcare framing is teaching context only — the underlying patterns (monorepo, shared UI, data fetching, forms) are domain-agnostic.
 
 ## Workshop Context
 
@@ -59,6 +59,6 @@ For React best practices and patterns, use the `/react-best-practices` skill.
 - [apps/AGENTS.md](apps/AGENTS.md) — multi-app boundaries
 - [apps/arena/AGENTS.md](apps/arena/AGENTS.md) — SPA implementation
 - [apps/api/AGENTS.md](apps/api/AGENTS.md) — Hono API (read-only for workshop)
-- [apps/klinikk.no/AGENTS.md](apps/klinikk.no/AGENTS.md) — Next.js marketing
+- [apps/medix.com/AGENTS.md](apps/medix.com/AGENTS.md) — Next.js marketing
 - [packages/AGENTS.md](packages/AGENTS.md) — shared packages
 - [.github/AGENTS.md](.github/AGENTS.md) — CI/CD workflows and Copilot config

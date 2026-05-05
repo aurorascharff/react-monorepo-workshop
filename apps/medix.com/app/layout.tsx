@@ -4,16 +4,16 @@ import { Activity } from 'lucide-react'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Klinikk – Helseteknologi for norske sykehus',
+  title: 'Klinikk – Health technology for modern hospitals',
   description:
-    'Klinikk leverer journalsystem og helseplattform til norske sykehus',
+    'Klinikk delivers journal systems and a healthcare platform for hospitals',
 }
 
 const navLinks = [
-  { href: '/produkter', label: 'Produkter' },
-  { href: '/kunder', label: 'Kunder' },
-  { href: '/om-oss', label: 'Om oss' },
-  { href: '/kontakt', label: 'Kontakt' },
+  { href: '/products', label: 'Products' },
+  { href: '/customers', label: 'Customers' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="nb">
+    <html lang="en">
       <body className="bg-background text-foreground min-h-screen flex flex-col">
         <header className="border-b bg-background/80 backdrop-blur sticky top-0 z-50">
           <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
@@ -62,63 +62,63 @@ export default function RootLayout({
                 Klinikk
               </Link>
               <p className="mt-3 text-sm text-muted-foreground">
-                Helseteknologi for norske sykehus.
+                Health technology for modern hospitals.
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold mb-3">Selskapet</h3>
+              <h3 className="text-sm font-semibold mb-3">Company</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
                   <Link
-                    href="/om-oss"
+                    href="/about"
                     className="hover:text-foreground transition-colors"
                   >
-                    Om oss
+                    About
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/kontakt"
+                    href="/contact"
                     className="hover:text-foreground transition-colors"
                   >
-                    Kontakt
+                    Contact
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold mb-3">Løsninger</h3>
+              <h3 className="text-sm font-semibold mb-3">Solutions</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
                   <Link
-                    href="/produkter"
+                    href="/products"
                     className="hover:text-foreground transition-colors"
                   >
-                    Produkter
+                    Products
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/kunder"
+                    href="/customers"
                     className="hover:text-foreground transition-colors"
                   >
-                    Kunder
+                    Customers
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold mb-3">Kontakt</h3>
+              <h3 className="text-sm font-semibold mb-3">Contact</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>kontakt@klinikk.no</li>
-                <li>+47 12 34 56 78</li>
-                <li>Oslo, Norge</li>
+                <li>contact@klinikk.example</li>
+                <li>+1 555 123 4567</li>
+                <li>Remote-first</li>
               </ul>
             </div>
           </div>
           <div className="border-t">
             <div className="mx-auto max-w-7xl px-6 py-4 text-sm text-muted-foreground">
-              © 2026 Klinikk AS
+              © 2026 Klinikk
             </div>
           </div>
         </footer>
@@ -126,4 +126,3 @@ export default function RootLayout({
     </html>
   )
 }
-

@@ -1,11 +1,11 @@
 import { NavLink, Outlet } from 'react-router'
 import { Activity, AlertTriangle, LayoutDashboard, Users } from 'lucide-react'
-import { Button, cn } from '@klinikk/ui'
+import { Button, cn } from '@medix/ui'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 
 const navLinks = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/pasienter', label: 'Pasientliste', icon: Users },
+  { to: '/patients', label: 'Patients', icon: Users },
 ]
 
 export function Layout() {
@@ -17,9 +17,9 @@ export function Layout() {
             <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <Activity className="h-4 w-4" />
             </div>
-            <h1 className="text-xl font-bold tracking-tight">Klinikk Arena</h1>
+            <h1 className="text-xl font-bold tracking-tight">Medix Arena</h1>
           </div>
-          <p className="text-muted-foreground text-sm mt-2">Journalsystem</p>
+          <p className="text-muted-foreground text-sm mt-2">Journal system</p>
         </div>
         <nav className="p-3 flex flex-col gap-1">
           {navLinks.map(({ to, label, icon: Icon, end }) => (
@@ -50,7 +50,7 @@ export function Layout() {
               <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <Activity className="h-4 w-4" />
               </div>
-              <span className="font-bold tracking-tight">Klinikk Arena</span>
+              <span className="font-bold tracking-tight">Medix Arena</span>
             </div>
             <nav className="flex items-center gap-1">
               {navLinks.map(({ to, label, icon: Icon, end }) => (
@@ -81,12 +81,12 @@ export function Layout() {
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10 text-destructive">
                   <AlertTriangle className="h-6 w-6" />
                 </div>
-                <h2 className="text-lg font-semibold">Noe gikk galt</h2>
+                <h2 className="text-lg font-semibold">Something went wrong</h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {error.message}
                 </p>
                 <Button onClick={reset} className="mt-4">
-                  Prøv igjen
+                  Try again
                 </Button>
               </div>
             )}
