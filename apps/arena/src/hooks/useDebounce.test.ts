@@ -1,38 +1,14 @@
-import { act, renderHook } from '@testing-library/react'
-import { useDebounce } from './useDebounce'
+// Reference test for Module 3.
+//
+// The real test lives on `main` and exercises the `useDebounce` hook you
+// build alongside `usePatientFilter`. It can't run on the starter because
+// `./useDebounce` doesn't exist yet — importing it here would crash the
+// test runner.
+//
+// When you finish Module 3, copy the test body from:
+// https://github.com/aurorascharff/react-monorepo-workshop/blob/main/apps/arena/src/hooks/useDebounce.test.ts
 
-describe('useDebounce', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-  })
-
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
-  it('returns the initial value immediately', () => {
-    const { result } = renderHook(() => useDebounce('hello', 300))
-    expect(result.current).toBe('hello')
-  })
-
-  it('updates only after the delay has elapsed', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 300),
-      { initialProps: { value: 'a' } },
-    )
-
-    rerender({ value: 'ab' })
-    rerender({ value: 'abc' })
-    expect(result.current).toBe('a')
-
-    act(() => {
-      vi.advanceTimersByTime(299)
-    })
-    expect(result.current).toBe('a')
-
-    act(() => {
-      vi.advanceTimersByTime(1)
-    })
-    expect(result.current).toBe('abc')
-  })
+describe.skip('useDebounce (Module 3)', () => {
+  it.todo('returns the initial value immediately')
+  it.todo('updates only after the delay has elapsed')
 })

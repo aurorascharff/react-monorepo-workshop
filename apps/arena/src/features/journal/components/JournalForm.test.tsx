@@ -1,41 +1,15 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import type { ReactNode } from 'react'
-import { JournalForm } from './JournalForm'
+// Reference test for Module 5 (extracted in Module 1).
+//
+// The real test lives on `main` and exercises validation in `<JournalForm>`
+// after it has been wired up to React Hook Form + Zod. It can't run on the
+// starter because `JournalForm.tsx` doesn't exist at this path yet — the
+// form is still inlined in `apps/arena/src/PatientPage.tsx`, and importing
+// `./JournalForm` here would crash the test runner.
+//
+// When you finish Module 5, copy the test body from:
+// https://github.com/aurorascharff/react-monorepo-workshop/blob/main/apps/arena/src/features/journal/components/JournalForm.test.tsx
 
-function renderWithClient(ui: ReactNode) {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
-  })
-  return render(
-    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>,
-  )
-}
-
-describe('JournalForm', () => {
-  it('shows validation errors when required fields are missing', async () => {
-    const user = userEvent.setup()
-    renderWithClient(<JournalForm patientId="p-1" />)
-
-    await user.click(screen.getByRole('button', { name: /save entry/i }))
-
-    expect(await screen.findByText(/title is required/i)).toBeInTheDocument()
-    expect(
-      screen.getByText(/content must be at least 10 characters/i),
-    ).toBeInTheDocument()
-  })
-
-  it('shows a length error when content is too short', async () => {
-    const user = userEvent.setup()
-    renderWithClient(<JournalForm patientId="p-1" />)
-
-    await user.type(screen.getByLabelText(/title/i), 'Quick check-in')
-    await user.type(screen.getByLabelText(/content/i), 'short')
-    await user.click(screen.getByRole('button', { name: /save entry/i }))
-
-    expect(
-      await screen.findByText(/content must be at least 10 characters/i),
-    ).toBeInTheDocument()
-  })
+describe.skip('JournalForm (Module 5)', () => {
+  it.todo('shows validation errors when required fields are missing')
+  it.todo('shows a length error when content is too short')
 })
