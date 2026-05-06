@@ -75,3 +75,14 @@ GitHub Actions runs `lint`, `typecheck`, `test`, and `build` on every push and p
 
 - [plan.md](plan.md) — day-of agenda, theory, and demos
 - [tasks.md](tasks.md) — module goals and acceptance criteria
+
+## Reading & references
+
+If you're new to React (or coming from a strongly typed UI background like WPF/MVVM), these are the highest-leverage reads. They map directly to what we do today.
+
+### Foundations
+
+- [Thinking in React](https://react.dev/learn/thinking-in-react) — how to break a UI into components and decide where state lives
+- [Describing the UI](https://react.dev/learn/describing-the-ui) — JSX, components, props
+- [State: A Component's Memory](https://react.dev/learn/state-a-components-memory) — how `useState` works, and what it isn't
+- [Rules of React](https://react.dev/reference/rules) — purity, idempotency, and why React components aren't classes
