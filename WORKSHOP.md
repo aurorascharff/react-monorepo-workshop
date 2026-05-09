@@ -22,9 +22,13 @@ Each module follows the same loop:
 2. Participants work through the task in the app.
 3. The group discusses what they tried and where they got stuck.
 4. The instructor live-codes the solution using the matching `step-notes/stepN.md`.
-5. Everyone gets a moment to catch up before the next module.
+5. The instructor runs the relevant checks, commits, and pushes the module solution.
+6. Participants get a recovery path: they can keep their own work, or discard local changes and run `git pull` to use the pushed solution.
+7. Everyone gets a moment to catch up before the next module.
 
 Keep the workshop conversational. Ask the room what they notice before explaining the answer.
+
+The participant task list lives in [`EXERCISES.md`](EXERCISES.md). The run sheet should point there instead of repeating the task steps, so updates only need to happen in one place.
 
 ## Schedule
 

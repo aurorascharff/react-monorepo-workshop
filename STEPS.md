@@ -1,34 +1,10 @@
 # Workshop Run Sheet
 
-Use this file during the workshop. It tells you what mode you are in, what to show, what to say, what task to give, and when to switch to the code walkthrough.
+Use this file during the workshop. It tells you what to show, what to say, what task to give, and when to switch to the code walkthrough.
 
 Use [`WORKSHOP.md`](WORKSHOP.md) for the stable schedule and module goals. Use [`INSTRUCTOR.md`](INSTRUCTOR.md) for screen setup and room reminders. Use [`step-notes`](step-notes) only when you are live coding the solution.
 
 Participant tasks live in [`EXERCISES.md`](EXERCISES.md), not in code comments. For each task, show the matching module in that file and the starting code it refers to.
-
-## Mode Key
-
-| Mode         | What happens                                                 |
-| ------------ | ------------------------------------------------------------ |
-| `SLIDES`     | Explain the concept with slides.                             |
-| `SHOW APP`   | Switch to browser or VS Code to show the current problem.    |
-| `TASK`       | Participants work. You walk around.                          |
-| `DISCUSS`    | Run a group discussion about what they tried and noticed.    |
-| `CODE`       | Live-code the solution using `step-notes/stepN.md`.          |
-| `CHECKPOINT` | Run checks, commit, push, and give the recovery instruction. |
-| `BREAK`      | Stop and reset.                                              |
-
-## Module Flow
-
-Each module follows the same loop:
-
-1. Explain the problem with slides.
-2. Show the starting code and the matching module in `EXERCISES.md`.
-3. Let participants try the task.
-4. Run a group discussion about what they tried, what was unclear, and which tradeoffs came up.
-5. Live-code your solution while they watch and answer questions.
-6. Run checks, commit, and push.
-7. Tell them how to switch to your solution if they prefer it.
 
 At the end of each module, say:
 
@@ -37,8 +13,6 @@ If you prefer my solution to what you wrote, you can discard your local changes 
 ## 09:00 Intro
 
 ### SLIDES
-
-Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -76,8 +50,6 @@ Listen for:
 
 ### SLIDES
 
-Slide link: add when the deck exists.
-
 Slide should include:
 
 - Who is in the room?
@@ -114,8 +86,6 @@ I ask this because the examples are the same, but the way I explain them can cha
 ## 09:30 Setup
 
 ### SLIDES
-
-Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -179,8 +149,6 @@ Listen for:
 
 ### SLIDES
 
-Slide link: add when the deck exists.
-
 Slide should include:
 
 - Module title: Architecture and Reuse.
@@ -219,13 +187,6 @@ Task prompt:
 
 Work through Module 1 in `EXERCISES.md`.
 
-1. Split the large patient page into focused components.
-2. Move the app shell into a layout.
-3. Add an error boundary around the main content.
-4. Create `StatusBadge` in `packages/ui`.
-5. Export `StatusBadge` and `JournalStatus` from `packages/ui`.
-6. Use `StatusBadge` in Arena and medix.com.
-
 While they work, listen for:
 
 - where they put components
@@ -234,8 +195,6 @@ While they work, listen for:
 - whether the error boundary wraps the right part of the UI
 
 ### DISCUSS
-
-Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on what groups tried, where they got stuck, and which structure choices came up more than once.
 
@@ -265,15 +224,9 @@ npm test --workspace=apps/arena -- --run
 
 Commit and push the module.
 
-Say:
-
-If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-
 ## 11:15 Module 2: Routing
 
 ### SLIDES
-
-Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -314,14 +267,6 @@ Task prompt:
 
 Work through Module 2 in `EXERCISES.md`.
 
-1. Wrap the app in `BrowserRouter`.
-2. Create route definitions for dashboard, patients, and patient detail.
-3. Use `Layout` and `Outlet` for the shared shell.
-4. Replace local-state navigation with `Link` and `NavLink`.
-5. Create route-level pages.
-6. Link each patient to `/patients/:id`.
-7. Read the patient id with `useParams`.
-
 While they work, listen for:
 
 - links versus buttons
@@ -330,8 +275,6 @@ While they work, listen for:
 - how route params flow into page code
 
 ### DISCUSS
-
-Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on what changed when people moved from local state to routes, and which routing concepts felt unclear.
 
@@ -366,10 +309,6 @@ npm run typecheck --workspace=apps/arena
 
 Commit and push the module.
 
-Say:
-
-If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-
 ## 12:00 Lunch
 
 ### BREAK
@@ -385,8 +324,6 @@ During the break:
 ## 13:00 Module 3: State And Effects
 
 ### SLIDES
-
-Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -425,11 +362,6 @@ Task prompt:
 
 Work through Module 3 in `EXERCISES.md`.
 
-1. Remove dashboard state that can be derived during render.
-2. Remove selected patient state that only syncs with selected id.
-3. Extract patient search and filter logic into `usePatientFilter`.
-4. Keep data-fetching effects for Module 4.
-
 While they work, listen for:
 
 - "Should this be state?"
@@ -438,8 +370,6 @@ While they work, listen for:
 - confusion between derived state and external synchronization
 
 ### DISCUSS
-
-Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on which state people removed, which effects felt suspicious, and where the line between derived state and synchronization was unclear.
 
@@ -470,15 +400,9 @@ npm test --workspace=apps/arena -- --run
 
 Commit and push the module.
 
-Say:
-
-If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-
 ## 13:45 Module 4: TanStack Query
 
 ### SLIDES
-
-Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -515,15 +439,6 @@ Task prompt:
 
 Work through Module 4 in `EXERCISES.md`.
 
-1. Replace manual patient list fetching with `useQuery`.
-2. Add loading and error UI for the list.
-3. Replace patient detail fetching with `useSuspenseQuery`.
-4. Wrap patient detail loading in local `Suspense` and local `ErrorBoundary`.
-5. Replace journal fetching with a query.
-6. Update journal status with `useMutation`.
-7. Invalidate the relevant queries after a successful mutation.
-8. Submit the journal form through a mutation.
-
 While they work, listen for:
 
 - query key shape
@@ -533,8 +448,6 @@ While they work, listen for:
 - whether they over-invalidate
 
 ### DISCUSS
-
-Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on what code disappeared, what people chose for query keys, and what they invalidated after mutations.
 
@@ -569,10 +482,6 @@ npm test --workspace=apps/arena -- --run
 
 Commit and push the module.
 
-Say:
-
-If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-
 ## 14:30 Break
 
 ### BREAK
@@ -588,8 +497,6 @@ During the break:
 ## 14:45 Module 5: Forms
 
 ### SLIDES
-
-Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -625,17 +532,6 @@ Task prompt:
 
 Work through Module 5 in `EXERCISES.md`.
 
-1. Add a Zod schema for a new journal entry.
-2. Infer the form type from the schema.
-3. Wire the form with React Hook Form.
-4. Connect Zod through `zodResolver`.
-5. Register text fields.
-6. Use `Controller` where the input does not fit simple `register`.
-7. Submit through `handleSubmit` and a mutation.
-8. Show field-level errors.
-9. Disable submit while invalid or submitting.
-10. Show server errors in the form.
-
 While they work, listen for:
 
 - where validation rules live
@@ -644,8 +540,6 @@ While they work, listen for:
 - client validation versus server validation
 
 ### DISCUSS
-
-Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on where people put validation rules, how they handled errors, and where `register` versus `Controller` was unclear.
 
@@ -679,15 +573,9 @@ npm test --workspace=apps/arena -- --run
 
 Commit and push the module.
 
-Say:
-
-If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-
 ## 15:40 Wrap-Up
 
 ### SLIDES
-
-Slide link: add when the deck exists.
 
 Slide should include:
 
