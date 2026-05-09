@@ -1,2 +1,3 @@
 .agents/
 **/next-env.d.ts
+**/test-results/

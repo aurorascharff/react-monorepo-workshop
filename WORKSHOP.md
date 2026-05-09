@@ -56,9 +56,9 @@ During the instructor walkthrough, use GitHub Copilot ghost text where it helps,
 ## Repositories
 
 - Starter repo: https://github.com/aurorascharff/react-monorepo-workshop-starter
-- Authoring repo: https://github.com/aurorascharff/react-monorepo-workshop
+- Final reference repo: https://github.com/aurorascharff/react-monorepo-workshop
 
-Participants should clone the starter repo. The authoring repo contains the finished app, instructor notes, and step snapshots.
+Participants should clone the starter repo. The final reference repo contains the finished app, completed tests, instructor notes, and step snapshots.
 
 ## Authoring Materials
 
@@ -66,7 +66,7 @@ Participants should clone the starter repo. The authoring repo contains the fini
 - [`STEPS.md`](STEPS.md) - instructor run sheet for slides, tasks, discussion, and walkthroughs
 - [`INSTRUCTOR.md`](INSTRUCTOR.md) - day-of checklist, room notes, fallback plan, and follow-up
 - [`steps/step-notes`](steps/step-notes) - per-step live-coding notes
-- [`steps/README.md`](steps/README.md) - complete code snapshots for each workshop module
+- [`steps/`](steps) - complete code snapshots for each workshop module
 - [`steps/step0`](steps/step0) - starter snapshot used for the participant repo
 
 ## Module Overview

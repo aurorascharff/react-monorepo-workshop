@@ -10,6 +10,7 @@
 2. Do not move app-specific business workflows into `packages/` just to avoid imports. Domain-specific wrappers like `<StatusBadge>` are fine; full feature flows are not.
 3. Public surface is exposed through each package's `src/index.ts`. Consumers must not deep-import internals.
 4. If a shared API changes, validate every consuming app.
+5. Put package tests in a nearby `tests/` subfolder. Do not test package-owned components from an app-level test folder.
 
 ## Package Intent
 

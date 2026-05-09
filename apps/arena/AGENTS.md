@@ -25,6 +25,7 @@ Reusable primitives belong in `packages/ui`, not here.
 4. Wrap `useSuspenseQuery` callsites in a local `<Suspense>` and a contextual `<ErrorBoundary>`. The Layout-level boundary is the catch-all; targeted ones keep the shell visible.
 5. Import `StatusBadge`, `JournalStatus`, `Button`, `Card`, etc. from `@medix/ui`. Do not redefine them.
 6. Compute derived state in render — do not store it in `useState` and sync via `useEffect`.
+7. Put unit and component tests in a nearby `tests/` subfolder, for example `components/tests/PatientCard.test.tsx` or `hooks/tests/usePatients.test.tsx`.
 
 ## Validation
 

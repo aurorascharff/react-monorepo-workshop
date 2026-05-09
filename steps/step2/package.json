@@ -14,10 +14,10 @@
     "typecheck": "turbo typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,css,md}\"",
+    "db:seed": "npm run db:seed --workspace=apps/api",
     "test": "turbo test",
     "test:all": "npm run test && npm run e2e",
-    "e2e": "npm run e2e --workspace=apps/e2e",
-    "db:seed": "npm run db:seed --workspace=apps/api"
+    "e2e": "npm run e2e --workspace=apps/e2e"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "^0.2.3",
