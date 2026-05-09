@@ -1,6 +1,5 @@
 # Step 2: Routing
 
-## English
 
 ## App: Show the navigation problem
 
@@ -80,82 +79,3 @@
 
 - Run `npm run typecheck --workspace=apps/arena`.
 
-## Norsk
-
-## App: Vis navigation-problemet
-
-- Åpne appen før du endrer kode.
-- Klikk mellom Dashboard og Patients.
-- Refresh mens du ser på en patient detail view.
-- Appen kan vise ulike screens, men browseren vet ikke hvor vi er.
-- Hva mister vi når URL-en ikke er source of truth?
-- Svarene jeg vil få frem: Trekk frem refresh, back button, bookmarks, links og sharing.
-
-## App: Add BrowserRouter
-
-- Åpne `apps/arena/src/main.tsx`.
-- Importer `BrowserRouter` fra `react-router`.
-- Wrap `<App />` med `<BrowserRouter>`.
-- `BrowserRouter` bruker browser history API så navigation kan skje uten full page reload.
-- Dette er React Router i SPA mode, ikke framework mode.
-
-## App: Create routes
-
-- Lag `apps/arena/src/router.tsx`.
-- Legg til `AppRoutes`.
-- Legg til routes for `/`, `/patients`, `/patients/:id` og `*`.
-- Bruk en parent route med `Layout`.
-- Render child pages gjennom `Outlet`.
-- Hvilken del av UI bør være mounted mens child routes endres?
-- Svarene jeg vil få frem: Dette er app shell: sidebar, mobile header, shared wrapper.
-
-## App: Update layout navigation
-
-- Åpne `apps/arena/src/layouts/Layout.tsx`.
-- Importer `Outlet` og `NavLink`.
-- Fjern `children`, `activePage` og `onNavigate`.
-- Render `<Outlet />` inne i eksisterende `ErrorBoundary`.
-- Bytt navigation buttons med `NavLink`.
-- Bruk `isActive` til å style active navigation item.
-- Buttons utfører actions. Links navigerer. Det betyr noe for accessibility, browser behavior og user expectations.
-- Hvorfor bør active nav være derived fra URL-en i stedet for lagret i state?
-- Svarene jeg vil få frem: URL-en vet allerede active route.
-
-## App: Create pages
-
-- Flytt eller copy `Dashboard.tsx` til `pages/DashboardPage.tsx`.
-- Lag `pages/PatientListPage.tsx`.
-- Lag `pages/PatientDetailPage.tsx`.
-- Lag `pages/NotFoundPage.tsx`.
-- Route-level pages: pages wire route data og feature components sammen. Feature components ligger fortsatt i `features`.
-
-## App: Link to details
-
-- Oppdater `PatientCard` til å render en `Link` til `/patients/${patient.id}`.
-- Oppdater dashboard navigation til å bruke `Link`.
-- Åpne appen og sjekk at URL-en endres.
-- Refresh på en patient detail page.
-- Bruk back og forward.
-- Hva endret seg i user experience selv om UI ser nesten lik ut?
-- Svarene jeg vil få frem: Appen oppfører seg nå som en browser app, ikke en local state switcher.
-
-## App: Read route params
-
-- I `PatientDetailPage`, bruk `useParams`.
-- Les `id` fra URL-en.
-- Fetch selected patient by id.
-- Send `id` til `JournalList` og `JournalForm`.
-- `:id` som dynamic route segment.
-- Route params er strings. Convert eller validate når type betyr noe.
-
-## App: Compare with Next.js
-
-- Åpne `apps/medix.com/app`.
-- Vis `page.tsx`, `layout.tsx` og eventuelle nested route folders.
-- Next.js får routes fra files. React Router får routes fra route components. Core idea er fortsatt URL maps to UI.
-- Hvorfor passer medix.com kanskje bedre for framework routing enn Arena?
-- Svarene jeg vil få frem: Public content, SEO, server rendering, static pages.
-
-## Check
-
-- Kjør `npm run typecheck --workspace=apps/arena`.

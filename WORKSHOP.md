@@ -51,6 +51,7 @@ Participants should clone the starter repo. The authoring repo contains the fini
 ## Authoring Materials
 
 - [`STEPS.md`](STEPS.md) - instructor run sheet for slides, tasks, discussion, and walkthroughs
+- [`INSTRUCTOR.md`](INSTRUCTOR.md) - day-of checklist, room notes, fallback plan, and follow-up
 - [`step-notes`](step-notes) - per-step live-coding notes
 - [`steps/README.md`](steps/README.md) - complete code snapshots for each workshop module
 - [`steps/step0`](steps/step0) - starter snapshot used for the participant repo

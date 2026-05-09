@@ -1,6 +1,5 @@
 # Step 1: Architecture and Reuse
 
-## English
 
 ## App: Split the monolith
 
@@ -63,65 +62,3 @@
 - Run `npm test --workspace=apps/arena -- --run`.
 - If a test fails because an import moved, fix the import rather than changing the behavior.
 
-## Norsk
-
-## App: Split monolithen
-
-- Åpne `apps/arena/src/PatientPage.tsx`.
-- Før vi flytter kode, trenger vi navn på tingene som allerede finnes på skjermen.
-- Hvilke components ser dere i UI før vi ser på koden?
-- Svarene jeg vil få frem: Patient list, patient card, patient header, journal list, journal entry, form.
-- Lag `features/patients/components`.
-- Lag `features/journal/components`.
-- Lag `components`.
-- Lag `layouts`.
-- Feature folders: grupper etter hva appen gjør. En patient feature kan ha components, hooks og API helpers senere.
-- Flytt patient list UI til `PatientList.tsx`.
-- Flytt én patient row til `PatientCard.tsx`.
-- Flytt selected patient header til `PatientHeader.tsx`.
-- En component bør ha et navn som matcher et ekte concept i UI. Hvis navnet føles fake, er split-en ofte fake også.
-- Flytt én journal entry til `JournalEntry.tsx`.
-- Flytt journal list rendering til `JournalList.tsx`.
-- Flytt journal form til `JournalForm.tsx`.
-- Behold eksisterende fetching og form logic for nå.
-- Vi fikser ikke alle smells samtidig. Hver module har én jobb.
-
-## App: Extract layout og boundary
-
-- Flytt sidebar, mobile header og page wrapper fra `App.tsx` til `layouts/Layout.tsx`.
-- Behold local `page` state i `App.tsx`.
-- Dette er fortsatt ikke ordentlig routing. Vi separerer bare app shell fra page content.
-- Lag `components/ErrorBoundary.tsx`.
-- Wrap main content area i `ErrorBoundary`.
-- Hvor bør en error boundary ligge hvis sidebar skal være synlig?
-- Svarene jeg vil få frem: Boundary bør wrappe delen som kan feile, ikke nødvendigvis hele appen.
-- Denne første boundary-en er en catch-all. I data fetching module legger vi en mer contextual boundary nærmere data som loader.
-
-## App: Build shared StatusBadge
-
-- Åpne `packages/ui/src/base/badge.tsx`.
-- Dette er en primitive. Den vet ingenting om journals eller statuses.
-- Lag `packages/ui/src/StatusBadge.tsx`.
-- Flytt `JournalStatus` inn i `@medix/ui`.
-- Lag status config for `active`, `closed` og `draft`.
-- Render `Badge` inne i `StatusBadge`.
-- Export `StatusBadge` og `JournalStatus` fra `packages/ui/src/index.ts`.
-- Hvorfor er mapping fra status til color ikke bare en className i appen?
-- Svarene jeg vil få frem: det er et shared domain concept, så det bør ha ett hjem.
-- Layering: base primitives nederst, domain-specific UI oppå, apps bruker shared component.
-
-## App: Use StatusBadge
-
-- Bytt ut inline status styling i `JournalEntry`.
-- Bruk `StatusBadge` i `apps/medix.com/app/page.tsx`.
-- Bruk `StatusBadge` i `apps/medix.com/app/products/page.tsx`.
-- Endre én status style og sjekk at begge apps oppdateres fra ett sted.
-- Dette er payoff-en. Ett concept, én implementation.
-- Hva bør ikke inn i `packages/ui` ennå?
-- Svarene jeg vil få frem: Feature-specific code blir i feature til reuse er ekte.
-
-## Check
-
-- Kjør `npm run typecheck --workspace=apps/arena`.
-- Kjør `npm test --workspace=apps/arena -- --run`.
-- Hvis en test feiler fordi en import ble flyttet, fiks importen i stedet for behavior.
