@@ -18,13 +18,15 @@ npm run dev
 
 `npm run dev` starts all apps at once via Turborepo.
 
-Workshop tasks are listed in [EXERCISES.md](EXERCISES.md). Step snapshots are in [steps/](steps), and this repository is the final reference repo with the completed app and tests.
-
 | App         | URL                   |
 | ----------- | --------------------- |
 | Arena (SPA) | http://localhost:5173 |
 | API + docs  | http://localhost:3001 |
 | medix.com   | http://localhost:3000 |
+
+Workshop tasks are listed in [EXERCISES.md](EXERCISES.md). Step snapshots are in
+[steps/](steps), and this repository is the final reference repo with the
+completed app and tests.
 
 ## Monorepo structure
 
