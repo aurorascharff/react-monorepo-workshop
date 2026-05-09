@@ -1,6 +1,6 @@
-# Hands-on React Monorepos, APIs, and App Structure
+# Hands-on React Application Architecture
 
-In this workshop, we will explore how to build and improve a React app inside a monorepo. Learn how to structure app features, add routing with React Router, handle client and server state, fetch and update API data with TanStack Query, and create robust forms with React Hook Form and Zod.
+In this workshop, we will explore how to build and improve the architecture of a React app inside a monorepo. Learn how to structure app features, add routing with React Router, handle client and server state, fetch and update API data with TanStack Query, and create robust forms with React Hook Form and Zod.
 
 Designed for developers who know the basics of React and want more practice with real application structure, this workshop provides practical skills for building maintainable React applications that can grow across apps and shared packages.
 
