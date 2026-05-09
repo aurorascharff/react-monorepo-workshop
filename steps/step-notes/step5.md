@@ -3,6 +3,8 @@
 ## App: Show the manual form
 
 - Open `features/journal/components/JournalForm.tsx`.
+- Open the form in the browser.
+- Open Elements and Accessibility, then inspect the title, date, and content fields.
 - The form works, but the rules are scattered across submit handling, local error state, and the UI.
 - What validation rules can we see from the UI?
 - Answer to land: required title, required date, content length, and server errors.
@@ -55,6 +57,7 @@
 - Use `Controller` for `date`.
 - Pass `field.value` and `field.onChange` to `DatePicker`.
 - Pass `id="date"` so the visible label names the date picker button.
+- Inspect the date picker in the Accessibility panel and confirm the visible label names the control.
 - Render `errors.date?.message` below the date field.
 - `Controller` is for components that do not plug directly into `register`.
 - Why not use `Controller` for every field?
@@ -65,6 +68,7 @@
 - Keep the existing `useMutation` for `createJournal`.
 - Replace the manual submit handler with `handleSubmit((data) => mutate(data))`.
 - `handleSubmit` only calls our function when the schema passes.
+- Open Network and verify that invalid client-side data does not create a POST request.
 - On success, invalidate `['journals', patientId]`.
 - Reset the form.
 - Call `onSuccess` if present.
@@ -77,6 +81,7 @@
 - Show `Saving...` while pending.
 - Render the mutation error above the fields.
 - Server errors still need a place in the UI. Client validation cannot catch network errors, permissions, or backend failures.
+- Use Network while submitting a valid form to show the request that still goes to the server.
 - Where should server errors be shown so the user can recover?
 - Answer to land: near the form submit area or above the fields, where the user can see that the whole submission failed rather than one field being invalid.
 - Disabling invalid submit is a product choice. It works here because the rules are simple and visible.

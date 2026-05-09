@@ -29,6 +29,9 @@ Morning:
 - [ ] Open API docs.
 - [ ] Open authoring repo and starter repo.
 - [ ] Open `STEPS.md`, `WORKSHOP.md`, current `step-notes/stepN.md`, and `steps/`.
+- [ ] Check Copilot ghost text is available.
+- [ ] Check Chrome DevTools is docked where the room can see it.
+- [ ] Check TanStack Query Devtools appears in Arena.
 - [ ] Mute phone, Slack, Teams, desktop notifications.
 - [ ] Check actual start time and decide first break.
 - [ ] Put water nearby.
@@ -61,6 +64,7 @@ Editor:
 
 - Word wrap on.
 - Code popups off.
+- Copilot ghost text on.
 - GitLens off.
 - Spell checker off.
 - Bookmarks hidden.
@@ -74,12 +78,15 @@ Editor:
 - Pause before moving on.
 - Check that the room is with me, not just that the code works.
 - Comment while coding.
+- Narrate Copilot suggestions: accept, edit, or reject.
 - Walk around.
 - Check every group, not only the loud ones.
 - Give more positive feedback.
 - Be clear: what are we doing, when is break, when are we back.
 - Do not mumble.
 - Keep hands away from face.
+- When participants use AI, ask them what changed and why they trust it.
+- Keep DevTools zoomed enough that Network requests, link semantics, and form labels are readable.
 
 ## Room
 

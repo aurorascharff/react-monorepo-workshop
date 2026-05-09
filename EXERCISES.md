@@ -42,6 +42,7 @@ Check your work:
 - Refresh works on a patient detail page.
 - The back button behaves like expected.
 - The active navigation item reflects the current route.
+- The navigation uses links for navigation, not buttons.
 
 ## Module 3: State And Effects
 
@@ -81,6 +82,7 @@ Check your work:
 - Navigating away and back reuses cached data.
 - Changing journal status updates the UI after the mutation succeeds.
 - The app shell stays visible if patient detail loading fails.
+- After a status change, the Network tab shows the update request and React Query Devtools shows the journals query refetching.
 
 ## Module 5: Forms
 
@@ -106,3 +108,4 @@ Check your work:
 - The date picker is labeled like the other form fields.
 - A successful submit updates the journal list.
 - Server errors are visible to the user.
+- Invalid client-side data does not send a create request in the Network tab.

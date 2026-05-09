@@ -93,6 +93,7 @@ Slide should include:
 - Commands: `npm install`, `npm run db:seed`, `npm run dev`.
 - Local URLs: Arena `5173`, API docs `3001`, medix.com `3000`.
 - What to open if something fails: README, terminal, API docs.
+- AI use: allowed during tasks, but everyone must review and understand the output.
 - Reminder that setup is part of the workshop, not a race.
 
 Say:
@@ -114,6 +115,7 @@ Show:
 - `packages/ui/src/index.ts`
 - `apps/api/src/routes`
 - `AGENTS.md`
+- README AI section
 
 Run together:
 
@@ -132,6 +134,10 @@ Confirm:
 Say:
 
 The starter works. The point today is not to fix a broken app from zero. The point is to improve code that looks like real project code after it has grown for a while.
+
+You can use AI during the tasks. Use it like a pair programmer: ask for small changes, give it the files and the goal, read what it gives you, and be ready to explain why you kept or changed it.
+
+When I live-code, I will mostly use Copilot ghost text. I will say out loud when I accept a suggestion, when I edit it, and when I ignore it.
 
 Ask:
 
@@ -273,6 +279,7 @@ While they work, listen for:
 - nested routes
 - where `Outlet` belongs
 - how route params flow into page code
+- whether navigation uses links for navigation and buttons for actions
 
 ### DISCUSS
 

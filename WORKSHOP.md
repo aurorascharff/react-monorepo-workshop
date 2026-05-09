@@ -6,13 +6,13 @@ Use [`STEPS.md`](STEPS.md) for the instructor run sheet. Use [`steps/`](steps/) 
 
 ## Workshop
 
-**Title:** Real World React: Monorepos, APIs, and App Structure
+**Title:** Hands-on React Application Architecture
 
 **Duration:** One day, 09:00 to 16:00
 
 **Audience:** Developers who know programming fundamentals and want a practical React workflow for larger apps.
 
-**Format:** Short slides, individual coding, group discussion, instructor walkthrough.
+**Format:** Short slides, AI-assisted individual coding, group discussion, instructor walkthrough.
 
 ## Teaching Format
 
@@ -29,6 +29,14 @@ Each module follows the same loop:
 Keep the workshop conversational. Ask the room what they notice before explaining the answer.
 
 The participant task list lives in [`EXERCISES.md`](EXERCISES.md). The run sheet should point there instead of repeating the task steps, so updates only need to happen in one place.
+
+## AI Use
+
+Participants can use AI tools during the task sections. The goal is not to type every line by hand. The goal is to understand the change, review what the tool suggests, run the checks, and be able to explain the result to the group.
+
+Encourage small, scoped prompts that reference the local files and module goal. Participants should still read the generated code, compare it with the existing patterns, and decide what to keep.
+
+During the instructor walkthrough, use GitHub Copilot ghost text where it helps, but narrate the decision-making: what you accept, what you edit, and what you reject.
 
 ## Schedule
 

@@ -5,6 +5,7 @@
 - Open the app before changing code.
 - Click between Dashboard and Patients.
 - Refresh while looking at a patient detail view.
+- Use the address bar and browser back button while doing this.
 - The app can show different screens, but the browser does not know where we are.
 - What do we lose when the URL is not the source of truth?
 - Answer to land: refresh, back button, bookmarks, links, and sharing.
@@ -34,6 +35,7 @@
 - Remove `children`, `activePage`, and `onNavigate`.
 - Render `<Outlet />` inside the existing `ErrorBoundary`.
 - Replace navigation buttons with `NavLink`.
+- Open Elements and inspect the navigation before and after the change.
 - What is the difference between a link and a button?
 - Answer to land: links navigate to another URL; buttons perform an action. This matters for accessibility, browser behavior, and user expectations.
 - Use `isActive` to style the active navigation item.
@@ -56,6 +58,7 @@
 - Open the app and verify that the URL changes.
 - Refresh on a patient detail page.
 - Use back and forward.
+- Copy a patient detail URL, paste it into a new tab, and verify it opens the same state.
 - What changed in the user experience even though the UI looks almost the same?
 - Answer to land: the app now behaves like a browser app, not a local state switcher.
 - What should happen while a route is loading?
