@@ -4,7 +4,8 @@ import { Building2, MapPin } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Customers',
-  description: 'Hospitals and health systems across every region trust Medix for their clinical workflows.',
+  description:
+    'Hospitals and health systems across every region trust Medix for their clinical workflows.',
 }
 
 const customers = [
@@ -43,8 +44,8 @@ export default function CustomersPage() {
     <div className="py-16">
       <h1 className="text-4xl font-bold tracking-tight mb-4">Customers</h1>
       <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        Medix is in use at hospitals across every healthcare region — from
-        coast to coast.
+        Medix is in use at hospitals across every healthcare region — from coast
+        to coast.
       </p>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-16">

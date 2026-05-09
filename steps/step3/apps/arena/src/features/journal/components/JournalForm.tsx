@@ -10,7 +10,6 @@ export function JournalForm({ patientId }: JournalFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // TODO Module 5: Replace this uncontrolled form with React Hook Form + Zod.
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)

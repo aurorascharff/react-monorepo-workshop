@@ -4,14 +4,6 @@ import { cn } from '@medix/ui'
 import { Dashboard } from './Dashboard'
 import { PatientPage } from './PatientPage'
 
-// TODO Module 2: Replace this conditional rendering with React Router.
-// Pages should have real URLs (`/`, `/patients`, `/patients/:id`) so users can
-// bookmark them, use the back button, and refresh without losing context.
-//
-// TODO Module 1: Pull this layout (sidebar + mobile header + main slot) into
-// `layouts/Layout.tsx` and wrap the main slot in an <ErrorBoundary> so a
-// failure in one page doesn't blank out the whole app.
-
 type Page = 'dashboard' | 'patients'
 
 const navLinks: { id: Page; label: string; icon: typeof LayoutDashboard }[] = [

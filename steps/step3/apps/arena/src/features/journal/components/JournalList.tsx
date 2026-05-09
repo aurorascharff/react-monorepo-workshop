@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/set-state-in-effect --
- * Module 4 replaces this manual fetching with TanStack Query.
- */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { Spinner } from '@medix/ui'
 import { fetchJournals, updateJournalStatus } from '../../../lib/api'

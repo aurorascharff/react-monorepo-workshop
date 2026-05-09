@@ -1,7 +1,4 @@
-/* eslint-disable react-hooks/set-state-in-effect --
- * Modules 3 and 4 remove these effects entirely. Disabled on the starter so
- * `npm run lint` passes; remove this directive once those modules are done.
- */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import {
   Badge,
@@ -27,17 +24,6 @@ import {
 } from './lib/api'
 import type { Journal, JournalStatus, Patient } from './types'
 
-// TODO Module 1: Break this monolith into focused components.
-// Suggested split (under `features/patients/` and `features/journal/`):
-//   - PatientList    : search + filter + list rendering
-//   - PatientCard    : one row in the list
-//   - PatientHeader  : the selected-patient header card
-//   - JournalList    : journal entries for the selected patient
-//   - JournalEntry   : one entry + its status select
-//   - JournalForm    : the "new entry" form
-// Move the inline `STATUS_STYLES` map below into a `<StatusBadge>` in
-// `@medix/ui` so medix.com can use it too.
-
 export function PatientPage() {
   const [patients, setPatients] = useState<Patient[]>([])
   const [isLoadingPatients, setIsLoadingPatients] = useState(true)
@@ -49,25 +35,17 @@ export function PatientPage() {
 
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
-  // TODO Module 4: Replace useEffect + fetch with `useQuery`.
   useEffect(() => {
     fetchPatients()
       .then((data) => setPatients(data))
       .finally(() => setIsLoadingPatients(false))
   }, [])
 
-  // TODO Module 3: This effect *syncs* `selectedPatient` with `selectedId`.
-  // Don't store derived data in state — compute `selectedPatient` from
-  // `patients` and `selectedId` directly during render.
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
   useEffect(() => {
     setSelectedPatient(patients.find((p) => p.id === selectedId) ?? null)
   }, [patients, selectedId])
 
-  // TODO Module 3: This filter logic is reused logic that should live in a hook.
-  // Extract it to `usePatientFilter(patients)` returning
-  // `{ search, setSearch, genderFilter, setGenderFilter, filteredPatients }`.
-  // Bonus: debounce the search term (`useDebounce`) before filtering.
   const filteredPatients = patients.filter((p) => {
     const matchesSearch =
       p.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -192,9 +170,6 @@ function PatientDetail({
   const [journals, setJournals] = useState<Journal[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  // TODO Module 4: Replace with `useQuery({ queryKey: ['journals', patient.id], ... })`.
-  // For Suspense-driven loading, also wrap this whole detail in <Suspense>
-  // + a contextual <ErrorBoundary>.
   useEffect(() => {
     setIsLoading(true)
     fetchJournals(patient.id)
@@ -203,7 +178,6 @@ function PatientDetail({
   }, [patient.id])
 
   function handleStatusChange(journalId: string, status: JournalStatus) {
-    // TODO Module 4: Switch to `useMutation` + `queryClient.invalidateQueries`.
     updateJournalStatus(journalId, status).then(() =>
       fetchJournals(patient.id).then(setJournals),
     )
@@ -278,8 +252,6 @@ function PatientDetail({
 }
 
 // --- Status styling -------------------------------------------------------
-// TODO Module 1: Move this into `@medix/ui` as `<StatusBadge status={...} />`
-// (the same component is referenced in apps/medix.com).
 const STATUS_STYLES: Record<JournalStatus, string> = {
   active:
     'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:border-emerald-500/20',
@@ -366,12 +338,6 @@ function JournalForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // TODO Module 5: Replace this uncontrolled form with React Hook Form + Zod.
-  // - Define a Zod schema for { title, date, content } with minimum lengths.
-  // - Show per-field errors.
-  // - Disable submit while invalid or submitting.
-  // - Use the `<DatePicker>` from `@medix/ui` via `<Controller>`.
-  // - Surface server errors meaningfully.
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)

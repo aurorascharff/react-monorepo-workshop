@@ -46,7 +46,9 @@ export function PatientList({ patients }: PatientListProps) {
       </div>
 
       {filteredPatients.length === 0 ? (
-        <p className="text-center text-muted-foreground py-8">No patients found</p>
+        <p className="text-center text-muted-foreground py-8">
+          No patients found
+        </p>
       ) : (
         <div className="grid gap-3">
           {filteredPatients.map((patient) => (

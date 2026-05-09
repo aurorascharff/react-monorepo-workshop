@@ -1,34 +1,40 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { Activity } from "lucide-react"
-import "./globals.css"
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { Activity } from 'lucide-react'
+import './globals.css'
 
-const siteUrl = "https://medix.example"
+const siteUrl = 'https://medix.example'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Medix — Health technology for modern hospitals",
-    template: "%s | Medix",
+    default: 'Medix — Health technology for modern hospitals',
+    template: '%s | Medix',
   },
   description:
-    "Medix delivers clinical journal systems and a modern healthcare platform that helps hospitals spend less time on documentation and more time with patients.",
-  keywords: ["healthcare", "EHR", "electronic health record", "clinical journal", "hospital software"],
-  authors: [{ name: "Medix" }],
+    'Medix delivers clinical journal systems and a modern healthcare platform that helps hospitals spend less time on documentation and more time with patients.',
+  keywords: [
+    'healthcare',
+    'EHR',
+    'electronic health record',
+    'clinical journal',
+    'hospital software',
+  ],
+  authors: [{ name: 'Medix' }],
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    type: 'website',
+    locale: 'en_US',
     url: siteUrl,
-    siteName: "Medix",
-    title: "Medix — Health technology for modern hospitals",
+    siteName: 'Medix',
+    title: 'Medix — Health technology for modern hospitals',
     description:
-      "Medix delivers clinical journal systems and a modern healthcare platform that helps hospitals spend less time on documentation and more time with patients.",
+      'Medix delivers clinical journal systems and a modern healthcare platform that helps hospitals spend less time on documentation and more time with patients.',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Medix — Health technology for modern hospitals",
+    card: 'summary_large_image',
+    title: 'Medix — Health technology for modern hospitals',
     description:
-      "Medix delivers clinical journal systems and a modern healthcare platform that helps hospitals spend less time on documentation and more time with patients.",
+      'Medix delivers clinical journal systems and a modern healthcare platform that helps hospitals spend less time on documentation and more time with patients.',
   },
   robots: {
     index: true,
@@ -37,10 +43,10 @@ export const metadata: Metadata = {
 }
 
 const navLinks = [
-  { href: "/products", label: "Products" },
-  { href: "/customers", label: "Customers" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: '/products', label: 'Products' },
+  { href: '/customers', label: 'Customers' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 export default function RootLayout({
@@ -96,12 +102,18 @@ export default function RootLayout({
               <h3 className="text-sm font-semibold mb-3">Company</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <Link href="/about" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/about"
+                    className="hover:text-foreground transition-colors"
+                  >
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/contact"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Contact
                   </Link>
                 </li>
@@ -111,12 +123,18 @@ export default function RootLayout({
               <h3 className="text-sm font-semibold mb-3">Solutions</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <Link href="/products" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/products"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Products
                   </Link>
                 </li>
                 <li>
-                  <Link href="/customers" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/customers"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Customers
                   </Link>
                 </li>

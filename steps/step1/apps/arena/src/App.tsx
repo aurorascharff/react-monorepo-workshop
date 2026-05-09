@@ -3,10 +3,6 @@ import { PatientPage } from './PatientPage'
 import { Layout } from './layouts/Layout'
 import { useState } from 'react'
 
-// TODO Module 2: Replace this conditional rendering with React Router.
-// Pages should have real URLs (`/`, `/patients`, `/patients/:id`) so users can
-// bookmark them, use the back button, and refresh without losing context.
-
 type Page = 'dashboard' | 'patients'
 
 export function App() {

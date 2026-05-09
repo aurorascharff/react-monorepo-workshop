@@ -76,7 +76,9 @@ export default function ContactPage() {
           <Card key={office.name}>
             <CardHeader>
               <CardTitle>{office.name}</CardTitle>
-              <p className="text-sm text-muted-foreground">{office.department}</p>
+              <p className="text-sm text-muted-foreground">
+                {office.department}
+              </p>
             </CardHeader>
             <CardContent>
               <p className="text-sm flex items-start gap-2">

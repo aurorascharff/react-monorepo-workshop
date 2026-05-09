@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Learn about Medix — our mission, team, and the hospitals we serve.',
+  description:
+    'Learn about Medix — our mission, team, and the hospitals we serve.',
 }
 
 export default function AboutPage() {

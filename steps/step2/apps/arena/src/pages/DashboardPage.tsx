@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/set-state-in-effect --
- * Module 3 removes derived state and Module 4 removes fetch effects.
- */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'

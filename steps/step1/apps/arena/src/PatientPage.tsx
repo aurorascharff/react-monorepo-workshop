@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/set-state-in-effect --
- * Module 3 removes the derived-state effect and Module 4 removes fetch effects.
- */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { Spinner } from '@medix/ui'
 import { fetchPatients } from './lib/api'

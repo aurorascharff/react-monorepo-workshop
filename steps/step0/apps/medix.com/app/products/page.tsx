@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 
-// TODO Module 1: Replace this inline status with `<StatusBadge status={...} />`
-// imported from `@medix/ui`. The same component is used in apps/arena.
 const statusStyles = {
   active: 'bg-emerald-50 text-emerald-700 border-emerald-200',
   closed: 'bg-muted text-muted-foreground border-transparent',

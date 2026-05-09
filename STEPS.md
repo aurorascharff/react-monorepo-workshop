@@ -1,259 +1,713 @@
-# Workshop Steps
+# Workshop Run Sheet
 
-This is the instructor run sheet for the workshop. Use it for the rhythm of the day: slides, task, discussion, walkthrough.
+Use this file during the workshop. It tells you what mode you are in, what to show, what to say, what task to give, and when to switch to the code walkthrough.
 
-The stable overview, schedule, repositories, and module reference live in [`WORKSHOP.md`](WORKSHOP.md).
+Use [`WORKSHOP.md`](WORKSHOP.md) for the stable schedule and module goals. Use [`INSTRUCTOR.md`](INSTRUCTOR.md) for screen setup and room reminders. Use [`step-notes`](step-notes) only when you are live coding the solution.
 
-The code walkthroughs live outside the runnable snapshots so the app folders stay easy to scan:
+Participant tasks live in [`EXERCISES.md`](EXERCISES.md), not in code comments. For each task, show the matching module in that file and the starting code it refers to.
 
-- `step-notes/step0.md`
-- `step-notes/step1.md`
-- `step-notes/step2.md`
-- `step-notes/step3.md`
-- `step-notes/step4.md`
-- `step-notes/step5.md`
+## Mode Key
 
-Those files are the step-specific live-coding notes. Keep the whole-day flow, timing, and transitions here.
+| Mode         | What happens                                                     |
+| ------------ | ---------------------------------------------------------------- |
+| `SLIDES`     | Explain the concept with slides.                                 |
+| `SHOW APP`   | Switch to browser or VS Code to show the current problem.        |
+| `TASK`       | Participants work. You walk around.                              |
+| `DISCUSS`    | Facilitate a group discussion about what they tried and noticed. |
+| `CODE`       | Live-code the solution using `step-notes/stepN.md`.              |
+| `CHECKPOINT` | Run checks, commit, push, and give the recovery instruction.     |
+| `BREAK`      | Stop and reset.                                                  |
 
-## Format
+## Module Flow
 
-- Slides first. Keep this short and practical.
-- Give them the task. Point to the module goals in `WORKSHOP.md`, the TODOs in the code, and the app behavior they should end with.
-- Let them work. Walk around, listen for the same confusion in more than one group.
-- Discuss before coding the solution: what they tried, what was unclear, and what tradeoffs they noticed.
-- Walk through the solution from the matching `step-notes/stepN.md`.
-- After the walkthrough, give them a minute to catch up before moving on.
+Each module follows the same loop:
 
-Ask questions often. Let the room answer before you explain. If they give a good answer, use their wording when you summarize.
+1. Explain the problem with slides.
+2. Show the starting code and the matching module in `EXERCISES.md`.
+3. Let participants try the task.
+4. Facilitate a group discussion about what they tried, what was unclear, and which tradeoffs came up.
+5. Live-code your solution while they watch and answer questions.
+6. Run checks, commit, and push.
+7. Tell them how to switch to your solution if they prefer it.
 
-## Day at a Glance
+At the end of each module, say:
 
-| Time | Session |
-| --- | --- |
-| 09:00 | Intro: Thinking in web |
-| 09:30 | Setup |
-| 10:15 | Module 1: Architecture and Reuse |
-| 11:15 | Module 2: Routing and Next.js comparison |
-| 12:00 | Lunch |
-| 13:00 | Module 3: State and Effects |
-| 13:45 | Module 4: TanStack Query |
-| 14:30 | Break |
-| 14:45 | Module 5: Forms |
-| 15:40 | Wrap-up |
+If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 
-## Before the Workshop
+## 09:00 Intro
 
-- Participants should clone the starter repo before the day if possible.
-- Starter repo: https://github.com/aurorascharff/react-monorepo-workshop-starter
-- Keep the authoring repo open as reference.
-- Authoring repo: https://github.com/aurorascharff/react-monorepo-workshop
-- Have the slides open. Add slide links here when they exist.
-- Have `steps/` open in the editor so you can jump to the finished code for each module.
-- Run `npm install`, `npm run db:seed`, and `npm run dev` once before people arrive.
-- Keep one terminal ready for checks: `npm run typecheck`, `npm run test`, and `npm run lint`.
-
-## 09:00 Slides: Intro
+### SLIDES
 
 Slides: TODO add link.
 
-- Start with what real React app work usually contains: routing, forms, APIs, loading states, shared UI, tests, and multiple apps that evolve together.
-- Keep the intro domain-light. The app is just a useful setting for realistic data and workflows.
-- We are not starting from a blank folder. We are improving a working app, because that is closer to normal project work.
-- Show the five workshop steps: app structure, routing, state, data fetching, forms.
-- CSR, SSR, hydration, latency, loading states, and race conditions as the problems we will keep coming back to.
-- Next.js and Server Components briefly as context, then bring it back to today's path: SPA and client-side app structure.
-- Where do React codebases usually get hard to follow?
-- The answers I want to draw out: folder structure, too much state, effects, forms, duplicated fetching, and inconsistent UI.
-- The goal is not to memorize one folder structure. The goal is to recognize what kind of problem we are solving.
+Slide should include:
 
-## 09:30 Show: Setup the Repository
+- Workshop title and the practical promise: improve a real React app, not start from scratch.
+- The five steps: app structure, routing, state and effects, data fetching, forms.
+- The main problems the day keeps returning to: too much responsibility in one place, URL state, unnecessary state, async data, validation.
+- A note that the codebase is intentionally imperfect because real code usually is.
 
-- Open `README.md`.
-- Walk through `npm install`, `npm run db:seed`, and `npm run dev`.
-- Open Arena at `localhost:5173`.
-- Open the API docs at `localhost:3001`.
-- Open medix.com at `localhost:3000`.
-- Show root `package.json` and `workspaces`.
-- Monorepo briefly: one repo, multiple apps and packages, shared scripts.
-- Show `turbo.json` only if it helps. Explain task graph quickly, then move on.
-- Show ESLint and Prettier config only enough to make sure the editor is behaving.
-- TypeScript strict mode. What feels familiar from C# or another typed language?
-- React Compiler. The useful message is that we do not start by adding `useMemo` and `useCallback` everywhere.
-- Vitest and React Testing Library. Tests are there as reference and checks, not the main exercise today.
-- E2E tests in `apps/e2e` only as a real-world monorepo shape.
-- GitHub Copilot, nested `AGENTS.md`, and `/react-best-practices`.
-- What do we gain by keeping the app, API, and UI package in one repo?
-- The answers I want to draw out: shared types, shared UI, easier local development, one PR across boundaries, and consistent tooling.
+Say:
 
-## Show: Starter Code
+Today is not about learning every React API. It is about recognizing the problems that show up in larger React apps: routing, forms, APIs, loading states, shared UI, state, tests, and multiple apps that evolve together.
 
-- Open `apps/arena/src/App.tsx`.
-- Navigation lives in local state. This works, but the URL does not know what screen we are on.
-- Open `apps/arena/src/PatientPage.tsx`.
-- Show that this is the main file we will improve. It has patient list, patient detail, journal list, form, status styling, fetching, and mutation logic.
-- This is intentional. A starter should work, but still make the problems visible.
-- Open `packages/ui/src/base`.
-- Show that primitives already exist. We will build on them instead of copying styles.
-- Show `packages/ui/src/index.ts`. This is what the apps import from.
-- Open `apps/api/src/routes`.
-- The API is pre-written. We read it when needed, but this is a frontend workshop.
-- Open `apps/api/src/db/schema.ts` if you need to show the small data model.
-- The starter only has tests for code that already exists, so it does not reveal future structure.
+We are not starting from a blank folder. We are improving a working app, because that is closer to real project work.
 
-## 10:15 TASK: Module 1, Architecture and Reuse
+Show the five steps:
 
-Slides: TODO add link.
+1. App structure and shared UI
+2. Routing
+3. State and effects
+4. Data fetching
+5. Forms
 
-- The app works, but too many ideas live in the same files. This module is about making the existing concepts visible in the code.
-- Component extraction is not about making files tiny. It is about naming responsibilities.
-- Feature folders group code by what the app does, not only by file type.
-- One broken area should not take down the whole shell, so we place an error boundary around the part that can fail.
-- Base primitives are generic. Domain components can know app concepts.
-- Shared visual rules are a bit like a `ResourceDictionary` or `Style`: one place changes the behavior everywhere.
-- Accessibility is a good reason to build on proven primitives instead of writing every low-level component from scratch.
-- The Module 1 goal is in `WORKSHOP.md`. The task is to work through the TODOs in `apps/arena` and `packages/ui`.
-- The decisions I care about during the task are where to put components, how small components should be, and why `StatusBadge` belongs in `packages/ui`.
+Ask:
 
-## Discuss: Module 1
+Where do React codebases usually get hard to follow?
 
-- What did you split out first?
-- Which component was hardest to name?
-- What should live in `packages/ui`, and what should stay in the app?
-- Shared packages are for concepts that are reused across apps. Feature components stay close to the feature until there is a real reason to move them.
+Listen for:
 
-## Walkthrough: Module 1
+- folder structure
+- too much state
+- effects
+- forms
+- duplicated fetching
+- inconsistent UI
 
-- Use `step-notes/step1.md`.
-- Keep the walkthrough focused on the code changes.
-- After coding `StatusBadge`, change one visual detail and show that both apps pick it up.
-- Run `npm run typecheck --workspace=apps/arena`.
-- Run `npm test --workspace=apps/arena -- --run`.
+### SLIDES
 
-## 11:15 TASK: Module 2, Routing
+Slides: TODO add audience check slide link.
 
-Slides: TODO add link.
+Slide should include:
 
-- The screen changes, but the URL does not.
-- Show refresh and back button behavior in the starter.
-- The URL is app state users can see, copy, bookmark, and send to someone else.
-- React Router v7 in SPA mode. Keep the Next.js comparison short for now.
-- Nested routes let the shell stay mounted while the child page changes.
-- What should happen while a route is loading? We will solve that properly in Module 4, but it is worth noticing now.
-- The Module 2 goal is in `WORKSHOP.md`. The task is to add routes, route-level pages, `Layout`, `Outlet`, `Link`, `NavLink`, and `useParams`.
-- The decisions I care about during the task are links versus buttons, nested routes, and route params.
+- Who is in the room?
+- What kind of work do you do?
+- How much React have you used?
+- What are you hoping to get out of today?
+- Small group: quick round, one person at a time.
+- Large group: raise-of-hands questions.
 
-## Discuss: Module 2
+Small group flow:
 
-- What changed when the URL became the source of truth?
-- What is the difference between `Link` and a button?
-- Why does `Layout` render an `Outlet` instead of receiving a page prop?
-- The route tree gives structure to the app. The layout stays mounted while the active child route changes.
+Ask each person:
 
-## Walkthrough: Module 2
+1. What is your name?
+2. What do you work on?
+3. How much React have you used?
+4. What would make today useful for you?
 
-- Use `step-notes/step2.md`.
-- After the React Router walkthrough, open `apps/medix.com/app`.
-- Show that Next.js uses file-based routing, but the mental model is still URL maps to UI.
-- Keep the comparison practical: SPA routing for this app, framework routing for public content and server-rendered pages.
-- Run `npm run typecheck --workspace=apps/arena`.
+Large group flow:
+
+Ask for hands:
+
+1. Who mostly works frontend?
+2. Who mostly works backend?
+3. Who works full stack?
+4. Who has used React in production?
+5. Who has only tried React a little?
+6. Who is here because their team is moving toward React?
+
+Say:
+
+I ask this because the examples are the same, but the way I explain them can change based on what is familiar in the room.
+
+## 09:30 Setup
+
+### SLIDES
+
+Slides: TODO add setup slide link.
+
+Slide should include:
+
+- Starter repo URL.
+- Commands: `npm install`, `npm run db:seed`, `npm run dev`.
+- Local URLs: Arena `5173`, API docs `3001`, medix.com `3000`.
+- What to open if something fails: README, terminal, API docs.
+- Reminder that setup is part of the workshop, not a race.
+
+Say:
+
+Before we change code, we need to make sure everyone can run the same app locally.
+
+### SHOW APP
+
+Use [`step-notes/step0.md`](step-notes/step0.md).
+
+Show:
+
+- `README.md`
+- `EXERCISES.md`
+- `package.json`
+- `apps/arena/src/App.tsx`
+- `apps/arena/src/PatientPage.tsx`
+- `packages/ui/src/base`
+- `packages/ui/src/index.ts`
+- `apps/api/src/routes`
+- `AGENTS.md`
+
+Run together:
+
+```bash
+npm install
+npm run db:seed
+npm run dev
+```
+
+Confirm:
+
+- Arena: `http://localhost:5173`
+- API docs: `http://localhost:3001`
+- medix.com: `http://localhost:3000`
+
+Say:
+
+The starter works. The point today is not to fix a broken app from zero. The point is to improve code that looks like real project code after it has grown for a while.
+
+Ask:
+
+What parts of this app do you expect to get messy as it grows?
+
+Listen for:
+
+- navigation
+- forms
+- shared UI
+- fetching
+- state
+
+## 10:15 Module 1: Architecture And Reuse
+
+### SLIDES
+
+Slides: TODO add Module 1 slide link.
+
+Slide should include:
+
+- Module title: Architecture and Reuse.
+- Problem: the app works, but too many responsibilities live in the same files.
+- Concepts: feature folders, component responsibility, shared UI, error boundaries.
+- Rule of thumb: extract to name a responsibility, not to make files tiny.
+- Task outcome: focused components, `Layout`, `ErrorBoundary`, shared `StatusBadge`.
+
+Say:
+
+The app works, but too many ideas live in the same files. This module is not about making files tiny. It is about naming responsibilities.
+
+Feature folders group code by what the app does. Shared UI belongs in a package when more than one app needs the same concept. Error boundaries let one broken area fail without taking down the whole shell.
+
+### SHOW APP
+
+Open:
+
+- `apps/arena/src/App.tsx`
+- `apps/arena/src/PatientPage.tsx`
+- `packages/ui/src/base/badge.tsx`
+- `apps/medix.com/app/page.tsx`
+- `apps/medix.com/app/products/page.tsx`
+
+Show Module 1 in `EXERCISES.md`.
+
+Say:
+
+Look at the patient page before touching it. We can already see separate ideas: patient list, selected patient header, journal list, journal entries, and the form. The first job is to name those ideas in code.
+
+### TASK
+
+Time: 25 minutes.
+
+Task prompt:
+
+Work through Module 1 in `EXERCISES.md`.
+
+1. Split the large patient page into focused components.
+2. Move the app shell into a layout.
+3. Add an error boundary around the main content.
+4. Create `StatusBadge` in `packages/ui`.
+5. Export `StatusBadge` and `JournalStatus` from `packages/ui`.
+6. Use `StatusBadge` in Arena and medix.com.
+
+While they work, listen for:
+
+- where they put components
+- how small they make components
+- whether `StatusBadge` belongs in the app or shared package
+- whether the error boundary wraps the right part of the UI
+
+### DISCUSS
+
+Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+
+Focus on what groups tried, where they got stuck, and which structure choices came up more than once.
+
+Land:
+
+Shared packages are for concepts reused across apps. Feature components stay close to the feature until reuse is real.
+
+### CODE
+
+Use [`step-notes/step1.md`](step-notes/step1.md).
+
+Walkthrough order:
+
+1. Split the monolith.
+2. Extract layout and boundary.
+3. Build shared `StatusBadge`.
+4. Use `StatusBadge`.
+
+### CHECKPOINT
+
+Run:
+
+```bash
+npm run typecheck --workspace=apps/arena
+npm test --workspace=apps/arena -- --run
+```
+
+Commit and push the module.
+
+Say:
+
+If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+
+## 11:15 Module 2: Routing
+
+### SLIDES
+
+Slides: TODO add Module 2 slide link.
+
+Slide should include:
+
+- Module title: Routing.
+- Problem: the screen changes, but the URL does not.
+- Concepts: `BrowserRouter`, routes, nested layout, `Outlet`, `Link`, `NavLink`, `useParams`.
+- User impact: refresh, back button, bookmarks, sharing.
+- Task outcome: real URLs for dashboard, patient list, and patient detail.
+
+Say:
+
+The screen changes, but the URL does not. That means refresh, back button, bookmarks, and sharing do not behave like users expect.
+
+The URL is app state that users can see, copy, bookmark, and send to someone else.
+
+### SHOW APP
+
+Open the app and show:
+
+- changing screens with local state
+- refresh behavior
+- back button behavior
+- missing patient detail URL
+
+Open:
+
+- `apps/arena/src/App.tsx`
+- layout/navigation files created in Module 1
+- `apps/arena/src/PatientPage.tsx`
+
+Show Module 2 in `EXERCISES.md`.
+
+### TASK
+
+Time: 15 minutes.
+
+Task prompt:
+
+Work through Module 2 in `EXERCISES.md`.
+
+1. Wrap the app in `BrowserRouter`.
+2. Create route definitions for dashboard, patients, and patient detail.
+3. Use `Layout` and `Outlet` for the shared shell.
+4. Replace local-state navigation with `Link` and `NavLink`.
+5. Create route-level pages.
+6. Link each patient to `/patients/:id`.
+7. Read the patient id with `useParams`.
+
+While they work, listen for:
+
+- links versus buttons
+- nested routes
+- where `Outlet` belongs
+- how route params flow into page code
+
+### DISCUSS
+
+Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+
+Focus on what changed when people moved from local state to routes, and which routing concepts felt unclear.
+
+Land:
+
+The route tree gives structure to the app. The layout stays mounted while the active child route changes.
+
+### CODE
+
+Use [`step-notes/step2.md`](step-notes/step2.md).
+
+Walkthrough order:
+
+1. Show the navigation problem.
+2. Add `BrowserRouter`.
+3. Create routes.
+4. Update layout navigation.
+5. Create pages.
+6. Link to details.
+7. Read route params.
+8. Compare with Next.js.
+
+After the React Router walkthrough, open `apps/medix.com/app` and show file-based routing briefly.
+
+### CHECKPOINT
+
+Run:
+
+```bash
+npm run typecheck --workspace=apps/arena
+```
+
+Commit and push the module.
+
+Say:
+
+If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 
 ## 12:00 Lunch
 
-- Stop even if the previous module got a little messy.
-- Use the break to reset the demo app with `npm run db:seed` if needed.
+### BREAK
 
-## 13:00 TASK: Module 3, State and Effects
+Stop even if Module 2 got messy.
 
-Slides: TODO add link.
+During the break:
 
-- Some state is remembered even though it can be calculated.
-- Derived state is data we can calculate from props or existing state during render. It usually should not be stored.
-- `useEffect` is not bad. It is for synchronizing with something outside React.
-- `useRef` is another escape hatch for mutable values that should not trigger render, or for direct DOM access.
-- Data-fetching effects stay for now. Module 4 handles those.
-- The Module 3 goal is in `WORKSHOP.md`. The task is to remove synced state, derive values during render, and extract `usePatientFilter`.
-- The questions I want people asking during the task are: "Should this be state?", "Do we need `useMemo`?", and "Is this a good useEffect?"
+- reset data with `npm run db:seed` if needed
+- open Module 3 files
+- check [`step-notes/step3.md`](step-notes/step3.md)
 
-## Discuss: Module 3
+## 13:00 Module 3: State And Effects
 
-- Which state did you delete?
-- When is `useEffect` actually the right tool?
-- Did removing state make anything easier to reason about?
-- Less state means fewer impossible states. Effects are for external systems, not for keeping React values in sync with each other.
+### SLIDES
 
-## Walkthrough: Module 3
+Slides: TODO add Module 3 slide link.
 
-- Use `step-notes/step3.md`.
-- Be clear when you leave a data-fetching effect in place.
-- When adding `useDebounce`, explain why the timer makes this a real effect.
-- Run `npm test --workspace=apps/arena -- --run`.
+Slide should include:
 
-## 13:45 TASK: Module 4, TanStack Query
+- Module title: State and Effects.
+- Problem: the app stores values it can calculate.
+- Concepts: derived state, minimal state, `useEffect` as synchronization, `useRef` as an escape hatch.
+- Rule of thumb: if it can be calculated during render, do not store it.
+- Task outcome: remove synced state and extract `usePatientFilter`.
 
-Slides: TODO add link.
+Say:
 
-- Server state needs loading, error handling, caching, retries, refetching, and mutation updates.
-- Server state means the API owns the data and the client displays and changes it.
-- Bring back the intro problems: latency, loading states, race conditions, and stale data.
-- Show `QueryClientProvider`.
-- Query keys are cache addresses.
-- The Module 4 goal is in `WORKSHOP.md`. The task is to replace manual fetching with `useQuery`, use `useSuspenseQuery` for detail, and use `useMutation` for journal changes.
-- The decisions I care about during the task are query key shape, where loading UI belongs, and what to invalidate after a mutation.
+Some state is remembered even though it can be calculated. That creates extra moving parts and impossible states.
 
-## Discuss: Module 4
+Derived state is data we can calculate from props or existing state during render. It usually should not be stored.
 
-- What code disappeared when you moved fetching to TanStack Query?
-- What should go in a query key?
-- What should happen after a mutation succeeds?
-- Query keys define identity. Mutations change server state. Invalidation tells the cache what needs to be refreshed.
+`useEffect` is not bad. It is for synchronizing with something outside React.
 
-## Walkthrough: Module 4
+### SHOW APP
 
-- Use `step-notes/step4.md`.
-- Show cache reuse by navigating away and back.
-- Show the local Suspense and ErrorBoundary around patient detail.
-- Show mutation invalidation after changing journal status or creating a journal.
-- Run `npm run typecheck --workspace=apps/arena`.
-- Run `npm test --workspace=apps/arena -- --run`.
+Open:
+
+- `apps/arena/src/Dashboard.tsx`
+- `apps/arena/src/PatientPage.tsx`
+
+Show Module 3 in `EXERCISES.md`.
+
+Say:
+
+Leave data-fetching effects alone for now. Module 4 handles those. This module is about state that only exists because other React state changed.
+
+### TASK
+
+Time: 15 minutes.
+
+Task prompt:
+
+Work through Module 3 in `EXERCISES.md`.
+
+1. Remove dashboard state that can be derived during render.
+2. Remove selected patient state that only syncs with selected id.
+3. Extract patient search and filter logic into `usePatientFilter`.
+4. Keep data-fetching effects for Module 4.
+
+While they work, listen for:
+
+- "Should this be state?"
+- "Do we need `useMemo`?"
+- "Is this a good `useEffect`?"
+- confusion between derived state and external synchronization
+
+### DISCUSS
+
+Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+
+Focus on which state people removed, which effects felt suspicious, and where the line between derived state and synchronization was unclear.
+
+Land:
+
+Less state means fewer impossible states. Effects are for external systems, not for keeping React values in sync with each other.
+
+### CODE
+
+Use [`step-notes/step3.md`](step-notes/step3.md).
+
+Walkthrough order:
+
+1. Frame the problem.
+2. Remove derived dashboard state.
+3. Remove selected patient sync.
+4. Extract `usePatientFilter`.
+5. Add `useDebounce`.
+6. Add tests.
+
+### CHECKPOINT
+
+Run:
+
+```bash
+npm test --workspace=apps/arena -- --run
+```
+
+Commit and push the module.
+
+Say:
+
+If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+
+## 13:45 Module 4: TanStack Query
+
+### SLIDES
+
+Slides: TODO add Module 4 slide link.
+
+Slide should include:
+
+- Module title: TanStack Query.
+- Problem: manual fetching repeats loading, error, race, and cache logic.
+- Concepts: server state, query keys, loading states, errors, suspense queries, mutations, invalidation.
+- Rule of thumb: query keys describe identity; invalidation describes what changed.
+- Task outcome: replace manual fetch effects with queries and mutations.
+
+Say:
+
+Server state needs loading, error handling, caching, retries, refetching, and mutation updates.
+
+Server state means the API owns the data and the client displays and changes it. TanStack Query gives us a standard way to describe that data instead of building the same async infrastructure in every component.
+
+### SHOW APP
+
+Open:
+
+- `apps/arena/src/main.tsx`
+- files with manual `fetch` and `useEffect`
+- patient list
+- patient detail
+- journal status update
+- journal creation flow
+
+Show Module 4 in `EXERCISES.md`.
+
+### TASK
+
+Time: 20 minutes.
+
+Task prompt:
+
+Work through Module 4 in `EXERCISES.md`.
+
+1. Replace manual patient list fetching with `useQuery`.
+2. Add loading and error UI for the list.
+3. Replace patient detail fetching with `useSuspenseQuery`.
+4. Wrap patient detail loading in local `Suspense` and local `ErrorBoundary`.
+5. Replace journal fetching with a query.
+6. Update journal status with `useMutation`.
+7. Invalidate the relevant queries after a successful mutation.
+8. Submit the journal form through a mutation.
+
+While they work, listen for:
+
+- query key shape
+- where loading UI belongs
+- where the local error boundary belongs
+- what to invalidate after a mutation
+- whether they over-invalidate
+
+### DISCUSS
+
+Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+
+Focus on what code disappeared, what people chose for query keys, and what they invalidated after mutations.
+
+Land:
+
+Query keys define identity. Mutations change server state. Invalidation tells the cache what needs to be refreshed.
+
+### CODE
+
+Use [`step-notes/step4.md`](step-notes/step4.md).
+
+Walkthrough order:
+
+1. Show manual server state.
+2. Check `QueryClientProvider`.
+3. Create `usePatients`.
+4. Use `usePatients`.
+5. Fetch patient detail with `useSuspenseQuery`.
+6. Add local `Suspense` and `ErrorBoundary`.
+7. Create `useJournals`.
+8. Update journal status with `useMutation`.
+9. Submit journal form through mutation.
+
+### CHECKPOINT
+
+Run:
+
+```bash
+npm run typecheck --workspace=apps/arena
+npm test --workspace=apps/arena -- --run
+```
+
+Commit and push the module.
+
+Say:
+
+If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 
 ## 14:30 Break
 
-- Give people a real pause before forms.
-- Reset the database if the journal data is messy.
+### BREAK
 
-## 14:45 TASK: Module 5, Forms
+Give people a real pause before forms.
 
-Slides: TODO add link.
+During the break:
 
-- The form works, but validation rules are scattered and the error UX is too vague.
-- Controlled inputs mean React owns the value. Uncontrolled inputs mean the DOM owns the value and the form library reads it when needed.
-- Schema validation gives the form rules one place to live.
-- Client validation is for UX. Server validation is still required.
-- The Module 5 goal is in `WORKSHOP.md`. The task is to wire React Hook Form, add a Zod schema, show field errors, disable invalid submit, and surface server errors.
-- The decisions I care about during the task are `register` versus `Controller`, where errors come from, and how server errors differ from field errors.
+- reset data with `npm run db:seed` if journal data is messy
+- open Module 5 files
+- check [`step-notes/step5.md`](step-notes/step5.md)
 
-## Discuss: Module 5
+## 14:45 Module 5: Forms
 
-- What is easier to change once validation lives in a schema?
-- When do we use `Controller` instead of `register`?
-- What errors can still happen after client validation passes?
-- React Hook Form owns form state, Zod owns validation rules, TanStack Query owns the submit mutation, and the API still validates on the server.
+### SLIDES
 
-## Walkthrough: Module 5
+Slides: TODO add Module 5 slide link.
 
-- Use `step-notes/step5.md`.
-- Show invalid fields before submit.
-- Show a valid submit and the updated journal list.
-- Show where a server error would be rendered.
-- Run `npm test --workspace=apps/arena -- --run`.
+Slide should include:
 
-## 15:40 Slides: Wrap-Up
+- Module title: Forms.
+- Problem: validation rules are scattered and errors are too vague.
+- Concepts: React Hook Form, Zod schema, `zodResolver`, field errors, server errors, mutation submit.
+- Rule of thumb: client validation is for UX, server validation is still required.
+- Task outcome: schema-backed form with field errors, disabled invalid submit, and server error feedback.
 
-Slides: TODO add link.
+Say:
 
-- Recap the path: structure, routing, minimal state, server state, forms.
-- What is left for future learning: deeper TypeScript, testing, Context, Zustand, security, and server-side React.
+The form works, but validation rules are scattered and the error UX is too vague.
+
+React Hook Form owns form state. Zod owns validation rules. TanStack Query owns the submit mutation. The API still validates on the server.
+
+Client validation is for UX. Server validation is for trust.
+
+### SHOW APP
+
+Open:
+
+- journal form component
+- API route for journal creation if useful
+- current form in the browser
+
+Show Module 5 in `EXERCISES.md`.
+
+### TASK
+
+Time: 20 minutes.
+
+Task prompt:
+
+Work through Module 5 in `EXERCISES.md`.
+
+1. Add a Zod schema for a new journal entry.
+2. Infer the form type from the schema.
+3. Wire the form with React Hook Form.
+4. Connect Zod through `zodResolver`.
+5. Register text fields.
+6. Use `Controller` where the input does not fit simple `register`.
+7. Submit through `handleSubmit` and a mutation.
+8. Show field-level errors.
+9. Disable submit while invalid or submitting.
+10. Show server errors in the form.
+
+While they work, listen for:
+
+- where validation rules live
+- `register` versus `Controller`
+- field errors versus server errors
+- client validation versus server validation
+
+### DISCUSS
+
+Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+
+Focus on where people put validation rules, how they handled errors, and where `register` versus `Controller` was unclear.
+
+Land:
+
+The schema keeps validation rules in one place. The form library manages form state. The mutation manages the API call. The server remains the final authority.
+
+### CODE
+
+Use [`step-notes/step5.md`](step-notes/step5.md).
+
+Walkthrough order:
+
+1. Show the manual form.
+2. Add Zod schema.
+3. Infer form type.
+4. Wire React Hook Form.
+5. Register text fields.
+6. Use `Controller` for `DatePicker`.
+7. Submit with `handleSubmit` and mutation.
+8. Disable invalid submit and show errors.
+9. Add tests.
+
+### CHECKPOINT
+
+Run:
+
+```bash
+npm test --workspace=apps/arena -- --run
+```
+
+Commit and push the module.
+
+Say:
+
+If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+
+## 15:40 Wrap-Up
+
+### SLIDES
+
+Slides: TODO add wrap-up slide link.
+
+Slide should include:
+
+- Recap of the path: structure, routing, state, server state, forms.
+- What each pattern solved.
+- Reference links: starter repo, authoring repo, and `steps/` snapshots.
+- Further learning: deeper TypeScript, testing, Context, Zustand, security, server-side React.
+- Certification information and next steps.
+- Final discussion prompt: what will you use first?
+
+Say:
+
+Today we moved through the main problems that show up in larger React apps: structure, routing, state, server state, and forms.
+
+Facilitate a final group discussion:
+
 - Which pattern will you use first in your own codebase?
 - What still feels unclear?
-- Leave time for questions and cleanup.
-- The starter repo and authoring repo for later reference.
+- Which part changed how you think about React?
+
+### CHECKPOINT
+
+Make sure the last module is committed and pushed if participants need the reference.

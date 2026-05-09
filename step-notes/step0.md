@@ -1,13 +1,12 @@
 # Step 0: Starter Run-Through
 
-
 ## App: Open the starter
 
 - Start with the app running, not the code.
 - Show Dashboard, Patients, one patient detail page, journal entries, status select, and the new journal form.
 - The starter is supposed to work. The point is not to fix a broken app from zero. The point is to improve code that looks like a lot of real project code.
 - What parts of this app do you expect to get messy as it grows?
-- The answers I want to draw out: navigation, forms, shared UI, fetching, and state.
+- Answer to land: navigation, forms, shared UI, fetching, and state.
 
 ## App: Run the monorepo
 
@@ -18,7 +17,7 @@
 - Open medix.com on `localhost:3000`.
 - One command starts several workspaces because this is an npm workspace with Turborepo.
 - What is useful about running the app, API, and shared package from the same repo?
-- The answers I want to draw out: the practical answers: one local setup, shared code, one PR for changes across boundaries, consistent tooling.
+- Answer to land: one local setup, shared code, one PR across boundaries, and consistent tooling.
 
 ## App: Read the code we start from
 
@@ -31,7 +30,9 @@
 - Scroll slowly. Do not fix anything yet.
 - This file has patient list, patient detail, journals, form, status styling, fetching, and mutation logic.
 - If you had to change only the status colors, where would you look?
+- Answer to land: right now you have to hunt through app code. After Module 1, status styling should live in `packages/ui`.
 - If you had to change only the form validation, where would you look?
+- Answer to land: right now it is mixed into the form submit handler. After Module 5, the validation rules should live in a schema near the form.
 - Let them feel that the file has too many reasons to change.
 
 ## App: Show API and shared UI
@@ -44,7 +45,7 @@
 - Open `packages/ui/src/index.ts`.
 - Apps should import public UI from here, not deep internal paths.
 - When should something move into `packages/ui`?
-- The point I want to land: when more than one app needs the same concept, or when a shared concept should have one implementation.
+- Answer to land: when more than one app needs the same concept, or when a shared concept should have one implementation.
 
 ## App: Tests and AI setup
 
@@ -53,4 +54,3 @@
 - Open `AGENTS.md` briefly.
 - GitHub Copilot and `/react-best-practices`.
 - AI setup is useful for scoped context, but we still need to understand the shape of the code.
-

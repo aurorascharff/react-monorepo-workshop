@@ -28,18 +28,18 @@ Keep the workshop conversational. Ask the room what they notice before explainin
 
 ## Schedule
 
-| Time | Session |
-| --- | --- |
-| 09:00 | Intro: Thinking in web |
-| 09:30 | Setup |
-| 10:15 | Module 1: Architecture and Reuse |
+| Time  | Session                                  |
+| ----- | ---------------------------------------- |
+| 09:00 | Intro: Thinking in web                   |
+| 09:30 | Setup                                    |
+| 10:15 | Module 1: Architecture and Reuse         |
 | 11:15 | Module 2: Routing and Next.js comparison |
-| 12:00 | Lunch |
-| 13:00 | Module 3: State and Effects |
-| 13:45 | Module 4: TanStack Query |
-| 14:30 | Break |
-| 14:45 | Module 5: Forms |
-| 15:40 | Wrap-up |
+| 12:00 | Lunch                                    |
+| 13:00 | Module 3: State and Effects              |
+| 13:45 | Module 4: TanStack Query                 |
+| 14:30 | Break                                    |
+| 14:45 | Module 5: Forms                          |
+| 15:40 | Wrap-up                                  |
 
 ## Repositories
 
@@ -50,6 +50,7 @@ Participants should clone the starter repo. The authoring repo contains the fini
 
 ## Authoring Materials
 
+- [`EXERCISES.md`](EXERCISES.md) - participant task list
 - [`STEPS.md`](STEPS.md) - instructor run sheet for slides, tasks, discussion, and walkthroughs
 - [`INSTRUCTOR.md`](INSTRUCTOR.md) - day-of checklist, room notes, fallback plan, and follow-up
 - [`step-notes`](step-notes) - per-step live-coding notes
@@ -58,13 +59,13 @@ Participants should clone the starter repo. The authoring repo contains the fini
 
 ## Module Overview
 
-| Module | Focus | Main outcome |
-| --- | --- | --- |
-| 1 | Architecture and Reuse | Split large files, create focused components, add shared `StatusBadge`, add an error boundary |
-| 2 | Routing | Make the URL the source of truth with React Router routes, links, params, and nested layout |
-| 3 | State and Effects | Remove unnecessary state, derive values during render, extract reusable hook logic |
-| 4 | TanStack Query | Replace manual fetching with queries, suspense queries, mutations, cache invalidation, and local boundaries |
-| 5 | Forms | Add React Hook Form and Zod validation with field errors, disabled invalid submit, and server error feedback |
+| Module | Focus                  | Main outcome                                                                                                 |
+| ------ | ---------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1      | Architecture and Reuse | Split large files, create focused components, add shared `StatusBadge`, add an error boundary                |
+| 2      | Routing                | Make the URL the source of truth with React Router routes, links, params, and nested layout                  |
+| 3      | State and Effects      | Remove unnecessary state, derive values during render, extract reusable hook logic                           |
+| 4      | TanStack Query         | Replace manual fetching with queries, suspense queries, mutations, cache invalidation, and local boundaries  |
+| 5      | Forms                  | Add React Hook Form and Zod validation with field errors, disabled invalid submit, and server error feedback |
 
 ## Module Goals
 

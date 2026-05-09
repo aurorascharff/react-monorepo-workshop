@@ -1,12 +1,11 @@
 # Step 4: TanStack Query
 
-
 ## App: Show manual server state
 
 - Open the current patient and journal fetching code.
 - This is server state. The API owns it, and the client displays it.
 - What are we manually handling right now?
-- The answers I want to draw out: Loading, errors, retries, stale data, cache, race conditions, refetching after mutations.
+- Answer to land: loading, errors, retries, stale data, cache, race conditions, and refetching after mutations.
 - TanStack Query gives us a standard way to describe server state instead of rebuilding that infrastructure in each component.
 
 ## App: Check QueryClientProvider
@@ -26,8 +25,10 @@
 - Use `queryKey: ['patients']`.
 - Use `queryFn: fetchPatients`.
 - A query key is the cache address.
+- What should go in a query key?
+- Answer to land: the stable identity of the data. Include variables when they change what data comes back.
 - What should happen if Dashboard and Patients both ask for `['patients']`?
-- The answers I want to draw out: They should reuse the same cache entry.
+- Answer to land: they should reuse the same cache entry.
 - Variables belong in the query key when they change the returned data.
 
 ## App: Use usePatients
@@ -38,6 +39,8 @@
 - Open `pages/DashboardPage.tsx`.
 - Replace manual fetching with `usePatients`.
 - Navigate between Dashboard and Patients to verify cache reuse.
+- What code disappeared when fetching moved to TanStack Query?
+- Answer to land: local loading state, fetching effects, repeated fetch calls, and manual success/error bookkeeping.
 - We removed duplicated fetching logic, but we also got better navigation behavior because data is cached.
 
 ## App: Fetch patient detail with useSuspenseQuery
@@ -49,7 +52,7 @@
 - Use `queryFn` to fetch one patient by id.
 - `useSuspenseQuery` does not give us `isLoading`. It suspends and lets the parent boundary decide loading UI.
 - Why does `id` belong in the query key?
-- The answers I want to draw out: Different patients are different cached data.
+- Answer to land: different patients are different cached data.
 
 ## App: Add local Suspense and ErrorBoundary
 
@@ -58,7 +61,7 @@
 - Keep the layout-level boundary as the catch-all.
 - This boundary is contextual. If patient detail fails, the shell and navigation are still useful.
 - What would be worse about only having one top-level boundary?
-- The answers I want to draw out: It makes a local data failure feel like the whole app failed.
+- Answer to land: it makes a local data failure feel like the whole app failed.
 
 ## App: Create useJournals
 
@@ -78,8 +81,10 @@
 - On success, invalidate `['journals', patientId]`.
 - Mutation: an operation that changes server state.
 - Invalidation: mark cached data as stale so it refetches.
+- What should happen after a mutation succeeds?
+- Answer to land: invalidate or update the affected cached data so the UI reflects the server state.
 - Why invalidate only this patient's journals instead of everything?
-- The answers I want to draw out: Smaller invalidation means less unnecessary work and fewer surprising updates.
+- Answer to land: smaller invalidation means less unnecessary work and fewer surprising updates.
 
 ## App: Submit journal form through mutation
 
@@ -93,4 +98,3 @@
 
 - Run `npm run typecheck --workspace=apps/arena`.
 - Run `npm test --workspace=apps/arena -- --run`.
-

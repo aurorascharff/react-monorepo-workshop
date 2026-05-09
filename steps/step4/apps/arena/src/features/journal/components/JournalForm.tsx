@@ -17,7 +17,6 @@ export function JournalForm({ patientId }: JournalFormProps) {
     },
   })
 
-  // TODO Module 5: Replace this uncontrolled form with React Hook Form + Zod.
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 

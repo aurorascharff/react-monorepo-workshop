@@ -1,12 +1,15 @@
 # Step 1: Architecture and Reuse
 
-
 ## App: Split the monolith
 
 - Open `apps/arena/src/PatientPage.tsx`.
 - Before we move code, we need names for the things that already exist on the screen.
 - What components can you see in the UI before looking at the code?
-- The answers I want to draw out: Patient list, patient card, patient header, journal list, journal entry, form.
+- Answer to land: Patient list, patient card, patient header, journal list, journal entry, form.
+- What did you split out first when you tried this yourself?
+- Answer to land: there is not one correct first cut, but list/card/header are usually easier first moves than form or data fetching.
+- Which component was hardest to name?
+- Answer to land: hard names are useful signals. If a name feels fake, the boundary may be fake or the component may still have too many responsibilities.
 - Create `features/patients/components`.
 - Create `features/journal/components`.
 - Create `components`.
@@ -30,7 +33,7 @@
 - Create `components/ErrorBoundary.tsx`.
 - Wrap the main content area in `ErrorBoundary`.
 - Where should an error boundary go if we want the sidebar to stay visible?
-- The answers I want to draw out: The boundary should wrap the part that can fail, not necessarily the whole app.
+- Answer to land: the boundary should wrap the part that can fail, not necessarily the whole app.
 - This first boundary is a catch-all. In the data fetching module we add a more contextual boundary closer to the loading data.
 
 ## App: Build shared StatusBadge
@@ -43,7 +46,9 @@
 - Render `Badge` inside `StatusBadge`.
 - Export `StatusBadge` and `JournalStatus` from `packages/ui/src/index.ts`.
 - Why is the mapping from status to color not just a className in the app?
-- The point I want to land: it is a shared domain concept, so it should have one home.
+- Answer to land: it is a shared domain concept, so it should have one home.
+- What should live in `packages/ui`, and what should stay in the app?
+- Answer to land: shared primitives and shared domain UI belong in `packages/ui`; feature-specific screens and workflows stay in the app.
 - The layering: base primitives at the bottom, domain-specific UI on top, apps consuming the shared component.
 
 ## App: Use StatusBadge
@@ -54,11 +59,10 @@
 - Change one status style and verify that both apps update from one place.
 - This is the payoff. One concept, one implementation.
 - What should not go into `packages/ui` yet?
-- The point I want to land: Keep feature-specific code in the feature until reuse is real.
+- Answer to land: feature-specific code should stay in the feature until reuse is real.
 
 ## Check
 
 - Run `npm run typecheck --workspace=apps/arena`.
 - Run `npm test --workspace=apps/arena -- --run`.
 - If a test fails because an import moved, fix the import rather than changing the behavior.
-

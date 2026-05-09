@@ -1,6 +1,5 @@
 # Step 2: Routing
 
-
 ## App: Show the navigation problem
 
 - Open the app before changing code.
@@ -8,7 +7,7 @@
 - Refresh while looking at a patient detail view.
 - The app can show different screens, but the browser does not know where we are.
 - What do we lose when the URL is not the source of truth?
-- The answers I want to draw out: refresh, back button, bookmarks, links, and sharing.
+- Answer to land: refresh, back button, bookmarks, links, and sharing.
 
 ## App: Add BrowserRouter
 
@@ -26,7 +25,7 @@
 - Use a parent route with `Layout`.
 - Render child pages through `Outlet`.
 - Which part of the UI should stay mounted while child routes change?
-- The answers I want to draw out: This is the app shell: sidebar, mobile header, shared wrapper.
+- Answer to land: the app shell should stay mounted: sidebar, mobile header, and shared wrapper.
 
 ## App: Update layout navigation
 
@@ -35,10 +34,12 @@
 - Remove `children`, `activePage`, and `onNavigate`.
 - Render `<Outlet />` inside the existing `ErrorBoundary`.
 - Replace navigation buttons with `NavLink`.
+- What is the difference between a link and a button?
+- Answer to land: links navigate to another URL; buttons perform an action. This matters for accessibility, browser behavior, and user expectations.
 - Use `isActive` to style the active navigation item.
 - Buttons perform actions. Links navigate. This matters for accessibility, browser behavior, and user expectations.
 - Why should active nav be derived from the URL instead of stored in state?
-- The answers I want to draw out: The URL already knows the active route.
+- Answer to land: the URL already knows the active route, so storing it separately creates another source of truth.
 
 ## App: Create pages
 
@@ -56,7 +57,9 @@
 - Refresh on a patient detail page.
 - Use back and forward.
 - What changed in the user experience even though the UI looks almost the same?
-- The answers I want to draw out: The app now behaves like a browser app, not a local state switcher.
+- Answer to land: the app now behaves like a browser app, not a local state switcher.
+- What should happen while a route is loading?
+- Answer to land: the user should get a clear loading state without losing the whole shell. We solve this more fully in Module 4.
 
 ## App: Read route params
 
@@ -73,9 +76,8 @@
 - Show `page.tsx`, `layout.tsx`, and any nested route folders.
 - Next.js gets routes from files. React Router gets routes from route components. The core idea is still URL maps to UI.
 - Why might medix.com fit framework routing better than Arena?
-- The answers I want to draw out: Public content, SEO, server rendering, static pages.
+- Answer to land: public content, SEO, server rendering, and static pages.
 
 ## Check
 
 - Run `npm run typecheck --workspace=apps/arena`.
-

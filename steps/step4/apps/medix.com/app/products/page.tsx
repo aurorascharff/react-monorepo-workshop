@@ -1,9 +1,16 @@
 import type { Metadata } from 'next'
-import { StatusBadge, Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
+import {
+  StatusBadge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@medix/ui'
 
 export const metadata: Metadata = {
   title: 'Products',
-  description: 'Explore the Medix product suite — Arena, Mobility, Integration, and Analytics.',
+  description:
+    'Explore the Medix product suite — Arena, Mobility, Integration, and Analytics.',
 }
 
 const products = [

@@ -1,12 +1,11 @@
 # Step 5: Forms
 
-
 ## App: Show the manual form
 
 - Open `features/journal/components/JournalForm.tsx`.
 - The form works, but the rules are scattered across submit handling, local error state, and the UI.
 - What validation rules can we see from the UI?
-- The answers I want to draw out: Required title, required date, content length, server errors.
+- Answer to land: required title, required date, content length, and server errors.
 - For tiny forms this is okay. For real forms it gets hard to change and hard to test.
 
 ## App: Add Zod schema
@@ -17,6 +16,8 @@
 - Add `date`: required.
 - Add `content`: required and at least 10 characters.
 - Schema: one place that describes valid form data.
+- What is easier to change once validation lives in a schema?
+- Answer to land: validation rules, error messages, and inferred TypeScript types can change together in one place.
 - Client validation is for UX. The server must still validate.
 
 ## App: Infer form type
@@ -25,7 +26,7 @@
 - Use this type for the form.
 - We are not writing the same shape twice. TypeScript follows the schema.
 - What happens if the schema changes but a handwritten type does not?
-- The answers I want to draw out: The form and validation drift apart.
+- Answer to land: the form and validation drift apart.
 
 ## App: Wire React Hook Form
 
@@ -46,7 +47,7 @@
 - Render `errors.content?.message` below content.
 - Field-level errors are easier to act on than one generic form error.
 - What should the user be able to fix from the error message?
-- The answers I want to draw out: The message should point to the field and the rule.
+- Answer to land: the message should point to the field and the rule.
 
 ## App: Use Controller for DatePicker
 
@@ -56,7 +57,7 @@
 - Render `errors.date?.message` below the date field.
 - `Controller` is for components that do not plug directly into `register`.
 - Why not use `Controller` for every field?
-- The answers I want to draw out: Use the simpler `register` path when the input supports it.
+- Answer to land: use the simpler `register` path when the input supports it.
 
 ## App: Submit with handleSubmit and mutation
 
@@ -67,7 +68,7 @@
 - Reset the form.
 - Call `onSuccess` if present.
 - Which part owns validation, and which part owns the server update?
-- The answers I want to draw out: Zod owns validation, React Hook Form owns form state, TanStack Query owns the mutation.
+- Answer to land: Zod owns validation, React Hook Form owns form state, and TanStack Query owns the mutation.
 
 ## App: Disable invalid submit and show errors
 
@@ -75,6 +76,8 @@
 - Show `Saving...` while pending.
 - Render the mutation error above the fields.
 - Server errors still need a place in the UI. Client validation cannot catch network errors, permissions, or backend failures.
+- Where should server errors be shown so the user can recover?
+- Answer to land: near the form submit area or above the fields, where the user can see that the whole submission failed rather than one field being invalid.
 - Disabling invalid submit is a product choice. It works here because the rules are simple and visible.
 
 ## App: Add tests
@@ -87,4 +90,3 @@
 ## Check
 
 - Run `npm test --workspace=apps/arena -- --run`.
-

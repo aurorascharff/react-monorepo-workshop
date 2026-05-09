@@ -1,7 +1,4 @@
-/* eslint-disable react-hooks/set-state-in-effect --
- * Modules 3 and 4 remove these effects entirely. Disabled on the starter so
- * `npm run lint` passes; remove this directive once those modules are done.
- */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, Spinner } from '@medix/ui'
@@ -16,17 +13,12 @@ export function Dashboard({ onNavigate }: DashboardProps) {
   const [patients, setPatients] = useState<Patient[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  // TODO Module 4: Replace useEffect + fetch with `useQuery`.
-  // Caching, deduplication, race-condition handling, retries — for free.
   useEffect(() => {
     fetchPatients()
       .then((data) => setPatients(data))
       .finally(() => setIsLoading(false))
   }, [])
 
-  // TODO Module 3: This is "derived state in useState + useEffect" — an anti-pattern.
-  // The counts can be computed directly during render. Remove `stats` state and
-  // its useEffect; just compute them inline below.
   const [stats, setStats] = useState({ total: 0, female: 0, male: 0 })
   useEffect(() => {
     setStats({

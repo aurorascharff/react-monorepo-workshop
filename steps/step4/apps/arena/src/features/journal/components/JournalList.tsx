@@ -32,11 +32,7 @@ export function JournalList({ patientId }: JournalListProps) {
     <ErrorBoundary>
       <div className="flex flex-col gap-3">
         {entries.map((entry) => (
-          <JournalEntry
-            key={entry.id}
-            entry={entry}
-            patientId={patientId}
-          />
+          <JournalEntry key={entry.id} entry={entry} patientId={patientId} />
         ))}
       </div>
     </ErrorBoundary>
