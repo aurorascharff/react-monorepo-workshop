@@ -1,7 +1,7 @@
 # Workshop Step Snapshots
 
 Each `stepN/` directory is a complete runnable monorepo snapshot for that point
-in the workshop. `step0/` is the untouched participant starter, and `step1/`
+in the workshop. `step0/` is the participant-facing starter, and `step1/`
 through `step5/` are the completed module checkpoints.
 
 Tests are introduced only once the corresponding module has created the code
@@ -18,7 +18,7 @@ The same commands work from any `stepN/` folder.
 
 ## Step Map
 
-- `step0/` — Starter: participant starting point with deliberate TODOs,
+- `step0/` — Starter: participant-facing starting point with deliberate TODOs,
   pre-module implementation, and only the generic smoke test.
 - `step1/` — Module 1 complete: feature folders, focused components, shared
   `StatusBadge`, and layout-level error boundary.
