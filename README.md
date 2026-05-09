@@ -1,8 +1,8 @@
-# Real World React: Monorepos, APIs, and App Structure
+# Hands-on React Monorepos, APIs, and App Structure
 
-Most React tutorials focus on isolated components. Real applications usually have more moving parts: routes, forms, APIs, loading states, shared UI, tests, and multiple apps that need to evolve together.
+In this workshop, we will explore how to build and improve a React app inside a monorepo. Learn how to structure app features, add routing with React Router, handle client and server state, fetch and update API data with TanStack Query, and create robust forms with React Hook Form and Zod.
 
-In this workshop, you will work on a small React SPA inside a monorepo. We start from a working but intentionally rough codebase and improve it step by step: app structure, routing, state, data fetching, and forms.
+Designed for developers who know the basics of React and want more practice with real application structure, this workshop provides practical skills for building maintainable React applications that can grow across apps and shared packages.
 
 ## Tech stack
 
