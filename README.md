@@ -75,6 +75,7 @@ GitHub Actions runs `lint`, `typecheck`, `test`, and `build` on every push and p
 
 - [plan.md](plan.md) — day-of agenda, theory, and demos
 - [tasks.md](tasks.md) — module goals and acceptance criteria
+- [steps.md](steps.md) — complete code snapshots for each workshop module
 
 ## Reading & references
 
