@@ -83,7 +83,9 @@ Editor:
 
 ## Room
 
-- Groups of 4 work well.
+- Expected room: about 40 participants.
+- Groups of about 5 people work well.
+- With 40 participants, aim for about 8 groups.
 - Mix experience and teams if needed.
 - Do not stay behind the podium for more than 10 min.
 - Listen for repeated confusion while walking around.

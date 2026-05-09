@@ -702,7 +702,7 @@ Say:
 
 Today we moved through the main problems that show up in larger React apps: structure, routing, state, server state, and forms.
 
-Facilitate a final group discussion:
+Close with a short reflection and Q&A:
 
 - Which pattern will you use first in your own codebase?
 - What still feels unclear?
