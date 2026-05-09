@@ -3,11 +3,7 @@ import { Spinner } from '@medix/ui'
 import { usePatients } from '../features/patients/hooks/usePatients'
 
 export function PatientListPage() {
-  const {
-    data: patients,
-    isLoading,
-    error,
-  } = usePatients()
+  const { data: patients, isLoading, error } = usePatients()
 
   return (
     <div>

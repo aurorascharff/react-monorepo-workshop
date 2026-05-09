@@ -28,7 +28,7 @@ npm run diff:steps -- --path apps/arena --stat
 
 By default, the command shows a summary for every adjacent pair: `step0 -> step1`, `step1 -> step2`, and so on. Pass two step names to see the full patch for that pair. Generated output such as `node_modules`, SQLite data, and Next generated types is hidden unless you pass `--include-generated`.
 
-The global instructor run sheet lives in [`../STEPS.md`](../STEPS.md). The stable workshop reference lives in [`../WORKSHOP.md`](../WORKSHOP.md). The per-step live-coding notes live in [`../step-notes`](../step-notes) so these snapshot folders stay focused on runnable app code.
+The global instructor run sheet lives in [`../STEPS.md`](../STEPS.md). The stable workshop reference lives in [`../WORKSHOP.md`](../WORKSHOP.md). The per-step live-coding notes live in [`step-notes`](step-notes) so these snapshot folders stay focused on runnable app code.
 
 ## Step Map
 

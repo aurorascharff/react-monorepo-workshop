@@ -2,7 +2,7 @@
 
 Internal notes for Aurora. Keep this open on a second screen.
 
-Use [`WORKSHOP.md`](WORKSHOP.md) for schedule and module goals, [`STEPS.md`](STEPS.md) for the day flow, and [`step-notes`](step-notes) for live coding.
+Use [`WORKSHOP.md`](WORKSHOP.md) for schedule and module goals, [`STEPS.md`](STEPS.md) for the day flow, and [`steps/step-notes`](steps/step-notes) for live coding.
 
 ## Prep
 
@@ -28,7 +28,7 @@ Morning:
 - [ ] Open Arena at `/patients`.
 - [ ] Open API docs.
 - [ ] Open authoring repo and starter repo.
-- [ ] Open `STEPS.md`, `WORKSHOP.md`, current `step-notes/stepN.md`, and `steps/`.
+- [ ] Open `STEPS.md`, `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and `steps/`.
 - [ ] Check Copilot ghost text is available.
 - [ ] Check Chrome DevTools is docked where the room can see it.
 - [ ] Check TanStack Query Devtools appears in Arena.
@@ -57,7 +57,7 @@ Attendee screen:
 Instructor screen:
 
 - Space 1: desktop and browser.
-- Space 2: `STEPS.md`, current `step-notes/stepN.md`, and code.
+- Space 2: `STEPS.md`, current `steps/step-notes/stepN.md`, and code.
 - Space 3: completed app or finished snapshot.
 
 Editor:

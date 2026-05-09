@@ -21,7 +21,7 @@ Each module follows the same loop:
 1. Slides introduce the concept and the problem in the starter code.
 2. Participants work through the task in the app.
 3. The group discusses what they tried and where they got stuck.
-4. The instructor live-codes the solution using the matching `step-notes/stepN.md`.
+4. The instructor live-codes the solution using `STEPS.md` and the matching `steps/step-notes/stepN.md`.
 5. The instructor runs the relevant checks, commits, and pushes the module solution.
 6. Participants get a recovery path: they can keep their own work, or discard local changes and run `git pull` to use the pushed solution.
 7. Everyone gets a moment to catch up before the next module.
@@ -65,7 +65,7 @@ Participants should clone the starter repo. The authoring repo contains the fini
 - [`EXERCISES.md`](EXERCISES.md) - participant task list
 - [`STEPS.md`](STEPS.md) - instructor run sheet for slides, tasks, discussion, and walkthroughs
 - [`INSTRUCTOR.md`](INSTRUCTOR.md) - day-of checklist, room notes, fallback plan, and follow-up
-- [`step-notes`](step-notes) - per-step live-coding notes
+- [`steps/step-notes`](steps/step-notes) - per-step live-coding notes
 - [`steps/README.md`](steps/README.md) - complete code snapshots for each workshop module
 - [`steps/step0`](steps/step0) - starter snapshot used for the participant repo
 

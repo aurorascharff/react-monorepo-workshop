@@ -10,7 +10,10 @@ export function PatientCard({ patient }: PatientCardProps) {
   const age = calculateAge(patient.dateOfBirth)
 
   return (
-    <Link to={`/patients/${patient.id}`} className="block text-inherit no-underline">
+    <Link
+      to={`/patients/${patient.id}`}
+      className="block text-inherit no-underline"
+    >
       <Card className="transition-shadow hover:shadow-md cursor-pointer">
         <CardContent className="p-4">
           <div className="flex items-start justify-between">
@@ -20,9 +23,13 @@ export function PatientCard({ patient }: PatientCardProps) {
                 {age} years · {patient.gender === 'male' ? 'Male' : 'Female'}
               </p>
             </div>
-            <span className="text-xs text-muted-foreground">ID: {patient.id}</span>
+            <span className="text-xs text-muted-foreground">
+              ID: {patient.id}
+            </span>
           </div>
-          <p className="mt-2 text-sm text-muted-foreground">{patient.diagnosis}</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {patient.diagnosis}
+          </p>
         </CardContent>
       </Card>
     </Link>

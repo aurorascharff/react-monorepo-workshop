@@ -103,6 +103,14 @@ function runDiff(from, to) {
     diffArgs.push(
       ':!node_modules/**',
       ':!**/node_modules/**',
+      ':!.turbo/**',
+      ':!**/.turbo/**',
+      ':!.next/**',
+      ':!**/.next/**',
+      ':!dist/**',
+      ':!**/dist/**',
+      ':!*.tsbuildinfo',
+      ':!**/*.tsbuildinfo',
       ':!apps/api/data/*.sqlite',
       ':!**/apps/api/data/*.sqlite',
       ':!apps/medix.com/next-env.d.ts',
@@ -177,7 +185,7 @@ Default:
 Options:
   --all        Show full patches for every adjacent step pair.
   --include-generated
-               Include generated files such as node_modules output,
+               Include generated files such as build output, caches,
                SQLite data, and Next generated types.
   --name-only  Show changed file names only.
   --name-status

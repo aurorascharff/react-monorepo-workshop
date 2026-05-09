@@ -32,7 +32,10 @@ export const NewJournalSchema = z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format')
       .openapi({ example: '2026-04-30' }),
-    content: z.string().min(10).openapi({ example: 'Patient attended follow-up...' }),
+    content: z
+      .string()
+      .min(10)
+      .openapi({ example: 'Patient attended follow-up...' }),
   })
   .openapi('NewJournal')
 

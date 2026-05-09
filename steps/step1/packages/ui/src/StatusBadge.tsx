@@ -14,8 +14,7 @@ const statusConfig: Record<
   },
   closed: {
     label: 'Closed',
-    className:
-      'bg-muted text-muted-foreground border-transparent',
+    className: 'bg-muted text-muted-foreground border-transparent',
   },
   draft: {
     label: 'Draft',

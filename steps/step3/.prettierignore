@@ -1,1 +1,2 @@
 .agents/
+**/next-env.d.ts

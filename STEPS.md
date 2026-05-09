@@ -1,8 +1,8 @@
 # Workshop Run Sheet
 
-Use this file during the workshop. It tells you what to show, what to say, what task to give, and when to switch to the code walkthrough.
+Use this file during the workshop. It tells you what to show, what to say, what task to give, and how to live-code the solution.
 
-Use [`WORKSHOP.md`](WORKSHOP.md) for the stable schedule and module goals. Use [`INSTRUCTOR.md`](INSTRUCTOR.md) for screen setup and room reminders. Use [`step-notes`](step-notes) only when you are live coding the solution.
+Use [`WORKSHOP.md`](WORKSHOP.md) for the stable schedule and module goals. Use [`INSTRUCTOR.md`](INSTRUCTOR.md) for screen setup and room reminders. Use [`steps/step-notes`](steps/step-notes) for the detailed live-coding walkthroughs.
 
 Participant tasks live in [`EXERCISES.md`](EXERCISES.md), not in code comments. For each task, show the matching module in that file and the starting code it refers to.
 
@@ -102,9 +102,9 @@ Before we change code, we need to make sure everyone can run the same app locall
 
 ### SHOW APP
 
-Use [`step-notes/step0.md`](step-notes/step0.md).
+Use [`steps/step-notes/step0.md`](steps/step-notes/step0.md).
 
-Show:
+Open and point out:
 
 - `README.md`
 - `EXERCISES.md`
@@ -210,9 +210,7 @@ Shared packages are for concepts reused across apps. Feature components stay clo
 
 ### CODE
 
-Use [`step-notes/step1.md`](step-notes/step1.md).
-
-Walkthrough order:
+Use [`steps/step-notes/step1.md`](steps/step-notes/step1.md) and live-code toward [`steps/step1`](steps/step1). Keep this order:
 
 1. Split the monolith.
 2. Extract layout and boundary.
@@ -291,9 +289,7 @@ The route tree gives structure to the app. The layout stays mounted while the ac
 
 ### CODE
 
-Use [`step-notes/step2.md`](step-notes/step2.md).
-
-Walkthrough order:
+Use [`steps/step-notes/step2.md`](steps/step-notes/step2.md) and live-code toward [`steps/step2`](steps/step2). Keep this order:
 
 1. Show the navigation problem.
 2. Add `BrowserRouter`.
@@ -326,7 +322,7 @@ During the break:
 
 - reset data with `npm run db:seed` if needed
 - open Module 3 files
-- check [`step-notes/step3.md`](step-notes/step3.md)
+- check [`steps/step-notes/step3.md`](steps/step-notes/step3.md)
 
 ## 13:00 Module 3: State And Effects
 
@@ -386,9 +382,7 @@ Less state means fewer impossible states. Effects are for external systems, not 
 
 ### CODE
 
-Use [`step-notes/step3.md`](step-notes/step3.md).
-
-Walkthrough order:
+Use [`steps/step-notes/step3.md`](steps/step-notes/step3.md) and live-code toward [`steps/step3`](steps/step3). Keep this order:
 
 1. Frame the problem.
 2. Remove derived dashboard state.
@@ -464,9 +458,7 @@ Query keys define identity. Mutations change server state. Invalidation tells th
 
 ### CODE
 
-Use [`step-notes/step4.md`](step-notes/step4.md).
-
-Walkthrough order:
+Use [`steps/step-notes/step4.md`](steps/step-notes/step4.md) and live-code toward [`steps/step4`](steps/step4). Keep this order:
 
 1. Show manual server state.
 2. Check `QueryClientProvider`.
@@ -499,7 +491,7 @@ During the break:
 
 - reset data with `npm run db:seed` if journal data is messy
 - open Module 5 files
-- check [`step-notes/step5.md`](step-notes/step5.md)
+- check [`steps/step-notes/step5.md`](steps/step-notes/step5.md)
 
 ## 14:45 Module 5: Forms
 
@@ -556,9 +548,7 @@ The schema keeps validation rules in one place. The form library manages form st
 
 ### CODE
 
-Use [`step-notes/step5.md`](step-notes/step5.md).
-
-Walkthrough order:
+Use [`steps/step-notes/step5.md`](steps/step-notes/step5.md) and live-code toward [`steps/step5`](steps/step5). Keep this order:
 
 1. Show the manual form.
 2. Add Zod schema.

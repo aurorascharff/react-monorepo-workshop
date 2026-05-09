@@ -4,7 +4,9 @@ import { useDebounce } from '../../../hooks/useDebounce'
 
 export function usePatientFilter(patients: Patient[]) {
   const [search, setSearch] = useState('')
-  const [genderFilter, setGenderFilter] = useState<'all' | 'male' | 'female'>('all')
+  const [genderFilter, setGenderFilter] = useState<'all' | 'male' | 'female'>(
+    'all',
+  )
 
   const debouncedSearch = useDebounce(search, 300)
 
