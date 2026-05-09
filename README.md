@@ -1,8 +1,8 @@
-# Real-World React — Monorepo, APIs, and Best Practice
+# Real World React: Monorepos, APIs, and App Structure
 
-A full-day hands-on workshop for developers building production React applications. Participants build **Medix Arena** — a clinical journal SPA — from a pre-wired starter into a fully featured application, covering the architecture decisions, tooling, and patterns that separate hobby projects from production codebases. The healthcare domain is just a teaching vehicle; every pattern is domain-agnostic and directly transferable.
+Most React tutorials focus on isolated components. Real applications usually have more moving parts: routes, forms, APIs, loading states, shared UI, tests, and multiple apps that need to evolve together.
 
-Across five modules, participants work through feature-folder architecture and shared component libraries, URL-driven routing with React Router v7, minimal state with custom hooks, declarative data fetching with TanStack Query, and schema-validated forms with React Hook Form and Zod.
+In this workshop, you will work on a small React SPA inside a monorepo. We start from a working but intentionally rough codebase and improve it step by step: app structure, routing, state, data fetching, and forms.
 
 ## Tech stack
 
@@ -21,11 +21,11 @@ Across five modules, participants work through feature-folder architecture and s
 
 ```
 apps/
-  arena/        — React Router v7 SPA (workshop target)
-  api/          — Hono REST API (pre-written, OpenAPI + Scalar docs)
-  medix.com/    — Next.js marketing site (reference)
+  arena/        - React Router v7 SPA (workshop target)
+  api/          - Hono REST API (pre-written, OpenAPI + Scalar docs)
+  medix.com/    - Next.js marketing site (reference)
 packages/
-  ui/           — Shared design system (@medix/ui)
+  ui/           - Shared design system (@medix/ui)
 ```
 
 ## Getting started
@@ -33,8 +33,8 @@ packages/
 **Requirements:** Node.js v20+
 
 ```bash
-git clone https://github.com/aurorascharff/workshop-dips.git
-cd workshop-dips
+git clone https://github.com/aurorascharff/react-monorepo-workshop-starter.git
+cd react-monorepo-workshop-starter
 npm install
 npm run db:seed
 npm run dev
@@ -71,19 +71,13 @@ GitHub Copilot is configured via `.github/copilot-instructions.md`, and the [`ve
 
 GitHub Actions runs `lint`, `typecheck`, `test`, and `build` on every push and pull request to `main`.
 
-## Workshop materials
-
-- [plan.md](plan.md) — day-of agenda, theory, and demos
-- [tasks.md](tasks.md) — module goals and acceptance criteria
-- [steps/README.md](steps/README.md) — complete code snapshots for each workshop module
-
 ## Reading & references
 
-If you're new to React (or coming from a strongly typed UI background like WPF/MVVM), these are the highest-leverage reads. They map directly to what we do today.
+If you're new to React, or coming from a strongly typed UI background like WPF/MVVM, these are useful reads for the workshop.
 
 ### Foundations
 
-- [Thinking in React](https://react.dev/learn/thinking-in-react) — how to break a UI into components and decide where state lives
-- [Describing the UI](https://react.dev/learn/describing-the-ui) — JSX, components, props
-- [State: A Component's Memory](https://react.dev/learn/state-a-components-memory) — how `useState` works, and what it isn't
-- [Rules of React](https://react.dev/reference/rules) — purity, idempotency, and why React components aren't classes
+- [Thinking in React](https://react.dev/learn/thinking-in-react) - how to break a UI into components and decide where state lives
+- [Describing the UI](https://react.dev/learn/describing-the-ui) - JSX, components, props
+- [State: A Component's Memory](https://react.dev/learn/state-a-components-memory) - how `useState` works, and what it isn't
+- [Rules of React](https://react.dev/reference/rules) - purity, idempotency, and why React components aren't classes
