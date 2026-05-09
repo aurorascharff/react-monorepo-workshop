@@ -103,5 +103,6 @@ Check your work:
 
 - Invalid fields show clear messages.
 - The submit button is disabled when the form is invalid or submitting.
+- The date picker is labeled like the other form fields.
 - A successful submit updates the journal list.
 - Server errors are visible to the user.

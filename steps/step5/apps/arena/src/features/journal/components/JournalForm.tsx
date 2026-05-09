@@ -80,6 +80,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
           control={control}
           render={({ field }) => (
             <DatePicker
+              id="date"
               value={field.value}
               onChange={field.onChange}
               placeholder="Pick a date"

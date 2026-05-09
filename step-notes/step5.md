@@ -54,6 +54,7 @@
 - Replace the plain date input with `DatePicker`.
 - Use `Controller` for `date`.
 - Pass `field.value` and `field.onChange` to `DatePicker`.
+- Pass `id="date"` so the visible label names the date picker button.
 - Render `errors.date?.message` below the date field.
 - `Controller` is for components that do not plug directly into `register`.
 - Why not use `Controller` for every field?
@@ -84,6 +85,7 @@
 
 - Open `JournalForm.test.tsx`.
 - Test disabled submit.
+- Test that the date picker is reachable by the visible label.
 - Test content length error.
 - The form test appears now because validation behavior now exists.
 

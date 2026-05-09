@@ -14,16 +14,16 @@ function renderWithClient(ui: ReactNode) {
 }
 
 describe('JournalForm', () => {
-  it('shows validation errors when required fields are missing', async () => {
-    const user = userEvent.setup()
+  it('keeps submit disabled until required fields are valid', () => {
     renderWithClient(<JournalForm patientId="p-1" />)
 
-    await user.click(screen.getByRole('button', { name: /save entry/i }))
+    expect(screen.getByRole('button', { name: /save entry/i })).toBeDisabled()
+  })
 
-    expect(await screen.findByText(/title is required/i)).toBeInTheDocument()
-    expect(
-      screen.getByText(/content must be at least 10 characters/i),
-    ).toBeInTheDocument()
+  it('labels the date picker from the visible date label', () => {
+    renderWithClient(<JournalForm patientId="p-1" />)
+
+    expect(screen.getByLabelText(/date/i)).toBeInTheDocument()
   })
 
   it('shows a length error when content is too short', async () => {
@@ -32,7 +32,7 @@ describe('JournalForm', () => {
 
     await user.type(screen.getByLabelText(/title/i), 'Quick check-in')
     await user.type(screen.getByLabelText(/content/i), 'short')
-    await user.click(screen.getByRole('button', { name: /save entry/i }))
+    await user.tab()
 
     expect(
       await screen.findByText(/content must be at least 10 characters/i),

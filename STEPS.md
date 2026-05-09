@@ -8,15 +8,15 @@ Participant tasks live in [`EXERCISES.md`](EXERCISES.md), not in code comments. 
 
 ## Mode Key
 
-| Mode         | What happens                                                     |
-| ------------ | ---------------------------------------------------------------- |
-| `SLIDES`     | Explain the concept with slides.                                 |
-| `SHOW APP`   | Switch to browser or VS Code to show the current problem.        |
-| `TASK`       | Participants work. You walk around.                              |
-| `DISCUSS`    | Facilitate a group discussion about what they tried and noticed. |
-| `CODE`       | Live-code the solution using `step-notes/stepN.md`.              |
-| `CHECKPOINT` | Run checks, commit, push, and give the recovery instruction.     |
-| `BREAK`      | Stop and reset.                                                  |
+| Mode         | What happens                                                 |
+| ------------ | ------------------------------------------------------------ |
+| `SLIDES`     | Explain the concept with slides.                             |
+| `SHOW APP`   | Switch to browser or VS Code to show the current problem.    |
+| `TASK`       | Participants work. You walk around.                          |
+| `DISCUSS`    | Run a group discussion about what they tried and noticed.    |
+| `CODE`       | Live-code the solution using `step-notes/stepN.md`.          |
+| `CHECKPOINT` | Run checks, commit, push, and give the recovery instruction. |
+| `BREAK`      | Stop and reset.                                              |
 
 ## Module Flow
 
@@ -25,7 +25,7 @@ Each module follows the same loop:
 1. Explain the problem with slides.
 2. Show the starting code and the matching module in `EXERCISES.md`.
 3. Let participants try the task.
-4. Facilitate a group discussion about what they tried, what was unclear, and which tradeoffs came up.
+4. Run a group discussion about what they tried, what was unclear, and which tradeoffs came up.
 5. Live-code your solution while they watch and answer questions.
 6. Run checks, commit, and push.
 7. Tell them how to switch to your solution if they prefer it.
@@ -38,7 +38,7 @@ If you prefer my solution to what you wrote, you can discard your local changes 
 
 ### SLIDES
 
-Slides: TODO add link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -76,7 +76,7 @@ Listen for:
 
 ### SLIDES
 
-Slides: TODO add audience check slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -115,7 +115,7 @@ I ask this because the examples are the same, but the way I explain them can cha
 
 ### SLIDES
 
-Slides: TODO add setup slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -179,7 +179,7 @@ Listen for:
 
 ### SLIDES
 
-Slides: TODO add Module 1 slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -235,7 +235,7 @@ While they work, listen for:
 
 ### DISCUSS
 
-Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on what groups tried, where they got stuck, and which structure choices came up more than once.
 
@@ -273,7 +273,7 @@ If you prefer my solution to what you wrote, you can discard your local changes 
 
 ### SLIDES
 
-Slides: TODO add Module 2 slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -331,7 +331,7 @@ While they work, listen for:
 
 ### DISCUSS
 
-Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on what changed when people moved from local state to routes, and which routing concepts felt unclear.
 
@@ -386,7 +386,7 @@ During the break:
 
 ### SLIDES
 
-Slides: TODO add Module 3 slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -439,7 +439,7 @@ While they work, listen for:
 
 ### DISCUSS
 
-Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on which state people removed, which effects felt suspicious, and where the line between derived state and synchronization was unclear.
 
@@ -478,7 +478,7 @@ If you prefer my solution to what you wrote, you can discard your local changes 
 
 ### SLIDES
 
-Slides: TODO add Module 4 slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -534,7 +534,7 @@ While they work, listen for:
 
 ### DISCUSS
 
-Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on what code disappeared, what people chose for query keys, and what they invalidated after mutations.
 
@@ -589,7 +589,7 @@ During the break:
 
 ### SLIDES
 
-Slides: TODO add Module 5 slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
@@ -645,7 +645,7 @@ While they work, listen for:
 
 ### DISCUSS
 
-Facilitate a group discussion. Do not go person by person. Collect patterns from the room.
+Run this as a group discussion. Do not go person by person. Collect patterns from the room.
 
 Focus on where people put validation rules, how they handled errors, and where `register` versus `Controller` was unclear.
 
@@ -687,13 +687,13 @@ If you prefer my solution to what you wrote, you can discard your local changes 
 
 ### SLIDES
 
-Slides: TODO add wrap-up slide link.
+Slide link: add when the deck exists.
 
 Slide should include:
 
 - Recap of the path: structure, routing, state, server state, forms.
 - What each pattern solved.
-- Reference links: starter repo, authoring repo, and `steps/` snapshots.
+- Reference links: workshop-day repo, optional final solution link, and further learning links.
 - Further learning: deeper TypeScript, testing, Context, Zustand, security, server-side React.
 - Certification information and next steps.
 - Final discussion prompt: what will you use first?

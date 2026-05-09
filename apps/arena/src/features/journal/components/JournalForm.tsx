@@ -32,9 +32,10 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
     handleSubmit,
     reset,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<JournalFormData>({
     resolver: zodResolver(journalSchema),
+    mode: 'onChange',
   })
 
   const { mutate, isPending, error } = useMutation({
@@ -79,6 +80,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
           control={control}
           render={({ field }) => (
             <DatePicker
+              id="date"
               value={field.value}
               onChange={field.onChange}
               placeholder="Pick a date"
@@ -103,7 +105,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
         )}
       </div>
 
-      <Button type="submit" disabled={isPending}>
+      <Button type="submit" disabled={!isValid || isPending}>
         {isPending ? 'Saving...' : 'Save entry'}
       </Button>
     </form>

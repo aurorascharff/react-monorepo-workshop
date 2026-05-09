@@ -6,6 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  StatusBadge,
 } from '@medix/ui'
 import type { Journal } from '../../../types'
 import type { JournalStatus } from '@medix/ui'
@@ -49,6 +50,7 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
+            <StatusBadge status={entry.status} />
             <Select
               value={entry.status}
               disabled={isPending}

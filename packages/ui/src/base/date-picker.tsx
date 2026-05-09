@@ -8,12 +8,15 @@ import { Calendar } from './calendar'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
 import { cn } from '../lib/utils'
 
-type DatePickerProps = {
+type DatePickerButtonProps = Omit<
+  React.ComponentPropsWithoutRef<typeof Button>,
+  'asChild' | 'children' | 'onChange' | 'type' | 'value' | 'variant'
+>
+
+type DatePickerProps = DatePickerButtonProps & {
   value?: string
   onChange: (value: string) => void
   placeholder?: string
-  className?: string
-  disabled?: boolean
 }
 
 export function DatePicker({
@@ -22,6 +25,7 @@ export function DatePicker({
   placeholder = 'Pick a date',
   className,
   disabled,
+  ...buttonProps
 }: DatePickerProps) {
   const [open, setOpen] = React.useState(false)
 
@@ -32,6 +36,7 @@ export function DatePicker({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          type="button"
           variant="outline"
           disabled={disabled}
           className={cn(
@@ -39,6 +44,7 @@ export function DatePicker({
             !value && 'text-muted-foreground',
             className,
           )}
+          {...buttonProps}
         >
           <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
           {value ? format(selected!, 'PPP') : <span>{placeholder}</span>}

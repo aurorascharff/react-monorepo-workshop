@@ -20,6 +20,12 @@ describe('JournalForm', () => {
     expect(screen.getByRole('button', { name: /save entry/i })).toBeDisabled()
   })
 
+  it('labels the date picker from the visible date label', () => {
+    renderWithClient(<JournalForm patientId="p-1" />)
+
+    expect(screen.getByLabelText(/date/i)).toBeInTheDocument()
+  })
+
   it('shows a length error when content is too short', async () => {
     const user = userEvent.setup()
     renderWithClient(<JournalForm patientId="p-1" />)
