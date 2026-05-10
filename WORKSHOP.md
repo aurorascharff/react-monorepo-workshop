@@ -44,7 +44,8 @@ During the instructor walkthrough, use GitHub Copilot ghost text where it helps,
 
 ## Schedule
 
-- 09:00 — Intro: Thinking in web and rendering strategies
+- 09:00 — Intro
+- 09:15 — Background: Thinking in web and rendering strategies
 - 09:30 — Setup and repo tour
 - 10:15 — Module 1: Architecture and Reuse
 - 11:00 — Break
@@ -76,7 +77,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 ## Module Overview
 
 - **Intro: Thinking in web and rendering strategies** — Set the mental model for React as part of the web platform, then compare CSR, SSR, static rendering, streaming, and Server Components at a high level
-- **Step 0: Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
+- **Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
 - **Module 1: Architecture and Reuse** — Split large files, create focused components, add shared `StatusBadge`, add an error boundary
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, and nested layout
 - **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
@@ -115,7 +116,7 @@ Core ideas to cover:
 - **Streaming and Suspense:** the server can send useful parts of the page before every slow data dependency is ready.
 - **React Server Components:** some components can run only on the server and send their rendered result to the client. This changes where data access, bundles, and component boundaries live.
 
-### Step 0: Setup and repo tour
+### Setup and repo tour
 
 The goal is to get everyone running the same app and understand the repo before changing code.
 
@@ -184,5 +185,5 @@ Use the closing slides to recap the path through the day and send people toward 
 - Ask what they will use first in their own codebase
 - Ask what still feels unclear
 - Ask which part changed how they think about React
-- If it is a large room, ask for a raise of hands: who learned something about routing, state, server state, forms, testing, or rendering strategy that they did not know before
+- If it is a large room, ask for a raise of hands: who learned something about routing, state, server state, forms, or rendering strategy that they did not know before
 - If it is a smaller room, go around and ask each person for one thing they learned that they did not know before

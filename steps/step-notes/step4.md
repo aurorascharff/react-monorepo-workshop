@@ -1,20 +1,19 @@
 # Step 4: TanStack Query
 
-## Module frame
+## Introduce task in repo
 
 - Problem: manual fetching repeats loading, error, race, and cache logic.
 - Concepts: server state, query keys, loading states, errors, suspense queries, mutations, and invalidation.
 - Rule of thumb: query keys describe identity; invalidation describes what changed.
 - Outcome: replace manual fetch effects with queries and mutations.
-
-## Participant task
-
-- Time: 20 minutes.
 - Show Module 4 in `EXERCISES.md`.
+
+## Participant work (roughly 10 minutes)
+
 - Ask participants to work in `apps/arena`.
 - Listen for query key shape, where loading UI belongs, where the local error boundary belongs, what to invalidate after a mutation, and whether they over-invalidate.
 
-## Group discussion
+## Group discussion (roughly 5 minutes)
 
 - Focus on what code disappeared, what people chose for query keys, and what they invalidated after mutations.
 - Land this point: query keys define identity. Mutations change server state. Invalidation tells the cache what needs to be refreshed.
@@ -121,13 +120,9 @@
 - Show that the journal list refreshes because the journals query is invalidated.
 - Validation is still not solved. That is the next module.
 
-## Check
+## Check and module close
 
 - Run `npm run typecheck --workspace=apps/arena`.
-- Run `npm test --workspace=apps/arena -- --run`.
-
-## Module close
-
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 - Give everyone a moment to catch up before Module 5.

@@ -1,20 +1,19 @@
 # Step 5: Forms
 
-## Module frame
+## Introduce task in repo
 
 - Problem: validation rules are scattered and errors are too vague.
 - Concepts: React Hook Form, Zod schema, `zodResolver`, field errors, server errors, and mutation submit.
 - Rule of thumb: client validation is for UX, server validation is still required.
 - Outcome: schema-backed form with field errors, disabled invalid submit, and server error feedback.
-
-## Participant task
-
-- Time: 20 minutes.
 - Show Module 5 in `EXERCISES.md`.
+
+## Participant work (roughly 15 minutes)
+
 - Ask participants to work in `apps/arena`.
 - Listen for where validation rules live, `register` versus `Controller`, field errors versus server errors, and client validation versus server validation.
 
-## Group discussion
+## Group discussion (roughly 5 minutes)
 
 - Focus on where people put validation rules, how they handled errors, and where `register` versus `Controller` was unclear.
 - Land this point: the schema keeps validation rules in one place. The form library manages form state. The mutation manages the API call. The server remains the final authority.
@@ -27,7 +26,7 @@
 - The form works, but the rules are scattered across submit handling, local error state, and the UI.
 - What validation rules can we see from the UI?
 - Answer to land: required title, required date, content length, and server errors.
-- For tiny forms this is okay. For real forms it gets hard to change and hard to test.
+- For tiny forms this is okay. For real forms it gets hard to change and hard to reason about.
 
 ## App: Add Zod schema
 
@@ -105,20 +104,9 @@
 - Answer to land: near the form submit area or above the fields, where the user can see that the whole submission failed rather than one field being invalid.
 - Disabling invalid submit is a product choice. It works here because the rules are simple and visible.
 
-## App: Add tests
+## Check and module close
 
-- Open `JournalForm.test.tsx`.
-- Test disabled submit.
-- Test that the date picker is reachable by the visible label.
-- Test content length error.
-- The form test appears now because validation behavior now exists.
-
-## Check
-
-- Run `npm test --workspace=apps/arena -- --run`.
-
-## Module close
-
+- Run `npm run typecheck --workspace=apps/arena`.
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 - Give everyone a moment to catch up before the wrap-up.

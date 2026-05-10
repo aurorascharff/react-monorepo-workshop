@@ -1,4 +1,4 @@
-# Step 0: Starter Run-Through
+# Setup: Starter Run-Through
 
 ## Setup frame
 
@@ -6,14 +6,6 @@
 - Open `README.md` and use only the setup commands first.
 - After everyone has the app running, come back to the README for commands, testing, AI, and CI.
 - The setup is part of the workshop, not a race.
-
-## App: Open the starter
-
-- Start with the app running, not the code.
-- Show Dashboard, Patients, one patient detail page, journal entries, status select, and the new journal form.
-- The starter is supposed to work. The point is not to fix a broken app from zero. The point is to improve code that looks like a lot of real project code.
-- What parts of this app do you expect to get messy as it grows?
-- Answer to land: navigation, forms, shared UI, fetching, and state.
 
 ## App: Run the monorepo
 
@@ -25,6 +17,14 @@
 - One command starts several workspaces because this is an npm workspace with Turborepo.
 - What is useful about running the app, API, and shared package from the same repo?
 - Answer to land: one local setup, shared code, one PR across boundaries, and consistent tooling.
+
+## App: Open the starter
+
+- Start with the app running, not the code.
+- Show Dashboard, Patients, one patient detail page, journal entries, status select, and the new journal form.
+- The starter is supposed to work. The point is not to fix a broken app from zero. The point is to improve code that looks like a lot of real project code.
+- What parts of this app do you expect to get messy as it grows?
+- Answer to land: navigation, forms, shared UI, fetching, and state.
 
 ## App: Read the README after setup
 
@@ -73,8 +73,8 @@
 
 ## App: Tests and AI setup
 
-- Run `npm test` if there is time.
-- Starter tests are intentionally small so we do not reveal future folders before we create them.
+- Run `npm test` once so participants see the test setup.
+- Explain that we are not writing tests during the live modules.
 - Open `AGENTS.md` briefly.
 - GitHub Copilot and `/react-best-practices`.
 - AI setup is useful for scoped context, but we still need to understand the shape of the code.
