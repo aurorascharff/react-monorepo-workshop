@@ -10,6 +10,8 @@ Refactor the new journal form so validation rules are easier to see and change. 
 
 The form should still submit through the existing API flow, update the journal list after success, and show a form-level error if the server request fails.
 
+Use the browser while you work. Inspect labels and focus in Elements or Accessibility, and use Network to check when the form does or does not submit a request.
+
 ## Check Your Work
 
 - Invalid fields show clear messages.

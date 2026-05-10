@@ -26,6 +26,7 @@
 - Navigate from Dashboard to Patients.
 - Point out that both screens fetch patient data independently.
 - This is server state. The API owns it, and the client displays it.
+- Relate back to the background: the hard part is time. Requests can be slow, fail, finish out of order, or return data that is already stale.
 - What are we manually handling right now?
 - Answer to land: loading, errors, retries, stale data, cache, race conditions, and refetching after mutations.
 - TanStack Query gives us a standard way to describe server state instead of rebuilding that infrastructure in each component.
@@ -74,6 +75,7 @@
 - Use `queryFn` to fetch one patient by id.
 - Open React Query Devtools and show that each patient id gets a separate cache entry.
 - `useSuspenseQuery` does not give us `isLoading`. It suspends and lets the parent boundary decide loading UI.
+- Relate back to the background: Suspense is another way to handle time. The component can say “I need this data,” and the boundary decides what the user sees while waiting.
 - Why does `id` belong in the query key?
 - Answer to land: different patients are different cached data.
 

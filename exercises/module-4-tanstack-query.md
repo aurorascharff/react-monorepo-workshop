@@ -10,6 +10,8 @@ Move API data handling out of manual component effects and into a server-state a
 
 The patient list, patient detail, journals, status updates, and new journal submit should have clear loading, error, success, and refresh behavior. Keep failures local where possible so the app shell remains usable.
 
+Use the Network tab and React Query Devtools while you work. Check what requests happen during navigation, status updates, and form submit.
+
 ## Check Your Work
 
 - Loading and error states are visible.

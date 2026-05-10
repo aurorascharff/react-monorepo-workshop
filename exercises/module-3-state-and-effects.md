@@ -10,6 +10,8 @@ Look for state in the dashboard, patient detail page, and patient list that dupl
 
 The patient filtering interaction should stay readable and reusable enough that the component is not carrying all of the filtering logic itself.
 
+Use React DevTools or console logs if it helps you understand what changes during render and what actually needs state.
+
 ## Check Your Work
 
 - Values that can be calculated are not stored in state.

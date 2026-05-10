@@ -10,6 +10,8 @@ Change the app so navigation is represented in the browser URL instead of only i
 
 The dashboard, patient list, and patient detail views should each have their own address. The shared shell should stay consistent while the active page changes.
 
+Try the behavior in the browser as you work: refresh, back, forward, copying a URL, and inspecting whether navigation is rendered as links.
+
 ## Check Your Work
 
 - Refresh works on a patient detail page.

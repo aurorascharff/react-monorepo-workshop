@@ -10,6 +10,8 @@ Restructure the Arena app so the main patient workflow is easier to understand. 
 
 There is also status styling used in the patient journal and on medix.com. Move that shared concept to the UI package so both apps can use the same implementation.
 
+Use the browser while you work. Compare Arena and medix.com after the shared status UI changes, and use DevTools if you want to inspect where the visible UI changes.
+
 ## Check Your Work
 
 - The patient list, patient header, journal list, journal entry, and journal form are easier to find.

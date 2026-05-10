@@ -28,6 +28,7 @@
 - What is `useEffect` for?
 - Answer to land: synchronize with systems outside React, like network, timers, subscriptions, browser APIs, or third-party widgets.
 - Only remove effects whose job is to keep React values in sync with other React values.
+- Relate back to the background: network and timers are outside React, so effects are about crossing that boundary. Derived state is not.
 
 ## App: Remove derived dashboard state
 
@@ -73,6 +74,7 @@
 - Use the debounced search value inside `usePatientFilter`.
 - Why is this effect okay when the previous ones were not?
 - Answer to land: we are synchronizing with a timer, which is outside React.
+- Relate back to latency: debounce is one way to handle time in the browser, even before we talk about server state.
 
 ## Check and module close
 
