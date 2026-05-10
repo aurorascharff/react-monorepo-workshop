@@ -2,7 +2,7 @@
 
 This file holds the stable workshop information: format, schedule, repositories, authoring materials, and module overview.
 
-Use [`STEPS.md`](STEPS.md) for the instructor run sheet. Use [`steps/`](steps/) for complete code snapshots.
+Use [`steps/step-notes`](steps/step-notes) for module run-throughs. Use [`steps/`](steps/) for complete code snapshots.
 
 ## Workshop
 
@@ -21,14 +21,18 @@ Each module follows the same loop:
 1. Slides introduce the concept and the problem in the starter code.
 2. Participants work through the task in the app.
 3. The group discusses what they tried and where they got stuck.
-4. The instructor live-codes the solution using `STEPS.md` and the matching `steps/step-notes/stepN.md`.
+4. The instructor live-codes the solution using the matching `steps/step-notes/stepN.md`.
 5. The instructor runs the relevant checks, commits, and pushes the module solution.
 6. Participants get a recovery path: they can keep their own work, or discard local changes and run `git pull` to use the pushed solution.
 7. Everyone gets a moment to catch up before the next module.
 
+At the end of each module, say:
+
+> If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+
 Keep the workshop conversational. Ask the room what they notice before explaining the answer.
 
-The participant task list lives in [`EXERCISES.md`](EXERCISES.md). The run sheet should point there instead of repeating the task steps, so updates only need to happen in one place.
+The participant task list lives in [`EXERCISES.md`](EXERCISES.md). Module notes should point there instead of repeating the task steps, so updates only need to happen in one place.
 
 ## AI Use
 
@@ -40,46 +44,87 @@ During the instructor walkthrough, use GitHub Copilot ghost text where it helps,
 
 ## Schedule
 
-| Time  | Session                                  |
-| ----- | ---------------------------------------- |
-| 09:00 | Intro: Thinking in web                   |
-| 09:30 | Setup                                    |
-| 10:15 | Module 1: Architecture and Reuse         |
-| 11:15 | Module 2: Routing and Next.js comparison |
-| 12:00 | Lunch                                    |
-| 13:00 | Module 3: State and Effects              |
-| 13:45 | Module 4: TanStack Query                 |
-| 14:30 | Break                                    |
-| 14:45 | Module 5: Forms                          |
-| 15:40 | Wrap-up                                  |
+- 09:00 — Intro: Thinking in web and rendering strategies
+- 09:30 — Setup and repo tour
+- 10:15 — Module 1: Architecture and Reuse
+- 11:00 — Break
+- 11:15 — Module 2: Routing and Next.js comparison
+- 12:00 — Lunch
+- 13:00 — Module 3: State and Effects
+- 13:45 — Module 4: TanStack Query
+- 14:30 — Break
+- 14:45 — Module 5: Forms
+- 15:40 — Wrap-up
 
 ## Repositories
 
-- Starter repo: https://github.com/aurorascharff/react-monorepo-workshop-starter
+- Private starter template: https://github.com/aurorascharff/react-monorepo-workshop-starter. Do not share this with participants.
+- Participant repo: created from the starter template for each workshop.
 - Final reference repo: https://github.com/aurorascharff/react-monorepo-workshop
 
-Participants should clone the starter repo. The final reference repo contains the finished app, completed tests, instructor notes, and step snapshots.
+Participants should clone the workshop-specific participant repo, not the private starter template. The final reference repo contains the finished app, completed tests, instructor notes, and step snapshots.
 
 ## Authoring Materials
 
 - [`EXERCISES.md`](EXERCISES.md) - participant task list
-- [`STEPS.md`](STEPS.md) - instructor run sheet for slides, tasks, discussion, and walkthroughs
 - [`INSTRUCTOR.md`](INSTRUCTOR.md) - day-of checklist, room notes, fallback plan, and follow-up
 - [`steps/step-notes`](steps/step-notes) - per-step live-coding notes
 - [`steps/`](steps) - complete code snapshots for each workshop module
 - [`steps/step0`](steps/step0) - starter snapshot used for the participant repo
+- [`steps/step-notes/step0.md`](steps/step-notes/step0.md) - setup, repo tour, and starter run-through
 
 ## Module Overview
 
-| Module | Focus                  | Main outcome                                                                                                 |
-| ------ | ---------------------- | ------------------------------------------------------------------------------------------------------------ |
-| 1      | Architecture and Reuse | Split large files, create focused components, add shared `StatusBadge`, add an error boundary                |
-| 2      | Routing                | Make the URL the source of truth with React Router routes, links, params, and nested layout                  |
-| 3      | State and Effects      | Remove unnecessary state, derive values during render, extract reusable hook logic                           |
-| 4      | TanStack Query         | Replace manual fetching with queries, suspense queries, mutations, cache invalidation, and local boundaries  |
-| 5      | Forms                  | Add React Hook Form and Zod validation with field errors, disabled invalid submit, and server error feedback |
+- **Intro: Thinking in web and rendering strategies** — Set the mental model for React as part of the web platform, then compare CSR, SSR, static rendering, streaming, and Server Components at a high level
+- **Step 0: Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
+- **Module 1: Architecture and Reuse** — Split large files, create focused components, add shared `StatusBadge`, add an error boundary
+- **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, and nested layout
+- **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
+- **Module 4: TanStack Query** — Replace manual fetching with queries, suspense queries, mutations, cache invalidation, and local boundaries
+- **Module 5: Forms** — Add React Hook Form and Zod validation with field errors, disabled invalid submit, and server error feedback
 
 ## Module Goals
+
+### Intro: Welcome and room background
+
+Open with a short welcome and explain that this is a hands-on React application architecture workshop where we improve a working app inside a monorepo.
+
+Before introducing yourself, ask who is in the room:
+
+- Small group: go around and ask what they work on, how much React they have used, and what would make the day useful.
+- Large group: use raise-of-hands questions for frontend/backend/full-stack, React experience, internal systems/public products, and teams moving toward React.
+
+Then introduce yourself briefly: who you are, what you work with, why you care about React app architecture, and that the workshop is practical, conversational, and question-friendly.
+
+### Intro: Thinking in web and rendering strategies
+
+The goal is to set the mental model for the rest of the day.
+
+- React is part of the web platform, not a replacement for it
+- URLs, links, forms, navigation history, loading, errors, and network requests are part of the user experience
+- Browser tools help us understand what the app is actually doing
+- The workshop keeps connecting React choices back to web behavior
+- Rendering strategy is an architecture choice, not a framework buzzword
+
+Core ideas to cover:
+
+- **Client-side rendering:** the browser downloads JavaScript, React renders the UI, and the app talks to APIs from the client. This fits app-like authenticated workflows such as Arena.
+- **Server-side rendering:** the server sends HTML for the requested URL before React takes over in the browser. This can improve first load, sharing, and SEO for public pages.
+- **Static rendering:** HTML is produced ahead of time when content does not need to be personalized per request. This fits many marketing and documentation pages.
+- **Hydration:** React attaches event handlers and client behavior to HTML that already came from the server. The user may see HTML before the page is fully interactive.
+- **Streaming and Suspense:** the server can send useful parts of the page before every slow data dependency is ready.
+- **React Server Components:** some components can run only on the server and send their rendered result to the client. This changes where data access, bundles, and component boundaries live.
+
+### Step 0: Setup and repo tour
+
+The goal is to get everyone running the same app and understand the repo before changing code.
+
+- Participants use the workshop-specific participant repo
+- The app, API, marketing site, and shared package all run from one monorepo
+- The README explains setup, commands, tests, AI context, and CI
+- The repo tour connects `apps/arena`, `apps/api`, `apps/medix.com`, and `packages/ui`
+- The rendering strategy discussion is grounded in the actual folders after the repo tour
+- The starter works, but it has realistic rough edges that the workshop modules improve
 
 ### Module 1: Architecture and Reuse
 
@@ -128,12 +173,16 @@ The goal is to stop invalid data before it leaves the form.
 - A successful submit updates the UI without a manual refresh
 - Server errors are surfaced to the user in a meaningful way
 
-## Setup Notes
+## Wrap-up
 
-- Ask participants to clone the starter repo before the workshop if possible.
-- Shared WiFi can be slow, so keep the first setup section calm.
-- Run `npm install`, `npm run db:seed`, and `npm run dev` together.
-- Confirm Arena at `localhost:5173`.
-- Confirm API docs at `localhost:3001`.
-- Confirm medix.com at `localhost:3000`.
-- Mention nested `AGENTS.md` files only as a context and boundary aid.
+Use the closing slides to recap the path through the day and send people toward the right references.
+
+- Recap the path: structure, routing, state, server state, and forms
+- Remind people what each pattern solved
+- Link the workshop-day repo and the final reference repo
+- Include certification information and further learning links
+- Ask what they will use first in their own codebase
+- Ask what still feels unclear
+- Ask which part changed how they think about React
+- If it is a large room, ask for a raise of hands: who learned something about routing, state, server state, forms, testing, or rendering strategy that they did not know before
+- If it is a smaller room, go around and ask each person for one thing they learned that they did not know before

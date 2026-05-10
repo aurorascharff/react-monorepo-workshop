@@ -2,13 +2,13 @@
 
 Internal notes for Aurora. Keep this open on a second screen.
 
-Use [`WORKSHOP.md`](WORKSHOP.md) for schedule and module goals, [`STEPS.md`](STEPS.md) for the day flow, and [`steps/step-notes`](steps/step-notes) for live coding.
+Use [`WORKSHOP.md`](WORKSHOP.md) for schedule, module goals, and slide outline. Use [`steps/step-notes`](steps/step-notes) for live coding.
 
 ## Prep
 
 Day before:
 
-- [ ] Fresh clone starter repo.
+- [ ] Fresh clone workshop-specific participant repo.
 - [ ] `npm install`
 - [ ] `npm run db:seed`
 - [ ] `npm run dev`
@@ -28,8 +28,8 @@ Morning:
 - [ ] Start dev server.
 - [ ] Open Arena at `/patients`.
 - [ ] Open API docs.
-- [ ] Open authoring repo and starter repo.
-- [ ] Open `STEPS.md`, `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and `steps/`.
+- [ ] Open final reference repo and workshop-specific participant repo.
+- [ ] Open `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and `steps/`.
 - [ ] Open README for the setup and repo walkthrough.
 - [ ] Check Copilot ghost text is available.
 - [ ] Check Chrome DevTools is docked where the room can see it.
@@ -40,7 +40,7 @@ Morning:
 
 Workshop-day repo:
 
-- [ ] Create repo from starter.
+- [ ] Create a workshop-specific participant repo from the private starter template.
 - [ ] Push before participants begin.
 - [ ] Commit between modules so participants can recover.
 
@@ -59,7 +59,7 @@ Attendee screen:
 Instructor screen:
 
 - Space 1: desktop and browser.
-- Space 2: `STEPS.md`, current `steps/step-notes/stepN.md`, and code.
+- Space 2: `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and code.
 - Space 3: completed app or finished snapshot.
 
 Editor:
@@ -134,12 +134,20 @@ Useful phrase:
 
 > This is the common mistake. Do not worry.
 
+## Breaks
+
+- Stop at the planned break even if the current module got messy.
+- Reset data with `npm run db:seed` if needed.
+- Open the next module files during the break.
+- Check the next `steps/step-notes/stepN.md` before restarting.
+- Make sure the last module is committed and pushed before wrap-up if participants need the reference.
+
 ## If Tech Breaks
 
 - Stay calm.
 - `npm run db:seed` if data gets messy.
 - Use `steps/stepN` as finished snapshot.
-- Use authoring repo as reference.
+- Use final reference repo as reference.
 - Use slides, screenshots, or whiteboard for the concept.
 - Keep moving. Clarity matters more than perfect tooling.
 
@@ -163,8 +171,8 @@ Wrap-up:
 
 ## Follow-Up
 
-- [ ] Send starter repo.
-- [ ] Send authoring repo or reference snapshots.
+- [ ] Send workshop-specific participant repo.
+- [ ] Send final reference repo or reference snapshots.
 - [ ] Send certification or further learning links.
 - [ ] Note what worked.
 - [ ] Note what to improve.

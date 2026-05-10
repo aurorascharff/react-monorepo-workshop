@@ -8,9 +8,11 @@ Designed for developers who know the basics of React and want more practice with
 
 **Requirements:** Node.js v20+
 
+Use the participant repo link shared by the instructor.
+
 ```bash
-git clone https://github.com/aurorascharff/react-monorepo-workshop-starter.git
-cd react-monorepo-workshop-starter
+git clone <participant-repo-url>
+cd <participant-repo-name>
 npm install
 npm run db:seed
 npm run dev

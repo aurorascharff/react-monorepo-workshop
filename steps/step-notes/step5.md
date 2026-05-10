@@ -1,5 +1,24 @@
 # Step 5: Forms
 
+## Module frame
+
+- Problem: validation rules are scattered and errors are too vague.
+- Concepts: React Hook Form, Zod schema, `zodResolver`, field errors, server errors, and mutation submit.
+- Rule of thumb: client validation is for UX, server validation is still required.
+- Outcome: schema-backed form with field errors, disabled invalid submit, and server error feedback.
+
+## Participant task
+
+- Time: 20 minutes.
+- Show Module 5 in `EXERCISES.md`.
+- Ask participants to work in `apps/arena`.
+- Listen for where validation rules live, `register` versus `Controller`, field errors versus server errors, and client validation versus server validation.
+
+## Group discussion
+
+- Focus on where people put validation rules, how they handled errors, and where `register` versus `Controller` was unclear.
+- Land this point: the schema keeps validation rules in one place. The form library manages form state. The mutation manages the API call. The server remains the final authority.
+
 ## App: Show the manual form
 
 - Open `features/journal/components/JournalForm.tsx`.
@@ -97,3 +116,9 @@
 ## Check
 
 - Run `npm test --workspace=apps/arena -- --run`.
+
+## Module close
+
+- Commit and push the module solution.
+- Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+- Give everyone a moment to catch up before the wrap-up.

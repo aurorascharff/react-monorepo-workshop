@@ -1,5 +1,24 @@
 # Step 1: Architecture and Reuse
 
+## Module frame
+
+- Problem: the app works, but too many responsibilities live in the same files.
+- Concepts: feature folders, component responsibility, shared UI, and error boundaries.
+- Rule of thumb: extract to name a responsibility, not to make files tiny.
+- Outcome: focused components, `Layout`, `ErrorBoundary`, and shared `StatusBadge`.
+
+## Participant task
+
+- Time: 25 minutes.
+- Show Module 1 in `EXERCISES.md`.
+- Ask participants to work in `apps/arena` and `packages/ui`.
+- Listen for where they put components, how small they make components, whether `StatusBadge` belongs in the app or shared package, and whether the error boundary wraps the right part of the UI.
+
+## Group discussion
+
+- Focus on what groups tried, where they got stuck, and which structure choices came up more than once.
+- Land this point: shared packages are for concepts reused across apps. Feature components stay close to the feature until reuse is real.
+
 ## App: Split the monolith
 
 - Open `apps/arena/src/PatientPage.tsx`.
@@ -66,3 +85,9 @@
 - Run `npm run typecheck --workspace=apps/arena`.
 - Run `npm test --workspace=apps/arena -- --run`.
 - If a test fails because an import moved, fix the import rather than changing the behavior.
+
+## Module close
+
+- Commit and push the module solution.
+- Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+- Give everyone a moment to catch up before Module 2.

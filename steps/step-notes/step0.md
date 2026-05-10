@@ -1,5 +1,12 @@
 # Step 0: Starter Run-Through
 
+## Setup frame
+
+- Use the workshop-specific participant repo link, not the private starter template.
+- Open `README.md` and use only the setup commands first.
+- After everyone has the app running, come back to the README for commands, testing, AI, and CI.
+- The setup is part of the workshop, not a race.
+
 ## App: Open the starter
 
 - Start with the app running, not the code.
@@ -18,6 +25,15 @@
 - One command starts several workspaces because this is an npm workspace with Turborepo.
 - What is useful about running the app, API, and shared package from the same repo?
 - Answer to land: one local setup, shared code, one PR across boundaries, and consistent tooling.
+
+## App: Read the README after setup
+
+- Point out the local URLs.
+- Point out the main commands.
+- Point out the testing commands.
+- Point out the AI section.
+- Point out the CI section.
+- CI checks the same kinds of things we care about locally: linting, types, unit and component tests, build, and end-to-end smoke tests.
 
 ## App: Read the code we start from
 
@@ -46,6 +62,14 @@
 - Apps should import public UI from here, not deep internal paths.
 - When should something move into `packages/ui`?
 - Answer to land: when more than one app needs the same concept, or when a shared concept should have one implementation.
+
+## App: Map rendering strategy to the repo
+
+- Connect the earlier rendering strategy discussion to the folders they have now seen.
+- `apps/arena` is a client-rendered SPA. It is good for the workshop target because routing, state, effects, data fetching, forms, and client-side behavior are visible.
+- `apps/api` is the server boundary. It owns the data and validation.
+- `apps/medix.com` is the comparison point for framework routing and server-oriented rendering.
+- The point is not that one rendering strategy is always better. The point is to choose based on user experience, SEO, data needs, interactivity, caching, and team complexity.
 
 ## App: Tests and AI setup
 

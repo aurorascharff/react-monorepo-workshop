@@ -1,5 +1,24 @@
 # Step 2: Routing
 
+## Module frame
+
+- Problem: the screen changes, but the URL does not.
+- Concepts: `BrowserRouter`, routes, nested layout, `Outlet`, `Link`, `NavLink`, and `useParams`.
+- User impact: refresh, back button, bookmarks, and sharing.
+- Outcome: real URLs for dashboard, patient list, and patient detail.
+
+## Participant task
+
+- Time: 15 minutes.
+- Show Module 2 in `EXERCISES.md`.
+- Ask participants to work in `apps/arena`.
+- Listen for links versus buttons, nested routes, where `Outlet` belongs, how route params flow into page code, and whether navigation uses links for navigation and buttons for actions.
+
+## Group discussion
+
+- Focus on what changed when people moved from local state to routes, and which routing concepts felt unclear.
+- Land this point: the route tree gives structure to the app. The layout stays mounted while the active child route changes.
+
 ## App: Show the navigation problem
 
 - Open the app before changing code.
@@ -84,3 +103,9 @@
 ## Check
 
 - Run `npm run typecheck --workspace=apps/arena`.
+
+## Module close
+
+- Commit and push the module solution.
+- Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+- Give everyone a moment to catch up before lunch or Module 3.

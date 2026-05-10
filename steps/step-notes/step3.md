@@ -1,5 +1,24 @@
 # Step 3: State and Effects
 
+## Module frame
+
+- Problem: the app stores values it can calculate.
+- Concepts: derived state, minimal state, `useEffect` as synchronization, and `useRef` as an escape hatch.
+- Rule of thumb: if it can be calculated during render, do not store it.
+- Outcome: remove synced state and extract `usePatientFilter`.
+
+## Participant task
+
+- Time: 15 minutes.
+- Show Module 3 in `EXERCISES.md`.
+- Ask participants to work in `apps/arena`.
+- Listen for "Should this be state?", "Do we need `useMemo`?", "Is this a good `useEffect`?", and confusion between derived state and external synchronization.
+
+## Group discussion
+
+- Focus on which state people removed, which effects felt suspicious, and where the line between derived state and synchronization was unclear.
+- Land this point: less state means fewer impossible states. Effects are for external systems, not for keeping React values in sync with each other.
+
 ## App: Frame the problem
 
 - Open the code that stores values we can calculate.
@@ -68,3 +87,9 @@
 
 - Run `npm test --workspace=apps/arena -- --run`.
 - If fake timers fail, check `act()` and cleanup first.
+
+## Module close
+
+- Commit and push the module solution.
+- Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
+- Give everyone a moment to catch up before Module 4.
