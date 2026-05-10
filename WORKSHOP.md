@@ -45,7 +45,7 @@ During the instructor walkthrough, use GitHub Copilot ghost text where it helps,
 ## Schedule
 
 - 09:00 — Intro
-- 09:15 — Background: Thinking in web and rendering strategies
+- 09:15 — Background: Rendering strategies and thinking in web
 - 09:30 — Setup and repo tour
 - 10:15 — Module 1: Architecture and Reuse
 - 11:00 — Break
@@ -76,7 +76,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 
 ## Module Overview
 
-- **Intro: Thinking in web and rendering strategies** — Set the mental model for React as part of the web platform, then compare CSR, SSR, static rendering, streaming, and Server Components at a high level
+- **Intro: Rendering strategies and thinking in web** — Compare CSR, SSR, static rendering, streaming, and Server Components, then connect those choices to browser behavior
 - **Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
 - **Module 1: Architecture and Reuse** — Split large files, create focused components, add shared `StatusBadge`, add an error boundary
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
@@ -97,15 +97,13 @@ Before introducing yourself, ask who is in the room:
 
 Then introduce yourself briefly: who you are, what you work with, and why you care about React app architecture.
 
-### Intro: Thinking in web and rendering strategies
+### Intro: Rendering strategies
 
 The goal is to set the mental model for the rest of the day.
 
-- React is part of the web platform, not a replacement for it
-- URLs, links, forms, navigation history, loading, errors, and network requests are part of the user experience
-- Browser tools help us understand what the app is actually doing
-- Connect React choices back to browser behavior
 - Rendering strategy is an architecture choice
+- Different parts of the same product can use different rendering strategies
+- The right choice depends on user experience, SEO, data needs, interactivity, caching, and team complexity
 
 Core ideas to cover:
 
@@ -116,6 +114,15 @@ Core ideas to cover:
 - **Streaming and Suspense:** the server can send useful parts of the page before every slow data dependency is ready.
 - **React Server Components:** some components can run only on the server and send their rendered result to the client. This changes where data access, bundles, and component boundaries live.
 
+### Intro: Thinking in web
+
+The goal is to connect rendering strategy back to the browser.
+
+- React is part of the web platform, not a replacement for it
+- URLs, links, forms, navigation history, loading, errors, accessibility, and network requests are part of the architecture
+- Browser tools help us understand what the app is actually doing
+- React choices should show up in browser behavior: document requests, fetch requests, loading states, form submissions, focus, labels, and recovery from errors
+
 ### Setup and repo tour
 
 The goal is to get everyone running the same app and understand the repo before changing code.
@@ -124,7 +131,7 @@ The goal is to get everyone running the same app and understand the repo before 
 - The app, API, marketing site, and shared package all run from one monorepo
 - The README explains setup, commands, tests, AI context, and CI
 - The repo tour connects `apps/arena`, `apps/api`, `apps/medix.com`, and `packages/ui`
-- The rendering strategy discussion is grounded in the actual folders after the repo tour
+- The repo tour connects the rendering strategy discussion to the actual folders
 - The starter contains the issues the workshop modules improve
 
 ### Module 1: Architecture and Reuse

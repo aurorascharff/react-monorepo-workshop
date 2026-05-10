@@ -60,9 +60,9 @@
 - When should something move into `packages/ui`?
 - Answer to land: when more than one app needs the same concept, or when a shared concept should have one implementation.
 
-## App: Map rendering strategy to the repo
+## App: Map rendering strategy and web behavior to the repo
 
-- Connect the earlier rendering strategy discussion to the folders they have now seen.
+- Connect the earlier rendering strategy and thinking in web discussion to the folders they have now seen.
 - `apps/arena` is a client-rendered SPA. It is good for the workshop target because routing, state, effects, data fetching, forms, and client-side behavior are visible.
 - `apps/api` is the server boundary. It owns the data and validation.
 - `apps/medix.com` is the comparison point for framework routing and server-oriented rendering.
