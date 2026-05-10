@@ -13,8 +13,8 @@ const journalSchema = z.object({
   date: z.string().min(1, 'Date is required'),
   content: z
     .string()
-    .min(10, 'Content must be at least 10 characters')
-    .min(1, 'Content is required'),
+    .min(1, 'Content is required')
+    .min(10, 'Content must be at least 10 characters'),
 })
 
 type JournalFormData = z.infer<typeof journalSchema>
@@ -32,10 +32,15 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
     handleSubmit,
     reset,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<JournalFormData>({
     resolver: zodResolver(journalSchema),
     mode: 'onChange',
+    defaultValues: {
+      title: '',
+      date: '',
+      content: '',
+    },
   })
 
   const { mutate, isPending, error } = useMutation({
@@ -105,7 +110,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
         )}
       </div>
 
-      <Button type="submit" disabled={!isValid || isPending}>
+      <Button type="submit" disabled={isPending}>
         {isPending ? 'Saving...' : 'Save entry'}
       </Button>
     </form>

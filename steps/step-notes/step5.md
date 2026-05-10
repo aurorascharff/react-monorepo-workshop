@@ -55,7 +55,7 @@
 - Create `useForm<JournalFormData>`.
 - Add `resolver: zodResolver(journalSchema)`.
 - Add `mode: 'onChange'`.
-- The answers I want to draw out: `register`, `handleSubmit`, `reset`, `control`, `errors`, and `isValid`.
+- The answers I want to draw out: `register`, `handleSubmit`, `reset`, `control`, and `errors`.
 - React Hook Form: it manages form state without forcing every input value through React state.
 - Controlled versus uncontrolled: controlled means React owns the value. Uncontrolled means the DOM owns the value and the form library reads it when needed.
 
@@ -103,7 +103,7 @@
 - Use Network while submitting a valid form to show the request that still goes to the server.
 - Where should server errors be shown so the user can recover?
 - Answer to land: near the form submit area or above the fields, where the user can see that the whole submission failed rather than one field being invalid.
-- Disabling invalid submit is not an accessibility fix. If a product chooses to block submit, the reason must already be visible and reachable.
+- Do not block invalid submit here. Let `handleSubmit` run validation, keep errors visible, and only disable while pending.
 
 ## Check and module close
 

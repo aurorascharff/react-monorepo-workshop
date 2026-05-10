@@ -178,7 +178,7 @@ The goal is to stop invalid data before it leaves the form.
 
 - Validation is defined in a Zod schema, not scattered across the component
 - Error messages appear per field
-- Submit state is visible while the form is invalid or submitting
+- Validation and submit state are visible to the user
 - A successful submit updates the UI without a manual refresh
 - Server errors are surfaced to the user in a meaningful way
 

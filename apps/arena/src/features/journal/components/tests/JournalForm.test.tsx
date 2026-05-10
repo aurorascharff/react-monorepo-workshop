@@ -4,6 +4,17 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { ReactNode } from 'react'
 import { JournalForm } from '../JournalForm'
 
+const fetchMock = vi.fn()
+
+beforeEach(() => {
+  fetchMock.mockReset()
+  vi.stubGlobal('fetch', fetchMock)
+})
+
+afterEach(() => {
+  vi.unstubAllGlobals()
+})
+
 function renderWithClient(ui: ReactNode) {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
@@ -14,10 +25,20 @@ function renderWithClient(ui: ReactNode) {
 }
 
 describe('JournalForm', () => {
-  it('keeps submit disabled until required fields are valid', () => {
+  it('keeps submit available and shows field errors for invalid input', async () => {
+    const user = userEvent.setup()
     renderWithClient(<JournalForm patientId="p-1" />)
 
-    expect(screen.getByRole('button', { name: /save entry/i })).toBeDisabled()
+    const submit = screen.getByRole('button', { name: /save entry/i })
+
+    expect(submit).toBeEnabled()
+
+    await user.click(submit)
+
+    expect(await screen.findByText(/title is required/i)).toBeInTheDocument()
+    expect(screen.getByText(/date is required/i)).toBeInTheDocument()
+    expect(screen.getByText(/content is required/i)).toBeInTheDocument()
+    expect(fetchMock).not.toHaveBeenCalled()
   })
 
   it('labels the date picker from the visible date label', () => {
