@@ -24,13 +24,13 @@ Each module follows the same loop:
 4. The instructor live-codes the solution using the matching `steps/step-notes/stepN.md`.
 5. The instructor runs the relevant checks, commits, and pushes the module solution.
 6. Participants get a recovery path: they can keep their own work, or discard local changes and run `git pull` to use the pushed solution.
-7. Everyone gets a moment to catch up before the next module.
+7. Pause before the next module so participants can pull the pushed solution if needed.
 
 At the end of each module, say:
 
 > If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 
-Keep the workshop conversational. Ask the room what they notice before explaining the answer.
+Ask the room what they notice before explaining the answer.
 
 The participant task list lives in [`EXERCISES.md`](EXERCISES.md). Module notes should point there instead of repeating the task steps, so updates only need to happen in one place.
 
@@ -92,10 +92,10 @@ Open with a short welcome and explain that this is a hands-on React application 
 
 Before introducing yourself, ask who is in the room:
 
-- Small group: go around and ask what they work on, how much React they have used, and what would make the day useful.
+- Small group: go around and ask what they work on, how much React they have used, and what they want from the day.
 - Large group: use raise-of-hands questions for frontend/backend/full-stack, React experience, internal systems/public products, and teams moving toward React.
 
-Then introduce yourself briefly: who you are, what you work with, why you care about React app architecture, and that the workshop is practical, conversational, and question-friendly.
+Then introduce yourself briefly: who you are, what you work with, and why you care about React app architecture.
 
 ### Intro: Thinking in web and rendering strategies
 
@@ -104,8 +104,8 @@ The goal is to set the mental model for the rest of the day.
 - React is part of the web platform, not a replacement for it
 - URLs, links, forms, navigation history, loading, errors, and network requests are part of the user experience
 - Browser tools help us understand what the app is actually doing
-- The workshop keeps connecting React choices back to web behavior
-- Rendering strategy is an architecture choice, not a framework buzzword
+- Connect React choices back to browser behavior
+- Rendering strategy is an architecture choice
 
 Core ideas to cover:
 
@@ -125,7 +125,7 @@ The goal is to get everyone running the same app and understand the repo before 
 - The README explains setup, commands, tests, AI context, and CI
 - The repo tour connects `apps/arena`, `apps/api`, `apps/medix.com`, and `packages/ui`
 - The rendering strategy discussion is grounded in the actual folders after the repo tour
-- The starter works, but it has realistic rough edges that the workshop modules improve
+- The starter contains the issues the workshop modules improve
 
 ### Module 1: Architecture and Reuse
 
@@ -180,10 +180,9 @@ Use the closing slides to recap the path through the day and send people toward 
 
 - Recap the path: structure, routing, state, server state, and forms
 - Remind people what each pattern solved
-- Link the workshop-day repo and the final reference repo
-- Include certification information and further learning links
+- If it is a large room, ask for a raise of hands: who learned something about routing, state, server state, forms, or rendering strategy that they did not know before
+- If it is a smaller room, go around and ask each person for one thing they learned that they did not know before
 - Ask what they will use first in their own codebase
 - Ask what still feels unclear
 - Ask which part changed how they think about React
-- If it is a large room, ask for a raise of hands: who learned something about routing, state, server state, forms, or rendering strategy that they did not know before
-- If it is a smaller room, go around and ask each person for one thing they learned that they did not know before
+- Include certification information and further learning links

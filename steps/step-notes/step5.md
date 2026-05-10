@@ -26,7 +26,7 @@
 - The form works, but the rules are scattered across submit handling, local error state, and the UI.
 - What validation rules can we see from the UI?
 - Answer to land: required title, required date, content length, and server errors.
-- For tiny forms this is okay. For real forms it gets hard to change and hard to reason about.
+- The rules are split across submit handling, local error state, and JSX.
 
 ## App: Add Zod schema
 
@@ -98,7 +98,7 @@
 - Disable the button with `!isValid || isPending`.
 - Show `Saving...` while pending.
 - Render the mutation error above the fields.
-- Server errors still need a place in the UI. Client validation cannot catch network errors, permissions, or backend failures.
+- Server errors need a place in the UI. Client validation cannot catch network errors, permissions, or backend failures.
 - Use Network while submitting a valid form to show the request that still goes to the server.
 - Where should server errors be shown so the user can recover?
 - Answer to land: near the form submit area or above the fields, where the user can see that the whole submission failed rather than one field being invalid.
@@ -109,4 +109,4 @@
 - Run `npm run typecheck --workspace=apps/arena`.
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-- Give everyone a moment to catch up before the wrap-up.
+- Pause for participants who want to pull the pushed solution.

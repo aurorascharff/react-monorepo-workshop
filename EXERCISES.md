@@ -86,7 +86,7 @@ Check your work:
 
 ## Module 5: Forms
 
-Goal: move validation rules into a schema and show useful form errors.
+Goal: move validation rules into a schema and show field-level form errors.
 
 Work in `apps/arena`.
 

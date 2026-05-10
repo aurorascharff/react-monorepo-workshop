@@ -81,7 +81,7 @@
 - Wrap `PatientDetail` in local `Suspense` with `Spinner`.
 - Wrap the Suspense boundary in local `ErrorBoundary`.
 - Keep the layout-level boundary as the catch-all.
-- This boundary is contextual. If patient detail fails, the shell and navigation are still useful.
+- If patient detail fails, the shell and navigation stay visible.
 - What would be worse about only having one top-level boundary?
 - Answer to land: it makes a local data failure feel like the whole app failed.
 
@@ -118,11 +118,10 @@
 - Reset the form after a successful submit.
 - Submit once with Network open and show the POST request.
 - Show that the journal list refreshes because the journals query is invalidated.
-- Validation is still not solved. That is the next module.
 
 ## Check and module close
 
 - Run `npm run typecheck --workspace=apps/arena`.
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-- Give everyone a moment to catch up before Module 5.
+- Pause for participants who want to pull the pushed solution.

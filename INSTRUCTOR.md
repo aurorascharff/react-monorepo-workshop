@@ -74,9 +74,6 @@ Editor:
 
 ## Teaching Reminders
 
-> Slow down. Look at the room. Ask questions. Breathe. Have fun. There is enough time.
-
-- Slower is more important than finishing.
 - Pause before moving on.
 - Check that the room is with me, not just that the code works.
 - Comment while coding.
@@ -107,7 +104,7 @@ If a debate goes too long:
 
 > Both are valid. Let's move on and see what the code needs here.
 
-If a question is useful but off-topic:
+If a question is off-topic:
 
 > Good question. Can we take it after?
 
@@ -130,10 +127,6 @@ If fewer than half raise hands:
 - Name the confusing part.
 - Let faster groups help slower groups.
 
-Useful phrase:
-
-> This is the common mistake. Do not worry.
-
 ## Breaks
 
 - Stop at the planned break even if the current module got messy.
@@ -144,18 +137,12 @@ Useful phrase:
 
 ## If Tech Breaks
 
-- Stay calm.
 - `npm run db:seed` if data gets messy.
 - Use `steps/stepN` as finished snapshot.
 - Use final reference repo as reference.
 - Use slides, screenshots, or whiteboard for the concept.
-- Keep moving. Clarity matters more than perfect tooling.
 
 ## Phrases
-
-Opening:
-
-> Today is not about learning every React API. It is about recognizing the problems that show up in larger React apps.
 
 After a fix:
 
@@ -164,10 +151,6 @@ After a fix:
 Discussion:
 
 > What did you try first, and where did it start to feel unclear?
-
-Wrap-up:
-
-> Use this as a reference. Perfect code on day one is not the goal.
 
 ## Follow-Up
 

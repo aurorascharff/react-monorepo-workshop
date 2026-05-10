@@ -21,7 +21,7 @@
 ## App: Frame the problem
 
 - Open the code that stores values we can calculate.
-- `useEffect` is not bad. The problem is using it to synchronize React state with other React state.
+- Avoid using `useEffect` to synchronize React state with other React state.
 - Which state did you delete or consider deleting when you tried this?
 - Answer to land: stats derived from patients, selected patient derived from selected id and patients, and filter results derived from search/filter inputs.
 - What is `useEffect` for?
@@ -72,11 +72,10 @@
 - Use the debounced search value inside `usePatientFilter`.
 - Why is this effect okay when the previous ones were not?
 - Answer to land: we are synchronizing with a timer, which is outside React.
-- The data set is tiny. Debounce is here because the pattern is common, not because this app needs performance tuning.
 
 ## Check and module close
 
 - Run `npm run typecheck --workspace=apps/arena`.
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-- Give everyone a moment to catch up before Module 4.
+- Pause for participants who want to pull the pushed solution.

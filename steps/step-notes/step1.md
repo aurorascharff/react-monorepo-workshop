@@ -4,7 +4,7 @@
 
 - Problem: the app works, but too many responsibilities live in the same files.
 - Concepts: feature folders, component responsibility, shared UI, and error boundaries.
-- Rule of thumb: extract to name a responsibility, not to make files tiny.
+- Rule of thumb: extract to name a responsibility, not to make files small.
 - Outcome: focused components, `Layout`, `ErrorBoundary`, and shared `StatusBadge`.
 - Show Module 1 in `EXERCISES.md`.
 
@@ -25,9 +25,9 @@
 - What components can you see in the UI before looking at the code?
 - Answer to land: Patient list, patient card, patient header, journal list, journal entry, form.
 - What did you split out first when you tried this yourself?
-- Answer to land: there is not one correct first cut, but list/card/header are usually easier first moves than form or data fetching.
+- Answer to land: list/card/header are usually easier first moves than form or data fetching.
 - Which component was hardest to name?
-- Answer to land: hard names are useful signals. If a name feels fake, the boundary may be fake or the component may still have too many responsibilities.
+- Answer to land: if a name feels fake, the boundary may be fake or the component may still have too many responsibilities.
 - Create `features/patients/components`.
 - Create `features/journal/components`.
 - Create `components`.
@@ -41,7 +41,6 @@
 - Move journal list rendering into `JournalList.tsx`.
 - Move the journal form into `JournalForm.tsx`.
 - Keep the current fetching and form logic for now.
-- We are not fixing every smell at once. Each module has one job.
 
 ## App: Extract layout and boundary
 
@@ -75,7 +74,6 @@
 - Use `StatusBadge` in `apps/medix.com/app/page.tsx`.
 - Use `StatusBadge` in `apps/medix.com/app/products/page.tsx`.
 - Change one status style and verify that both apps update from one place.
-- This is the payoff. One concept, one implementation.
 - What should not go into `packages/ui` yet?
 - Answer to land: feature-specific code should stay in the feature until reuse is real.
 
@@ -84,4 +82,4 @@
 - Run `npm run typecheck --workspace=apps/arena`.
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
-- Give everyone a moment to catch up before Module 2.
+- Pause for participants who want to pull the pushed solution.
