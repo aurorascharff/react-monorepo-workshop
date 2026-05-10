@@ -5,7 +5,7 @@
 - Say: the problem is not that the form submits. The problem is that validation, submit state, and error recovery are hard to see and change.
 - Ask: what should be clear to the user, and what should be clear to the developer maintaining the form?
 - Land this: forms need visible rules, field-level feedback, submit state, and a place for server errors.
-- Show Module 5 in `exercises/module-5-forms.md`.
+- Show Module 5 in [`exercises/module-5-forms.md`](../../exercises/module-5-forms.md).
 
 ## Participant work (roughly 15 minutes)
 
@@ -30,19 +30,19 @@
 
 ## App: Add Zod schema
 
-- Import `z` from `zod`.
+- Import [`z`](https://zod.dev/basics) from `zod`.
 - Add `journalSchema`.
 - Add `title`: required and max 100 characters.
 - Add `date`: required.
 - Add `content`: required and at least 10 characters.
-- Schema: one place that describes valid form data.
+- [Schema](https://zod.dev/basics): one place that describes valid form data.
 - What is easier to change once validation lives in a schema?
 - Answer to land: validation rules, error messages, and inferred TypeScript types can change together in one place.
 - Client validation is for UX. The server must still validate.
 
 ## App: Infer form type
 
-- Add `type JournalFormData = z.infer<typeof journalSchema>`.
+- Add `type JournalFormData = z.infer<typeof journalSchema>`, using [Zod type inference](https://zod.dev/basics#inferring-types).
 - Use this type for the form.
 - We are not writing the same shape twice. TypeScript follows the schema.
 - What happens if the schema changes but a handwritten type does not?
@@ -50,13 +50,13 @@
 
 ## App: Wire React Hook Form
 
-- Import `useForm` and `Controller` from `react-hook-form`.
-- Import `zodResolver` from `@hookform/resolvers/zod`.
+- Import [`useForm`](https://react-hook-form.com/docs/useform) and [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) from `react-hook-form`.
+- Import [`zodResolver`](https://github.com/react-hook-form/resolvers#zod) from `@hookform/resolvers/zod`.
 - Create `useForm<JournalFormData>`.
 - Add `resolver: zodResolver(journalSchema)`.
 - Add `mode: 'onChange'`.
 - The answers I want to draw out: `register`, `handleSubmit`, `reset`, `control`, and `errors`.
-- React Hook Form: it manages form state without forcing every input value through React state.
+- [React Hook Form](https://react-hook-form.com/get-started): it manages form state without forcing every input value through React state.
 - Controlled versus uncontrolled: controlled means React owns the value. Uncontrolled means the DOM owns the value and the form library reads it when needed.
 
 ## App: Register text fields
@@ -77,7 +77,7 @@
 - Pass `id="date"` so the visible label names the date picker button.
 - Inspect the date picker in the Accessibility panel and confirm the visible label names the control.
 - Render `errors.date?.message` below the date field.
-- `Controller` is for components that do not plug directly into `register`.
+- [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) is for components that do not plug directly into [`register`](https://react-hook-form.com/docs/useform/register).
 - Why not use `Controller` for every field?
 - Answer to land: use the simpler `register` path when the input supports it.
 
@@ -85,13 +85,13 @@
 
 - Keep the existing `useMutation` for `createJournal`.
 - Replace the manual submit handler with `handleSubmit((data) => mutate(data))`.
-- `handleSubmit` only calls our function when the schema passes.
+- [`handleSubmit`](https://react-hook-form.com/docs/useform/handlesubmit) only calls our function when the schema passes.
 - Open Network and verify that invalid client-side data does not create a POST request.
 - On success, invalidate `['journals', patientId]`.
 - Reset the form.
 - Call `onSuccess` if present.
 - Which part owns validation, and which part owns the server update?
-- Answer to land: Zod owns validation, React Hook Form owns form state, and TanStack Query owns the mutation.
+- Answer to land: [Zod](https://zod.dev/basics) owns validation, [React Hook Form](https://react-hook-form.com/get-started) owns form state, and [TanStack Query](https://tanstack.com/query/latest/docs/framework/react/guides/mutations) owns the mutation.
 
 ## App: Show submit state and errors
 

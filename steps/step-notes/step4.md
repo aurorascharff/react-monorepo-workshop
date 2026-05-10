@@ -5,7 +5,7 @@
 - Say: the problem is not fetch itself. The problem is everything around fetch: waiting, errors, stale data, race conditions, retries, and refresh after mutations.
 - Ask: which parts of this data belong to the server, and what should the UI show while we wait?
 - Land this: server state needs a cache, identity, loading behavior, error behavior, and refresh behavior.
-- Show Module 4 in `exercises/module-4-server-state.md`.
+- Show Module 4 in [`exercises/module-4-server-state.md`](../../exercises/module-4-server-state.md).
 
 ## Participant work (roughly 10 minutes)
 
@@ -16,7 +16,7 @@
 
 - Focus on what code disappeared, what people chose for query keys, and what they invalidated after mutations.
 - Land this point: query keys define identity. Mutations change server state. Invalidation tells the cache what needs to be refreshed.
-- Ask before live coding: what did you see in Network or React Query Devtools that changed how you thought about the task?
+- Ask before live coding: what did you see in Network or [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) that changed how you thought about the task?
 
 ## App: Show manual server state
 
@@ -28,12 +28,14 @@
 - Relate back to the background: the hard part is time. Requests can be slow, fail, finish out of order, or return data that is already stale.
 - What are we manually handling right now?
 - Answer to land: loading, errors, retries, stale data, cache, race conditions, and refetching after mutations.
-- TanStack Query gives us a standard way to describe server state instead of rebuilding that infrastructure in each component.
+- Mention the intermediate option: we could extract this into a custom hook that uses [`useEffect`](https://react.dev/reference/react/useEffect). That would make components cleaner, but it would still leave us responsible for cache, dedupe, stale data, invalidation, and race conditions.
+- Point to the React docs section on [fetching data with Effects](https://react.dev/reference/react/useEffect#fetching-data-with-effects). The docs show the manual pattern and also explain why a client-side cache is usually a better fit for app data.
+- [TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview) gives us a standard way to describe server state instead of rebuilding that infrastructure in each component.
 
 ## App: Check QueryClientProvider
 
 - Open `apps/arena/src/main.tsx`.
-- Show `QueryClientProvider`.
+- Show [`QueryClientProvider`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider).
 - The `QueryClient`.
 - Check `staleTime` and `retry`.
 - `staleTime`: how long data is considered fresh.
@@ -42,10 +44,10 @@
 ## App: Create usePatients
 
 - Create `features/patients/hooks/usePatients.ts`.
-- Add `useQuery`.
+- Add [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery).
 - Use `queryKey: ['patients']`.
 - Use `queryFn: fetchPatients`.
-- A query key is the cache address.
+- A [query key](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) is the cache address.
 - What should go in a query key?
 - Answer to land: the stable identity of the data. Include variables when they change what data comes back.
 - What should happen if Dashboard and Patients both ask for `['patients']`?
@@ -60,7 +62,7 @@
 - Open `pages/DashboardPage.tsx`.
 - Replace manual fetching with `usePatients`.
 - Navigate between Dashboard and Patients to verify cache reuse.
-- Open React Query Devtools and show that both screens use the same `['patients']` cache entry.
+- Open [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) and show that both screens use the same `['patients']` cache entry.
 - What code disappeared when fetching moved to TanStack Query?
 - Answer to land: local loading state, fetching effects, repeated fetch calls, and manual success/error bookkeeping.
 - We removed duplicated fetching logic, but we also got better navigation behavior because data is cached.
@@ -69,11 +71,11 @@
 
 - Open `pages/PatientDetailPage.tsx`.
 - Create an inner `PatientDetail` component.
-- Use `useSuspenseQuery`.
+- Use [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery).
 - Use `queryKey: ['patient', id]`.
 - Use `queryFn` to fetch one patient by id.
-- Open React Query Devtools and show that each patient id gets a separate cache entry.
-- `useSuspenseQuery` does not give us `isLoading`. It suspends and lets the parent boundary decide loading UI.
+- Open [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) and show that each patient id gets a separate cache entry.
+- [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery) does not give us `isLoading`. It suspends and lets the parent boundary decide loading UI.
 - Relate back to the background: Suspense is another way to handle time. The component can say “I need this data,” and the boundary decides what the user sees while waiting.
 - Why does `id` belong in the query key?
 - Answer to land: different patients are different cached data.
@@ -91,7 +93,7 @@
 ## App: Create useJournals
 
 - Create `features/journal/hooks/useJournals.ts`.
-- Add `useQuery`.
+- Add [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery).
 - Use `queryKey: ['journals', patientId]`.
 - Use `queryFn` to fetch journals for the patient.
 - Use the hook in `JournalList`.
@@ -101,13 +103,13 @@
 ## App: Update journal status with useMutation
 
 - Open `JournalEntry.tsx`.
-- Add `useMutation` for `updateJournalStatus`.
-- Add `useQueryClient`.
+- Add [`useMutation`](https://tanstack.com/query/latest/docs/framework/react/guides/mutations) for `updateJournalStatus`.
+- Add [`useQueryClient`](https://tanstack.com/query/latest/docs/framework/react/reference/useQueryClient).
 - On success, invalidate `['journals', patientId]`.
-- Change a status with Network and React Query Devtools open.
+- Change a status with Network and [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) open.
 - Show the update request, then show `['journals', patientId]` refetching.
 - Mutation: an operation that changes server state.
-- Invalidation: mark cached data as stale so it refetches.
+- [Invalidation](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation): mark cached data as stale so it refetches.
 - What should happen after a mutation succeeds?
 - Answer to land: invalidate or update the affected cached data so the UI reflects the server state.
 - Why invalidate only this patient's journals instead of everything?
@@ -116,7 +118,7 @@
 ## App: Submit journal form through mutation
 
 - Keep the form validation unchanged in this module.
-- Use `useMutation` for `createJournal`.
+- Use [`useMutation`](https://tanstack.com/query/latest/docs/framework/react/guides/mutations) for `createJournal`.
 - On success, invalidate `['journals', patientId]`.
 - Reset the form after a successful submit.
 - Submit once with Network open and show the POST request.

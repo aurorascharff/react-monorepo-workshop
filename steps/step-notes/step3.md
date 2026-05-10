@@ -5,7 +5,7 @@
 - Say: the problem is not state itself. The problem is state that can disagree with other state or props.
 - Ask: which values are facts, and which values can be calculated from facts we already have?
 - Land this: less duplicated state means fewer impossible states.
-- Show Module 3 in `exercises/module-3-state-and-effects.md`.
+- Show Module 3 in [`exercises/module-3-state-and-effects.md`](../../exercises/module-3-state-and-effects.md).
 
 ## Participant work (roughly 10 minutes)
 
@@ -21,7 +21,8 @@
 ## App: Frame the problem
 
 - Open the code that stores values we can calculate.
-- Avoid using `useEffect` to synchronize React state with other React state.
+- Avoid using [`useEffect`](https://react.dev/reference/react/useEffect) to synchronize React state with other React state.
+- Mention [Context](https://react.dev/learn/passing-data-deeply-with-context) briefly if it comes up: Context lets descendants read a value from the closest Provider without passing props through every layer, but it does not make duplicated state safer.
 - Which state did you delete or consider deleting when you tried this?
 - Answer to land: stats derived from patients, and filter results derived from search/filter inputs.
 - What is `useEffect` for?
@@ -40,7 +41,7 @@
 - Derived state is data we can calculate from props or existing state. If we store it too, we create two sources of truth.
 - Did removing this state make the component easier to reason about?
 - Answer to land: yes, because there is no longer a separate state value that can get out of sync with `patients`.
-- `useMemo` only briefly: start with normal render calculation. Reach for `useMemo` when the calculation is expensive or identity matters.
+- [`useMemo`](https://react.dev/reference/react/useMemo) only briefly: start with normal render calculation. Reach for `useMemo` when the calculation is expensive or identity matters.
 
 ## App: Extract usePatientFilter
 
@@ -52,13 +53,13 @@
 - Move `search`, `setSearch`, `genderFilter`, `setGenderFilter`, and `filteredPatients` into the hook.
 - Return the values the component needs.
 - Use `usePatientFilter(patients)` in `PatientList`.
-- Custom hook: a function that uses React hooks. It is not a service class. It is reusable component logic.
+- [Custom hook](https://react.dev/learn/reusing-logic-with-custom-hooks): a function that uses React hooks. It is not a service class. It is reusable component logic.
 
 ## App: Add useDebounce
 
 - Create `hooks/useDebounce.ts`.
 - Store the debounced value in state.
-- Use `setTimeout` in an effect.
+- Use [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout) in an effect.
 - Clear the timeout in the effect cleanup.
 - Use the debounced search value inside `usePatientFilter`.
 - Why is this effect okay when the previous ones were not?

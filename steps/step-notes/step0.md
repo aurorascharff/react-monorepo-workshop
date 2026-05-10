@@ -3,17 +3,17 @@
 ## Setup frame
 
 - Use the workshop-specific participant repo link, not the private starter template.
-- Open `README.md` and use only the setup commands first.
+- Open [`README.md`](../../README.md) and use only the setup commands first.
 - After everyone has the app running, come back to the README for commands, testing, AI, and CI.
 
 ## App: Run the monorepo
 
-- Open `README.md`.
+- Open [`README.md`](../../README.md).
 - Run `npm install`, `npm run db:seed`, and `npm run dev`.
-- Open Arena on `localhost:5173`.
-- Open the API docs on `localhost:3001`.
-- Open medix.com on `localhost:3000`.
-- One command starts several workspaces because this is an npm workspace with Turborepo.
+- Open Arena on [localhost:5173](http://localhost:5173).
+- Open the API docs on [localhost:3001](http://localhost:3001).
+- Open medix.com on [localhost:3000](http://localhost:3000).
+- One command starts several workspaces because this is an [npm workspace](https://docs.npmjs.com/cli/v11/using-npm/workspaces) with [Turborepo](https://turbo.build/repo/docs).
 - What do we get from running the app, API, and shared package from the same repo?
 - Answer to land: one local setup, shared code, one PR across boundaries, and consistent tooling.
 
@@ -73,5 +73,5 @@
 
 - Run `npm test` once so participants see the test setup.
 - Explain that we are not writing tests during the live modules.
-- Open `AGENTS.md` briefly.
-- GitHub Copilot and `/react-best-practices`.
+- Open [`AGENTS.md`](../../AGENTS.md) briefly.
+- GitHub Copilot and [`/react-best-practices`](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices).

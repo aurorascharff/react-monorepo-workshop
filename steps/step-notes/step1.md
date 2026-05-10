@@ -5,7 +5,7 @@
 - Say: the problem is not that the files are too long. The problem is that too many responsibilities are hidden in the same places.
 - Ask: if someone changes status styling, layout, or the journal form later, where should they expect to look?
 - Land this: structure should make responsibilities easier to find, change, and share.
-- Show Module 1 in `exercises/module-1-architecture-and-reuse.md`.
+- Show Module 1 in [`exercises/module-1-architecture-and-reuse.md`](../../exercises/module-1-architecture-and-reuse.md).
 
 ## Participant work (roughly 10-12 minutes)
 
@@ -51,7 +51,8 @@
 - Wrap the main content area in `ErrorBoundary`.
 - Where should an error boundary go if we want the sidebar to stay visible?
 - Answer to land: the boundary should wrap the part that can fail, not necessarily the whole app.
-- This first boundary is a catch-all around the page content. In the routing module, the same content slot becomes the route outlet.
+- This first boundary is a catch-all around the page content. React describes [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) as a way to show fallback UI for render failures.
+- In the routing module, the same content slot becomes the route outlet.
 - More specific boundaries can live closer to the thing that may fail.
 
 ## App: Build shared StatusBadge
