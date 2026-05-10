@@ -45,7 +45,7 @@ During the instructor walkthrough, use GitHub Copilot ghost text where it helps,
 ## Schedule
 
 - 09:00 — Intro
-- 09:15 — Background: Rendering strategies and thinking in web
+- 09:15 — Background: Rendering strategies and browser behavior
 - 09:30 — Setup and repo tour
 - 10:15 — Module 1: Architecture and Reuse
 - 11:00 — Break
@@ -76,7 +76,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 
 ## Module Overview
 
-- **Intro: Rendering strategies and thinking in web** — Compare CSR, SSR, static rendering, streaming, and Server Components, then connect those choices to browser behavior
+- **Intro: Rendering strategies and browser behavior** — Compare CSR, SSR, static rendering, streaming, and Server Components, then connect those choices to the web platform
 - **Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
 - **Module 1: Architecture and Reuse** — Split large files, create focused components, add shared `StatusBadge`, add an error boundary
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
@@ -114,7 +114,7 @@ Core ideas to cover:
 - **Streaming and Suspense:** the server can send useful parts of the page before every slow data dependency is ready.
 - **React Server Components:** some components can run only on the server and send their rendered result to the client. This changes where data access, bundles, and component boundaries live.
 
-### Intro: Thinking in web
+### Intro: Browser behavior
 
 The goal is to connect rendering strategy back to the browser.
 

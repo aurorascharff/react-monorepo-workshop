@@ -100,7 +100,7 @@
 - Open Network, select the document request, and preview the response.
 - Point out that the HTML for the page is already in the document response before client JavaScript runs.
 - Compare that with Arena on `localhost:5173`, where the browser receives the SPA shell and React renders the app on the client.
-- This is the concrete version of the earlier rendering strategy and thinking in web discussion: framework-rendered pages can send meaningful HTML first, while the SPA depends more on client-side rendering.
+- This is the concrete version of the earlier rendering strategy and browser behavior discussion: framework-rendered pages can send meaningful HTML first, while the SPA depends more on client-side rendering.
 - Why might medix.com fit framework routing better than Arena?
 - Answer to land: public content, SEO, server rendering, and static pages.
 
