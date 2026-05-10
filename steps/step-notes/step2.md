@@ -7,6 +7,7 @@
 - User impact: refresh, back button, bookmarks, and sharing.
 - Outcome: real URLs for dashboard, patient list, and patient detail.
 - Show Module 2 in `exercises/module-2-routing.md`.
+- Frame the exercise around browser behavior: the task is not to use every router API, it is to make the URL own navigation.
 
 ## Participant work (roughly 10 minutes)
 
@@ -79,7 +80,7 @@
 - What changed in the user experience even though the UI looks almost the same?
 - Answer to land: the app now behaves like a browser app, not a local state switcher.
 - What should happen while a route is loading?
-- Answer to land: the user should get a clear loading state without losing the whole shell. We solve this more fully in Module 4.
+- Answer to land: the user should get a clear loading state without losing the whole shell.
 
 ## App: Read route params
 

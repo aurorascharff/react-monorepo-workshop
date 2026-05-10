@@ -7,6 +7,7 @@
 - Rule of thumb: extract to name a responsibility, not to make files small.
 - Outcome: focused components, `Layout`, `ErrorBoundary`, and shared `StatusBadge`.
 - Show Module 1 in `exercises/module-1-architecture-and-reuse.md`.
+- Frame the exercise as an outcome, not a checklist: they choose the structure, then we compare choices.
 
 ## Participant work (roughly 10-12 minutes)
 
@@ -32,7 +33,7 @@
 - Create `features/journal/components`.
 - Create `components`.
 - Create `layouts`.
-- Feature folders: group by what the app does. A patient feature can have components, hooks, and API helpers later.
+- Feature folders: group by what the app does. A patient feature can have components, hooks, and API helpers when those concepts belong to the feature.
 - Move patient list UI into `PatientList.tsx`.
 - Move one patient row into `PatientCard.tsx`.
 - Move selected patient header into `PatientHeader.tsx`.
@@ -51,7 +52,7 @@
 - Wrap the main content area in `ErrorBoundary`.
 - Where should an error boundary go if we want the sidebar to stay visible?
 - Answer to land: the boundary should wrap the part that can fail, not necessarily the whole app.
-- This first boundary is a catch-all. In the data fetching module we add a more contextual boundary closer to the loading data.
+- This first boundary is a catch-all around the page content. More specific boundaries can live closer to the thing that may fail.
 
 ## App: Build shared StatusBadge
 

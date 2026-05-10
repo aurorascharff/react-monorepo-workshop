@@ -7,6 +7,7 @@
 - Rule of thumb: query keys describe identity; invalidation describes what changed.
 - Outcome: replace manual fetch effects with queries and mutations.
 - Show Module 4 in `exercises/module-4-tanstack-query.md`.
+- Frame the exercise around server-state behavior: loading, error, cache, mutation, and refresh.
 
 ## Participant work (roughly 10 minutes)
 
@@ -112,7 +113,7 @@
 
 ## App: Submit journal form through mutation
 
-- Keep the form manual for now.
+- Keep the form validation unchanged in this module.
 - Use `useMutation` for `createJournal`.
 - On success, invalidate `['journals', patientId]`.
 - Reset the form after a successful submit.

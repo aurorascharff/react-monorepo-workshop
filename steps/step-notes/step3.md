@@ -7,6 +7,7 @@
 - Rule of thumb: if it can be calculated during render, do not store it.
 - Outcome: remove synced state and extract `usePatientFilter`.
 - Show Module 3 in `exercises/module-3-state-and-effects.md`.
+- Frame the exercise around finding duplicate state, not around guessing the exact hook extraction.
 
 ## Participant work (roughly 10 minutes)
 
@@ -26,7 +27,7 @@
 - Answer to land: stats derived from patients, selected patient derived from selected id and patients, and filter results derived from search/filter inputs.
 - What is `useEffect` for?
 - Answer to land: synchronize with systems outside React, like network, timers, subscriptions, browser APIs, or third-party widgets.
-- Data-fetching effects stay for now. Those belong to Module 4.
+- Only remove effects whose job is to keep React values in sync with other React values.
 
 ## App: Remove derived dashboard state
 
