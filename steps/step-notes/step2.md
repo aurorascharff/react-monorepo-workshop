@@ -1,13 +1,11 @@
 # Step 2: Routing
 
-## Introduce task in repo
+## Frame what we are solving
 
-- Problem: the screen changes, but the URL does not.
-- Concepts: `BrowserRouter`, routes, nested layout, `Outlet`, `Link`, `NavLink`, and `useParams`.
-- User impact: refresh, back button, bookmarks, and sharing.
-- Outcome: real URLs for dashboard, patient list, and patient detail.
+- Say: the problem is not adding a router for its own sake. The problem is that the browser does not know what screen we are on.
+- Ask: what breaks or feels wrong when URL, refresh, back, forward, and sharing do not match the UI?
+- Land this: routing makes navigation part of the web, not only local React state.
 - Show Module 2 in `exercises/module-2-routing.md`.
-- Frame the exercise around browser behavior: the URL should own navigation.
 
 ## Participant work (roughly 10 minutes)
 
@@ -18,6 +16,7 @@
 
 - Focus on what changed when people moved from local state to routes, and which routing concepts felt unclear.
 - Land this point: the route tree gives structure to the app. The layout stays mounted while the active child route changes.
+- Ask before live coding: what changed in browser behavior once the URL owned navigation?
 
 ## App: Show the navigation problem
 

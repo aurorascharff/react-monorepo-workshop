@@ -1,13 +1,11 @@
 # Step 3: State and Effects
 
-## Introduce task in repo
+## Frame what we are solving
 
-- Problem: the app stores values it can calculate.
-- Concepts: derived state, minimal state, `useEffect` as synchronization, and `useRef` as an escape hatch.
-- Rule of thumb: if it can be calculated during render, do not store it.
-- Outcome: remove synced state and extract `usePatientFilter`.
+- Say: the problem is not state itself. The problem is state that can disagree with other state or props.
+- Ask: which values are facts, and which values can be calculated from facts we already have?
+- Land this: less duplicated state means fewer impossible states.
 - Show Module 3 in `exercises/module-3-state-and-effects.md`.
-- Frame the exercise around finding duplicate state. The hook extraction is one possible shape.
 
 ## Participant work (roughly 10 minutes)
 
@@ -18,6 +16,7 @@
 
 - Focus on which state people removed, which effects felt suspicious, and where the line between derived state and synchronization was unclear.
 - Land this point: less state means fewer impossible states. Effects are for external systems, not for keeping React values in sync with each other.
+- Ask before live coding: which state did you remove, and which effects did you leave alone?
 
 ## App: Frame the problem
 

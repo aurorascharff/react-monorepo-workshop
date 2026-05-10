@@ -1,13 +1,11 @@
 # Step 1: Architecture and Reuse
 
-## Introduce task in repo
+## Frame what we are solving
 
-- Problem: the app works, but too many responsibilities live in the same files.
-- Concepts: feature folders, component responsibility, shared UI, and error boundaries.
-- Rule of thumb: extract when a name captures a real responsibility.
-- Outcome: focused components, `Layout`, `ErrorBoundary`, and shared `StatusBadge`.
+- Say: the problem is not that the files are too long. The problem is that too many responsibilities are hidden in the same places.
+- Ask: if someone changes status styling, layout, or the journal form later, where should they expect to look?
+- Land this: structure should make responsibilities easier to find, change, and share.
 - Show Module 1 in `exercises/module-1-architecture-and-reuse.md`.
-- Frame the exercise as an outcome: they choose the structure, then we compare choices.
 
 ## Participant work (roughly 10-12 minutes)
 
@@ -18,6 +16,7 @@
 
 - Focus on what groups tried, where they got stuck, and which structure choices came up more than once.
 - Land this point: shared packages are for concepts reused across apps. Feature components stay close to the feature until reuse is real.
+- Ask before live coding: what did you decide to keep local, and what did you decide was shared?
 
 ## App: Split the monolith
 

@@ -1,13 +1,11 @@
 # Step 4: TanStack Query
 
-## Introduce task in repo
+## Frame what we are solving
 
-- Problem: manual fetching repeats loading, error, race, and cache logic.
-- Concepts: server state, query keys, loading states, errors, suspense queries, mutations, and invalidation.
-- Rule of thumb: query keys describe identity; invalidation describes what changed.
-- Outcome: replace manual fetch effects with queries and mutations.
+- Say: the problem is not fetch itself. The problem is everything around fetch: waiting, errors, stale data, race conditions, retries, and refresh after mutations.
+- Ask: which parts of this data belong to the server, and what should the UI show while we wait?
+- Land this: server state needs a cache, identity, loading behavior, error behavior, and refresh behavior.
 - Show Module 4 in `exercises/module-4-tanstack-query.md`.
-- Frame the exercise around server-state behavior: loading, error, cache, mutation, and refresh.
 
 ## Participant work (roughly 10 minutes)
 
@@ -18,6 +16,7 @@
 
 - Focus on what code disappeared, what people chose for query keys, and what they invalidated after mutations.
 - Land this point: query keys define identity. Mutations change server state. Invalidation tells the cache what needs to be refreshed.
+- Ask before live coding: what did you see in Network or React Query Devtools that changed how you thought about the task?
 
 ## App: Show manual server state
 

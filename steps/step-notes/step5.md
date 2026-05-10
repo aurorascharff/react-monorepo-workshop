@@ -1,13 +1,11 @@
 # Step 5: Forms
 
-## Introduce task in repo
+## Frame what we are solving
 
-- Problem: validation rules are scattered and errors are too vague.
-- Concepts: React Hook Form, Zod schema, `zodResolver`, field errors, server errors, and mutation submit.
-- Rule of thumb: client validation is for UX, server validation is still required.
-- Outcome: schema-backed form with field errors, disabled invalid submit, and server error feedback.
+- Say: the problem is not that the form submits. The problem is that validation, submit state, and error recovery are hard to see and change.
+- Ask: what should be clear to the user, and what should be clear to the developer maintaining the form?
+- Land this: forms need visible rules, field-level feedback, submit state, and a place for server errors.
 - Show Module 5 in `exercises/module-5-forms.md`.
-- Frame the exercise around form behavior: clearer validation, clearer submit state, and recoverable server errors.
 
 ## Participant work (roughly 15 minutes)
 
@@ -18,6 +16,7 @@
 
 - Focus on where people put validation rules, how they handled errors, and where `register` versus `Controller` was unclear.
 - Land this point: the schema keeps validation rules in one place. The form library manages form state. The mutation manages the API call. The server remains the final authority.
+- Ask before live coding: what did you make easier for the user, and what did you make easier for the developer?
 
 ## App: Show the manual form
 
