@@ -76,7 +76,6 @@ This repo includes the full test suite. Vitest and React Testing Library cover u
 ```bash
 npm run test  # Unit and component tests
 npm run e2e   # Browser tests for Arena + API
-npm run e2e:install --workspace=apps/e2e
 ```
 
 Unit and component tests live in nearby `tests/` folders. Browser tests live in `apps/e2e/tests`.
