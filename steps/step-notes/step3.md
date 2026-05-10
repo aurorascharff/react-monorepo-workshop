@@ -23,7 +23,7 @@
 - Open the code that stores values we can calculate.
 - Avoid using `useEffect` to synchronize React state with other React state.
 - Which state did you delete or consider deleting when you tried this?
-- Answer to land: stats derived from patients, selected patient derived from selected id and patients, and filter results derived from search/filter inputs.
+- Answer to land: stats derived from patients, and filter results derived from search/filter inputs.
 - What is `useEffect` for?
 - Answer to land: synchronize with systems outside React, like network, timers, subscriptions, browser APIs, or third-party widgets.
 - Only remove effects whose job is to keep React values in sync with other React values.
@@ -41,16 +41,6 @@
 - Did removing this state make the component easier to reason about?
 - Answer to land: yes, because there is no longer a separate state value that can get out of sync with `patients`.
 - `useMemo` only briefly: start with normal render calculation. Reach for `useMemo` when the calculation is expensive or identity matters.
-
-## App: Remove selected patient sync
-
-- Find the component that stores both `selectedId` and `selectedPatient`.
-- What can go wrong if these disagree?
-- Answer to land: the UI can show a patient that does not match the selected id, especially after data changes.
-- Keep `selectedId`.
-- Derive `selectedPatient` from `patients.find((patient) => patient.id === selectedId) ?? null`.
-- Remove the effect that synchronizes the two values.
-- This makes impossible states harder to represent. The selected patient cannot disagree with the selected id.
 
 ## App: Extract usePatientFilter
 

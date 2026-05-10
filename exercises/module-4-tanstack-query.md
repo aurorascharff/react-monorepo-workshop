@@ -8,10 +8,13 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 
 ## Task
 
-- Move API data handling out of manual component effects and into a server-state approach.
-- Give patient list, patient detail, journals, status updates, and new journal submit clear loading, error, success, and refresh behavior.
+- Add query hooks for patients and journals.
+- Replace manual patient and journal fetching effects with TanStack Query.
+- Fetch patient detail with a query keyed by patient id.
 - Keep the existing shell-level error boundary.
 - Add a local error boundary around patient detail so a failed patient request does not take down the whole route shell.
+- Use mutations for journal status updates and new journal submit.
+- Invalidate the affected journal data after successful mutations.
 - Verify request and cache behavior during navigation, status updates, and form submit.
 
 ## Check

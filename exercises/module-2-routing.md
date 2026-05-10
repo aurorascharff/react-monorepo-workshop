@@ -8,10 +8,11 @@ The app can show different screens, but the browser does not know what screen th
 
 ## Task
 
-- Move navigation from local component state to browser URLs.
-- Give Dashboard, Patients, and Patient Detail their own addresses.
-- Keep the shared shell visible while the active page changes.
-- Use links for navigation.
+- Add React Router in SPA mode.
+- Create routes for Dashboard, Patients, Patient Detail, and Not Found.
+- Use a layout route so the shared shell stays visible while child routes change.
+- Replace navigation state and navigation buttons with URL-based links.
+- Read the patient id from the route for the patient detail page.
 - Preserve refresh, back, forward, copied URL, and new-tab behavior.
 
 ## Check

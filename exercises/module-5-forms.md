@@ -8,10 +8,12 @@ The form submits, but validation rules, submit state, and recovery from errors a
 
 ## Task
 
-- Refactor the new journal form so validation rules are easier to see and change.
+- Add a Zod schema for the new journal form.
+- Use React Hook Form with the Zod schema.
+- Register the text fields and use `Controller` for the date picker.
 - Show field-level validation errors next to the fields they belong to.
 - Make submit state clear to the user.
-- Keep the existing API submit flow.
+- Submit valid form data through the existing API mutation flow.
 - Update the journal list after a successful submit.
 - Show a form-level error if the server request fails.
 - Keep labels and focus behavior accessible.

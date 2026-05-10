@@ -8,12 +8,12 @@ The app works, but too many responsibilities live in the same places. It is hard
 
 ## Task
 
-- Restructure the main patient workflow so the visible parts of the UI have clear names in the code.
-- Use feature folders for this exercise. The point is ownership: make it easier to find where a change belongs.
-- Separate the shared app shell from the page content.
-- Make sure a content error does not take down the whole shell.
-- Move the shared journal status UI from the Arena journal entry and medix.com pages into the UI package.
-- Verify that Arena and medix.com use the same Domain UI implementation.
+- Extract the patient workflow into named components such as patient list, patient card, patient header, journal list, journal entry, and journal form.
+- Put patient and journal components in feature folders so related App UI is easier to find.
+- Extract the shared app shell into a layout component.
+- Add an error boundary around the page content so the shell can stay visible when content fails.
+- Move the shared journal status UI into `packages/ui` as Domain UI.
+- Use the shared status UI in both Arena and medix.com.
 
 ## Check
 
