@@ -8,12 +8,13 @@ The app works, but too many responsibilities live in the same places. It is hard
 
 ## Task
 
-- Extract the patient workflow into named components such as patient list, patient card, patient header, journal list, journal entry, and journal form.
-- Put patient and journal components in feature folders so related App UI is easier to find.
-- Extract the shared app shell into a layout component.
-- Add an error boundary around the page content so the shell can stay visible when content fails.
-- Move the shared journal status UI into `packages/ui` as Domain UI.
-- Use the shared status UI in both Arena and medix.com.
+1. Start in `apps/arena/src/PatientPage.tsx`. Split the patient and journal UI into named components so the page reads more like a workflow than one large file.
+
+2. Organize the extracted components by feature. Patient UI should live with patient code, and journal UI should live with journal code.
+
+3. Move the shared app shell out of `App.tsx` and add an error boundary around the page content so navigation and layout can stay visible if content fails.
+
+4. Move the journal status display into `packages/ui` as shared Domain UI, then use it from both Arena and medix.com.
 
 ## Resources
 

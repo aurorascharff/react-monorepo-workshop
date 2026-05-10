@@ -8,12 +8,13 @@ The app can show different screens, but the browser does not know what screen th
 
 ## Task
 
-- Add React Router in SPA mode.
-- Create routes for Dashboard, Patients, Patient Detail, and Not Found.
-- Use a layout route so the shared shell stays visible while child routes change.
-- Replace navigation state and navigation buttons with URL-based links.
-- Read the patient id from the route for the patient detail page.
-- Preserve refresh, back, forward, copied URL, and new-tab behavior.
+1. Add React Router in SPA mode and create routes for Dashboard, Patients, Patient Detail, and Not Found.
+
+2. Use a layout route for the shared shell so navigation stays visible while the route content changes.
+
+3. Replace local navigation state with URL-based navigation. Use links for navigation, and read the patient id from the route on the patient detail page.
+
+4. Try refresh, back, forward, copied URLs, and opening a patient link in a new tab. The browser should understand where the user is.
 
 ## Resources
 

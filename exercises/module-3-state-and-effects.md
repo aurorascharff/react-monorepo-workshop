@@ -8,12 +8,13 @@ Some values are stored in state even though they can be calculated from existing
 
 ## Task
 
-- Remove dashboard stats state and calculate the patient totals during render.
-- Keep patient filtering state for the user's search and gender filter choices.
-- Derive the filtered patient list from the patients and filter state.
-- Extract the patient filtering interaction into a `usePatientFilter` hook.
-- Add a `useDebounce` hook for the search value.
-- Keep the timer effect inside `useDebounce`, because the timer is outside React.
+1. In the dashboard, remove state that duplicates information already available from patient data. Calculate the totals during render instead.
+
+2. In the patient list, keep state for the user's filter choices, but derive the filtered patients from existing data.
+
+3. Extract the patient filtering behavior into a `usePatientFilter` hook so the component owns the UI and the hook owns the reusable filtering logic.
+
+4. Add a `useDebounce` hook for the search value. The timer belongs in an effect because it synchronizes with something outside React.
 
 ## Resources
 

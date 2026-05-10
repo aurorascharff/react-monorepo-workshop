@@ -8,14 +8,15 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 
 ## Task
 
-- Add server-state hooks for patients and journals.
-- Replace manual patient and journal fetching effects with TanStack Query.
-- Fetch patient detail with a query identified by patient id.
-- Keep the existing shell-level error boundary.
-- Add a local error boundary around patient detail so a failed patient request does not take down the whole route shell.
-- Use mutations for journal status updates and new journal submit.
-- Invalidate the affected journal data after successful mutations.
-- Verify request and cache behavior during navigation, status updates, and form submit.
+1. Add TanStack Query to the Arena app setup with a `QueryClientProvider`.
+
+2. Replace manual patient and journal fetching effects with server-state hooks. Use query keys that describe the data, including the patient id for patient detail and journal data.
+
+3. Keep the shell-level error boundary, and add a local error boundary around patient detail so a failed patient request does not take down the route shell.
+
+4. Use mutations for journal status updates and new journal submit. After a successful mutation, invalidate the affected journal data so the UI refreshes from the server.
+
+5. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit.
 
 ## Resources
 

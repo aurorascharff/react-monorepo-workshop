@@ -8,17 +8,15 @@ The form submits, but validation rules, submit state, and recovery from errors a
 
 ## Task
 
-- Add a Zod schema for the new journal form.
-- Use React Hook Form with the Zod schema.
-- Register the text fields and use `Controller` for the date picker.
-- Show field-level validation errors next to the fields they belong to.
-- Make submit state clear to the user.
-- Prevent duplicate submits while the request is pending.
-- Submit valid form data through the existing API mutation flow.
-- Update the journal list after a successful submit.
-- Show a form-level error if the server request fails.
-- Keep labels and focus behavior accessible.
-- Prevent invalid client-side data from sending a create request.
+1. Add a Zod schema for the new journal form and use it with React Hook Form.
+
+2. Connect the existing title, date, and content fields to the form. Show field-level validation errors next to the fields they belong to.
+
+3. Submit valid data through the existing create-journal mutation flow and refresh the journal list after a successful submit.
+
+4. Keep invalid submit accessible: let the user submit, show validation feedback, and do not send invalid client-side data to the API.
+
+5. While the request is pending, make the submit state clear and prevent duplicate submits. If the server request fails, show a form-level error.
 
 ## Resources
 
