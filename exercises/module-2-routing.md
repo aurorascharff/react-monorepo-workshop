@@ -15,14 +15,6 @@ The app can show different screens, but the browser does not know what screen th
 - Read the patient id from the route for the patient detail page.
 - Preserve refresh, back, forward, copied URL, and new-tab behavior.
 
-## Check
-
-- Refresh works on a patient detail page.
-- The back button behaves like expected.
-- The active navigation item reflects the current route.
-- The navigation uses links for navigation, not buttons.
-- A patient detail URL can be copied, opened, and shared.
-
 ## Resources
 
 - [React Router: Routing](https://reactrouter.com/start/declarative/routing)

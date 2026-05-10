@@ -13,20 +13,12 @@ The form submits, but validation rules, submit state, and recovery from errors a
 - Register the text fields and use `Controller` for the date picker.
 - Show field-level validation errors next to the fields they belong to.
 - Make submit state clear to the user.
+- Prevent duplicate submits while the request is pending.
 - Submit valid form data through the existing API mutation flow.
 - Update the journal list after a successful submit.
 - Show a form-level error if the server request fails.
 - Keep labels and focus behavior accessible.
 - Prevent invalid client-side data from sending a create request.
-
-## Check
-
-- Invalid fields show clear messages.
-- The submit button is disabled when the form is invalid or submitting.
-- The date picker is labeled like the other form fields.
-- A successful submit updates the journal list.
-- Server errors are visible to the user.
-- Invalid client-side data does not send a create request in the Network tab.
 
 ## Resources
 

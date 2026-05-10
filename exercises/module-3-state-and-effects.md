@@ -15,13 +15,6 @@ Some values are stored in state even though they can be calculated from existing
 - Add a `useDebounce` hook for the search value.
 - Keep the timer effect inside `useDebounce`, because the timer is outside React.
 
-## Check
-
-- Values that can be calculated are not stored in state.
-- Filtering still behaves the same.
-- Data fetching still works as before.
-- React hook linting does not report new warnings.
-
 ## Resources
 
 - [State: A Component's Memory](https://react.dev/learn/state-a-components-memory)

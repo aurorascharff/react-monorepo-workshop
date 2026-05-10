@@ -93,20 +93,20 @@
 - Which part owns validation, and which part owns the server update?
 - Answer to land: Zod owns validation, React Hook Form owns form state, and TanStack Query owns the mutation.
 
-## App: Disable invalid submit and show errors
+## App: Show submit state and errors
 
-- Disable the button with `!isValid || isPending`.
+- Keep validation messages visible before submit.
+- Prevent duplicate submits while `isPending`.
 - Show `Saving...` while pending.
 - Render the mutation error above the fields.
 - Server errors need a place in the UI. Client validation cannot catch network errors, permissions, or backend failures.
 - Use Network while submitting a valid form to show the request that still goes to the server.
 - Where should server errors be shown so the user can recover?
 - Answer to land: near the form submit area or above the fields, where the user can see that the whole submission failed rather than one field being invalid.
-- Disabling invalid submit is a product choice. It works here because the rules are simple and visible.
+- Disabling invalid submit is not an accessibility fix. If a product chooses to block submit, the reason must already be visible and reachable.
 
 ## Check and module close
 
-- Run `npm run typecheck --workspace=apps/arena`.
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 - Pause for participants who want to pull the pushed solution.

@@ -82,7 +82,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
 - **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
 - **Module 4: Server State** — Replace manual fetching with server-state hooks, cache identity, mutations, invalidation, and local boundaries
-- **Module 5: Forms** — Add React Hook Form and Zod validation with field errors, disabled invalid submit, and server error feedback
+- **Module 5: Forms** — Add React Hook Form and Zod validation with field errors, visible submit state, and server error feedback
 
 ## Module Goals
 
@@ -178,7 +178,7 @@ The goal is to stop invalid data before it leaves the form.
 
 - Validation is defined in a Zod schema, not scattered across the component
 - Error messages appear per field
-- Submit is disabled while the form is invalid or submitting
+- Submit state is visible while the form is invalid or submitting
 - A successful submit updates the UI without a manual refresh
 - Server errors are surfaced to the user in a meaningful way
 

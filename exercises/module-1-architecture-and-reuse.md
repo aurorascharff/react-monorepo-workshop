@@ -15,13 +15,6 @@ The app works, but too many responsibilities live in the same places. It is hard
 - Move the shared journal status UI into `packages/ui` as Domain UI.
 - Use the shared status UI in both Arena and medix.com.
 
-## Check
-
-- The patient list, patient header, journal list, journal entry, and journal form are easier to find.
-- The sidebar stays visible if the main content area fails.
-- Status styling lives in one shared place.
-- Arena and medix.com both use the shared status UI.
-
 ## Resources
 
 - [Thinking in React](https://react.dev/learn/thinking-in-react)

@@ -80,7 +80,6 @@
 
 ## Check and module close
 
-- Run `npm run typecheck --workspace=apps/arena`.
 - Commit and push the module solution.
 - Say: If you prefer my solution to what you wrote, you can discard your local changes now and run `git pull` to get the version I just pushed.
 - Pause for participants who want to pull the pushed solution.

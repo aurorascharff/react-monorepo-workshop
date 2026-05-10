@@ -17,15 +17,6 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 - Invalidate the affected journal data after successful mutations.
 - Verify request and cache behavior during navigation, status updates, and form submit.
 
-## Check
-
-- Loading and error states are visible.
-- Navigating away and back reuses cached data.
-- Changing journal status updates the UI after the mutation succeeds.
-- The app still has a shell-level error boundary.
-- Patient detail data failures are handled locally, without replacing the whole app shell.
-- After a status change, the Network tab shows the update request and React Query Devtools shows the affected data updating.
-
 ## Resources
 
 - [TanStack Query overview](https://tanstack.com/query/latest/docs/framework/react/overview)
