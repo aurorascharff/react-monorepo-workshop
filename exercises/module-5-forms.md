@@ -6,7 +6,7 @@ Work in `apps/arena`.
 
 ## Exercise
 
-Refactor the new journal form so validation rules are easier to see and change. Field-level validation errors should appear next to the fields they belong to, and submit state should be clear to the user.
+Refactor the new journal form so validation rules are easier to see and change. Look at the journal form, the API helper it submits through, and the shared date picker. Field-level validation errors should appear next to the fields they belong to, and submit state should be clear to the user.
 
 The form should still submit through the existing API flow, update the journal list after success, and show a form-level error if the server request fails.
 

@@ -6,7 +6,7 @@ Work in `apps/arena`.
 
 ## Exercise
 
-Change the app so navigation is represented in the browser URL instead of only in local component state.
+Change the app so navigation is represented in the browser URL instead of only in local component state. Look at the app entry point, the app shell, the dashboard navigation, and the patient cards.
 
 The dashboard, patient list, and patient detail views should each have their own address. The shared shell should stay consistent while the active page changes.
 

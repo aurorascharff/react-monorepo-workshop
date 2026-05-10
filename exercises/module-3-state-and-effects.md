@@ -6,7 +6,7 @@ Work in `apps/arena`.
 
 ## Exercise
 
-Look for state that duplicates information already available from props, route params, or other state. Remove the duplicated state and calculate those values during render instead.
+Look for state in the dashboard, patient detail page, and patient list that duplicates information already available from props, route params, or other state. Remove the duplicated state and calculate those values during render instead.
 
 The patient filtering interaction should stay readable and reusable enough that the component is not carrying all of the filtering logic itself.
 

@@ -6,7 +6,7 @@ Work in `apps/arena`.
 
 ## Exercise
 
-Move API data handling out of manual component effects and into a server-state approach.
+Move API data handling out of manual component effects and into a server-state approach. Look at the API helpers, the dashboard and patient pages, and the journal list, journal entry, and journal form.
 
 The patient list, patient detail, journals, status updates, and new journal submit should have clear loading, error, success, and refresh behavior. Keep failures local where possible so the app shell remains usable.
 

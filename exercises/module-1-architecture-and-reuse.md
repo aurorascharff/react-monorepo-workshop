@@ -6,9 +6,9 @@ Work in `apps/arena` and `packages/ui`.
 
 ## Exercise
 
-Restructure the Arena app so the main patient workflow is easier to understand. Give the visible parts of the UI names in the code, separate the shared app shell from the page content, and make sure a content error does not take down the whole shell.
+Restructure the Arena app so the main patient workflow is easier to understand. Start with the patient page and the app shell, then give the visible parts of the UI names in the code. Separate the shared shell from the page content, and make sure a content error does not take down the whole shell.
 
-There is also status styling used in more than one app. Move that shared concept to the UI package so both apps can use the same implementation.
+There is also status styling used in the patient journal and on medix.com. Move that shared concept to the UI package so both apps can use the same implementation.
 
 ## Check Your Work
 
