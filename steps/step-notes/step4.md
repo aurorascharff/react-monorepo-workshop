@@ -6,7 +6,7 @@
 - Concepts: server state, query keys, loading states, errors, suspense queries, mutations, and invalidation.
 - Rule of thumb: query keys describe identity; invalidation describes what changed.
 - Outcome: replace manual fetch effects with queries and mutations.
-- Show Module 4 in `EXERCISES.md`.
+- Show Module 4 in `exercises/module-4-tanstack-query.md`.
 
 ## Participant work (roughly 10 minutes)
 

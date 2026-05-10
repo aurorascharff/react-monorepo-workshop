@@ -26,7 +26,7 @@ npm run dev
 | API + docs  | http://localhost:3001 |
 | medix.com   | http://localhost:3000 |
 
-Workshop tasks are listed in [EXERCISES.md](EXERCISES.md). Step snapshots are in
+Workshop tasks are listed in [exercises/](exercises/). Step snapshots are in
 [steps/](steps), and this repository is the final reference repo with the
 completed app and tests.
 

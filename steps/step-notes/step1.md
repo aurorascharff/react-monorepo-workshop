@@ -6,7 +6,7 @@
 - Concepts: feature folders, component responsibility, shared UI, and error boundaries.
 - Rule of thumb: extract to name a responsibility, not to make files small.
 - Outcome: focused components, `Layout`, `ErrorBoundary`, and shared `StatusBadge`.
-- Show Module 1 in `EXERCISES.md`.
+- Show Module 1 in `exercises/module-1-architecture-and-reuse.md`.
 
 ## Participant work (roughly 10-12 minutes)
 

@@ -6,7 +6,7 @@
 - Concepts: `BrowserRouter`, routes, nested layout, `Outlet`, `Link`, `NavLink`, and `useParams`.
 - User impact: refresh, back button, bookmarks, and sharing.
 - Outcome: real URLs for dashboard, patient list, and patient detail.
-- Show Module 2 in `EXERCISES.md`.
+- Show Module 2 in `exercises/module-2-routing.md`.
 
 ## Participant work (roughly 10 minutes)
 

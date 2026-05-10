@@ -6,7 +6,7 @@
 - Concepts: React Hook Form, Zod schema, `zodResolver`, field errors, server errors, and mutation submit.
 - Rule of thumb: client validation is for UX, server validation is still required.
 - Outcome: schema-backed form with field errors, disabled invalid submit, and server error feedback.
-- Show Module 5 in `EXERCISES.md`.
+- Show Module 5 in `exercises/module-5-forms.md`.
 
 ## Participant work (roughly 15 minutes)
 

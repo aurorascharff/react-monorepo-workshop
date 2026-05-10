@@ -6,7 +6,7 @@
 - Concepts: derived state, minimal state, `useEffect` as synchronization, and `useRef` as an escape hatch.
 - Rule of thumb: if it can be calculated during render, do not store it.
 - Outcome: remove synced state and extract `usePatientFilter`.
-- Show Module 3 in `EXERCISES.md`.
+- Show Module 3 in `exercises/module-3-state-and-effects.md`.
 
 ## Participant work (roughly 10 minutes)
 

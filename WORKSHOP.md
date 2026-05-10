@@ -32,7 +32,7 @@ At the end of each module, say:
 
 Ask the room what they notice before explaining the answer.
 
-The participant task list lives in [`EXERCISES.md`](EXERCISES.md). Module notes should point there instead of repeating the task steps, so updates only need to happen in one place.
+The participant tasks live in [`exercises/`](exercises/). Module notes should point there instead of repeating the task steps, so updates only need to happen in one place.
 
 ## AI Use
 
@@ -67,7 +67,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 
 ## Authoring Materials
 
-- [`EXERCISES.md`](EXERCISES.md) - participant task list
+- [`exercises/`](exercises/) - participant tasks and resources
 - [`INSTRUCTOR.md`](INSTRUCTOR.md) - day-of checklist, room notes, fallback plan, and follow-up
 - [`steps/step-notes`](steps/step-notes) - per-step live-coding notes
 - [`steps/`](steps) - complete code snapshots for each workshop module
