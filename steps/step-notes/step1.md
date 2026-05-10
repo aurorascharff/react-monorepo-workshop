@@ -33,6 +33,7 @@
 - Create `components`.
 - Create `layouts`.
 - Feature folders: group by what the app does. A patient feature can have components, hooks, and API helpers when those concepts belong to the feature.
+- Feature slicing is not one fixed folder rule. In Arena, feature folders make sense because the app has product areas like patients and journals. In a file-based router, route-local components can also live beside the route, like `apps/medix.com/app/products/_components`, while app-wide medix.com components live in `apps/medix.com/app/components`.
 - Move patient list UI into `PatientList.tsx`.
 - Move one patient row into `PatientCard.tsx`.
 - Move selected patient header into `PatientHeader.tsx`.
