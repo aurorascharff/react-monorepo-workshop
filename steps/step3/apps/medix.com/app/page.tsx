@@ -8,13 +8,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react'
-import {
-  StatusBadge,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@medix/ui'
+import { ProductCard } from './_components/ProductCard'
 
 const solutions = [
   {
@@ -131,21 +125,14 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {solutions.map(({ icon: Icon, title, description, status }) => (
-            <Card key={title}>
-              <CardHeader>
-                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent text-accent-foreground mb-2">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <CardTitle>{title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  {description}
-                </p>
-                <StatusBadge status={status} />
-              </CardContent>
-            </Card>
+          {solutions.map((solution) => (
+            <ProductCard
+              key={solution.title}
+              title={solution.title}
+              description={solution.description}
+              status={solution.status}
+              icon={solution.icon}
+            />
           ))}
         </div>
       </section>

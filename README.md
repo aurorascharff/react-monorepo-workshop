@@ -32,14 +32,11 @@ completed app and tests.
 
 ## Monorepo structure
 
-```
-apps/
-  arena/        - React Router v7 SPA (workshop target)
-  api/          - Hono REST API (pre-written, OpenAPI + Scalar docs)
-  medix.com/    - Next.js marketing site (reference)
-packages/
-  ui/           - Shared design system (@medix/ui)
-```
+- [`apps/arena/`](apps/arena/README.md) - React Router v7 SPA for clinical journal workflows
+- [`apps/api/`](apps/api/README.md) - Hono REST API, OpenAPI docs, SQLite seed data
+- [`apps/medix.com/`](apps/medix.com/README.md) - Next.js public marketing site
+- [`apps/e2e/`](apps/e2e/README.md) - Playwright browser tests for Arena and the API
+- [`packages/ui/`](packages/ui/README.md) - Shared design system package (`@medix/ui`)
 
 ## Tech stack
 
