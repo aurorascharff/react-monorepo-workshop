@@ -17,6 +17,7 @@ Day before:
 - [ ] Check medix.com: `http://localhost:3000`
 - [ ] `npm run typecheck`
 - [ ] `npm run test`
+- [ ] `npm run e2e`
 - [ ] Projector or screen works.
 - [ ] Slides ready and linked from `WORKSHOP.md`.
 - [ ] Participant list ready if needed.
@@ -29,6 +30,7 @@ Morning:
 - [ ] Open API docs.
 - [ ] Open authoring repo and starter repo.
 - [ ] Open `STEPS.md`, `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and `steps/`.
+- [ ] Open README for the setup and repo walkthrough.
 - [ ] Check Copilot ghost text is available.
 - [ ] Check Chrome DevTools is docked where the room can see it.
 - [ ] Check TanStack Query Devtools appears in Arena.

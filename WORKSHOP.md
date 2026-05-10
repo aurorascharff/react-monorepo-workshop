@@ -136,5 +136,4 @@ The goal is to stop invalid data before it leaves the form.
 - Confirm Arena at `localhost:5173`.
 - Confirm API docs at `localhost:3001`.
 - Confirm medix.com at `localhost:3000`.
-- Show `npm test` briefly, but do not make testing the main path through the day.
 - Mention nested `AGENTS.md` files only as a context and boundary aid.

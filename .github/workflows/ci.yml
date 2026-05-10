@@ -25,6 +25,9 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Install Playwright
+        run: npm run e2e:install --workspace=apps/e2e
+
       - name: Seed database
         run: npm run db:seed
 
@@ -39,3 +42,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: End-to-end tests
+        run: npm run e2e

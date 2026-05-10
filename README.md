@@ -63,6 +63,7 @@ npm run format        # Prettier write
 npm run format:check  # Prettier check
 npm run test          # Vitest across all apps
 npm run e2e           # Playwright tests for Arena + API
+npm run test:all      # Vitest + Playwright
 npm run db:seed       # Reset database to seed data
 ```
 
@@ -86,4 +87,4 @@ GitHub Copilot is configured via [.github/copilot-instructions.md](.github/copil
 
 ## CI
 
-GitHub Actions runs `lint`, `typecheck`, `test`, and `build` on every push and pull request to `main`.
+GitHub Actions runs `lint`, `typecheck`, `test`, `build`, and `e2e` on every push and pull request to `main`.

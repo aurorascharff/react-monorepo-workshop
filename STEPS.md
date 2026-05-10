@@ -18,8 +18,10 @@ Slide should include:
 
 - Workshop title and the practical promise: improve a real React app, not start from scratch.
 - The five steps: app structure, routing, state and effects, data fetching, forms.
+- The workshop format: short concept intro, individual coding, group discussion, instructor walkthrough, checks, push, catch-up.
 - The main problems the day keeps returning to: too much responsibility in one place, URL state, unnecessary state, async data, validation.
 - A note that the codebase is intentionally imperfect because real code usually is.
+- A note that AI is allowed during tasks, but everyone needs to understand and explain the result.
 
 Say:
 
@@ -34,6 +36,12 @@ Show the five steps:
 3. State and effects
 4. Data fetching
 5. Forms
+
+Each module follows the same rhythm. First I explain the problem and the React concept. Then you try the task yourself, with your group nearby and AI allowed if you want to use it. After that we discuss what you tried and where it got unclear.
+
+Then I live-code one solution while explaining the choices. At the end we run the checks, commit, and push. If you prefer my version to what you wrote, you can discard your local changes and pull the pushed solution before we continue.
+
+The goal is not for everyone to write the exact same code on the first try. The goal is to recognize the problem, try a solution, compare approaches, and understand the tradeoffs.
 
 Ask:
 
@@ -92,6 +100,7 @@ Slide should include:
 - Starter repo URL.
 - Commands: `npm install`, `npm run db:seed`, `npm run dev`.
 - Local URLs: Arena `5173`, API docs `3001`, medix.com `3000`.
+- After setup: README tour, repo tour, and CI/test setup.
 - What to open if something fails: README, terminal, API docs.
 - AI use: allowed during tasks, but everyone must review and understand the output.
 - Reminder that setup is part of the workshop, not a race.
@@ -104,18 +113,8 @@ Before we change code, we need to make sure everyone can run the same app locall
 
 Use [`steps/step-notes/step0.md`](steps/step-notes/step0.md).
 
-Open and point out:
-
-- `README.md`
-- `EXERCISES.md`
-- `package.json`
-- `apps/arena/src/App.tsx`
-- `apps/arena/src/PatientPage.tsx`
-- `packages/ui/src/base`
-- `packages/ui/src/index.ts`
-- `apps/api/src/routes`
-- `AGENTS.md`
-- README AI section
+Open `README.md` and use only the setup commands first. Tell the room that you
+will come back to the rest of the README after everyone has the app running.
 
 Run together:
 
@@ -130,6 +129,32 @@ Confirm:
 - Arena: `http://localhost:5173`
 - API docs: `http://localhost:3001`
 - medix.com: `http://localhost:3000`
+
+Go back to `README.md` and point out:
+
+- local URLs
+- commands
+- testing commands
+- AI section
+- CI section
+
+Say:
+
+This is also part of working on a real app. The README tells us how to run the
+project, and CI checks the same kinds of things we care about locally: linting,
+types, unit and component tests, build, and end-to-end smoke tests.
+
+Then walk through the repo:
+
+- `EXERCISES.md`
+- `package.json`
+- `apps/arena/src/App.tsx`
+- `apps/arena/src/PatientPage.tsx`
+- `packages/ui/src/base`
+- `packages/ui/src/index.ts`
+- `apps/api/src/routes`
+- `apps/e2e/tests`
+- `AGENTS.md`
 
 Say:
 
