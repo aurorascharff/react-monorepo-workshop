@@ -1,18 +1,19 @@
 # Module 1: Architecture and Reuse
 
-Objective: make the app easier to read, change, and reuse across the monorepo.
-
 Work in: `apps/arena` and `packages/ui`.
 
-## Do
+## Problem
+
+The app works, but too many responsibilities live in the same places. It is hard to see what belongs to the app workflow, what belongs to shared Domain UI, and what should stay as generic Base UI.
+
+## Task
 
 - Restructure the main patient workflow so the visible parts of the UI have clear names in the code.
 - Use feature folders for this exercise. The point is ownership: make it easier to find where a change belongs.
 - Separate the shared app shell from the page content.
 - Make sure a content error does not take down the whole shell.
-- Look for the journal status UI in the Arena journal entry and the medix.com pages.
-- Move that shared Domain UI concept to the UI package so both apps use the same implementation.
-- Compare Arena and medix.com in the browser after the shared status UI changes.
+- Move the shared journal status UI from the Arena journal entry and medix.com pages into the UI package.
+- Verify that Arena and medix.com use the same Domain UI implementation.
 
 ## Check
 

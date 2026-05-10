@@ -1,17 +1,18 @@
 # Module 2: Routing
 
-Objective: make the URL describe what the user is looking at.
-
 Work in: `apps/arena`.
 
-## Do
+## Problem
+
+The app can show different screens, but the browser does not know what screen the user is on. Refresh, back, forward, bookmarks, and copied links should work with the UI instead of fighting it.
+
+## Task
 
 - Move navigation from local component state to browser URLs.
-- Look at the app entry point, app shell, dashboard navigation, and patient cards.
 - Give Dashboard, Patients, and Patient Detail their own addresses.
 - Keep the shared shell visible while the active page changes.
 - Use links for navigation.
-- Try refresh, back, forward, copying a URL, and opening a patient detail URL in a new tab.
+- Preserve refresh, back, forward, copied URL, and new-tab behavior.
 
 ## Check
 

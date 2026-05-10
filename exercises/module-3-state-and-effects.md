@@ -1,17 +1,18 @@
 # Module 3: State and Effects
 
-Objective: keep state minimal and remove synchronization that can be calculated during render.
-
 Work in: `apps/arena`.
 
-## Do
+## Problem
 
-- Look for state in the dashboard, patient detail page, and patient list.
+Some values are stored in state even though they can be calculated from props, route params, or other state. That creates extra synchronization work and makes the UI easier to get out of sync.
+
+## Task
+
+- Find duplicated state in the dashboard, patient detail page, and patient list.
 - Remove state that duplicates information already available from props, route params, or other state.
 - Calculate derived values during render.
 - Keep the patient filtering interaction working.
 - Move reusable filtering logic out of the component if that makes the code easier to follow.
-- Use React DevTools or console logs if it helps you see what changes during render.
 
 ## Check
 

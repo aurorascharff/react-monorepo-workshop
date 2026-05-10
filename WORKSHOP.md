@@ -49,7 +49,7 @@ During the instructor walkthrough, use GitHub Copilot ghost text where it helps,
 - 09:30 — Setup and repo tour
 - 10:15 — Module 1: Architecture and Reuse
 - 11:00 — Break
-- 11:15 — Module 2: Routing and Next.js comparison
+- 11:15 — Module 2: Routing
 - 12:00 — Lunch
 - 13:00 — Module 3: State and Effects
 - 13:45 — Module 4: TanStack Query

@@ -1,17 +1,18 @@
 # Module 4: TanStack Query
 
-Objective: handle server state declaratively.
-
 Work in: `apps/arena`.
 
-## Do
+## Problem
+
+Manual data fetching spreads loading, errors, retries, cache, refresh, and mutation behavior across components. Server state needs a consistent place to describe what data the UI depends on.
+
+## Task
 
 - Move API data handling out of manual component effects and into a server-state approach.
-- Look at the API helpers, dashboard, patient pages, journal list, journal entry, and journal form.
 - Give patient list, patient detail, journals, status updates, and new journal submit clear loading, error, success, and refresh behavior.
 - Keep the existing shell-level error boundary.
 - Add a local error boundary around patient detail so a failed patient request does not take down the whole route shell.
-- Use the Network tab and React Query Devtools during navigation, status updates, and form submit.
+- Verify request and cache behavior during navigation, status updates, and form submit.
 
 ## Check
 
