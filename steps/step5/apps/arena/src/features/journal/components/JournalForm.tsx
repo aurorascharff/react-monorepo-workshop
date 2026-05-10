@@ -60,7 +60,10 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
       <h2 className="mb-4 text-lg font-semibold">New journal entry</h2>
 
       {error && (
-        <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+        <div
+          role="alert"
+          className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive"
+        >
           {error.message}
         </div>
       )}
@@ -70,11 +73,15 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
         <Input
           id="title"
           type="text"
+          aria-invalid={Boolean(errors.title)}
+          aria-describedby={errors.title ? 'title-error' : undefined}
           {...register('title')}
           placeholder="Short description of the entry"
         />
         {errors.title && (
-          <p className="text-xs text-destructive">{errors.title.message}</p>
+          <p id="title-error" className="text-xs text-destructive">
+            {errors.title.message}
+          </p>
         )}
       </div>
 
@@ -89,11 +96,15 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
               value={field.value}
               onChange={field.onChange}
               placeholder="Pick a date"
+              aria-invalid={Boolean(errors.date)}
+              aria-describedby={errors.date ? 'date-error' : undefined}
             />
           )}
         />
         {errors.date && (
-          <p className="text-xs text-destructive">{errors.date.message}</p>
+          <p id="date-error" className="text-xs text-destructive">
+            {errors.date.message}
+          </p>
         )}
       </div>
 
@@ -102,11 +113,15 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
         <Textarea
           id="content"
           rows={5}
+          aria-invalid={Boolean(errors.content)}
+          aria-describedby={errors.content ? 'content-error' : undefined}
           {...register('content')}
           placeholder="Clinical observations, interventions, and assessments..."
         />
         {errors.content && (
-          <p className="text-xs text-destructive">{errors.content.message}</p>
+          <p id="content-error" className="text-xs text-destructive">
+            {errors.content.message}
+          </p>
         )}
       </div>
 

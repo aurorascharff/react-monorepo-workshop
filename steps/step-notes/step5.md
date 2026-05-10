@@ -27,6 +27,7 @@
 - What validation rules can we see from the UI?
 - Answer to land: required title, required date, content length, and server errors.
 - The rules are split across submit handling, local error state, and JSX.
+- The starter has labels, which is good. The missing accessibility work is that validation feedback is generic and not connected to the field the user needs to fix.
 
 ## App: Add Zod schema
 
@@ -63,8 +64,9 @@
 
 - Replace `name="title"` with `{...register('title')}`.
 - Replace `name="content"` with `{...register('content')}`.
-- Render `errors.title?.message` below title.
-- Render `errors.content?.message` below content.
+- Render `errors.title?.message` below title with an id, then connect it to the input with `aria-describedby`.
+- Render `errors.content?.message` below content with an id, then connect it to the textarea with `aria-describedby`.
+- Add `aria-invalid` when a field has an error.
 - Field-level errors are easier to act on than one generic form error.
 - What should the user be able to fix from the error message?
 - Answer to land: the message should point to the field and the rule.
@@ -76,7 +78,8 @@
 - Pass `field.value` and `field.onChange` to `DatePicker`.
 - Pass `id="date"` so the visible label names the date picker button.
 - Inspect the date picker in the Accessibility panel and confirm the visible label names the control.
-- Render `errors.date?.message` below the date field.
+- Render `errors.date?.message` below the date field with an id, then connect it to the date picker with `aria-describedby`.
+- Add `aria-invalid` when the date field has an error.
 - [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) is for components that do not plug directly into [`register`](https://react-hook-form.com/docs/useform/register).
 - Why not use `Controller` for every field?
 - Answer to land: use the simpler `register` path when the input supports it.
@@ -98,7 +101,7 @@
 - Keep validation messages visible before submit.
 - Prevent duplicate submits while `isPending`.
 - Show `Saving...` while pending.
-- Render the mutation error above the fields.
+- Render the mutation error above the fields with `role="alert"`.
 - Server errors need a place in the UI. Client validation cannot catch network errors, permissions, or backend failures.
 - Use Network while submitting a valid form to show the request that still goes to the server.
 - Where should server errors be shown so the user can recover?
