@@ -7,7 +7,7 @@
 - Rule of thumb: extract to name a responsibility, not to make files small.
 - Outcome: focused components, `Layout`, `ErrorBoundary`, and shared `StatusBadge`.
 - Show Module 1 in `exercises/module-1-architecture-and-reuse.md`.
-- Frame the exercise as an outcome, not a checklist: they choose the structure, then we compare choices.
+- Frame the exercise as an outcome: they choose the structure, then we compare choices.
 
 ## Participant work (roughly 10-12 minutes)
 
@@ -41,7 +41,7 @@
 - Move one journal entry into `JournalEntry.tsx`.
 - Move journal list rendering into `JournalList.tsx`.
 - Move the journal form into `JournalForm.tsx`.
-- Keep the current fetching and form logic for now.
+- Keep fetching and form logic unchanged in this module.
 
 ## App: Extract layout and boundary
 

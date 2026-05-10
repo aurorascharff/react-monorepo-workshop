@@ -7,7 +7,7 @@
 - User impact: refresh, back button, bookmarks, and sharing.
 - Outcome: real URLs for dashboard, patient list, and patient detail.
 - Show Module 2 in `exercises/module-2-routing.md`.
-- Frame the exercise around browser behavior: the task is not to use every router API, it is to make the URL own navigation.
+- Frame the exercise around browser behavior: the URL should own navigation.
 
 ## Participant work (roughly 10 minutes)
 
