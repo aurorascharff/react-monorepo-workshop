@@ -58,7 +58,7 @@
 ## App: Build shared StatusBadge
 
 - Open `packages/ui/src/base/badge.tsx`.
-- This is a primitive. It does not know anything about journals or statuses.
+- This is a primitive. Relate it to Pulse: base components define reusable visual behavior, but they should not know anything about journals, statuses, patients, or product workflows.
 - Create `packages/ui/src/StatusBadge.tsx`.
 - Move `JournalStatus` into `@medix/ui`.
 - Add status config for `active`, `closed`, and `draft`.

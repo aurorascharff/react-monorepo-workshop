@@ -96,6 +96,7 @@
 - Open `apps/medix.com/app`.
 - Show `page.tsx`, `layout.tsx`, and any nested route folders.
 - [Next.js App Router](https://nextjs.org/docs/app) gets routes from files. React Router gets routes from route components. The core idea is still URL maps to UI.
+- Relate this to a public or mostly static website: if pages are content-heavy, SEO-sensitive, or useful before much JavaScript runs, Next.js-style routing and rendering can be a better fit.
 - Open medix.com in the browser on [localhost:3000](http://localhost:3000).
 - Open Network, select the document request, and preview the response.
 - Point out that the HTML for the page is already in the document response before client JavaScript runs.

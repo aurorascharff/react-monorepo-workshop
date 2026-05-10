@@ -63,7 +63,7 @@
 ## App: Map rendering strategy and web behavior to the repo
 
 - Connect the earlier rendering strategy and browser behavior discussion to the folders they have now seen.
-- `apps/arena` is a client-rendered SPA. It is good for the workshop target because routing, state, effects, data fetching, forms, and client-side behavior are visible.
+- `apps/arena` is a client-rendered SPA. Relate this to the main product app: authenticated workflows often have a lot of client-side behavior, state, forms, and API interaction.
 - `apps/api` is the server boundary. It owns the data and validation.
 - `apps/medix.com` is the comparison point for framework routing and server-oriented rendering.
 - Mention that we will inspect the medix.com document response in Network during Module 2.
