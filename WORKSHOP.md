@@ -79,7 +79,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 - **Intro: Thinking in web and rendering strategies** — Set the mental model for React as part of the web platform, then compare CSR, SSR, static rendering, streaming, and Server Components at a high level
 - **Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
 - **Module 1: Architecture and Reuse** — Split large files, create focused components, add shared `StatusBadge`, add an error boundary
-- **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, and nested layout
+- **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
 - **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
 - **Module 4: TanStack Query** — Replace manual fetching with queries, suspense queries, mutations, cache invalidation, and local boundaries
 - **Module 5: Forms** — Add React Hook Form and Zod validation with field errors, disabled invalid submit, and server error feedback
@@ -144,6 +144,7 @@ The goal is to make the URL the source of truth for what the user sees.
 - Navigation happens without a full page reload
 - Shared UI like header and sidebar is shared across pages without duplication
 - The active page is visually clear in the navigation
+- The Next.js comparison shows server-rendered or pre-rendered HTML in the Network tab, then compares it with the SPA shell
 
 ### Module 3: State and Effects
 

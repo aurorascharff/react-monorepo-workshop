@@ -66,6 +66,7 @@
 - `apps/arena` is a client-rendered SPA. It is good for the workshop target because routing, state, effects, data fetching, forms, and client-side behavior are visible.
 - `apps/api` is the server boundary. It owns the data and validation.
 - `apps/medix.com` is the comparison point for framework routing and server-oriented rendering.
+- Mention that we will inspect the medix.com document response in Network during Module 2.
 - Choose rendering strategy based on user experience, SEO, data needs, interactivity, caching, and team complexity.
 
 ## App: Tests and AI setup

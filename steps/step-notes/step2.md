@@ -96,6 +96,11 @@
 - Open `apps/medix.com/app`.
 - Show `page.tsx`, `layout.tsx`, and any nested route folders.
 - Next.js gets routes from files. React Router gets routes from route components. The core idea is still URL maps to UI.
+- Open medix.com in the browser on `localhost:3000`.
+- Open Network, select the document request, and preview the response.
+- Point out that the HTML for the page is already in the document response before client JavaScript runs.
+- Compare that with Arena on `localhost:5173`, where the browser receives the SPA shell and React renders the app on the client.
+- This is the concrete version of the earlier rendering strategy discussion: framework-rendered pages can send meaningful HTML first, while the SPA depends more on client-side rendering.
 - Why might medix.com fit framework routing better than Arena?
 - Answer to land: public content, SEO, server rendering, and static pages.
 
