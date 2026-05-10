@@ -1,18 +1,22 @@
 # Module 5: Forms
 
-Goal: make the journal form easier to validate, submit, and recover from errors.
+Objective: make the journal form easier to validate, submit, and recover from errors.
 
-Work in `apps/arena`.
+Work in: `apps/arena`.
 
-## Exercise
+## Do
 
-Refactor the new journal form so validation rules are easier to see and change. Look at the journal form, the API helper it submits through, and the shared date picker. Field-level validation errors should appear next to the fields they belong to, and submit state should be clear to the user.
+- Refactor the new journal form so validation rules are easier to see and change.
+- Look at the journal form, the API helper it submits through, and the shared date picker.
+- Show field-level validation errors next to the fields they belong to.
+- Make submit state clear to the user.
+- Keep the existing API submit flow.
+- Update the journal list after a successful submit.
+- Show a form-level error if the server request fails.
+- Inspect labels and focus in Elements or Accessibility.
+- Use Network to check when the form does or does not submit a request.
 
-The form should still submit through the existing API flow, update the journal list after success, and show a form-level error if the server request fails.
-
-Use the browser while you work. Inspect labels and focus in Elements or Accessibility, and use Network to check when the form does or does not submit a request.
-
-## Check Your Work
+## Check
 
 - Invalid fields show clear messages.
 - The submit button is disabled when the form is invalid or submitting.

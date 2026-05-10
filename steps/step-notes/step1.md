@@ -51,7 +51,8 @@
 - Wrap the main content area in `ErrorBoundary`.
 - Where should an error boundary go if we want the sidebar to stay visible?
 - Answer to land: the boundary should wrap the part that can fail, not necessarily the whole app.
-- This first boundary is a catch-all around the page content. More specific boundaries can live closer to the thing that may fail.
+- This first boundary is a catch-all around the page content. In the routing module, the same content slot becomes the route outlet.
+- More specific boundaries can live closer to the thing that may fail.
 
 ## App: Build shared StatusBadge
 

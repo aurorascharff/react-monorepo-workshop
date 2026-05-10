@@ -83,6 +83,7 @@
 - Wrap `PatientDetail` in local `Suspense` with `Spinner`.
 - Wrap the Suspense boundary in local `ErrorBoundary`.
 - Keep the layout-level boundary as the catch-all.
+- This local boundary is for the patient detail data. It does not replace the route outlet boundary.
 - If patient detail fails, the shell and navigation stay visible.
 - What would be worse about only having one top-level boundary?
 - Answer to land: it makes a local data failure feel like the whole app failed.

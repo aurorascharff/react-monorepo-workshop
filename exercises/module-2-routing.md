@@ -1,18 +1,19 @@
 # Module 2: Routing
 
-Goal: make the URL describe what the user is looking at.
+Objective: make the URL describe what the user is looking at.
 
-Work in `apps/arena`.
+Work in: `apps/arena`.
 
-## Exercise
+## Do
 
-Change the app so navigation is represented in the browser URL instead of only in local component state. Look at the app entry point, the app shell, the dashboard navigation, and the patient cards.
+- Move navigation from local component state to browser URLs.
+- Look at the app entry point, app shell, dashboard navigation, and patient cards.
+- Give Dashboard, Patients, and Patient Detail their own addresses.
+- Keep the shared shell visible while the active page changes.
+- Use links for navigation.
+- Try refresh, back, forward, copying a URL, and opening a patient detail URL in a new tab.
 
-The dashboard, patient list, and patient detail views should each have their own address. The shared shell should stay consistent while the active page changes.
-
-Try the behavior in the browser as you work: refresh, back, forward, copying a URL, and inspecting whether navigation is rendered as links.
-
-## Check Your Work
+## Check
 
 - Refresh works on a patient detail page.
 - The back button behaves like expected.

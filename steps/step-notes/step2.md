@@ -52,6 +52,7 @@
 - Import `Outlet` and `NavLink`.
 - Remove `children`, `activePage`, and `onNavigate`.
 - Render `<Outlet />` inside the existing `ErrorBoundary`.
+- This is the same shell/content boundary from Module 1. Routing changes the content slot from `children` to `Outlet`.
 - Replace navigation buttons with `NavLink`.
 - Open Elements and inspect the navigation before and after the change.
 - What is the difference between a link and a button?
