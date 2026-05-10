@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
+import { PageHeader } from '../components/PageHeader'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -10,11 +11,10 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="py-16">
-      <h1 className="text-4xl font-bold tracking-tight mb-4">About</h1>
-      <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        Medix delivers journal systems and a healthcare platform for hospitals
-        across the country.
-      </p>
+      <PageHeader
+        title="About"
+        description="Medix delivers journal systems and a healthcare platform for hospitals across the country."
+      />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-16">
         <Card>

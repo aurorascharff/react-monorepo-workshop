@@ -16,10 +16,10 @@ The site runs on `http://localhost:3000`.
 
 ```text
 app/
-  _components/  - components local to the marketing site
+  components/   - components shared across medix.com routes
   layout.tsx    - shared shell
   page.tsx      - landing page
-  products/     - product page
+  products/     - product page and product-only components
   customers/    - customer page
   contact/      - contact page
   about/        - about page
