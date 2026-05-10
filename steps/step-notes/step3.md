@@ -7,7 +7,7 @@
 - Rule of thumb: if it can be calculated during render, do not store it.
 - Outcome: remove synced state and extract `usePatientFilter`.
 - Show Module 3 in `exercises/module-3-state-and-effects.md`.
-- Frame the exercise around finding duplicate state, not around guessing the exact hook extraction.
+- Frame the exercise around finding duplicate state. The hook extraction is one possible shape.
 
 ## Participant work (roughly 10 minutes)
 

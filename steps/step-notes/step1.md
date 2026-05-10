@@ -4,7 +4,7 @@
 
 - Problem: the app works, but too many responsibilities live in the same files.
 - Concepts: feature folders, component responsibility, shared UI, and error boundaries.
-- Rule of thumb: extract to name a responsibility, not to make files small.
+- Rule of thumb: extract when a name captures a real responsibility.
 - Outcome: focused components, `Layout`, `ErrorBoundary`, and shared `StatusBadge`.
 - Show Module 1 in `exercises/module-1-architecture-and-reuse.md`.
 - Frame the exercise as an outcome: they choose the structure, then we compare choices.
