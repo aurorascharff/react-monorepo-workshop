@@ -1,4 +1,4 @@
-# Module 4: TanStack Query
+# Module 4: Server State
 
 Work in: `apps/arena`.
 
@@ -8,9 +8,9 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 
 ## Task
 
-- Add query hooks for patients and journals.
+- Add server-state hooks for patients and journals.
 - Replace manual patient and journal fetching effects with TanStack Query.
-- Fetch patient detail with a query keyed by patient id.
+- Fetch patient detail with a query identified by patient id.
 - Keep the existing shell-level error boundary.
 - Add a local error boundary around patient detail so a failed patient request does not take down the whole route shell.
 - Use mutations for journal status updates and new journal submit.

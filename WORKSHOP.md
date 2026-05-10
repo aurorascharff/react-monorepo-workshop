@@ -52,7 +52,7 @@ During the instructor walkthrough, use GitHub Copilot ghost text where it helps,
 - 11:15 — Module 2: Routing
 - 12:00 — Lunch
 - 13:00 — Module 3: State and Effects
-- 13:45 — Module 4: TanStack Query
+- 13:45 — Module 4: Server State
 - 14:30 — Break
 - 14:45 — Module 5: Forms
 - 15:40 — Wrap-up
@@ -81,7 +81,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 - **Module 1: Architecture and Reuse** — Split large files, create focused components, add shared `StatusBadge`, add an error boundary
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
 - **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
-- **Module 4: TanStack Query** — Replace manual fetching with queries, suspense queries, mutations, cache invalidation, and local boundaries
+- **Module 4: Server State** — Replace manual fetching with server-state hooks, cache identity, mutations, invalidation, and local boundaries
 - **Module 5: Forms** — Add React Hook Form and Zod validation with field errors, disabled invalid submit, and server error feedback
 
 ## Module Goals
@@ -162,7 +162,7 @@ The goal is to keep state minimal and derived where possible.
 - Logic used in multiple places is extracted into a hook
 - ESLint reports no `react-hooks` warnings
 
-### Module 4: TanStack Query
+### Module 4: Server State
 
 The goal is to handle data declaratively by describing what data we want, not how to fetch it by hand in every component.
 

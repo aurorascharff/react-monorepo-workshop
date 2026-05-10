@@ -1,4 +1,4 @@
-# Step 4: TanStack Query
+# Step 4: Server State
 
 ## Frame what we are solving
 
