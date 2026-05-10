@@ -8,7 +8,9 @@ Use [`WORKSHOP.md`](WORKSHOP.md) for schedule, module goals, and slide outline. 
 
 Day before:
 
-- [ ] Fresh clone workshop-specific participant repo.
+- [ ] Create a workshop-specific participant repo from the private starter template.
+- [ ] Push the participant repo before participants begin.
+- [ ] Fresh clone the workshop-specific participant repo.
 - [ ] `npm install`
 - [ ] `npm run db:seed`
 - [ ] `npm run dev`
@@ -37,12 +39,6 @@ Morning:
 - [ ] Mute phone, Slack, Teams, desktop notifications.
 - [ ] Check actual start time and decide first break.
 - [ ] Put water nearby.
-
-Workshop-day repo:
-
-- [ ] Create a workshop-specific participant repo from the private starter template.
-- [ ] Push before participants begin.
-- [ ] Commit between modules so participants can recover.
 
 ## Screen And Editor
 
@@ -111,6 +107,7 @@ If a question is off-topic:
 ## Task Flow
 
 - Do not announce the next task too early.
+- Commit and push between modules so participants can recover.
 - Pause after everyone is ready, not only after I finish coding.
 - If people move ahead too soon:
 
