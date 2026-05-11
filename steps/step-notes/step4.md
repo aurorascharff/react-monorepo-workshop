@@ -28,6 +28,8 @@
 ## Add QueryClientProvider
 
 - Open `apps/arena/src/main.tsx`.
+- Before importing TanStack Query, say: this is also a good moment to talk about dependency trust. Recent TanStack package releases were part of a supply-chain incident, tracked by [Socket](https://socket.dev/blog/tanstack-npm-packages-compromised-mini-shai-hulud-supply-chain-attack), the [Mini Shai-Hulud incident page](https://socket.dev/supply-chain-attacks/mini-shai-hulud), and [TanStack issue #7383](https://github.com/TanStack/router/issues/7383).
+- Say: the practical habit is not panic. It is verifying the package name, using pinned versions and a committed lockfile, checking advisories when something is fresh, and being careful with install-time scripts and forced upgrades.
 - Add [`QueryClientProvider`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider) and create the `QueryClient`.
 - Set `staleTime` and `retry`.
 - Say: `staleTime` controls freshness. `retry` controls failed request retries.

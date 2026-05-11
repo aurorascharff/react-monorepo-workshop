@@ -6,6 +6,8 @@
 - Open [`README.md`](../../README.md) in Markdown Preview with `Cmd+Shift+V`.
 - Mention that exercises are Markdown files too, so they should use preview mode later.
 - Open the repo through the `.code-workspace` file before coding.
+- Before installing dependencies, briefly mention supply-chain hygiene: use the committed lockfile, check exact package names, and do not run broad commands like `npm audit fix --force` without understanding the change.
+- Link the current TanStack/Mini Shai-Hulud incident as context: [Socket write-up](https://socket.dev/blog/tanstack-npm-packages-compromised-mini-shai-hulud-supply-chain-attack), [Socket live incident tracker](https://socket.dev/supply-chain-attacks/mini-shai-hulud), and [TanStack issue #7383](https://github.com/TanStack/router/issues/7383).
 - Run `npm install`, `npm run db:seed`, and `npm run dev`.
 - Open Arena on [localhost:5173](http://localhost:5173), API docs on [localhost:3001](http://localhost:3001), and medix.com on [localhost:3000](http://localhost:3000).
 - One command starts several workspaces because this is an [npm workspace](https://docs.npmjs.com/cli/v11/using-npm/workspaces) with [Turborepo](https://turbo.build/repo/docs).
