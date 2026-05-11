@@ -1,81 +1,62 @@
 # Setup: Starter Run-Through
 
-## Setup frame
+## Setup
 
 - Use the workshop-specific participant repo link, not the private starter template.
-- Open [`README.md`](../../README.md) and use only the setup commands first.
-- Open the repo through the `.code-workspace` file in VS Code before coding.
-- After everyone has the app running, come back to the README for commands, testing, AI, and CI.
-
-## App: Run the monorepo
-
-- Open [`README.md`](../../README.md).
-- Show how to open Markdown Preview in VS Code with `Cmd+Shift+V`, or Open Preview to the Side from the README tab.
-- Mention that the exercises are Markdown files too, so they should read them in preview mode when they work through each exercise.
-- Open the `.code-workspace` file in VS Code so ESLint, Prettier, and extension recommendations are applied.
+- Open [`README.md`](../../README.md) in Markdown Preview with `Cmd+Shift+V`.
+- Mention that exercises are Markdown files too, so they should use preview mode later.
+- Open the repo through the `.code-workspace` file before coding.
 - Run `npm install`, `npm run db:seed`, and `npm run dev`.
-- Open Arena on [localhost:5173](http://localhost:5173).
-- Open the API docs on [localhost:3001](http://localhost:3001).
-- Open medix.com on [localhost:3000](http://localhost:3000).
+- Open Arena on [localhost:5173](http://localhost:5173), API docs on [localhost:3001](http://localhost:3001), and medix.com on [localhost:3000](http://localhost:3000).
 - One command starts several workspaces because this is an [npm workspace](https://docs.npmjs.com/cli/v11/using-npm/workspaces) with [Turborepo](https://turbo.build/repo/docs).
-- What do we get from running the app, API, and shared package from the same repo?
-- Answer to land: one local setup, shared code, one PR across boundaries, and consistent tooling.
+- Question: what do we get from running the app, API, and shared package from one repo?
+- Answer: one setup, shared code, one PR across boundaries, and consistent tooling.
 
-## App: Open the starter
+## README Tour
 
-- Show Dashboard, Patients, one patient detail page, journal entries, status select, and the new journal form.
-- What parts of this app do you expect to get messy as it grows?
-- Answer to land: navigation, forms, shared UI, fetching, and state.
+- After the app runs, return to the README.
+- Point out local URLs, commands, testing, AI, and CI.
+- CI checks the same things we care about locally: linting, types, tests, build, and e2e smoke tests.
 
-## App: Read the README after setup
+## App Tour
 
-- Open the README in Markdown Preview again so it looks like a readable document, not source text.
-- Point out the local URLs.
-- Point out the main commands.
-- Point out the testing commands.
-- Point out the AI section.
-- Point out the CI section.
-- CI checks the same kinds of things we care about locally: linting, types, unit and component tests, build, and end-to-end smoke tests.
+- Show Dashboard, Patients, one patient detail page, journal entries, status select, and the journal form.
+- Question: what parts do you expect to get messy as this grows?
+- Answer: navigation, forms, shared UI, fetching, and state.
 
-## App: Read the code we start from
+## Starter Code
 
 - Open `apps/arena/src/App.tsx`.
-- The local page state.
-- This works, but the URL has no idea what screen we are looking at. That is why routing gets its own module.
-- The layout code in the same file.
-- The shell and the page content are mixed together. That is one of the first things we will separate.
+- Point out local page state, mixed layout, and page content.
+- Say: the URL has no idea what screen we are on. That is why routing gets its own module.
 - Open `apps/arena/src/PatientPage.tsx`.
-- This file has patient list, patient detail, journals, form, status styling, fetching, and mutation logic.
-- If you had to change only the status colors, where would you look?
-- Answer to land: right now you have to hunt through a large page.
-- If you had to change only the form validation, where would you look?
-- Answer to land: right now it is mixed into the form submit handler.
-- Through this workshop, we will separate concerns, split files, and create shared UI to make these kinds of changes easier.
+- Point out patient list, detail, journals, form, status styling, fetching, and mutation logic in one place.
+- Question: if you only had to change status colors, where would you look?
+- Answer: right now you have to hunt through a large page.
+- Question: if you only had to change form validation, where would you look?
+- Answer: right now it is mixed into submit handling.
 
-## App: Show API and shared UI
+## Boundaries
 
-- Open `apps/api/src/routes`.
-- The API is pre-written. Do not spend time building backend endpoints.
-- Open `apps/api/src/db/schema.ts` if the data model needs context.
-- Open `packages/ui/src/base`.
-- Primitives: `Button`, `Card`, `Input`, `Select`, `Textarea`, `Badge`.
-- Open `packages/ui/src/index.ts`.
-- Apps should import public UI from here, not deep internal paths.
-- When should something move into `packages/ui`?
-- Answer to land: when more than one app needs the same concept, or when a shared concept should have one implementation.
+- Open `apps/api/src/routes` and `apps/api/src/db/schema.ts` if they need domain context.
+- Say: the API is pre-written. We are not spending the workshop building backend endpoints.
+- Open `packages/ui/src/base` and `packages/ui/src/index.ts`.
+- Mention primitives: `Button`, `Card`, `Input`, `Select`, `Textarea`, `Badge`.
+- Apps should import public UI from `packages/ui/src/index.ts`, not deep internal paths.
+- Question: when should something move into `packages/ui`?
+- Answer: when more than one app needs the same concept, or when a shared concept should have one implementation.
 
-## App: Map rendering strategy and web behavior to the repo
+## Rendering Map
 
-- Connect the earlier rendering strategy and browser behavior discussion to the folders they have now seen.
-- `apps/arena` is a client-rendered SPA. Relate this to the main product app: authenticated workflows often have a lot of client-side behavior, state, forms, and API interaction.
-- `apps/api` is the server boundary. It owns the data and validation.
-- `apps/medix.com` is the comparison point for framework routing and server-oriented rendering.
-- Mention that we will inspect the medix.com document closer later.
-- Choose rendering strategy based on user experience, SEO, data needs, interactivity, caching, and team complexity.
+- Connect the earlier rendering strategy discussion to the repo:
+  - `apps/arena`: client-rendered SPA for interactive product workflows.
+  - `apps/api`: server boundary for data and validation.
+  - `apps/medix.com`: framework routing and server-oriented rendering comparison.
+- Say: we choose rendering strategy based on UX, SEO, data needs, interactivity, caching, and team complexity.
 
-## App: Tests and AI setup
+## Tests and AI
 
-- Run `npm test` once so participants see the test setup.
-- Explain that we are not writing tests during the live modules.
-- Open [`AGENTS.md`](../../AGENTS.md) briefly. Making sure agents will follow our standards and use the right tools is important, so we have a reference for them. This is a standard format.
-- GitHub Copilot and [`/react-best-practices`](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices). Skills are also a standard format.
+- Run `npm test` once so participants see the setup.
+- Say: we are not writing tests during the live modules.
+- Open [`AGENTS.md`](../../AGENTS.md) briefly.
+- Mention GitHub Copilot and [`/react-best-practices`](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices).
