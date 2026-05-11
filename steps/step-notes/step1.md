@@ -74,13 +74,12 @@
 - Replace the journal status control with the shared `Select` primitive from `@medix/ui`.
 - Add `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectGroup`, `SelectLabel`, and `SelectItem` where they make the control clearer.
 - Base UI primitives are generic. They should not know about patients or journals, but they can give app code accessible, consistent controls.
-- Keep `JournalStatus` as a shared type from `@medix/ui`.
 - Keep the actual status presentation in `JournalEntry`, because the status only has meaning in that journal workflow right now.
 - Use the selected status value in the control. Do not add a separate badge with the same text.
 - Why should we not move this into `packages/ui` just because it repeats a little?
 - Answer to land: shared code needs ownership and real reuse. A product workflow detail can stay local until another app has the same concept and the same behavior.
 - What should live in `packages/ui`, and what should stay in the app?
-- Answer to land: shared primitives and shared types belong in `packages/ui`; feature-specific screens, workflows, and local presentation stay in the app.
+- Answer to land: shared primitives and real shared product concepts belong in `packages/ui`; feature-specific screens, workflows, and local presentation stay in the app.
 - What should not go into `packages/ui` yet?
 - Answer to land: feature-specific code should stay in the feature until reuse is real.
 

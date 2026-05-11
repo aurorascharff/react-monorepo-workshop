@@ -32,7 +32,7 @@
 
 - Open `apps/arena/src/main.tsx`.
 - Import [`BrowserRouter`](https://reactrouter.com/api/declarative-routers/BrowserRouter) from `react-router`.
-- Wrap `<App />` with `<BrowserRouter>`.
+- Wrap the app entry with `<BrowserRouter>`. Once `AppRoutes` exists, this wraps `<AppRoutes />`.
 - `BrowserRouter` uses the [browser history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API) so navigation can happen without a full page reload.
 - This is [React Router in declarative SPA mode](https://reactrouter.com/start/declarative/installation), not framework mode.
 
