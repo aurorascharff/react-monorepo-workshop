@@ -45,6 +45,7 @@
 - Use [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary).
 - Wrap the main content area.
 - Temporarily throw `new Error('Test boundary')` inside the page content, verify the shell stays visible, then remove it.
+- Let `ErrorBoundary` own the fallback UI. The layout should only choose placement and pass copy or spacing if it needs to.
 - Log the real error with `logError`, but show friendly fallback copy.
 - Question: where should the boundary go if the sidebar should stay visible?
 - Answer: around the part that can fail, not the whole app.

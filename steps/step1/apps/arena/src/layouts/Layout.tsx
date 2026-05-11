@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import { AlertTriangle, LayoutDashboard, Users } from 'lucide-react'
-import { BrandMark, Button, cn } from '@medix/ui'
+import { LayoutDashboard, Users } from 'lucide-react'
+import { BrandMark, cn } from '@medix/ui'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 
 type Page = 'dashboard' | 'patients'
@@ -67,24 +67,7 @@ export function Layout({ activePage, onNavigate, children }: LayoutProps) {
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
-          <ErrorBoundary
-            fallback={(_error, reset) => (
-              <div className="mx-auto max-w-md mt-12 rounded-lg border bg-card p-6 text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10 text-destructive">
-                  <AlertTriangle className="h-6 w-6" />
-                </div>
-                <h2 className="text-lg font-semibold">Something went wrong</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Try again, or reload the page if the problem continues.
-                </p>
-                <Button onClick={reset} className="mt-4">
-                  Try again
-                </Button>
-              </div>
-            )}
-          >
-            {children}
-          </ErrorBoundary>
+          <ErrorBoundary>{children}</ErrorBoundary>
         </main>
       </div>
     </div>
