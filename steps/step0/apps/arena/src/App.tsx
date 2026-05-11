@@ -13,25 +13,40 @@ const navLinks: { id: Page; label: string; icon: typeof LayoutDashboard }[] = [
 
 export function App() {
   const [page, setPage] = useState<Page>('dashboard')
+  const [selectedPatientId, setSelectedPatientId] = useState<string | null>(
+    null,
+  )
+
+  function showPatients(patientId: string | null = null) {
+    setSelectedPatientId(patientId)
+    setPage('patients')
+  }
 
   return (
     <div className="flex min-h-screen bg-background">
       <aside className="hidden lg:flex w-64 border-r bg-sidebar flex-col shrink-0">
-        <div className="p-6 border-b">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+        <div className="border-b p-4">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <Activity className="h-4 w-4" />
             </div>
-            <h1 className="text-xl font-bold tracking-tight">Medix Arena</h1>
+            <div className="flex min-w-0 flex-col justify-center">
+              <div className="text-lg font-bold leading-5">Medix</div>
+              <div className="mt-0.5 text-[0.6875rem] font-medium leading-3 text-muted-foreground">
+                Arena
+              </div>
+            </div>
           </div>
-          <p className="text-muted-foreground text-sm mt-2">Journal system</p>
         </div>
         <nav className="p-3 flex flex-col gap-1">
           {navLinks.map(({ id, label, icon: Icon }) => (
             <NavButton
               key={id}
               active={page === id}
-              onClick={() => setPage(id)}
+              onClick={() => {
+                setPage(id)
+                if (id === 'patients') setSelectedPatientId(null)
+              }}
             >
               <Icon className="h-4 w-4" />
               {label}
@@ -43,11 +58,16 @@ export function App() {
       <div className="flex flex-1 flex-col min-w-0">
         <header className="lg:hidden sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
           <div className="flex items-center justify-between px-4 h-14">
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                <Activity className="h-4 w-4" />
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                <Activity className="h-3.5 w-3.5" />
               </div>
-              <span className="font-bold tracking-tight">Medix Arena</span>
+              <div className="flex min-w-0 flex-col justify-center">
+                <div className="text-base font-bold leading-4">Medix</div>
+                <div className="mt-0.5 text-[0.625rem] font-medium leading-3 text-muted-foreground">
+                  Arena
+                </div>
+              </div>
             </div>
             <nav className="flex items-center gap-1">
               {navLinks.map(({ id, label, icon: Icon }) => (
@@ -55,7 +75,10 @@ export function App() {
                   key={id}
                   compact
                   active={page === id}
-                  onClick={() => setPage(id)}
+                  onClick={() => {
+                    setPage(id)
+                    if (id === 'patients') setSelectedPatientId(null)
+                  }}
                 >
                   <Icon className="h-4 w-4" />
                   <span className="hidden sm:inline">{label}</span>
@@ -66,9 +89,13 @@ export function App() {
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
           {page === 'dashboard' ? (
-            <Dashboard onNavigate={() => setPage('patients')} />
+            <Dashboard onNavigate={showPatients} />
           ) : (
-            <PatientPage />
+            <PatientPage
+              selectedId={selectedPatientId}
+              onSelectPatient={setSelectedPatientId}
+              onBack={() => setSelectedPatientId(null)}
+            />
           )}
         </main>
       </div>

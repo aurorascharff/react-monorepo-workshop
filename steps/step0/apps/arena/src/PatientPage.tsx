@@ -18,7 +18,17 @@ import {
 } from './lib/api'
 import type { Journal, JournalStatus, Patient } from './types'
 
-export function PatientPage() {
+type PatientPageProps = {
+  selectedId: string | null
+  onSelectPatient: (id: string) => void
+  onBack: () => void
+}
+
+export function PatientPage({
+  selectedId,
+  onSelectPatient,
+  onBack,
+}: PatientPageProps) {
   const [patients, setPatients] = useState<Patient[]>([])
   const [isLoadingPatients, setIsLoadingPatients] = useState(true)
 
@@ -26,8 +36,6 @@ export function PatientPage() {
   const [genderFilter, setGenderFilter] = useState<'all' | 'male' | 'female'>(
     'all',
   )
-
-  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchPatients()
@@ -51,12 +59,7 @@ export function PatientPage() {
   if (isLoadingPatients) return <Spinner />
 
   if (selectedPatient) {
-    return (
-      <PatientDetail
-        patient={selectedPatient}
-        onBack={() => setSelectedId(null)}
-      />
-    )
+    return <PatientDetail patient={selectedPatient} onBack={onBack} />
   }
 
   return (
@@ -106,7 +109,7 @@ export function PatientPage() {
             <button
               key={patient.id}
               type="button"
-              onClick={() => setSelectedId(patient.id)}
+              onClick={() => onSelectPatient(patient.id)}
               className="block w-full text-left text-inherit no-underline"
             >
               <Card className="transition-shadow hover:shadow-md cursor-pointer">

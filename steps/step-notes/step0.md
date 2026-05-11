@@ -21,7 +21,6 @@
 
 ## App: Open the starter
 
-- Start with the app running, not the code.
 - Show Dashboard, Patients, one patient detail page, journal entries, status select, and the new journal form.
 - What parts of this app do you expect to get messy as it grows?
 - Answer to land: navigation, forms, shared UI, fetching, and state.
@@ -43,12 +42,12 @@
 - The layout code in the same file.
 - The shell and the page content are mixed together. That is one of the first things we will separate.
 - Open `apps/arena/src/PatientPage.tsx`.
-- Scroll slowly. Do not fix anything yet.
 - This file has patient list, patient detail, journals, form, status styling, fetching, and mutation logic.
 - If you had to change only the status colors, where would you look?
-- Answer to land: right now you have to hunt through a large page. After Module 1, it should be easier to find the journal-specific status presentation without pretending it belongs to every app.
+- Answer to land: right now you have to hunt through a large page.
 - If you had to change only the form validation, where would you look?
-- Answer to land: right now it is mixed into the form submit handler. After Module 5, the validation rules should live in a schema near the form.
+- Answer to land: right now it is mixed into the form submit handler.
+- Through this workshop, we will separate concerns, split files, and create shared UI to make these kinds of changes easier.
 
 ## App: Show API and shared UI
 
@@ -68,12 +67,12 @@
 - `apps/arena` is a client-rendered SPA. Relate this to the main product app: authenticated workflows often have a lot of client-side behavior, state, forms, and API interaction.
 - `apps/api` is the server boundary. It owns the data and validation.
 - `apps/medix.com` is the comparison point for framework routing and server-oriented rendering.
-- Mention that we will inspect the medix.com document response in Network during Module 2.
+- Mention that we will inspect the medix.com document closer later.
 - Choose rendering strategy based on user experience, SEO, data needs, interactivity, caching, and team complexity.
 
 ## App: Tests and AI setup
 
 - Run `npm test` once so participants see the test setup.
 - Explain that we are not writing tests during the live modules.
-- Open [`AGENTS.md`](../../AGENTS.md) briefly.
-- GitHub Copilot and [`/react-best-practices`](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices).
+- Open [`AGENTS.md`](../../AGENTS.md) briefly. Making sure agents will follow our standards and use the right tools is important, so we have a reference for them. This is a standard format.
+- GitHub Copilot and [`/react-best-practices`](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices). Skills are also a standard format.

@@ -61,12 +61,14 @@ export default function RootLayout({
           <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
             <Link
               href="/"
-              className="flex items-center gap-2 text-xl font-bold tracking-tight"
+              className="flex items-center gap-2.5 text-foreground transition-colors hover:text-foreground/80"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <Activity className="h-4 w-4" />
               </div>
-              Medix
+              <div className="flex min-w-0 flex-col justify-center">
+                <div className="text-lg font-bold leading-5">Medix</div>
+              </div>
             </Link>
             <nav className="flex items-center gap-6 text-sm">
               {navLinks.map((link) => (
@@ -87,12 +89,14 @@ export default function RootLayout({
             <div>
               <Link
                 href="/"
-                className="flex items-center gap-2 text-lg font-bold tracking-tight"
+                className="flex items-center gap-2.5 text-foreground transition-colors hover:text-foreground/80"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                  <Activity className="h-4 w-4" />
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                  <Activity className="h-3.5 w-3.5" />
                 </div>
-                Medix
+                <div className="flex min-w-0 flex-col justify-center">
+                  <div className="text-base font-bold leading-4">Medix</div>
+                </div>
               </Link>
               <p className="mt-3 text-sm text-muted-foreground">
                 Health technology for modern hospitals.
