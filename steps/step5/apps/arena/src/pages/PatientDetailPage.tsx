@@ -4,7 +4,7 @@ import { Card, CardContent, Skeleton } from '@medix/ui'
 import { JournalForm } from '../features/journal/components/JournalForm'
 import {
   JournalList,
-  JournalListLoadingState,
+  JournalListSkeleton,
 } from '../features/journal/components/JournalList'
 import { PatientHeader } from '../features/patients/components/PatientHeader'
 import { fetchPatient } from '../lib/api'
@@ -33,7 +33,7 @@ export function PatientDetailPage() {
         ← Back to patient list
       </Link>
 
-      {isLoading && <PatientDetailLoadingState />}
+      {isLoading && <PatientDetailSkeleton />}
       {error && (
         <ErrorState
           title="Patient details are unavailable"
@@ -60,7 +60,7 @@ export function PatientDetailPage() {
   )
 }
 
-export function PatientDetailLoadingState() {
+export function PatientDetailSkeleton() {
   return (
     <section
       role="status"
@@ -86,7 +86,7 @@ export function PatientDetailLoadingState() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div>
           <Skeleton className="mb-4 h-6 w-40" />
-          <JournalListLoadingState />
+          <JournalListSkeleton />
         </div>
         <div>
           <Skeleton className="mb-4 h-6 w-44" />

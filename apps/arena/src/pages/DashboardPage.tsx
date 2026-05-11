@@ -7,7 +7,7 @@ import { ErrorState } from '../components/ErrorState'
 export function DashboardPage() {
   const { data: patients, isLoading, error } = usePatients()
 
-  if (isLoading) return <DashboardLoadingState />
+  if (isLoading) return <DashboardSkeleton />
 
   if (error) {
     return (
@@ -117,7 +117,7 @@ export function DashboardPage() {
   )
 }
 
-export function DashboardLoadingState() {
+export function DashboardSkeleton() {
   return (
     <section
       role="status"

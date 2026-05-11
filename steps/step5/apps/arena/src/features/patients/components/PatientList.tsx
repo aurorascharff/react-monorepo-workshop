@@ -79,7 +79,7 @@ export function PatientList({ patients }: PatientListProps) {
   )
 }
 
-export function PatientListLoadingState() {
+export function PatientListSkeleton() {
   return (
     <section role="status" aria-label="Loading patients" className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row">

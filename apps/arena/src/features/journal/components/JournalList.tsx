@@ -11,7 +11,7 @@ type JournalListProps = {
 export function JournalList({ patientId }: JournalListProps) {
   const { data: entries, isLoading, error } = useJournals(patientId)
 
-  if (isLoading) return <JournalListLoadingState />
+  if (isLoading) return <JournalListSkeleton />
 
   if (error) {
     return (
@@ -48,7 +48,7 @@ export function JournalList({ patientId }: JournalListProps) {
   )
 }
 
-export function JournalListLoadingState() {
+export function JournalListSkeleton() {
   return (
     <section
       role="status"

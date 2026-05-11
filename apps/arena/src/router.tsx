@@ -28,10 +28,6 @@ const NotFoundPage = lazy(() =>
   })),
 )
 
-function routeElement(element: ReactNode) {
-  return <Suspense fallback={<Spinner />}>{element}</Suspense>
-}
-
 export function AppRoutes() {
   return (
     <Routes>
@@ -46,4 +42,8 @@ export function AppRoutes() {
       </Route>
     </Routes>
   )
+}
+
+function routeElement(element: ReactNode) {
+  return <Suspense fallback={<Spinner />}>{element}</Suspense>
 }

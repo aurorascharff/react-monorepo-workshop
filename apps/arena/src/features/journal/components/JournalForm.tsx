@@ -33,10 +33,6 @@ const emptyJournalForm: JournalFormData = {
   content: '',
 }
 
-function sortJournalsByDate(entries: Journal[]) {
-  return [...entries].sort((a, b) => b.date.localeCompare(a.date))
-}
-
 export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
   const queryClient = useQueryClient()
   const [successMessage, setSuccessMessage] = useState('')
@@ -232,4 +228,8 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
       </form>
     </section>
   )
+}
+
+function sortJournalsByDate(entries: Journal[]) {
+  return [...entries].sort((a, b) => b.date.localeCompare(a.date))
 }

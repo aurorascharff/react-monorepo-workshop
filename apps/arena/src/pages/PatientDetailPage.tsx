@@ -6,7 +6,7 @@ import { fetchPatient } from '../lib/api'
 import { PatientHeader } from '../features/patients/components/PatientHeader'
 import {
   JournalList,
-  JournalListLoadingState,
+  JournalListSkeleton,
 } from '../features/journal/components/JournalList'
 import { JournalForm } from '../features/journal/components/JournalForm'
 import { ErrorBoundary } from '../components/ErrorBoundary'
@@ -29,7 +29,7 @@ export function PatientDetailPage() {
         message="We could not load this patient right now. Go back to the patient list or try refreshing the page."
         logContext="Patient detail query failed"
       >
-        <Suspense fallback={<PatientDetailLoadingState />}>
+        <Suspense fallback={<PatientDetailSkeleton />}>
           <PatientDetailContent id={id} />
         </Suspense>
       </ErrorBoundary>
@@ -59,7 +59,7 @@ function PatientDetailContent({ id }: { id: string }) {
   )
 }
 
-export function PatientDetailLoadingState() {
+export function PatientDetailSkeleton() {
   return (
     <section
       role="status"
@@ -85,7 +85,7 @@ export function PatientDetailLoadingState() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div>
           <Skeleton className="mb-4 h-6 w-40" />
-          <JournalListLoadingState />
+          <JournalListSkeleton />
         </div>
         <div>
           <Skeleton className="mb-4 h-6 w-44" />
