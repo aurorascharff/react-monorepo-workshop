@@ -1,15 +1,15 @@
-import { useJournals } from '../hooks/useJournals'
+import { Card, CardContent, Skeleton } from '@medix/ui'
 import { JournalEntry } from './JournalEntry'
 import { ErrorBoundary } from '../../../components/ErrorBoundary'
-import { Card, CardContent, Skeleton } from '@medix/ui'
 import { ErrorState } from '../../../components/ErrorState'
+import { useJournals } from '../hooks/useJournals'
 
 type JournalListProps = {
   patientId: string
 }
 
 export function JournalList({ patientId }: JournalListProps) {
-  const { data: entries, isLoading, error } = useJournals(patientId)
+  const { data: journals, isLoading, error } = useJournals(patientId)
 
   if (isLoading) return <JournalListLoadingState />
 
@@ -24,7 +24,7 @@ export function JournalList({ patientId }: JournalListProps) {
     )
   }
 
-  if (!entries || entries.length === 0) {
+  if (!journals || journals.length === 0) {
     return (
       <p className="text-center text-muted-foreground py-8">
         No journal entries yet
@@ -40,7 +40,7 @@ export function JournalList({ patientId }: JournalListProps) {
       className="mt-0"
     >
       <div className="flex flex-col gap-3">
-        {entries.map((entry) => (
+        {journals.map((entry) => (
           <JournalEntry key={entry.id} entry={entry} patientId={patientId} />
         ))}
       </div>

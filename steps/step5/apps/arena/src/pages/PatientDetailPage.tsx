@@ -1,13 +1,13 @@
-import { useParams, Link } from 'react-router'
+import { Link, useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import { Card, CardContent, Skeleton } from '@medix/ui'
-import { fetchPatient } from '../lib/api'
-import { PatientHeader } from '../features/patients/components/PatientHeader'
+import { JournalForm } from '../features/journal/components/JournalForm'
 import {
   JournalList,
   JournalListLoadingState,
 } from '../features/journal/components/JournalList'
-import { JournalForm } from '../features/journal/components/JournalForm'
+import { PatientHeader } from '../features/patients/components/PatientHeader'
+import { fetchPatient } from '../lib/api'
 import { ErrorState } from '../components/ErrorState'
 
 export function PatientDetailPage() {
@@ -32,6 +32,7 @@ export function PatientDetailPage() {
       >
         ← Back to patient list
       </Link>
+
       {isLoading && <PatientDetailLoadingState />}
       {error && (
         <ErrorState
