@@ -10,6 +10,8 @@
 ## App: Run the monorepo
 
 - Open [`README.md`](../../README.md).
+- Show how to open Markdown Preview in VS Code with `Cmd+Shift+V`, or Open Preview to the Side from the README tab.
+- Mention that the exercises are Markdown files too, so they should read them in preview mode when they work through each exercise.
 - Open the `.code-workspace` file in VS Code so ESLint, Prettier, and extension recommendations are applied.
 - Run `npm install`, `npm run db:seed`, and `npm run dev`.
 - Open Arena on [localhost:5173](http://localhost:5173).
@@ -27,6 +29,7 @@
 
 ## App: Read the README after setup
 
+- Open the README in Markdown Preview again so it looks like a readable document, not source text.
 - Point out the local URLs.
 - Point out the main commands.
 - Point out the testing commands.
