@@ -16,10 +16,5 @@ export function PatientListPage() {
 
   if (isLoading) return <Spinner />
 
-  return (
-    <div>
-      <h1 className="mb-6 text-2xl font-bold tracking-tight">Patients</h1>
-      <PatientList patients={patients} />
-    </div>
-  )
+  return <PatientList patients={patients} />
 }
