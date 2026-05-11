@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import { useEffect, useState } from 'react'
+import { type ReactEventHandler, useEffect, useState } from 'react'
 import {
   Badge,
   Button,
@@ -313,7 +313,7 @@ function JournalForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit: ReactEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     setError(null)
 

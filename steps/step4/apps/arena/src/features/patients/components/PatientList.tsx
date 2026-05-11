@@ -91,6 +91,10 @@ export function PatientList({ patients }: PatientListProps) {
         </div>
       </div>
 
+      <p className="mb-4 text-sm text-muted-foreground">
+        {filteredPatients.length} of {patients.length} patients
+      </p>
+
       {filteredPatients.length === 0 ? (
         <p className="text-center text-muted-foreground py-8">
           No patients found

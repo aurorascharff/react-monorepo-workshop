@@ -25,7 +25,7 @@ export function DashboardPage() {
   const male = patients?.filter((p) => p.gender === 'male').length ?? 0
   const recentPatients = patients?.slice(0, 5) ?? []
 
-  const stats = [
+  const statCards = [
     { label: 'Total patients', value: total, icon: Users },
     { label: 'Female', value: female, icon: UserRound },
     { label: 'Male', value: male, icon: UserRound },
@@ -42,7 +42,7 @@ export function DashboardPage() {
       </header>
 
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {stats.map(({ label, value, icon: Icon }) => (
+        {statCards.map(({ label, value, icon: Icon }) => (
           <Card key={label}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">

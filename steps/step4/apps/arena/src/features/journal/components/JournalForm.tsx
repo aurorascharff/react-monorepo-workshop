@@ -1,3 +1,4 @@
+import type { ReactEventHandler } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea } from '@medix/ui'
 import { createJournal } from '../../../lib/api'
@@ -21,7 +22,7 @@ export function JournalForm({ patientId }: JournalFormProps) {
     },
   })
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit: ReactEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault()
 
     const form = event.currentTarget

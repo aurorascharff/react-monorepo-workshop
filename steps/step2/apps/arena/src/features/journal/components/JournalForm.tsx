@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type ReactEventHandler, useState } from 'react'
 import { Button, Input, Label, Textarea } from '@medix/ui'
 import { createJournal } from '../../../lib/api'
 import type { Journal } from '../../../types'
@@ -12,7 +12,7 @@ export function JournalForm({ patientId, onCreated }: JournalFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit: ReactEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     setError(null)
 
