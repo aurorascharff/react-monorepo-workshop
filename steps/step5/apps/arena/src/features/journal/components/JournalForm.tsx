@@ -133,7 +133,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
           </Button>
           {isPending && (
             <p className="text-sm text-muted-foreground">
-              Saving the journal entry and refreshing the list.
+              Saving the journal entry.
             </p>
           )}
         </div>

@@ -31,31 +31,7 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
   const { mutate, isPending, error } = useMutation({
     mutationFn: (status: JournalStatus) =>
       updateJournalStatus(entry.id, status),
-    onMutate: async (status) => {
-      await queryClient.cancelQueries({ queryKey: ['journals', patientId] })
-
-      const previousEntries = queryClient.getQueryData<Journal[]>([
-        'journals',
-        patientId,
-      ])
-
-      queryClient.setQueryData<Journal[]>(['journals', patientId], (entries) =>
-        entries?.map((journal) =>
-          journal.id === entry.id ? { ...journal, status } : journal,
-        ),
-      )
-
-      return { previousEntries }
-    },
-    onError: (_error, _status, context) => {
-      if (context?.previousEntries) {
-        queryClient.setQueryData(
-          ['journals', patientId],
-          context.previousEntries,
-        )
-      }
-    },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
     },
   })

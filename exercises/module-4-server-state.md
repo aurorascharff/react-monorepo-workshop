@@ -14,13 +14,9 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 
 3. Design loading, error, empty, and success states where they matter. Use shared UI primitives such as `Skeleton` for loading states instead of a generic spinner, and shape the placeholder like the content that is coming.
 
-4. Use mutations for journal status updates and new journal submit. After a successful mutation, invalidate the affected journal data, not the whole app, so the UI refreshes from the server.
+4. Use mutations for journal status updates and new journal submit. Update or invalidate the affected journal data, not the whole app, so the UI stays connected to the server state.
 
-5. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit. Look for cache reuse, mutation requests, pending states, and refetches after invalidation.
-
-## Bonus
-
-Make the journal status mutation optimistic. The selected status should update immediately, roll back if the request fails, and still refetch the affected journal data afterward.
+5. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit. Look for cache reuse, mutation requests, visible UI updates, and refetches after invalidation.
 
 ## Resources
 

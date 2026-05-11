@@ -11,13 +11,15 @@ type BrandMarkProps = {
 const sizeStyles = {
   sm: {
     icon: 'h-7 w-7',
-    glyph: 'h-4 w-4',
-    title: 'text-lg',
+    glyph: 'h-3.5 w-3.5',
+    title: 'text-base leading-4',
+    context: 'text-[0.625rem] leading-3',
   },
   md: {
     icon: 'h-8 w-8',
     glyph: 'h-4 w-4',
-    title: 'text-xl',
+    title: 'text-lg leading-5',
+    context: 'text-[0.6875rem] leading-3',
   },
 }
 
@@ -28,10 +30,10 @@ export function BrandMark({
   className,
 }: BrandMarkProps) {
   const styles = sizeStyles[size]
-  const label = product ? `Medix ${product}` : 'Medix'
+  const context = description ?? product
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div className={cn('flex items-center gap-2.5', className)}>
       <div
         className={cn(
           'flex shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground',
@@ -41,13 +43,16 @@ export function BrandMark({
       >
         <Activity className={styles.glyph} />
       </div>
-      <div className="min-w-0">
-        <div className={cn('font-bold tracking-tight', styles.title)}>
-          {label}
-        </div>
-        {description && (
-          <div className="mt-1 text-sm text-muted-foreground">
-            {description}
+      <div className="flex min-w-0 flex-col justify-center">
+        <div className={cn('font-bold', styles.title)}>Medix</div>
+        {context && (
+          <div
+            className={cn(
+              'mt-0.5 font-medium text-muted-foreground',
+              styles.context,
+            )}
+          >
+            {context}
           </div>
         )}
       </div>

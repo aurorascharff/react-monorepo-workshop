@@ -115,7 +115,6 @@
 - Answer to land: invalidate or update the affected cached data so the UI reflects the server state.
 - Why invalidate only this patient's journals instead of everything?
 - Answer to land: smaller invalidation means less unnecessary work and fewer surprising updates.
-- Bonus for ambitious participants: make the status update optimistic with TanStack Query's [`onMutate`](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates), rollback on error, and invalidate afterward.
 
 ## App: Submit journal form through mutation
 
@@ -126,6 +125,11 @@
 - Submit once with Network open and show the POST request.
 - Point out the pending submit state near the button, not as a page-level spinner.
 - Show that the journal list refreshes because the journals query is invalidated.
+
+## Bonus in the final reference app
+
+- Make journal creation optimistic with TanStack Query's [`onMutate`](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates): add the temporary entry immediately, clear the form, replace the temporary entry with the server response, and restore the submitted values if the request fails.
+- Frame this as a final-app improvement, not the required workshop solution.
 
 ## Check and module close
 

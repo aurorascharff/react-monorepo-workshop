@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute } from '@hono/zod-openapi'
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 import { randomUUID } from 'crypto'
 import { db } from '../db'
 import { journals } from '../db/schema'
@@ -34,6 +34,7 @@ journalsRouter.openapi(listForPatientRoute, async (c) => {
     .select()
     .from(journals)
     .where(eq(journals.patientId, patientId))
+    .orderBy(desc(journals.date))
   return c.json(entries, 200)
 })
 

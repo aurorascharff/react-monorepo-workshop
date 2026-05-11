@@ -79,7 +79,10 @@
 - Copy a patient detail URL, paste it into a new tab, and verify it opens the same state.
 - What changed in the user experience even though the UI looks almost the same?
 - Answer to land: the app now behaves like a browser app, not a local state switcher.
-- If you want to show one extra final-app best practice, lazy-load the route pages with [`lazy`](https://react.dev/reference/react/lazy) and wrap each route element in [`Suspense`](https://react.dev/reference/react/Suspense). This is code splitting: the app shell can load first, and route code can be fetched when the user navigates there.
+
+## Bonus in the final reference app
+
+- Lazy-load route pages with [`lazy`](https://react.dev/reference/react/lazy) and wrap route elements in [`Suspense`](https://react.dev/reference/react/Suspense).
 - Open Network and show the extra JavaScript chunk when a lazy route loads.
 - What should happen while route code is loading?
 - Answer to land: the user should get a clear global loading state without losing the whole shell. Here a spinner is acceptable because the router does not know the shape of the next route yet.

@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea, DatePicker } from '@medix/ui'
 import { createJournal } from '../../../lib/api'
+import type { Journal } from '../../../types'
 
 const journalSchema = z.object({
   title: z
@@ -24,41 +25,105 @@ type JournalFormProps = {
   onSuccess?: () => void
 }
 
+const emptyJournalForm: JournalFormData = {
+  title: '',
+  date: '',
+  content: '',
+}
+
+function sortJournalsByDate(entries: Journal[]) {
+  return [...entries].sort((a, b) => b.date.localeCompare(a.date))
+}
+
 export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
   const queryClient = useQueryClient()
 
   const {
-    register,
     handleSubmit,
     reset,
+    clearErrors,
     control,
     formState: { errors },
   } = useForm<JournalFormData>({
     resolver: zodResolver(journalSchema),
     mode: 'onChange',
-    defaultValues: {
-      title: '',
-      date: '',
-      content: '',
+    defaultValues: emptyJournalForm,
+  })
+
+  const { mutate, error } = useMutation({
+    mutationFn: (data: JournalFormData) => createJournal(patientId, data),
+    onMutate: async (data) => {
+      await queryClient.cancelQueries({ queryKey: ['journals', patientId] })
+
+      const previousEntries = queryClient.getQueryData<Journal[]>([
+        'journals',
+        patientId,
+      ])
+      const optimisticId = `optimistic-${Date.now()}`
+
+      queryClient.setQueryData<Journal[]>(['journals', patientId], (entries) =>
+        sortJournalsByDate([
+          {
+            id: optimisticId,
+            patientId,
+            title: data.title,
+            date: data.date,
+            content: data.content,
+            status: 'draft',
+          },
+          ...(entries ?? []),
+        ]),
+      )
+
+      return { previousEntries, optimisticId, submittedData: data }
+    },
+    onError: (_error, _data, context) => {
+      if (context) {
+        queryClient.setQueryData<Journal[]>(
+          ['journals', patientId],
+          context.previousEntries ?? [],
+        )
+        reset(context.submittedData)
+        clearErrors()
+      }
+    },
+    onSuccess: (createdEntry, _data, context) => {
+      queryClient.setQueryData<Journal[]>(
+        ['journals', patientId],
+        (entries) => {
+          if (!entries) return [createdEntry]
+
+          return sortJournalsByDate(
+            entries.map((entry) =>
+              entry.id === context?.optimisticId ? createdEntry : entry,
+            ),
+          )
+        },
+      )
+      onSuccess?.()
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
     },
   })
 
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (data: JournalFormData) => createJournal(patientId, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
-      reset()
-      onSuccess?.()
-    },
-  })
+  function submitJournal(data: JournalFormData) {
+    reset(emptyJournalForm, {
+      keepDirty: false,
+      keepErrors: false,
+      keepTouched: false,
+      keepValues: false,
+    })
+    clearErrors()
+    mutate(data)
+  }
 
   return (
     <section>
       <h2 className="mb-4 text-lg font-semibold">New journal entry</h2>
 
       <form
-        onSubmit={handleSubmit((data) => mutate(data))}
-        aria-busy={isPending}
+        onSubmit={handleSubmit(submitJournal)}
         className="rounded-lg border bg-card p-6"
       >
         {error && (
@@ -72,13 +137,23 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
 
         <div className="mb-4 space-y-2">
           <Label htmlFor="title">Title</Label>
-          <Input
-            id="title"
-            type="text"
-            aria-invalid={Boolean(errors.title)}
-            aria-describedby={errors.title ? 'title-error' : undefined}
-            {...register('title')}
-            placeholder="Short description of the entry"
+          <Controller
+            name="title"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="title"
+                type="text"
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                ref={field.ref}
+                aria-invalid={Boolean(errors.title)}
+                aria-describedby={errors.title ? 'title-error' : undefined}
+                placeholder="Short description of the entry"
+              />
+            )}
           />
           {errors.title && (
             <p id="title-error" className="text-xs text-destructive">
@@ -112,13 +187,23 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
 
         <div className="mb-6 space-y-2">
           <Label htmlFor="content">Content</Label>
-          <Textarea
-            id="content"
-            rows={5}
-            aria-invalid={Boolean(errors.content)}
-            aria-describedby={errors.content ? 'content-error' : undefined}
-            {...register('content')}
-            placeholder="Clinical observations, interventions, and assessments..."
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <Textarea
+                id="content"
+                rows={5}
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                ref={field.ref}
+                aria-invalid={Boolean(errors.content)}
+                aria-describedby={errors.content ? 'content-error' : undefined}
+                placeholder="Clinical observations, interventions, and assessments..."
+              />
+            )}
           />
           {errors.content && (
             <p id="content-error" className="text-xs text-destructive">
@@ -127,16 +212,9 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
           )}
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Button type="submit" disabled={isPending} className="w-fit">
-            {isPending ? 'Saving entry...' : 'Save entry'}
-          </Button>
-          {isPending && (
-            <p className="text-sm text-muted-foreground">
-              Saving the journal entry and refreshing the list.
-            </p>
-          )}
-        </div>
+        <Button type="submit" className="w-fit">
+          Save entry
+        </Button>
       </form>
     </section>
   )

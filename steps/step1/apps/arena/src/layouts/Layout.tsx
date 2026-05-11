@@ -1,27 +1,32 @@
+import type { ReactNode } from 'react'
 import { AlertTriangle, LayoutDashboard, Users } from 'lucide-react'
 import { BrandMark, Button, cn } from '@medix/ui'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 
 type Page = 'dashboard' | 'patients'
 
+type LayoutProps = {
+  activePage: Page
+  onNavigate: (page: Page) => void
+  children: ReactNode
+}
+
 const navLinks: { id: Page; label: string; icon: typeof LayoutDashboard }[] = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'patients', label: 'Patients', icon: Users },
 ]
 
-type LayoutProps = {
-  activePage: Page
-  onNavigate: (page: Page) => void
-  children: React.ReactNode
-}
-
 export function Layout({ activePage, onNavigate, children }: LayoutProps) {
   return (
     <div className="flex min-h-screen bg-background">
       <aside className="hidden lg:flex w-64 border-r bg-sidebar flex-col shrink-0">
-        <div className="p-6 border-b">
-          <BrandMark product="Arena" description="Journal system" />
-        </div>
+        <button
+          type="button"
+          onClick={() => onNavigate('dashboard')}
+          className="border-b p-4 text-left text-foreground transition-colors hover:text-foreground/80"
+        >
+          <BrandMark product="Arena" />
+        </button>
         <nav className="p-3 flex flex-col gap-1">
           {navLinks.map(({ id, label, icon: Icon }) => (
             <NavButton
@@ -39,9 +44,13 @@ export function Layout({ activePage, onNavigate, children }: LayoutProps) {
       <div className="flex flex-1 flex-col min-w-0">
         <header className="lg:hidden sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
           <div className="flex items-center justify-between px-4 h-14">
-            <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onNavigate('dashboard')}
+              className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"
+            >
               <BrandMark product="Arena" size="sm" />
-            </div>
+            </button>
             <nav className="flex items-center gap-1">
               {navLinks.map(({ id, label, icon: Icon }) => (
                 <NavButton
@@ -91,7 +100,7 @@ function NavButton({
   active: boolean
   compact?: boolean
   onClick: () => void
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <button

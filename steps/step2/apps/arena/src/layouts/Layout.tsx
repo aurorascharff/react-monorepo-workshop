@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router'
+import { Link, NavLink, Outlet } from 'react-router'
 import { AlertTriangle, LayoutDashboard, Users } from 'lucide-react'
 import { BrandMark, Button, cn } from '@medix/ui'
 import { ErrorBoundary } from '../components/ErrorBoundary'
@@ -12,9 +12,12 @@ export function Layout() {
   return (
     <div className="flex min-h-screen bg-background">
       <aside className="hidden lg:flex w-64 border-r bg-sidebar flex-col shrink-0">
-        <div className="p-6 border-b">
-          <BrandMark product="Arena" description="Journal system" />
-        </div>
+        <Link
+          to="/"
+          className="border-b p-4 text-foreground transition-colors hover:text-foreground/80"
+        >
+          <BrandMark product="Arena" />
+        </Link>
         <nav className="p-3 flex flex-col gap-1">
           {navLinks.map(({ to, label, icon: Icon, end }) => (
             <NavLink
@@ -40,9 +43,12 @@ export function Layout() {
       <div className="flex flex-1 flex-col min-w-0">
         <header className="lg:hidden sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
           <div className="flex items-center justify-between px-4 h-14">
-            <div className="flex items-center gap-2">
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"
+            >
               <BrandMark product="Arena" size="sm" />
-            </div>
+            </Link>
             <nav className="flex items-center gap-1">
               {navLinks.map(({ to, label, icon: Icon, end }) => (
                 <NavLink
