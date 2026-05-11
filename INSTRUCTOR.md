@@ -11,6 +11,7 @@ Day before:
 - [ ] Create a workshop-specific participant repo from the private starter template.
 - [ ] Push the participant repo before participants begin.
 - [ ] Fresh clone the workshop-specific participant repo.
+- [ ] Open the repo through the `.code-workspace` file in VS Code.
 - [ ] `npm install`
 - [ ] `npm run db:seed`
 - [ ] `npm run dev`
@@ -31,6 +32,7 @@ Morning:
 - [ ] Open Arena at `/patients`.
 - [ ] Open API docs.
 - [ ] Open final reference repo and workshop-specific participant repo.
+- [ ] Use the `.code-workspace` file for the repo you are live coding in.
 - [ ] Open `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and `steps/`.
 - [ ] Open README for the setup and repo walkthrough.
 - [ ] Check Copilot ghost text is available.

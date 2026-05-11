@@ -13,6 +13,11 @@ Use the participant repo link shared by the instructor.
 ```bash
 git clone <participant-repo-url>
 cd <participant-repo-name>
+```
+
+Open the `.code-workspace` file in VS Code so the repo settings and recommended extensions are applied.
+
+```bash
 npm install
 npm run db:seed
 npm run dev

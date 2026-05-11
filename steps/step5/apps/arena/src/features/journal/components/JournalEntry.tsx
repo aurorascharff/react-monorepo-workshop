@@ -3,7 +3,9 @@ import {
   CardContent,
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
   StatusBadge,
@@ -27,7 +29,7 @@ const statusOptions: { value: JournalStatus; label: string }[] = [
 export function JournalEntry({ entry, patientId }: JournalEntryProps) {
   const queryClient = useQueryClient()
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, error } = useMutation({
     mutationFn: (status: JournalStatus) =>
       updateJournalStatus(entry.id, status),
     onSuccess: () => {
@@ -56,15 +58,21 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
               disabled={isPending}
               onValueChange={(value) => mutate(value as JournalStatus)}
             >
-              <SelectTrigger className="w-32 h-8 text-xs">
+              <SelectTrigger
+                className="w-32 h-8 text-xs"
+                aria-label={`Change status for ${entry.title}`}
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {statusOptions.map((s) => (
-                  <SelectItem key={s.value} value={s.value}>
-                    {s.label}
-                  </SelectItem>
-                ))}
+                <SelectGroup>
+                  <SelectLabel>Status</SelectLabel>
+                  {statusOptions.map((s) => (
+                    <SelectItem key={s.value} value={s.value}>
+                      {s.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
               </SelectContent>
             </Select>
           </div>
@@ -72,6 +80,11 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           {entry.content}
         </p>
+        {error && (
+          <p className="mt-3 text-sm text-destructive">
+            Failed to update status: {error.message}
+          </p>
+        )}
       </CardContent>
     </Card>
   )

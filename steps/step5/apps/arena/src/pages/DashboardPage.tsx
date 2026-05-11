@@ -5,9 +5,17 @@ import { Spinner } from '@medix/ui'
 import { usePatients } from '../features/patients/hooks/usePatients'
 
 export function DashboardPage() {
-  const { data: patients, isLoading } = usePatients()
+  const { data: patients, isLoading, error } = usePatients()
 
   if (isLoading) return <Spinner />
+
+  if (error) {
+    return (
+      <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">
+        Failed to fetch dashboard data: {error.message}
+      </div>
+    )
+  }
 
   const total = patients?.length ?? 0
   const female = patients?.filter((p) => p.gender === 'female').length ?? 0

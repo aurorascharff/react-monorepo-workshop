@@ -3,7 +3,9 @@ import {
   CardContent,
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
   StatusBadge,
@@ -43,15 +45,21 @@ export function JournalEntry({ entry, onStatusChange }: JournalEntryProps) {
                 onStatusChange(entry.id, value as JournalStatus)
               }
             >
-              <SelectTrigger className="w-32 h-8 text-xs">
+              <SelectTrigger
+                className="w-32 h-8 text-xs"
+                aria-label={`Change status for ${entry.title}`}
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {statusOptions.map((s) => (
-                  <SelectItem key={s.value} value={s.value}>
-                    {s.label}
-                  </SelectItem>
-                ))}
+                <SelectGroup>
+                  <SelectLabel>Status</SelectLabel>
+                  {statusOptions.map((s) => (
+                    <SelectItem key={s.value} value={s.value}>
+                      {s.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
               </SelectContent>
             </Select>
           </div>

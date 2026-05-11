@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import {
   Input,
+  Label,
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@medix/ui'
@@ -37,29 +40,38 @@ export function PatientList({ patients }: PatientListProps) {
         </p>
       </header>
 
-      <div className="mb-6 flex gap-3">
-        <Input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by name or diagnosis..."
-          className="flex-1"
-        />
-        <Select
-          value={genderFilter}
-          onValueChange={(value) =>
-            setGenderFilter(value as 'all' | 'male' | 'female')
-          }
-        >
-          <SelectTrigger className="w-40">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="male">Male</SelectItem>
-            <SelectItem value="female">Female</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-1 flex-col gap-1">
+          <Label htmlFor="patient-search">Search patients</Label>
+          <Input
+            id="patient-search"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name or diagnosis..."
+          />
+        </div>
+        <div className="flex flex-col gap-1 sm:w-40">
+          <Label htmlFor="gender-filter">Gender</Label>
+          <Select
+            value={genderFilter}
+            onValueChange={(value) =>
+              setGenderFilter(value as 'all' | 'male' | 'female')
+            }
+          >
+            <SelectTrigger id="gender-filter">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Gender</SelectLabel>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="male">Male</SelectItem>
+                <SelectItem value="female">Female</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {filteredPatients.length === 0 ? (

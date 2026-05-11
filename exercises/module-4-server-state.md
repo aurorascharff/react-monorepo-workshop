@@ -12,7 +12,7 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 
 2. Look at the manual fetching effects and the repeated loading/error state. Replace them with server-state hooks built with TanStack Query. Use query keys that describe the data, including the patient id for patient detail and journal data.
 
-3. Keep loading, error, empty, and success states visible where they matter. Keep the shell-level error boundary, and add a local error boundary around patient detail so a failed patient request does not take down the route shell.
+3. Keep loading, error, empty, and success states visible where they matter. Choose the query API that makes those states clear in your solution.
 
 4. Use mutations for journal status updates and new journal submit. After a successful mutation, invalidate the affected journal data, not the whole app, so the UI refreshes from the server.
 
@@ -23,6 +23,8 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 - [TanStack Query overview](https://tanstack.com/query/latest/docs/framework/react/overview)
 - [React: Fetching data with Effects](https://react.dev/reference/react/useEffect#fetching-data-with-effects)
 - [Queries](https://tanstack.com/query/latest/docs/framework/react/guides/queries)
+- [useQuery](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
 - [Query keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys)
 - [Mutations](https://tanstack.com/query/latest/docs/framework/react/guides/mutations)
 - [Query invalidation](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation)
+- [useSuspenseQuery](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery)

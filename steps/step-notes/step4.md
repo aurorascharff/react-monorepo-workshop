@@ -67,28 +67,24 @@
 - Answer to land: local loading state, fetching effects, repeated fetch calls, and manual success/error bookkeeping.
 - We removed duplicated fetching logic, but we also got better navigation behavior because data is cached.
 
-## App: Fetch patient detail with useSuspenseQuery
+## App: Fetch patient detail with useQuery
 
 - Open `pages/PatientDetailPage.tsx`.
-- Create an inner `PatientDetail` component.
-- Use [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery).
+- Use [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery).
 - Use `queryKey: ['patient', id]`.
 - Use `queryFn` to fetch one patient by id.
 - Open [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) and show that each patient id gets a separate cache entry.
-- [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery) does not give us `isLoading`. It suspends and lets the parent boundary decide loading UI.
-- Relate back to the background: Suspense is another way to handle time. The component can say “I need this data,” and the boundary decides what the user sees while waiting.
+- Render loading, error, and success states in the page.
+- This is a little more repetitive, but it is straightforward: we can see exactly what the UI does for each server-state state.
 - Why does `id` belong in the query key?
 - Answer to land: different patients are different cached data.
 
-## App: Add local Suspense and ErrorBoundary
+## Optional: Suspense Query
 
-- Wrap `PatientDetail` in local `Suspense` with `Spinner`.
-- Wrap the Suspense boundary in local `ErrorBoundary`.
-- Keep the layout-level boundary as the catch-all.
-- This local boundary is for the patient detail data. It does not replace the route outlet boundary.
-- If patient detail fails, the shell and navigation stay visible.
-- What would be worse about only having one top-level boundary?
-- Answer to land: it makes a local data failure feel like the whole app failed.
+- Mention [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery) as an alternative.
+- With Suspense Query, the component does not receive `isLoading`. It suspends and lets a parent [`Suspense`](https://react.dev/reference/react/Suspense) boundary decide the loading UI.
+- That can make components cleaner, but it introduces another boundary concept and can feel less direct while learning server state.
+- Relate back to the background: Suspense is another way to handle time. The component can say “I need this data,” and the boundary decides what the user sees while waiting.
 
 ## App: Create useJournals
 

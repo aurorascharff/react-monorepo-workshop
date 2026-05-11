@@ -4,11 +4,13 @@
 
 - Use the workshop-specific participant repo link, not the private starter template.
 - Open [`README.md`](../../README.md) and use only the setup commands first.
+- Open the repo through the `.code-workspace` file in VS Code before coding.
 - After everyone has the app running, come back to the README for commands, testing, AI, and CI.
 
 ## App: Run the monorepo
 
 - Open [`README.md`](../../README.md).
+- Open the `.code-workspace` file in VS Code so ESLint, Prettier, and extension recommendations are applied.
 - Run `npm install`, `npm run db:seed`, and `npm run dev`.
 - Open Arena on [localhost:5173](http://localhost:5173).
 - Open the API docs on [localhost:3001](http://localhost:3001).

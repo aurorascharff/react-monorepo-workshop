@@ -6,7 +6,7 @@ test('blocks invalid journal submissions before sending a request', async ({
   await page.goto('/patients/p1')
 
   const save = page.getByRole('button', { name: /save entry/i })
-  await expect(save).toBeDisabled()
+  await expect(save).toBeEnabled()
 
   await page.getByLabel(/title/i).fill('Too short')
   await page.getByLabel(/content/i).fill('short')
@@ -14,7 +14,7 @@ test('blocks invalid journal submissions before sending a request', async ({
   await expect(
     page.getByText(/content must be at least 10 characters/i),
   ).toBeVisible()
-  await expect(save).toBeDisabled()
+  await expect(save).toBeEnabled()
 
   let createRequestSent = false
   page.on('request', (request) => {
@@ -26,6 +26,7 @@ test('blocks invalid journal submissions before sending a request', async ({
     }
   })
 
-  await expect(save).toBeDisabled()
+  await save.click()
+  await expect(page.getByText(/date is required/i)).toBeVisible()
   expect(createRequestSent).toBe(false)
 })

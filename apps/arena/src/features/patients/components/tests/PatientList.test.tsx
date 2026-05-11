@@ -38,7 +38,7 @@ describe('PatientList', () => {
     const user = userEvent.setup()
     renderPatientList()
 
-    await user.type(screen.getByPlaceholderText(/search/i), 'hansen')
+    await user.type(screen.getByLabelText(/search patients/i), 'hansen')
 
     await waitFor(() => {
       expect(screen.getByText(/robert hansen/i)).toBeInTheDocument()
@@ -50,7 +50,7 @@ describe('PatientList', () => {
     const user = userEvent.setup()
     renderPatientList()
 
-    await user.type(screen.getByPlaceholderText(/search/i), 'zzzz')
+    await user.type(screen.getByLabelText(/search patients/i), 'zzzz')
 
     expect(await screen.findByText(/no patients found/i)).toBeInTheDocument()
   })

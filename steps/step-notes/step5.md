@@ -24,6 +24,8 @@
 - Open the form in the browser.
 - Open Elements and Accessibility, then inspect the title, date, and content fields.
 - The form works, but the rules are scattered across submit handling, local error state, and the UI.
+- Point out that shared Base UI primitives already give us a lot. `Select`, `DatePicker`, `Popover`, and `Calendar` use a compound component pattern so keyboard behavior, focus handling, and ARIA roles are handled by the primitive instead of being rebuilt in the app.
+- The form still owns meaning. We provide labels, validation messages, `aria-invalid`, and `aria-describedby` because those depend on this specific form and this specific field.
 - What validation rules can we see from the UI?
 - Answer to land: required title, required date, content length, and server errors.
 - The rules are split across submit handling, local error state, and JSX.
@@ -67,6 +69,7 @@
 - Render `errors.title?.message` below title with an id, then connect it to the input with `aria-describedby`.
 - Render `errors.content?.message` below content with an id, then connect it to the textarea with `aria-describedby`.
 - Add `aria-invalid` when a field has an error.
+- Native inputs already give us the basic HTML semantics. Our job here is to connect the validation state to the right field.
 - Field-level errors are easier to act on than one generic form error.
 - What should the user be able to fix from the error message?
 - Answer to land: the message should point to the field and the rule.
@@ -80,6 +83,7 @@
 - Inspect the date picker in the Accessibility panel and confirm the visible label names the control.
 - Render `errors.date?.message` below the date field with an id, then connect it to the date picker with `aria-describedby`.
 - Add `aria-invalid` when the date field has an error.
+- We are not writing the date picker accessibility from scratch. The shared primitive handles the button, popover, calendar, focus, and keyboard behavior. We pass the form-level semantics into it.
 - [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) is for components that do not plug directly into [`register`](https://react-hook-form.com/docs/useform/register).
 - Why not use `Controller` for every field?
 - Answer to land: use the simpler `register` path when the input supports it.

@@ -6,14 +6,14 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('filters patients by search and gender', async ({ page }) => {
-  const search = page.getByPlaceholder(/search/i)
+  const search = page.getByLabel(/search patients/i)
 
   await search.fill('hansen')
   await expect(page.getByText(/robert hansen/i)).toBeVisible()
   await expect(page.getByText(/mary smith/i)).not.toBeVisible()
 
   await search.fill('')
-  await page.getByRole('combobox').first().click()
+  await page.getByLabel(/gender/i).click()
   await page.getByRole('option', { name: /^female$/i }).click()
 
   await expect(page.getByText(/mary smith/i)).toBeVisible()
@@ -38,7 +38,9 @@ test('opens a patient, updates a journal status, and returns to the list', async
       response.url().includes('/status') &&
       response.request().method() === 'PATCH',
   )
-  const firstStatusSelect = page.getByRole('combobox').first()
+  const firstStatusSelect = page.getByRole('combobox', {
+    name: /change status for routine blood glucose check/i,
+  })
   await firstStatusSelect.click()
   await page.getByRole('option', { name: /^draft$/i }).click()
   await statusUpdate

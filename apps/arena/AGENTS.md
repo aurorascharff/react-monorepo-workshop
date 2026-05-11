@@ -19,10 +19,10 @@ Reusable primitives belong in `packages/ui`, not here.
 
 ## Rules
 
-1. Use `useQuery` / `useSuspenseQuery` for fetching. Never `useEffect` + `fetch`.
+1. Use `useQuery` for fetching unless a Suspense boundary is intentionally part of the design. Never `useEffect` + `fetch`.
 2. Use `useMutation` + `queryClient.invalidateQueries` after mutations.
 3. Validate forms with a Zod schema wired through `zodResolver`.
-4. Wrap `useSuspenseQuery` callsites in a local `<Suspense>` and a contextual `<ErrorBoundary>`. The Layout-level boundary is the catch-all; targeted ones keep the shell visible.
+4. Render explicit loading, error, empty, and success states for regular `useQuery` callsites. If using `useSuspenseQuery`, wrap the callsite in a local `<Suspense>` and contextual `<ErrorBoundary>`.
 5. Import `StatusBadge`, `JournalStatus`, `Button`, `Card`, etc. from `@medix/ui`. Do not redefine them.
 6. Compute derived state in render — do not store it in `useState` and sync via `useEffect`.
 7. Put unit and component tests in a nearby `tests/` subfolder, for example `components/tests/PatientCard.test.tsx` or `hooks/tests/usePatients.test.tsx`.

@@ -14,9 +14,11 @@ The form submits, but validation rules, submit state, and recovery from errors a
 
 3. Submit valid data through the existing create-journal mutation flow and refresh the journal list after a successful submit.
 
-4. Keep invalid submit accessible: let the user submit, show field-level validation errors, associate each error with its field, and do not send invalid client-side data to the API.
+4. Use the existing shared UI primitives for controls that need more than a plain input. For the date field, use the shared DatePicker instead of building calendar behavior inside the form. Add the form-specific labels and error relationships in the form.
 
-5. While the request is pending, make the submit state clear and prevent duplicate submits. If the server request fails, show a form-level error that is announced as feedback for the submit.
+5. Keep invalid submit accessible: let the user submit, show field-level validation errors, associate each error with its field, and do not send invalid client-side data to the API.
+
+6. While the request is pending, make the submit state clear and prevent duplicate submits. If the server request fails, show a form-level error that is announced as feedback for the submit.
 
 ## Resources
 
