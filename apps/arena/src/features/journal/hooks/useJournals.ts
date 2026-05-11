@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchJournals } from '../../../lib/api'
+import { fetchJournals } from '@/lib/api'
 
 export function useJournals(patientId: string) {
   return useQuery({

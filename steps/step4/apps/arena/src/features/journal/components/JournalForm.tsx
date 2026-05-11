@@ -1,8 +1,8 @@
 import type { ReactEventHandler } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea } from '@medix/ui'
-import { createJournal } from '../../../lib/api'
-import { logError } from '../../../lib/logger'
+import { createJournal } from '@/lib/api'
+import { logError } from '@/lib/logger'
 
 type JournalFormProps = {
   patientId: string

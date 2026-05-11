@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
-import type { Patient } from '../../../../types'
+import type { Patient } from '@/types'
 import { PatientCard } from '../PatientCard'
 
 const patient: Patient = {

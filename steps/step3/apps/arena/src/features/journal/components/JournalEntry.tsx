@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@medix/ui'
-import type { Journal, JournalStatus } from '../../../types'
+import type { Journal, JournalStatus } from '@/types'
 
 type JournalEntryProps = {
   entry: Journal

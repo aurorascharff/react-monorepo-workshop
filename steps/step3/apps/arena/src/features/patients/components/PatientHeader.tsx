@@ -1,5 +1,5 @@
 import { Card, CardContent, Badge } from '@medix/ui'
-import type { Patient } from '../../../types'
+import type { Patient } from '@/types'
 
 type PatientHeaderProps = {
   patient: Patient

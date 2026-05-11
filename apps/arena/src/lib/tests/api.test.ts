@@ -1,4 +1,4 @@
-import type { JournalStatus } from '../../types'
+import type { JournalStatus } from '@/types'
 import {
   createJournal,
   fetchPatient,

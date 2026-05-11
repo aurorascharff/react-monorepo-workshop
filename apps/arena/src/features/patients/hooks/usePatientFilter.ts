@@ -1,5 +1,5 @@
-import type { Patient } from '../../../types'
-import { useDebounce } from '../../../hooks/useDebounce'
+import type { Patient } from '@/types'
+import { useDebounce } from '@/hooks/useDebounce'
 
 export type GenderFilter = 'all' | 'male' | 'female'
 

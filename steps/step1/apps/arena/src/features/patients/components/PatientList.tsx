@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from '@medix/ui'
 import { PatientCard } from './PatientCard'
-import type { Patient } from '../../../types'
+import type { Patient } from '@/types'
 
 type PatientListProps = {
   patients: Patient[]

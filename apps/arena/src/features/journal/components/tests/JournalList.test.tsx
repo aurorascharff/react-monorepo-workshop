@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import type { Journal } from '../../../../types'
+import type { Journal } from '@/types'
 import { useJournals } from '../../hooks/useJournals'
 import { JournalList } from '../JournalList'
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Spinner } from '@medix/ui'
-import { PatientList } from '../features/patients/components/PatientList'
-import { fetchPatients } from '../lib/api'
-import type { Patient } from '../types'
+import { PatientList } from '@/features/patients/components/PatientList'
+import { fetchPatients } from '@/lib/api'
+import type { Patient } from '@/types'
 
 export function PatientListPage() {
   const [patients, setPatients] = useState<Patient[]>([])

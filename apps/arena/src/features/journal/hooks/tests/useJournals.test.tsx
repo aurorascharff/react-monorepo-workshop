@@ -1,10 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
 import type { ReactNode } from 'react'
-import { fetchJournals } from '../../../../lib/api'
+import { fetchJournals } from '@/lib/api'
 import { useJournals } from '../useJournals'
 
-vi.mock('../../../../lib/api', () => ({
+vi.mock('@/lib/api', () => ({
   fetchJournals: vi.fn(),
 }))
 

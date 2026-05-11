@@ -1,9 +1,9 @@
 import {
   PatientList,
   PatientListSkeleton,
-} from '../features/patients/components/PatientList'
-import { usePatients } from '../features/patients/hooks/usePatients'
-import { ErrorState } from '../components/ErrorState'
+} from '@/features/patients/components/PatientList'
+import { usePatients } from '@/features/patients/hooks/usePatients'
+import { ErrorState } from '@/components/ErrorState'
 
 export function PatientListPage() {
   const { data: patients, isLoading, error } = usePatients()

@@ -3,8 +3,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea, DatePicker } from '@medix/ui'
-import { createJournal } from '../../../lib/api'
-import { logError } from '../../../lib/logger'
+import { createJournal } from '@/lib/api'
+import { logError } from '@/lib/logger'
 
 const journalSchema = z.object({
   title: z

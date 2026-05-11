@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
-import { logError } from '../lib/logger'
+import { logError } from '@/lib/logger'
 
 type ErrorStateProps = {
   title: string

@@ -1,7 +1,7 @@
 import { Link, NavLink, Outlet } from 'react-router'
 import { LayoutDashboard, Users } from 'lucide-react'
 import { BrandMark, cn } from '@medix/ui'
-import { ErrorBoundary } from '../components/ErrorBoundary'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 const navLinks = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },

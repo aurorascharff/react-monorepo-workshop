@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, Skeleton } from '@medix/ui'
-import { usePatients } from '../features/patients/hooks/usePatients'
-import { ErrorState } from '../components/ErrorState'
+import { usePatients } from '@/features/patients/hooks/usePatients'
+import { ErrorState } from '@/components/ErrorState'
 
 export function DashboardPage() {
   const { data: patients, isLoading, error } = usePatients()

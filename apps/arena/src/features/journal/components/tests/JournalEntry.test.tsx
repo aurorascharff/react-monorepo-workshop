@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
-import type { Journal } from '../../../../types'
+import type { Journal } from '@/types'
 import { JournalEntry } from '../JournalEntry'
 
 const entry: Journal = {

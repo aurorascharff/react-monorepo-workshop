@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
-import type { Patient } from '../../../../types'
+import type { Patient } from '@/types'
 import { PatientList } from '../PatientList'
 
 const patients: Patient[] = [

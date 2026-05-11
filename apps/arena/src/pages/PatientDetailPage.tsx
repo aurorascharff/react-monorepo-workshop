@@ -2,14 +2,14 @@ import { Suspense } from 'react'
 import { useParams, Link } from 'react-router'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { Card, CardContent, Skeleton } from '@medix/ui'
-import { fetchPatient } from '../lib/api'
-import { PatientHeader } from '../features/patients/components/PatientHeader'
+import { fetchPatient } from '@/lib/api'
+import { PatientHeader } from '@/features/patients/components/PatientHeader'
 import {
   JournalList,
   JournalListSkeleton,
-} from '../features/journal/components/JournalList'
-import { JournalForm } from '../features/journal/components/JournalForm'
-import { ErrorBoundary } from '../components/ErrorBoundary'
+} from '@/features/journal/components/JournalList'
+import { JournalForm } from '@/features/journal/components/JournalForm'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()

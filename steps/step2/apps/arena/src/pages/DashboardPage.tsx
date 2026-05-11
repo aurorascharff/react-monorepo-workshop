@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, Spinner } from '@medix/ui'
-import { fetchPatients } from '../lib/api'
-import type { Patient } from '../types'
+import { fetchPatients } from '@/lib/api'
+import type { Patient } from '@/types'
 
 export function DashboardPage() {
   const [patients, setPatients] = useState<Patient[]>([])

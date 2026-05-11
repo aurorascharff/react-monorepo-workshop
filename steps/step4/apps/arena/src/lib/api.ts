@@ -1,4 +1,4 @@
-import type { Patient, Journal, JournalStatus } from '../types'
+import type { Patient, Journal, JournalStatus } from '@/types'
 
 const BASE_URL = 'http://localhost:3001'
 

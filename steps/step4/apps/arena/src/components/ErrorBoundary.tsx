@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { AlertTriangle } from 'lucide-react'
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
 import { Button, cn } from '@medix/ui'
-import { logError } from '../lib/logger'
+import { logError } from '@/lib/logger'
 
 type Props = {
   children: ReactNode

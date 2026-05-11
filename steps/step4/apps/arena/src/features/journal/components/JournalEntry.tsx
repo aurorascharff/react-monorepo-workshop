@@ -10,9 +10,9 @@ import {
   SelectValue,
 } from '@medix/ui'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateJournalStatus } from '../../../lib/api'
-import { logError } from '../../../lib/logger'
-import type { Journal, JournalStatus } from '../../../types'
+import { updateJournalStatus } from '@/lib/api'
+import { logError } from '@/lib/logger'
+import type { Journal, JournalStatus } from '@/types'
 
 type JournalEntryProps = {
   entry: Journal

@@ -1,7 +1,7 @@
 import { type ReactEventHandler, useState } from 'react'
 import { Button, Input, Label, Textarea } from '@medix/ui'
-import { createJournal } from '../../../lib/api'
-import type { Journal } from '../../../types'
+import { createJournal } from '@/lib/api'
+import type { Journal } from '@/types'
 
 type JournalFormProps = {
   patientId: string

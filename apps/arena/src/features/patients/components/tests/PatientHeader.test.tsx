@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import type { Patient } from '../../../../types'
+import type { Patient } from '@/types'
 import { PatientHeader } from '../PatientHeader'
 
 const patient: Patient = {

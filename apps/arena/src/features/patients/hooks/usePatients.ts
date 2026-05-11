@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchPatients } from '../../../lib/api'
+import { fetchPatients } from '@/lib/api'
 
 /**
  * Shared hook for the patient list query.

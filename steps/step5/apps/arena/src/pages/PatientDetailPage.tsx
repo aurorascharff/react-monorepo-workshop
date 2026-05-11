@@ -1,14 +1,14 @@
 import { Link, useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import { Card, CardContent, Skeleton } from '@medix/ui'
-import { JournalForm } from '../features/journal/components/JournalForm'
+import { JournalForm } from '@/features/journal/components/JournalForm'
 import {
   JournalList,
   JournalListSkeleton,
-} from '../features/journal/components/JournalList'
-import { PatientHeader } from '../features/patients/components/PatientHeader'
-import { fetchPatient } from '../lib/api'
-import { ErrorState } from '../components/ErrorState'
+} from '@/features/journal/components/JournalList'
+import { PatientHeader } from '@/features/patients/components/PatientHeader'
+import { fetchPatient } from '@/lib/api'
+import { ErrorState } from '@/components/ErrorState'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()

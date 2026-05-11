@@ -1,8 +1,8 @@
 import { useJournals } from '../hooks/useJournals'
 import { JournalEntry } from './JournalEntry'
-import { ErrorBoundary } from '../../../components/ErrorBoundary'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Card, CardContent, Skeleton } from '@medix/ui'
-import { ErrorState } from '../../../components/ErrorState'
+import { ErrorState } from '@/components/ErrorState'
 
 type JournalListProps = {
   patientId: string

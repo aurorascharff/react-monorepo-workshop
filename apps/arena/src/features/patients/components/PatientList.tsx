@@ -17,7 +17,7 @@ import { useSearchParams } from 'react-router'
 import { usePatientFilter } from '../hooks/usePatientFilter'
 import type { GenderFilter } from '../hooks/usePatientFilter'
 import { PatientCard } from './PatientCard'
-import type { Patient } from '../../../types'
+import type { Patient } from '@/types'
 
 type PatientListProps = {
   patients: Patient[]

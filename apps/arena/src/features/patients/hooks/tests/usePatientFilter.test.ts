@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react'
-import type { Patient } from '../../../../types'
+import type { Patient } from '@/types'
 import { usePatientFilter } from '../usePatientFilter'
 
 const patients: Patient[] = [

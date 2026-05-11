@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { LayoutDashboard, Users } from 'lucide-react'
 import { BrandMark, cn } from '@medix/ui'
-import { ErrorBoundary } from '../components/ErrorBoundary'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 type Page = 'dashboard' | 'patients'
 

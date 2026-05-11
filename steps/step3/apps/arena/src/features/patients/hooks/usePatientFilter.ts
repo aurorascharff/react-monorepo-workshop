@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import type { Patient } from '../../../types'
-import { useDebounce } from '../../../hooks/useDebounce'
+import type { Patient } from '@/types'
+import { useDebounce } from '@/hooks/useDebounce'
 
 export function usePatientFilter(patients: Patient[]) {
   const [search, setSearch] = useState('')
