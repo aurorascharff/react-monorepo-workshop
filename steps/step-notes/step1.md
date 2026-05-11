@@ -66,19 +66,6 @@
 - This first boundary is a catch-all around the page content. React describes [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) as a way to show fallback UI for render failures.
 - More specific boundaries can live closer to the thing that may fail.
 
-## App: Extract a real shared domain component
-
-- Open the Arena layout and the medix.com layout.
-- Both apps render the Medix identity: icon, name, and sometimes product context.
-- Create `packages/ui/src/BrandMark.tsx`.
-- Export `BrandMark` from `packages/ui/src/index.ts`.
-- Use it in `apps/arena/src/layouts/Layout.tsx` as `Medix Arena`.
-- Use it in `apps/medix.com/app/layout.tsx` as the main Medix brand.
-- This is Domain UI because it knows the product brand. It is not Base UI like `Button`, `Card`, or `Select`.
-- Why is this better shared than the journal status control?
-- Answer to land: both apps genuinely need the same brand identity, while journal status is currently part of one journal workflow.
-- Relate it to Pulse: base components define reusable visual behavior, while domain components can encode shared product concepts.
-
 ## App: Convert native selects to Base UI
 
 - Open the patient filter and journal entry status control.
@@ -96,6 +83,19 @@
 - Answer to land: shared primitives and shared types belong in `packages/ui`; feature-specific screens, workflows, and local presentation stay in the app.
 - What should not go into `packages/ui` yet?
 - Answer to land: feature-specific code should stay in the feature until reuse is real.
+
+## App: Extract a real shared domain component
+
+- Open the Arena layout and the medix.com layout.
+- Both apps render the Medix identity: icon, name, and sometimes product context.
+- Create `packages/ui/src/BrandMark.tsx`.
+- Export `BrandMark` from `packages/ui/src/index.ts`.
+- Use it in `apps/arena/src/layouts/Layout.tsx` as `Medix Arena`.
+- Use it in `apps/medix.com/app/layout.tsx` as the main Medix brand.
+- This is Domain UI because it knows the product brand. It is not Base UI like `Button`, `Card`, or `Select`.
+- Why is this better shared than the journal status control?
+- Answer to land: both apps genuinely need the same brand identity, while journal status is currently part of one journal workflow.
+- Relate it to Pulse: base components define reusable visual behavior, while domain components can encode shared product concepts.
 
 ## Check and module close
 

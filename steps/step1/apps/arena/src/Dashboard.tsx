@@ -6,7 +6,7 @@ import { fetchPatients } from './lib/api'
 import type { Patient } from './types'
 
 type DashboardProps = {
-  onNavigate: () => void
+  onNavigate: (patientId?: string | null) => void
 }
 
 export function Dashboard({ onNavigate }: DashboardProps) {
@@ -75,7 +75,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
             </div>
             <button
               type="button"
-              onClick={onNavigate}
+              onClick={() => onNavigate()}
               className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
             >
               See all <ArrowRight className="h-4 w-4" />
@@ -87,7 +87,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
                 <li key={p.id}>
                   <button
                     type="button"
-                    onClick={onNavigate}
+                    onClick={() => onNavigate(p.id)}
                     className="flex w-full items-center justify-between gap-4 px-6 py-3 text-left transition-colors hover:bg-accent"
                   >
                     <div className="flex flex-col">
@@ -115,7 +115,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
             </p>
             <button
               type="button"
-              onClick={onNavigate}
+              onClick={() => onNavigate()}
               className="inline-flex w-fit items-center gap-1 rounded-md bg-primary-foreground px-3 py-2 text-sm font-medium text-primary hover:bg-primary-foreground/90"
             >
               Go to patient list <ArrowRight className="h-4 w-4" />

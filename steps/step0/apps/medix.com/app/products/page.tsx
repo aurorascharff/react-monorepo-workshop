@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
+import { PageHeader } from '../components/PageHeader'
+import { ProductCard } from './_components/ProductCard'
 
 export const metadata: Metadata = {
   title: 'Products',
@@ -33,23 +34,17 @@ const products = [
 export default function ProductsPage() {
   return (
     <div className="py-16">
-      <h1 className="text-4xl font-bold tracking-tight mb-4">Products</h1>
-      <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        A unified ecosystem for modern healthcare operations — from journaling
-        to decision support.
-      </p>
+      <PageHeader
+        title="Products"
+        description="A unified ecosystem for modern healthcare operations — from journaling to decision support."
+      />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {products.map((product) => (
-          <Card key={product.name}>
-            <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                {product.description}
-              </p>
-            </CardContent>
-          </Card>
+          <ProductCard
+            key={product.name}
+            title={product.name}
+            description={product.description}
+          />
         ))}
       </div>
     </div>

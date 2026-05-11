@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 import { Mail, Phone, MapPin, Building2 } from 'lucide-react'
+import { PageHeader } from '../components/PageHeader'
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -46,11 +47,10 @@ const contactPoints = [
 export default function ContactPage() {
   return (
     <div className="py-16">
-      <h1 className="text-4xl font-bold tracking-tight mb-4">Contact</h1>
-      <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        We are happy to help — whether you want a demo, have product questions,
-        or need technical support.
-      </p>
+      <PageHeader
+        title="Contact"
+        description="We are happy to help — whether you want a demo, have product questions, or need technical support."
+      />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-16">
         {contactPoints.map(({ icon: Icon, label, value }) => (

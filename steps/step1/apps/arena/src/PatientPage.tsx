@@ -8,10 +8,19 @@ import { PatientHeader } from './features/patients/components/PatientHeader'
 import { PatientList } from './features/patients/components/PatientList'
 import type { Patient } from './types'
 
-export function PatientPage() {
+type PatientPageProps = {
+  selectedId: string | null
+  onSelectPatient: (patientId: string | null) => void
+  onBack: () => void
+}
+
+export function PatientPage({
+  selectedId,
+  onSelectPatient,
+  onBack,
+}: PatientPageProps) {
   const [patients, setPatients] = useState<Patient[]>([])
   const [isLoadingPatients, setIsLoadingPatients] = useState(true)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchPatients()
@@ -31,7 +40,7 @@ export function PatientPage() {
       <div>
         <button
           type="button"
-          onClick={() => setSelectedId(null)}
+          onClick={onBack}
           className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           ← Back to patient list
@@ -51,5 +60,5 @@ export function PatientPage() {
     )
   }
 
-  return <PatientList patients={patients} onSelect={setSelectedId} />
+  return <PatientList patients={patients} onSelect={onSelectPatient} />
 }

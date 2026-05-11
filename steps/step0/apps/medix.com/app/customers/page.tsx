@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 import { Building2, MapPin } from 'lucide-react'
+import { PageHeader } from '../components/PageHeader'
 
 export const metadata: Metadata = {
   title: 'Customers',
@@ -42,11 +43,10 @@ const customers = [
 export default function CustomersPage() {
   return (
     <div className="py-16">
-      <h1 className="text-4xl font-bold tracking-tight mb-4">Customers</h1>
-      <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-        Medix is in use at hospitals across every healthcare region — from coast
-        to coast.
-      </p>
+      <PageHeader
+        title="Customers"
+        description="Medix is in use at hospitals across every healthcare region — from coast to coast."
+      />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-16">
         {customers.map((customer) => (
