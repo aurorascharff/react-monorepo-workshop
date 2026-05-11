@@ -1,6 +1,6 @@
 # UI
 
-`@medix/ui` is the shared UI package. It contains generic Base UI primitives and shared types used by the apps.
+`@medix/ui` is the shared UI package. It contains generic Base UI primitives and shared domain UI used by the apps.
 
 ## Run
 
@@ -15,7 +15,6 @@ npm test --workspace=packages/ui
 src/
   base/          - generic primitives such as Button, Card, Input, Select
   BrandMark.tsx  - shared Medix brand component
-  types.ts       - shared UI-facing types
   index.ts       - public package exports
   styles.css     - package styles
 ```
