@@ -1,5 +1,6 @@
+import { Suspense } from 'react'
 import { useParams, Link } from 'react-router'
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { Card, CardContent, Skeleton } from '@medix/ui'
 import { fetchPatient } from '../lib/api'
 import { PatientHeader } from '../features/patients/components/PatientHeader'
@@ -8,19 +9,11 @@ import {
   JournalListLoadingState,
 } from '../features/journal/components/JournalList'
 import { JournalForm } from '../features/journal/components/JournalForm'
+import { ErrorBoundary } from '../components/ErrorBoundary'
 import { ErrorState } from '../components/ErrorState'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const {
-    data: patient,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['patient', id],
-    queryFn: () => fetchPatient(id as string),
-    enabled: Boolean(id),
-  })
 
   if (!id) return null
 
@@ -32,25 +25,38 @@ export function PatientDetailPage() {
       >
         ← Back to patient list
       </Link>
-      {isLoading && <PatientDetailLoadingState />}
-      {error && (
-        <ErrorState title="Failed to load patient" message={error.message} />
-      )}
-      {patient && (
-        <>
-          <PatientHeader patient={patient} />
-          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div>
-              <h2 className="mb-4 text-lg font-semibold">Journal entries</h2>
-              <JournalList patientId={id} />
-            </div>
-            <div>
-              <JournalForm patientId={id} />
-            </div>
-          </div>
-        </>
-      )}
+      <ErrorBoundary
+        fallback={(error) => (
+          <ErrorState title="Failed to load patient" message={error.message} />
+        )}
+      >
+        <Suspense fallback={<PatientDetailLoadingState />}>
+          <PatientDetailContent id={id} />
+        </Suspense>
+      </ErrorBoundary>
     </div>
+  )
+}
+
+function PatientDetailContent({ id }: { id: string }) {
+  const { data: patient } = useSuspenseQuery({
+    queryKey: ['patient', id],
+    queryFn: () => fetchPatient(id),
+  })
+
+  return (
+    <>
+      <PatientHeader patient={patient} />
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div>
+          <h2 className="mb-4 text-lg font-semibold">Journal entries</h2>
+          <JournalList patientId={id} />
+        </div>
+        <div>
+          <JournalForm patientId={id} />
+        </div>
+      </div>
+    </>
   )
 }
 

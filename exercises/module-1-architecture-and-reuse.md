@@ -1,6 +1,6 @@
 # Module 1: Architecture and Reuse
 
-Work in: `apps/arena` and `packages/ui`.
+Work in: `apps/arena`, `apps/medix.com`, and `packages/ui`.
 
 ## Problem
 
@@ -17,6 +17,12 @@ The app works, but too many responsibilities live in the same places. It is hard
 4. Replace the native selects in the patient filter and journal status control with the shared Base UI `Select` primitive from `@medix/ui`. Keep the status visible without adding a separate badge.
 
 5. Create a shared `BrandMark` domain component in `packages/ui` and use it from both Arena and medix.com.
+
+## Bonus
+
+1. Try a different error boundary placement and compare what stays visible when the page content fails.
+
+2. In medix.com, extract a component that should stay local to that app. Compare why `BrandMark` belongs in `packages/ui`, while this component does not.
 
 ## Resources
 

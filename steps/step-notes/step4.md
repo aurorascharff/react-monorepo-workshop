@@ -32,12 +32,12 @@
 - Point to the React docs section on [fetching data with Effects](https://react.dev/reference/react/useEffect#fetching-data-with-effects). The docs show the manual pattern and also explain why a client-side cache is usually a better fit for app data.
 - [TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview) gives us a standard way to describe server state instead of rebuilding that infrastructure in each component.
 
-## App: Check QueryClientProvider
+## App: Add QueryClientProvider
 
 - Open `apps/arena/src/main.tsx`.
-- Show [`QueryClientProvider`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider).
-- The `QueryClient`.
-- Check `staleTime` and `retry`.
+- Add [`QueryClientProvider`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider).
+- Create the `QueryClient`.
+- Set `staleTime` and `retry`.
 - `staleTime`: how long data is considered fresh.
 - `retry`: how failed requests are retried.
 
@@ -126,7 +126,7 @@
 - Point out the pending submit state near the button, not as a page-level spinner.
 - Show that the journal list refreshes because the journals query is invalidated.
 
-## Bonus in the final reference app
+## Bonus if people finish early
 
 - Make journal creation optimistic with TanStack Query's [`onMutate`](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates): add the temporary entry immediately, clear the form, replace the temporary entry with the server response, and restore the submitted values if the request fails.
 - Frame this as a final-app improvement, not the required workshop solution.

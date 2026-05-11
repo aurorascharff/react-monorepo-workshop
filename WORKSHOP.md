@@ -78,7 +78,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 
 - **Intro: Rendering strategies and browser behavior** — Compare CSR, SSR, static rendering, streaming, and Server Components, then connect those choices to the web platform
 - **Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
-- **Module 1: Architecture and Reuse** — Split large files, create focused components, replace native selects with shared Base UI, add a shared `BrandMark`, add an error boundary
+- **Module 1: Architecture and Reuse** — Split large files, create focused components, replace native selects with shared Base UI, add a shared `BrandMark`, and add an error boundary
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
 - **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
 - **Module 4: Server State** — Replace manual fetching with server-state hooks, cache identity, mutations, invalidation, and local boundaries
@@ -140,7 +140,7 @@ The goal is to make the codebase readable and reusable.
 
 - Files are organized by what the app does, not by file type
 - Each component has a single responsibility
-- Domain logic, like status to color, lives in the component library instead of being scattered across apps
+- Shared product UI, like the `BrandMark`, lives in the component library instead of being duplicated across apps
 - An error in one part of the page does not crash the whole app
 
 ### Module 2: Routing
@@ -170,7 +170,7 @@ The goal is to handle data declaratively by describing what data we want, not ho
 - Loading and error states are visible to the user
 - The cache is reused across navigation
 - Mutations update relevant queries automatically
-- Suspense-driven queries surface failures through a contextual error boundary so the surrounding shell stays visible
+- Server-state errors are shown where the user can recover while the surrounding shell stays visible
 
 ### Module 5: Forms
 

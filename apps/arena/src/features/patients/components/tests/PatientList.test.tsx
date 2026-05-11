@@ -54,11 +54,24 @@ describe('PatientList', () => {
 
     expect(await screen.findByText(/no patients found/i)).toBeInTheDocument()
   })
+
+  it('reads filters from the URL and can clear them', async () => {
+    const user = userEvent.setup()
+    renderPatientList('/patients?search=hansen&gender=male')
+
+    expect(await screen.findByText(/robert hansen/i)).toBeInTheDocument()
+    expect(screen.queryByText(/mary smith/i)).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /clear filters/i }))
+
+    expect(await screen.findByText(/mary smith/i)).toBeInTheDocument()
+    expect(screen.getByText(/robert hansen/i)).toBeInTheDocument()
+  })
 })
 
-function renderPatientList() {
+function renderPatientList(initialEntry = '/patients') {
   render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[initialEntry]}>
       <PatientList patients={patients} />
     </MemoryRouter>,
   )

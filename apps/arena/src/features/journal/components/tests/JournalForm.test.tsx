@@ -151,6 +151,7 @@ describe('JournalForm', () => {
     expect(content).toHaveValue('')
     expect(screen.queryByText(/title is required/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/content is required/i)).not.toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent(/journal entry saved/i)
   })
 
   it('keeps optimistic entries sorted by date', async () => {

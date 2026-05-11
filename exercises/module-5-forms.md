@@ -20,6 +20,12 @@ The form submits, but validation rules, submit state, and recovery from errors a
 
 6. While the request is pending, make the submit state clear where the submit happens and prevent duplicate submits. If the server request fails, show a form-level error that is announced as feedback for the submit.
 
+## Bonus
+
+1. Add success feedback after a journal entry is saved, then make sure it does not hide field errors or server errors.
+
+2. Test the form with keyboard only. Improve focus, labels, or error relationships if anything is hard to use without a mouse.
+
 ## Resources
 
 - [React Hook Form: Get started](https://react-hook-form.com/get-started)

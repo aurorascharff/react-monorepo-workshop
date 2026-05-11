@@ -18,6 +18,12 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 
 5. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit. Look for cache reuse, mutation requests, visible UI updates, and refetches after invalidation.
 
+## Bonus
+
+1. Make journal creation optimistic: add the new entry to the journal list immediately, replace it with the server response on success, and restore the form data if the request fails.
+
+2. Try `useSuspenseQuery` for one read path and compare where loading and error UI move.
+
 ## Resources
 
 - [TanStack Query overview](https://tanstack.com/query/latest/docs/framework/react/overview)
@@ -27,4 +33,5 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 - [Query keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys)
 - [Mutations](https://tanstack.com/query/latest/docs/framework/react/guides/mutations)
 - [Query invalidation](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation)
+- [Optimistic updates](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates)
 - [useSuspenseQuery](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery)

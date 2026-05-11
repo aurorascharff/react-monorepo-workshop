@@ -1,4 +1,5 @@
 import {
+  Button,
   Input,
   Label,
   Card,
@@ -12,7 +13,9 @@ import {
   SelectValue,
   Skeleton,
 } from '@medix/ui'
+import { useSearchParams } from 'react-router'
 import { usePatientFilter } from '../hooks/usePatientFilter'
+import type { GenderFilter } from '../hooks/usePatientFilter'
 import { PatientCard } from './PatientCard'
 import type { Patient } from '../../../types'
 
@@ -52,8 +55,41 @@ export function PatientListLoadingState() {
 }
 
 export function PatientList({ patients }: PatientListProps) {
-  const { search, setSearch, genderFilter, setGenderFilter, filteredPatients } =
-    usePatientFilter(patients)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const search = searchParams.get('search') ?? ''
+  const genderFilter = parseGenderFilter(searchParams.get('gender'))
+  const { filteredPatients, isFilteringPending } = usePatientFilter(patients, {
+    search,
+    genderFilter,
+  })
+  const hasFilters = search !== '' || genderFilter !== 'all'
+
+  function updateFilters(next: {
+    search?: string
+    genderFilter?: GenderFilter
+  }) {
+    const params = new URLSearchParams(searchParams)
+    const nextSearch = next.search ?? search
+    const nextGenderFilter = next.genderFilter ?? genderFilter
+
+    if (nextSearch) {
+      params.set('search', nextSearch)
+    } else {
+      params.delete('search')
+    }
+
+    if (nextGenderFilter !== 'all') {
+      params.set('gender', nextGenderFilter)
+    } else {
+      params.delete('gender')
+    }
+
+    setSearchParams(params, { replace: true })
+  }
+
+  function clearFilters() {
+    setSearchParams({}, { replace: true })
+  }
 
   return (
     <div>
@@ -64,7 +100,7 @@ export function PatientList({ patients }: PatientListProps) {
             id="patient-search"
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => updateFilters({ search: e.target.value })}
             placeholder="Search by name or diagnosis..."
           />
         </div>
@@ -73,7 +109,7 @@ export function PatientList({ patients }: PatientListProps) {
           <Select
             value={genderFilter}
             onValueChange={(value) =>
-              setGenderFilter(value as 'all' | 'male' | 'female')
+              updateFilters({ genderFilter: value as GenderFilter })
             }
           >
             <SelectTrigger id="gender-filter">
@@ -91,6 +127,26 @@ export function PatientList({ patients }: PatientListProps) {
         </div>
       </div>
 
+      <div className="mb-4 flex min-h-9 items-center justify-between gap-3">
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {isFilteringPending
+            ? 'Updating patient list...'
+            : `${filteredPatients.length} patient${
+                filteredPatients.length === 1 ? '' : 's'
+              } shown`}
+        </p>
+        {hasFilters && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={clearFilters}
+          >
+            Clear filters
+          </Button>
+        )}
+      </div>
+
       {filteredPatients.length === 0 ? (
         <p className="text-center text-muted-foreground py-8">
           No patients found
@@ -104,4 +160,9 @@ export function PatientList({ patients }: PatientListProps) {
       )}
     </div>
   )
+}
+
+function parseGenderFilter(value: string | null): GenderFilter {
+  if (value === 'male' || value === 'female') return value
+  return 'all'
 }

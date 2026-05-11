@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { z } from 'zod'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -37,6 +38,7 @@ function sortJournalsByDate(entries: Journal[]) {
 
 export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
   const queryClient = useQueryClient()
+  const [successMessage, setSuccessMessage] = useState('')
 
   const {
     handleSubmit,
@@ -53,6 +55,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
   const { mutate, error } = useMutation({
     mutationFn: (data: JournalFormData) => createJournal(patientId, data),
     onMutate: async (data) => {
+      setSuccessMessage('')
       await queryClient.cancelQueries({ queryKey: ['journals', patientId] })
 
       const previousEntries = queryClient.getQueryData<Journal[]>([
@@ -100,6 +103,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
           )
         },
       )
+      setSuccessMessage('Journal entry saved.')
       onSuccess?.()
     },
     onSettled: () => {
@@ -132,6 +136,14 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
             className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive"
           >
             {error.message}
+          </div>
+        )}
+        {successMessage && !error && (
+          <div
+            role="status"
+            className="mb-4 rounded-md border border-primary/40 bg-primary/10 p-3 text-sm text-primary"
+          >
+            {successMessage}
           </div>
         )}
 

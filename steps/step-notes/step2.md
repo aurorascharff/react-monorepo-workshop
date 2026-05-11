@@ -80,7 +80,7 @@
 - What changed in the user experience even though the UI looks almost the same?
 - Answer to land: the app now behaves like a browser app, not a local state switcher.
 
-## Bonus in the final reference app
+## Bonus if people finish early
 
 - Lazy-load route pages with [`lazy`](https://react.dev/reference/react/lazy) and wrap route elements in [`Suspense`](https://react.dev/reference/react/Suspense).
 - Open Network and show the extra JavaScript chunk when a lazy route loads.

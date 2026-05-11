@@ -16,6 +16,12 @@ Some values are stored in state even though they can be calculated from existing
 
 4. Add a `useDebounce` hook for the search value. The timer belongs in an effect because it synchronizes with something outside React, and the effect should clean up after itself.
 
+## Bonus
+
+1. Add a clear-filters action that resets the patient search and gender filter without adding extra derived state.
+
+2. Try `useDeferredValue` for the search value and compare it with the debounce hook. Which behavior feels better for this screen?
+
 ## Resources
 
 - [State: A Component's Memory](https://react.dev/learn/state-a-components-memory)
@@ -23,3 +29,4 @@ Some values are stored in state even though they can be calculated from existing
 - [Passing Data Deeply with Context](https://react.dev/learn/passing-data-deeply-with-context)
 - [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 - [Reusing Logic with Custom Hooks](https://react.dev/learn/reusing-logic-with-custom-hooks)
+- [useDeferredValue](https://react.dev/reference/react/useDeferredValue)
