@@ -1,7 +1,5 @@
 # Module 5: Forms
 
-Work in: `apps/arena`.
-
 ## Problem
 
 The form submits, but validation rules, submit state, and recovery from errors are hard to see and change. The user should know what to fix before invalid data is sent.

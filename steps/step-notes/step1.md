@@ -51,6 +51,7 @@
 - Create `components/ErrorBoundary.tsx`.
 - Use [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary), not a custom class boundary.
 - Wrap the main content area in `ErrorBoundary`.
+- Temporarily add `throw new Error('Test boundary')` inside the page content, verify that only the content fallback renders, then remove it.
 - Use the existing `logError` helper for the real render error.
 - Show friendly fallback copy. Do not print the internal error message in the UI.
 - Where should an error boundary go if we want the sidebar to stay visible?

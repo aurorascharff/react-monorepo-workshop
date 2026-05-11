@@ -22,11 +22,21 @@ export function App() {
     setPage('patients')
   }
 
+  function showDashboard() {
+    setSelectedPatientId(null)
+    setPage('dashboard')
+  }
+
   return (
     <div className="flex min-h-screen bg-background">
       <aside className="hidden lg:flex w-64 border-r bg-sidebar flex-col shrink-0">
         <div className="border-b p-4">
-          <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={showDashboard}
+            className="flex items-center gap-2.5 text-left text-foreground transition-colors hover:text-foreground/80"
+            aria-label="Go to dashboard"
+          >
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <Activity className="h-4 w-4" />
             </div>
@@ -36,7 +46,7 @@ export function App() {
                 Arena
               </div>
             </div>
-          </div>
+          </button>
         </div>
         <nav className="p-3 flex flex-col gap-1">
           {navLinks.map(({ id, label, icon: Icon }) => (
@@ -58,7 +68,12 @@ export function App() {
       <div className="flex flex-1 flex-col min-w-0">
         <header className="lg:hidden sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
           <div className="flex items-center justify-between px-4 h-14">
-            <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={showDashboard}
+              className="flex items-center gap-2.5 text-left text-foreground transition-colors hover:text-foreground/80"
+              aria-label="Go to dashboard"
+            >
               <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <Activity className="h-3.5 w-3.5" />
               </div>
@@ -68,7 +83,7 @@ export function App() {
                   Arena
                 </div>
               </div>
-            </div>
+            </button>
             <nav className="flex items-center gap-1">
               {navLinks.map(({ id, label, icon: Icon }) => (
                 <NavButton

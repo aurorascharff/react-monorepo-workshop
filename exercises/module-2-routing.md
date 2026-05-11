@@ -1,7 +1,5 @@
 # Module 2: Routing
 
-Work in: `apps/arena`.
-
 ## Problem
 
 The app can show different screens, but the browser does not know what screen the user is on. Refresh, back, forward, bookmarks, and copied links should work with the UI instead of fighting it.

@@ -1,7 +1,5 @@
 # Module 3: State and Effects
 
-Work in: `apps/arena`.
-
 ## Problem
 
 Some values are stored in state even though they can be calculated from existing data or user input. That creates extra synchronization work and makes the UI easier to get out of sync.

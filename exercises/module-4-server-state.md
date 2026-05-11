@@ -1,7 +1,5 @@
 # Module 4: Server State
 
-Work in: `apps/arena`.
-
 ## Problem
 
 Manual data fetching spreads loading, errors, retries, cache, refresh, and mutation behavior across components. Server state needs a consistent place to describe what data the UI depends on, and the UI needs loading, error, empty, busy, and success states that fit the screen.
