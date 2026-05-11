@@ -16,10 +16,14 @@ The app can show different screens, but the browser does not know what screen th
 
 4. Try refresh, back, forward, copied URLs, direct patient detail URLs, and an unknown URL. The browser should understand where the user is and the app should show the right screen.
 
+5. Optional: lazy-load the route pages and look for separate route chunks in Network when you navigate.
+
 ## Resources
 
 - [React Router: Routing](https://reactrouter.com/start/declarative/routing)
 - [React Router: Navigating](https://reactrouter.com/start/declarative/navigating)
 - [React Router: URL values](https://reactrouter.com/start/declarative/url-values)
+- [React: lazy](https://react.dev/reference/react/lazy)
+- [React: Suspense](https://react.dev/reference/react/Suspense)
 - [MDN: Links](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Creating_links)
 - [MDN: Button element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button)
