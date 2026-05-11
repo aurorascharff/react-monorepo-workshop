@@ -1,4 +1,4 @@
-import type { JournalStatus } from '@medix/ui'
+import type { JournalStatus } from '../../types'
 import {
   createJournal,
   fetchPatient,
