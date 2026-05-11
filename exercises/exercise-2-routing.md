@@ -6,11 +6,11 @@ The app can show different screens, but the browser does not know what screen th
 
 ## Task
 
-1. Add React Router in SPA mode and create routes for Dashboard, Patients, Patient Detail, and Not Found.
+1. Add React Router in SPA mode and create routes for the existing Dashboard, Patients, and Patient Detail screens from [apps/arena/src/App.tsx](../apps/arena/src/App.tsx), [apps/arena/src/Dashboard.tsx](../apps/arena/src/Dashboard.tsx), and [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx). Add a Not Found route too.
 
-2. Use a layout route for the shared shell so navigation stays visible while the route content changes. The active navigation state should come from the URL.
+2. Use a layout route for the shared shell from [apps/arena/src/App.tsx](../apps/arena/src/App.tsx) so navigation stays visible while the route content changes. The active navigation state should come from the URL.
 
-3. Replace local navigation state with URL-based navigation. Use links for navigation, keep buttons for actions, and read the patient id from the route on the patient detail page.
+3. Replace local navigation state in [apps/arena/src/App.tsx](../apps/arena/src/App.tsx) with URL-based navigation. Use links for navigation, keep buttons for actions, and read the patient id from the route on the patient detail page.
 
 4. Try refresh, back, forward, copied URLs, direct patient detail URLs, and an unknown URL. The browser should understand where the user is and the app should show the right screen.
 
