@@ -76,7 +76,9 @@
 - In `PatientDetailPage`, use [`useParams`](https://reactrouter.com/api/hooks/useParams).
 - Read `id` from the URL.
 - Fetch the selected patient by id.
-- Pass `id` to `JournalList` and `JournalForm`.
+- Fetch the selected patient's journals in the detail page.
+- Pass journals and status-change behavior into `JournalList`.
+- Pass `id` and `onCreated` into `JournalForm` so a successful submit updates the list.
 - `:id` as a [dynamic route segment](https://reactrouter.com/start/declarative/url-values).
 - Route params are strings. Convert or validate when the type matters.
 - Open the app and verify that the URL changes.

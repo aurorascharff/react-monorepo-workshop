@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Button, Input, Label, Textarea } from '@medix/ui'
 import { createJournal } from '../../../lib/api'
+import type { Journal } from '../../../types'
 
 type JournalFormProps = {
   patientId: string
+  onCreated: (journal: Journal) => void
 }
 
-export function JournalForm({ patientId }: JournalFormProps) {
+export function JournalForm({ patientId, onCreated }: JournalFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -27,7 +29,8 @@ export function JournalForm({ patientId }: JournalFormProps) {
 
     setIsSubmitting(true)
     try {
-      await createJournal(patientId, { title, date, content })
+      const journal = await createJournal(patientId, { title, date, content })
+      onCreated(journal)
       form.reset()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')

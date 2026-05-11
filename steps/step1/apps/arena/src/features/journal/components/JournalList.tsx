@@ -1,32 +1,19 @@
-/* eslint-disable react-hooks/set-state-in-effect */
-import { useEffect, useState } from 'react'
 import { Spinner } from '@medix/ui'
-import { fetchJournals, updateJournalStatus } from '../../../lib/api'
 import { JournalEntry } from './JournalEntry'
 import type { Journal } from '../../../types'
 import type { JournalStatus } from '@medix/ui'
 
 type JournalListProps = {
-  patientId: string
+  journals: Journal[]
+  isLoading: boolean
+  onStatusChange: (id: string, status: JournalStatus) => void
 }
 
-export function JournalList({ patientId }: JournalListProps) {
-  const [journals, setJournals] = useState<Journal[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    setIsLoading(true)
-    fetchJournals(patientId)
-      .then((data) => setJournals(data))
-      .finally(() => setIsLoading(false))
-  }, [patientId])
-
-  function handleStatusChange(journalId: string, status: JournalStatus) {
-    updateJournalStatus(journalId, status).then(() =>
-      fetchJournals(patientId).then(setJournals),
-    )
-  }
-
+export function JournalList({
+  journals,
+  isLoading,
+  onStatusChange,
+}: JournalListProps) {
   if (isLoading) return <Spinner />
 
   if (journals.length === 0) {
@@ -43,7 +30,7 @@ export function JournalList({ patientId }: JournalListProps) {
         <JournalEntry
           key={entry.id}
           entry={entry}
-          onStatusChange={handleStatusChange}
+          onStatusChange={onStatusChange}
         />
       ))}
     </div>

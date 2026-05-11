@@ -5,13 +5,16 @@ import { Spinner } from '@medix/ui'
 import { JournalForm } from '../features/journal/components/JournalForm'
 import { JournalList } from '../features/journal/components/JournalList'
 import { PatientHeader } from '../features/patients/components/PatientHeader'
-import { fetchPatient } from '../lib/api'
-import type { Patient } from '../types'
+import { fetchJournals, fetchPatient, updateJournalStatus } from '../lib/api'
+import type { Journal, Patient } from '../types'
+import type { JournalStatus } from '@medix/ui'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()
   const [patient, setPatient] = useState<Patient | null>(null)
+  const [journals, setJournals] = useState<Journal[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingJournals, setIsLoadingJournals] = useState(true)
 
   useEffect(() => {
     if (!id) return
@@ -22,7 +25,28 @@ export function PatientDetailPage() {
       .finally(() => setIsLoading(false))
   }, [id])
 
+  useEffect(() => {
+    if (!id) return
+
+    setIsLoadingJournals(true)
+    fetchJournals(id)
+      .then((data) => setJournals(data))
+      .finally(() => setIsLoadingJournals(false))
+  }, [id])
+
   if (!id) return null
+
+  function handleStatusChange(journalId: string, status: JournalStatus) {
+    if (!id) return
+
+    updateJournalStatus(journalId, status).then(() =>
+      fetchJournals(id).then(setJournals),
+    )
+  }
+
+  function handleCreated(journal: Journal) {
+    setJournals((prev) => [journal, ...prev])
+  }
 
   return (
     <div>
@@ -40,10 +64,14 @@ export function PatientDetailPage() {
           <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div>
               <h2 className="mb-4 text-lg font-semibold">Journal entries</h2>
-              <JournalList patientId={id} />
+              <JournalList
+                journals={journals}
+                isLoading={isLoadingJournals}
+                onStatusChange={handleStatusChange}
+              />
             </div>
             <div>
-              <JournalForm patientId={id} />
+              <JournalForm patientId={id} onCreated={handleCreated} />
             </div>
           </div>
         </>
