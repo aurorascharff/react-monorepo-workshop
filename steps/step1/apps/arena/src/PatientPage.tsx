@@ -6,8 +6,7 @@ import { JournalForm } from './features/journal/components/JournalForm'
 import { JournalList } from './features/journal/components/JournalList'
 import { PatientHeader } from './features/patients/components/PatientHeader'
 import { PatientList } from './features/patients/components/PatientList'
-import type { Journal, Patient } from './types'
-import type { JournalStatus } from '@medix/ui'
+import type { Journal, JournalStatus, Patient } from './types'
 
 type PatientPageProps = {
   selectedId: string | null

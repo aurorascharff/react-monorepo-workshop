@@ -6,7 +6,7 @@ import { fetchPatients } from './lib/api'
 import type { Patient } from './types'
 
 type DashboardProps = {
-  onNavigate: (patientId?: string | null) => void
+  onNavigate: (patientId?: string) => void
 }
 
 export function Dashboard({ onNavigate }: DashboardProps) {

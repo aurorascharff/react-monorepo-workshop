@@ -2,21 +2,19 @@
 
 ## Problem
 
-The app works, but too many responsibilities live in the same places. It is hard to see what belongs to the app workflow, what should be shared, and what should stay as generic Base UI.
+The app works, but too many responsibilities live in the same places. It is hard to see what belongs to the app workflow, what belongs to shared domain UI, and what belongs to generic Base UI.
 
 ## Task
 
 1. Move the shared app shell out of [apps/arena/src/App.tsx](../apps/arena/src/App.tsx) so the sidebar, mobile header, and page wrapper live in a named layout.
 
-2. Start in [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx). Split the patient and journal UI into named components so the page reads more like a workflow than one large file. Patient UI should live with patient code, journal UI should live with journal code, and generic Base UI should stay in [packages/ui/src/base](../packages/ui/src/base).
+2. Start in [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx). Split the patient and journal UI into named components so the page reads more like a workflow than one large file. Put patient UI with patient code, journal UI with journal code, and generic Base UI in [packages/ui/src/base](../packages/ui/src/base).
 
-3. Keep the journal data at the patient detail workflow level for now. The extracted form should still be able to add a newly created journal entry to the visible journal list.
+3. Add an error boundary with `react-error-boundary` around the page content so the fallback replaces the failed content, not the whole shell. To verify it, temporarily throw a render error inside the page content, confirm the shell stays visible, then remove the throw. Show friendly fallback copy to the user and log the real error with the existing [`logError` helper](../apps/arena/src/lib/logger.ts).
 
-4. Add an error boundary with `react-error-boundary` around the page content so the fallback replaces the failed content, not the whole shell. To verify it, temporarily throw a render error inside the page content, confirm the shell stays visible, then remove the throw. Show friendly fallback copy to the user and log the real error with the existing [`logError` helper](../apps/arena/src/lib/logger.ts).
+4. Replace the native selects in the patient filter and journal status control with the shared Base UI [`Select`](../packages/ui/src/base/select.tsx) primitive from `@medix/ui`. Keep the status inside the control instead of adding a separate badge.
 
-5. Replace the native selects in the patient filter and journal status control with the shared Base UI [`Select`](../packages/ui/src/base/select.tsx) primitive from `@medix/ui`. Keep the status inside the control instead of adding a separate badge.
-
-6. Find the duplicated Medix logo and wordmark in the Arena shell and the medix.com layout in [apps/medix.com/app/layout.tsx](../apps/medix.com/app/layout.tsx). Turn that UI into a shared `BrandMark` domain component in [packages/ui](../packages/ui/src). Arena should render `Medix` with the `Arena` product context, while medix.com should render the main Medix brand.
+5. Find the duplicated Medix logo and wordmark in the Arena shell and the medix.com layout in [apps/medix.com/app/layout.tsx](../apps/medix.com/app/layout.tsx). Turn that UI into a shared `BrandMark` domain component in [packages/ui](../packages/ui/src). Arena renders `Medix` with the `Arena` product context; medix.com renders the main Medix brand.
 
 ## Bonus
 

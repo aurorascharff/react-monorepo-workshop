@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@medix/ui'
 import type { Journal } from '../../../types'
-import type { JournalStatus } from '@medix/ui'
+import type { JournalStatus } from '../../../types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateJournalStatus } from '../../../lib/api'
 import { logError } from '../../../lib/logger'

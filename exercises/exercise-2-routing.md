@@ -2,7 +2,7 @@
 
 ## Problem
 
-The app can show different screens, but the browser does not know what screen the user is on. Refresh, back, forward, bookmarks, and copied links should work with the UI instead of fighting it.
+The app can show different screens, but the browser does not know what screen the user is on. Refresh, back, forward, bookmarks, and copied links all depend on the URL.
 
 ## Task
 

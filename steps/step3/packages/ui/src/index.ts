@@ -1,4 +1,3 @@
-export type { JournalStatus } from './types'
 export { BrandMark } from './BrandMark'
 
 // Base components (shadcn-style primitives)

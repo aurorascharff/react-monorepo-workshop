@@ -6,8 +6,7 @@ import { JournalForm } from '../features/journal/components/JournalForm'
 import { JournalList } from '../features/journal/components/JournalList'
 import { PatientHeader } from '../features/patients/components/PatientHeader'
 import { fetchJournals, fetchPatient, updateJournalStatus } from '../lib/api'
-import type { Journal, Patient } from '../types'
-import type { JournalStatus } from '@medix/ui'
+import type { Journal, JournalStatus, Patient } from '../types'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()

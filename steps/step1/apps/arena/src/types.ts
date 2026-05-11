@@ -1,4 +1,4 @@
-import type { JournalStatus } from '@medix/ui'
+export type JournalStatus = 'active' | 'closed' | 'draft'
 
 export type Patient = {
   id: string

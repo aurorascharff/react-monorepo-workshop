@@ -1,5 +1,4 @@
-import type { JournalStatus } from '@medix/ui'
-import type { Patient, Journal } from '../types'
+import type { Patient, Journal, JournalStatus } from '../types'
 
 const BASE_URL = 'http://localhost:3001'
 

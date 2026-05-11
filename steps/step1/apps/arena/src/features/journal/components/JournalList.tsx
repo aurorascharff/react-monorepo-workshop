@@ -1,7 +1,6 @@
 import { Spinner } from '@medix/ui'
 import { JournalEntry } from './JournalEntry'
-import type { Journal } from '../../../types'
-import type { JournalStatus } from '@medix/ui'
+import type { Journal, JournalStatus } from '../../../types'
 
 type JournalListProps = {
   journals: Journal[]
