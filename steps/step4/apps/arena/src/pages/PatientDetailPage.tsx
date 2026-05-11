@@ -34,7 +34,12 @@ export function PatientDetailPage() {
       </Link>
       {isLoading && <PatientDetailLoadingState />}
       {error && (
-        <ErrorState title="Failed to load patient" message={error.message} />
+        <ErrorState
+          title="Patient details are unavailable"
+          message="We could not load this patient right now. Go back to the patient list or try refreshing the page."
+          error={error}
+          logContext="Patient detail query failed"
+        />
       )}
       {patient && (
         <>

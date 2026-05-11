@@ -31,6 +31,10 @@ describe('JournalList', () => {
     mockedUseJournals.mockReset()
   })
 
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
   it('shows a skeleton state while journal entries load', () => {
     mockedUseJournals.mockReturnValue(queryState({ isLoading: true }))
 
@@ -42,6 +46,7 @@ describe('JournalList', () => {
   })
 
   it('shows an error message when journal entries fail to load', () => {
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
     mockedUseJournals.mockReturnValue(
       queryState({ error: new Error('API unavailable') }),
     )
@@ -49,9 +54,13 @@ describe('JournalList', () => {
     render(<JournalList patientId="p1" />)
 
     expect(
-      screen.getByText(/failed to load journal entries/i),
+      screen.getByText(/journal entries are unavailable/i),
     ).toBeInTheDocument()
-    expect(screen.getByText(/api unavailable/i)).toBeInTheDocument()
+    expect(
+      screen.getByText(/could not load the journal entries/i),
+    ).toBeInTheDocument()
+    expect(screen.queryByText(/api unavailable/i)).not.toBeInTheDocument()
+    expect(console.error).toHaveBeenCalled()
   })
 
   it('shows an empty state when the patient has no journal entries', () => {

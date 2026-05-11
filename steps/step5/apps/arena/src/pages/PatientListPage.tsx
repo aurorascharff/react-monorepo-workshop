@@ -14,7 +14,12 @@ export function PatientListPage() {
       <div className="flex flex-col gap-4">
         {isLoading && <PatientListLoadingState />}
         {error && (
-          <ErrorState title="Failed to load patients" message={error.message} />
+          <ErrorState
+            title="Patient list is unavailable"
+            message="We could not load the patient list right now. Try refreshing the page."
+            error={error}
+            logContext="Patient list query failed"
+          />
         )}
         {patients && <PatientList patients={patients} />}
       </div>

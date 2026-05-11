@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea, DatePicker } from '@medix/ui'
 import { createJournal } from '../../../lib/api'
+import { logError } from '../../../lib/logger'
 
 const journalSchema = z.object({
   title: z
@@ -50,6 +51,9 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
       reset()
       onSuccess?.()
     },
+    onError: (error) => {
+      logError(error, 'Create journal mutation failed')
+    },
   })
 
   return (
@@ -66,7 +70,7 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
             role="alert"
             className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive"
           >
-            {error.message}
+            We could not save the journal entry. Try again.
           </div>
         )}
 

@@ -16,8 +16,10 @@ export function JournalList({ patientId }: JournalListProps) {
   if (error) {
     return (
       <ErrorState
-        title="Failed to load journal entries"
-        message={error.message}
+        title="Journal entries are unavailable"
+        message="We could not load the journal entries for this patient. Try refreshing the page."
+        error={error}
+        logContext="Journal entries query failed"
       />
     )
   }

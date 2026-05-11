@@ -59,6 +59,7 @@
 - Open `pages/PatientListPage.tsx`.
 - Replace local `patients`, `isLoading`, and fetching effect with `usePatients`.
 - Render loading, error, and success states.
+- Write the error message for this route. Log the real API error with `logError`, but do not show `error.message` to the user.
 - Use the shared [`Skeleton`](https://ui.shadcn.com/docs/components/skeleton) primitive from `@medix/ui` for loading states, but export each skeleton from the component or page file it represents. A dashboard skeleton belongs with `DashboardPage`. A patient list skeleton belongs with `PatientList`.
 - Keep error presentation in Arena. The app knows what failed and what recovery context the user needs.
 - Open `pages/DashboardPage.tsx`.
@@ -77,6 +78,7 @@
 - Use `queryFn` to fetch one patient by id.
 - Open [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) and show that each patient id gets a separate cache entry.
 - Render loading, error, and success states in the page.
+- Write the error message for the patient detail route. The logged error can be technical; the visible message should help the user recover.
 - This is a little more repetitive, but it is straightforward: we can see exactly what the UI does for each server-state state.
 - Do not treat loading as decoration. It is part of the screen design and should preserve the user's context.
 - Why does `id` belong in the query key?
@@ -97,6 +99,7 @@
 - Use `queryFn` to fetch journals for the patient.
 - Use the hook in `JournalList`.
 - Render loading, error, empty, and success states.
+- Write the error message for the journal list. Hide API/internal details from the user and log them instead.
 - Empty, loading, and error are three different UI states. They should not look like the same blank gap with different text.
 - Empty state is not an error. It is a valid server response that needs its own UI.
 
@@ -108,6 +111,7 @@
 - On success, invalidate `['journals', patientId]`.
 - Change a status with Network and [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) open.
 - Point out the busy state on the status control while the mutation is pending.
+- If the mutation fails, log the real error and show a short recovery message near the control.
 - Show the update request, then show `['journals', patientId]` refetching.
 - Mutation: an operation that changes server state.
 - [Invalidation](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation): mark cached data as stale so it refetches.
@@ -124,6 +128,7 @@
 - Reset the form after a successful submit.
 - Submit once with Network open and show the POST request.
 - Point out the pending submit state near the button, not as a page-level spinner.
+- If submit fails, log the real error and show a form-level recovery message that does not expose the API response.
 - Show that the journal list refreshes because the journals query is invalidated.
 
 ## Bonus if people finish early

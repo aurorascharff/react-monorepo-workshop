@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea } from '@medix/ui'
 import { createJournal } from '../../../lib/api'
+import { logError } from '../../../lib/logger'
 
 type JournalFormProps = {
   patientId: string
@@ -14,6 +15,9 @@ export function JournalForm({ patientId }: JournalFormProps) {
       createJournal(patientId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
+    },
+    onError: (error) => {
+      logError(error, 'Create journal mutation failed')
     },
   })
 
@@ -43,7 +47,7 @@ export function JournalForm({ patientId }: JournalFormProps) {
       <form onSubmit={handleSubmit} className="rounded-lg border bg-card p-6">
         {error && (
           <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
-            {error.message}
+            We could not save the journal entry. Try again.
           </div>
         )}
 

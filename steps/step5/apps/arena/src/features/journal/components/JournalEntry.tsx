@@ -13,6 +13,7 @@ import type { Journal } from '../../../types'
 import type { JournalStatus } from '@medix/ui'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateJournalStatus } from '../../../lib/api'
+import { logError } from '../../../lib/logger'
 
 type JournalEntryProps = {
   entry: Journal
@@ -33,6 +34,9 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
       updateJournalStatus(entry.id, status),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
+    },
+    onError: (error) => {
+      logError(error, 'Journal status mutation failed')
     },
   })
 
@@ -78,7 +82,7 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
         </p>
         {error && (
           <p className="mt-3 text-sm text-destructive">
-            Failed to update status: {error.message}
+            We could not update the journal status. Try again.
           </p>
         )}
       </CardContent>

@@ -49,7 +49,10 @@
 - Keep local `page` state in `App.tsx`.
 - This is still not proper routing. We are only separating the app shell from the page content.
 - Create `components/ErrorBoundary.tsx`.
+- Use [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary), not a custom class boundary.
 - Wrap the main content area in `ErrorBoundary`.
+- Use the existing `logError` helper for the real render error.
+- Show friendly fallback copy. Do not print the internal error message in the UI.
 - Where should an error boundary go if we want the sidebar to stay visible?
 - Answer to land: the boundary should wrap the part that can fail, not necessarily the whole app.
 - This first boundary is a catch-all around the page content. React describes [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) as a way to show fallback UI for render failures.

@@ -19,8 +19,12 @@ describe('ErrorBoundary', () => {
       </ErrorBoundary>,
     )
 
-    expect(screen.getByText('Noe gikk galt')).toBeInTheDocument()
-    expect(screen.getByText('Render failed')).toBeInTheDocument()
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+    expect(
+      screen.getByText(/reload the page if the problem continues/i),
+    ).toBeInTheDocument()
+    expect(screen.queryByText('Render failed')).not.toBeInTheDocument()
+    expect(console.error).toHaveBeenCalled()
   })
 
   it('can reset from a custom fallback', async () => {
@@ -47,7 +51,7 @@ function ResettableBoundary() {
 
   return (
     <ErrorBoundary
-      fallback={(error, reset) => (
+      fallback={(_error, reset) => (
         <button
           type="button"
           onClick={() => {
@@ -55,7 +59,7 @@ function ResettableBoundary() {
             reset()
           }}
         >
-          Try again after {error.message}
+          Try again
         </button>
       )}
     >

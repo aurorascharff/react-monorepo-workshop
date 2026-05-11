@@ -11,7 +11,12 @@ export function DashboardPage() {
 
   if (error) {
     return (
-      <ErrorState title="Failed to load dashboard" message={error.message} />
+      <ErrorState
+        title="Dashboard is unavailable"
+        message="We could not load the dashboard right now. Try refreshing the page."
+        error={error}
+        logContext="Dashboard query failed"
+      />
     )
   }
 
