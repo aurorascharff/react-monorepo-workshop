@@ -51,17 +51,8 @@ function ResettableBoundary() {
 
   return (
     <ErrorBoundary
-      fallback={(_error, reset) => (
-        <button
-          type="button"
-          onClick={() => {
-            setShouldThrow(false)
-            reset()
-          }}
-        >
-          Try again
-        </button>
-      )}
+      onReset={() => setShouldThrow(false)}
+      resetLabel="Try again"
     >
       <MaybeBroken shouldThrow={shouldThrow} />
     </ErrorBoundary>

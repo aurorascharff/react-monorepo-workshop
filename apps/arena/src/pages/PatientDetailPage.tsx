@@ -10,7 +10,6 @@ import {
 } from '../features/journal/components/JournalList'
 import { JournalForm } from '../features/journal/components/JournalForm'
 import { ErrorBoundary } from '../components/ErrorBoundary'
-import { ErrorState } from '../components/ErrorState'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -26,14 +25,9 @@ export function PatientDetailPage() {
         ← Back to patient list
       </Link>
       <ErrorBoundary
-        fallback={(error) => (
-          <ErrorState
-            title="Patient details are unavailable"
-            message="We could not load this patient right now. Go back to the patient list or try refreshing the page."
-            error={error}
-            logContext="Patient detail query failed"
-          />
-        )}
+        title="Patient details are unavailable"
+        message="We could not load this patient right now. Go back to the patient list or try refreshing the page."
+        logContext="Patient detail query failed"
       >
         <Suspense fallback={<PatientDetailLoadingState />}>
           <PatientDetailContent id={id} />
