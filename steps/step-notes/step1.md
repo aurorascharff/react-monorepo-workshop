@@ -5,11 +5,11 @@
 - Say: the problem is not that the files are too long. The problem is that too many responsibilities are hidden in the same places.
 - Ask: if someone changes status styling, layout, or the journal form later, where should they expect to look?
 - Land this: structure should make responsibilities easier to find, change, and share.
-- Show Module 1 in [`exercises/module-1-architecture-and-reuse.md`](../../exercises/module-1-architecture-and-reuse.md).
+- Show Exercise One in [`exercises/exercise-1-architecture-and-reuse.md`](../../exercises/exercise-1-architecture-and-reuse.md).
 
 ## Participant work (roughly 10-12 minutes)
 
-- Ask participants to work in `apps/arena` and `packages/ui`.
+- Ask participants to work in `apps/arena`, `apps/medix.com`, and `packages/ui`.
 - Listen for where they put components, how small they make components, what they decide to share, and whether the error boundary wraps the right part of the UI.
 
 ## Group discussion (roughly 5 minutes)
@@ -18,7 +18,18 @@
 - Land this point: shared packages are for concepts reused across apps. Feature components stay close to the feature until reuse is real.
 - Ask before live coding: what did you decide to keep local, and what did you decide was shared?
 
-## App: Split the monolith
+## App: Extract the shell
+
+- Open `apps/arena/src/App.tsx`.
+- The easiest first move is the app shell: sidebar, mobile header, and page wrapper.
+- Move sidebar, mobile header, and page wrapper into `layouts/Layout.tsx`.
+- Keep local `page` state in `App.tsx`.
+- This is still not proper routing. We are only separating the app shell from the page content.
+- Why start with the shell before feature components?
+- Answer to land: the shell is a clear boundary and does not require us to decide patient or journal responsibilities yet.
+- In the routing module, this same content slot becomes the route outlet.
+
+## App: Split the patient and journal UI
 
 - Open `apps/arena/src/PatientPage.tsx`.
 - Before we move code, we need names for the things that already exist on the screen.
@@ -30,8 +41,6 @@
 - Answer to land: if a name feels fake, the boundary may be fake or the component may still have too many responsibilities.
 - Create `features/patients/components`.
 - Create `features/journal/components`.
-- Create `components`.
-- Create `layouts`.
 - Feature folders: group by what the app does. A patient feature can have components, hooks, and API helpers when those concepts belong to the feature.
 - Feature slicing is not one fixed folder rule. In Arena, feature folders make sense because the app has product areas like patients and journals. In a file-based router, route-local components can also live beside the route, like `apps/medix.com/app/products/_components`, while app-wide medix.com components live in `apps/medix.com/app/components`.
 - Move patient list UI into `PatientList.tsx`.
@@ -43,11 +52,9 @@
 - Move the journal form into `JournalForm.tsx`.
 - Keep fetching and form logic unchanged in this module.
 
-## App: Extract layout and boundary
+## App: Add an error boundary
 
-- Move sidebar, mobile header, and page wrapper from `App.tsx` into `layouts/Layout.tsx`.
-- Keep local `page` state in `App.tsx`.
-- This is still not proper routing. We are only separating the app shell from the page content.
+- Create `components`.
 - Create `components/ErrorBoundary.tsx`.
 - Use [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary), not a custom class boundary.
 - Wrap the main content area in `ErrorBoundary`.
@@ -57,7 +64,6 @@
 - Where should an error boundary go if we want the sidebar to stay visible?
 - Answer to land: the boundary should wrap the part that can fail, not necessarily the whole app.
 - This first boundary is a catch-all around the page content. React describes [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) as a way to show fallback UI for render failures.
-- In the routing module, the same content slot becomes the route outlet.
 - More specific boundaries can live closer to the thing that may fail.
 
 ## App: Extract a real shared domain component

@@ -1,4 +1,4 @@
-# Module 3: State and Effects
+# Exercise Three: State and Effects
 
 ## Problem
 

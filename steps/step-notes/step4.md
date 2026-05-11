@@ -5,7 +5,7 @@
 - Say: the problem is not fetch itself. The problem is everything around fetch: waiting, errors, stale data, race conditions, retries, and refresh after mutations.
 - Ask: which parts of this data belong to the server, and what should the UI show while we wait?
 - Land this: server state needs a cache, identity, loading behavior, error behavior, busy behavior, and refresh behavior.
-- Show Module 4 in [`exercises/module-4-server-state.md`](../../exercises/module-4-server-state.md).
+- Show Exercise Four in [`exercises/exercise-4-server-state.md`](../../exercises/exercise-4-server-state.md).
 
 ## Participant work (roughly 10 minutes)
 

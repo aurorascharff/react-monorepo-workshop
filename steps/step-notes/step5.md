@@ -5,7 +5,7 @@
 - Say: the problem is not that the form submits. The problem is that validation, submit state, and error recovery are hard to see and change.
 - Ask: what should be clear to the user, and what should be clear to the developer maintaining the form?
 - Land this: forms need visible rules, field-level feedback, submit state, and a place for server errors.
-- Show Module 5 in [`exercises/module-5-forms.md`](../../exercises/module-5-forms.md).
+- Show Exercise Five in [`exercises/exercise-5-forms.md`](../../exercises/exercise-5-forms.md).
 
 ## Participant work (roughly 15 minutes)
 

@@ -1,4 +1,4 @@
-# Module 2: Routing
+# Exercise Two: Routing
 
 ## Problem
 
@@ -6,13 +6,15 @@ The app can show different screens, but the browser does not know what screen th
 
 ## Task
 
-1. Add React Router in SPA mode and create routes for the existing Dashboard, Patients, and Patient Detail screens from [apps/arena/src/App.tsx](../apps/arena/src/App.tsx), [apps/arena/src/Dashboard.tsx](../apps/arena/src/Dashboard.tsx), and [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx). Add a Not Found route too.
+1. Add React Router in SPA mode. Wrap the app in a browser router from [apps/arena/src/main.tsx](../apps/arena/src/main.tsx), then create a route file for `/`, `/patients`, `/patients/:id`, and `*`.
 
-2. Use a layout route for the shared shell from [apps/arena/src/App.tsx](../apps/arena/src/App.tsx) so navigation stays visible while the route content changes. The active navigation state should come from the URL.
+2. Turn the existing Dashboard, Patients, and Patient Detail screens from [apps/arena/src/App.tsx](../apps/arena/src/App.tsx), [apps/arena/src/Dashboard.tsx](../apps/arena/src/Dashboard.tsx), and [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx) into route pages.
 
-3. Replace local navigation state in [apps/arena/src/App.tsx](../apps/arena/src/App.tsx) with URL-based navigation. Use links for navigation, keep buttons for actions, and read the patient id from the route on the patient detail page.
+3. Use a layout route for the shared shell so navigation stays visible while the route content changes. The active navigation state should come from the URL.
 
-4. Try refresh, back, forward, copied URLs, direct patient detail URLs, and an unknown URL. The browser should understand where the user is and the app should show the right screen.
+4. Replace local navigation state with URL-based navigation. Use links for navigation, keep buttons for actions, and read the patient id from the route on the patient detail page.
+
+5. Try refresh, back, forward, copied URLs, direct patient detail URLs, and an unknown URL. The browser should understand where the user is and the app should show the right screen.
 
 ## Bonus
 

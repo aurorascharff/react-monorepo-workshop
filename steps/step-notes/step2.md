@@ -5,7 +5,7 @@
 - Say: the problem is not adding a router for its own sake. The problem is that the browser does not know what screen we are on.
 - Ask: what breaks or feels wrong when URL, refresh, back, forward, and sharing do not match the UI?
 - Land this: routing makes navigation part of the web, not only local React state.
-- Show Module 2 in [`exercises/module-2-routing.md`](../../exercises/module-2-routing.md).
+- Show Exercise Two in [`exercises/exercise-2-routing.md`](../../exercises/exercise-2-routing.md).
 
 ## Participant work (roughly 10 minutes)
 
@@ -36,6 +36,14 @@
 - `BrowserRouter` uses the [browser history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API) so navigation can happen without a full page reload.
 - This is [React Router in declarative SPA mode](https://reactrouter.com/start/declarative/installation), not framework mode.
 
+## App: Create route pages
+
+- Move or copy `Dashboard.tsx` to `pages/DashboardPage.tsx`.
+- Create `pages/PatientListPage.tsx`.
+- Create `pages/PatientDetailPage.tsx`.
+- Create `pages/NotFoundPage.tsx`.
+- Route-level pages: pages wire route data and feature components together. Feature components still live inside `features`.
+
 ## App: Create routes
 
 - Create `apps/arena/src/router.tsx`.
@@ -61,40 +69,22 @@
 - Why should active nav be derived from the URL instead of stored in state?
 - Answer to land: the URL already knows the active route, so storing it separately creates another source of truth.
 
-## App: Create pages
-
-- Move or copy `Dashboard.tsx` to `pages/DashboardPage.tsx`.
-- Create `pages/PatientListPage.tsx`.
-- Create `pages/PatientDetailPage.tsx`.
-- Create `pages/NotFoundPage.tsx`.
-- Route-level pages: pages wire route data and feature components together. Feature components still live inside `features`.
-
 ## App: Link to details
 
 - Update `PatientCard` to render a [`Link`](https://reactrouter.com/api/components/Link) to `/patients/${patient.id}`.
 - Update dashboard navigation to use [`Link`](https://reactrouter.com/api/components/Link).
-- Open the app and verify that the URL changes.
-- Refresh on a patient detail page.
-- Use back and forward.
-- Copy a patient detail URL, paste it into a new tab, and verify it opens the same state.
-- What changed in the user experience even though the UI looks almost the same?
-- Answer to land: the app now behaves like a browser app, not a local state switcher.
-
-## Bonus if people finish early
-
-- Lazy-load route pages with [`lazy`](https://react.dev/reference/react/lazy) and wrap route elements in [`Suspense`](https://react.dev/reference/react/Suspense).
-- Open Network and show the extra JavaScript chunk when a lazy route loads.
-- What should happen while route code is loading?
-- Answer to land: the user should get a clear global loading state without losing the whole shell. Here a spinner is acceptable because the router does not know the shape of the next route yet.
-
-## App: Read route params
-
 - In `PatientDetailPage`, use [`useParams`](https://reactrouter.com/api/hooks/useParams).
 - Read `id` from the URL.
 - Fetch the selected patient by id.
 - Pass `id` to `JournalList` and `JournalForm`.
 - `:id` as a [dynamic route segment](https://reactrouter.com/start/declarative/url-values).
 - Route params are strings. Convert or validate when the type matters.
+- Open the app and verify that the URL changes.
+- Refresh on a patient detail page.
+- Use back and forward.
+- Copy a patient detail URL, paste it into a new tab, and verify it opens the same state.
+- What changed in the user experience even though the UI looks almost the same?
+- Answer to land: the app now behaves like a browser app, not a local state switcher.
 
 ## App: Compare with Next.js
 
@@ -109,6 +99,13 @@
 - This is the concrete version of the earlier rendering strategy and browser behavior discussion: framework-rendered pages can send meaningful HTML first, while the SPA depends more on client-side rendering.
 - Why might medix.com fit framework routing better than Arena?
 - Answer to land: public content, SEO, server rendering, and static pages.
+
+## Bonus if people finish early
+
+- Lazy-load route pages with [`lazy`](https://react.dev/reference/react/lazy) and wrap route elements in [`Suspense`](https://react.dev/reference/react/Suspense).
+- Open Network and show the extra JavaScript chunk when a lazy route loads.
+- What should happen while route code is loading?
+- Answer to land: the user should get a clear global loading state without losing the whole shell. Here a spinner is acceptable because the router does not know the shape of the next route yet.
 
 ## Check and module close
 

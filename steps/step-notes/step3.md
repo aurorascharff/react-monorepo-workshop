@@ -5,7 +5,7 @@
 - Say: the problem is not state itself. The problem is state that can disagree with other state or props.
 - Ask: which values are facts, and which values can be calculated from facts we already have?
 - Land this: less duplicated state means fewer impossible states.
-- Show Module 3 in [`exercises/module-3-state-and-effects.md`](../../exercises/module-3-state-and-effects.md).
+- Show Exercise Three in [`exercises/exercise-3-state-and-effects.md`](../../exercises/exercise-3-state-and-effects.md).
 
 ## Participant work (roughly 10 minutes)
 
