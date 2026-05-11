@@ -8,9 +8,9 @@ Some values are stored in state even though they can be calculated from existing
 
 1. In the dashboard page at [apps/arena/src/pages/DashboardPage.tsx](../apps/arena/src/pages/DashboardPage.tsx), remove state and effects that duplicate information already available from patient data. Calculate the totals during render instead.
 
-2. In the patient list at [apps/arena/src/features/patients/components/PatientList.tsx](../apps/arena/src/features/patients/components/PatientList.tsx), keep state for the user's filter choices, but derive the filtered patients from existing data. The search and gender filter should keep working.
+2. In the patient list at [apps/arena/src/features/patients/components/PatientList.tsx](../apps/arena/src/features/patients/components/PatientList.tsx), keep state for the user's filter choices, but derive the filtered patients from existing data.
 
-3. Extract the patient filtering behavior into a [`usePatientFilter`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts) hook so the component owns the UI and the hook owns the reusable filtering logic.
+3. Extract the patient filtering behavior into a [`usePatientFilter`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts) hook. The component owns the UI, and the hook owns the filtering logic.
 
 4. Add a [`useDebounce`](../apps/arena/src/hooks/useDebounce.ts) hook for the search value. The timer belongs in an effect because it synchronizes with something outside React, and the effect should clean up after itself.
 
