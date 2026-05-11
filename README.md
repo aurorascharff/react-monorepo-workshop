@@ -33,7 +33,8 @@ npm run dev
 
 Workshop tasks are listed in [exercises/](exercises/). Step snapshots are in
 [steps/](steps), and this repository is the final reference repo with the
-completed app and tests.
+completed app and tests. The final app also includes selected bonus/reference
+improvements beyond the main step 5 path.
 
 ## Monorepo structure
 

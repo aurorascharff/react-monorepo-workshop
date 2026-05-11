@@ -43,7 +43,7 @@ describe('usePatientFilter', () => {
     expect(result.current.filteredPatients[0].name).toBe('Bob Berg')
   })
 
-  it('filters by deferred search across name and diagnosis', () => {
+  it('filters by debounced search across name and diagnosis', () => {
     const { result } = renderHook(() =>
       usePatientFilter(patients, { search: 'diabetes', genderFilter: 'all' }),
     )

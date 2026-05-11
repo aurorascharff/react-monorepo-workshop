@@ -10,7 +10,8 @@ npm run e2e --workspace=apps/e2e
 npm run e2e:ui --workspace=apps/e2e
 ```
 
-The test setup reseeds the SQLite database before each run.
+The test setup reseeds the SQLite database before each run. The suite runs with
+one worker because some tests update the seeded data.
 
 ## Structure
 
