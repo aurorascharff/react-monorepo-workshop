@@ -10,7 +10,7 @@ import type { Journal, JournalStatus, Patient } from './types'
 
 type PatientPageProps = {
   selectedId: string | null
-  onSelectPatient: (patientId: string | null) => void
+  onSelectPatient: (id: string) => void
   onBack: () => void
 }
 
@@ -61,12 +61,14 @@ function PatientDetail({
 
   function handleStatusChange(journalId: string, status: JournalStatus) {
     updateJournalStatus(journalId, status).then(() =>
-      fetchJournals(patient.id).then(setJournals),
+      setJournals((entries) =>
+        entries.map((j) => (j.id === journalId ? { ...j, status } : j)),
+      ),
     )
   }
 
   function handleCreated(journal: Journal) {
-    setJournals((prev) => [journal, ...prev])
+    setJournals((entries) => [journal, ...entries])
   }
 
   return (
@@ -74,7 +76,7 @@ function PatientDetail({
       <button
         type="button"
         onClick={onBack}
-        className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        className="mb-4 text-sm font-medium text-muted-foreground hover:text-foreground"
       >
         ← Back to patient list
       </button>

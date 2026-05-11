@@ -19,6 +19,7 @@
 - Open `apps/arena/src/App.tsx`.
 - Move sidebar, mobile header, and page wrapper into `layouts/Layout.tsx`.
 - Keep local `page` state in `App.tsx`.
+- Keep the existing inline brand markup for now. `BrandMark` comes later.
 - Say: this is not routing yet. We are only separating shell from page content.
 - Question: why start with the shell before feature components?
 - Answer: the shell is a clear boundary and avoids patient/journal decisions at first.
@@ -35,6 +36,7 @@
 - Move patient list into `PatientList.tsx`, one row into `PatientCard.tsx`, and selected patient header into `PatientHeader.tsx`.
 - Move one journal entry into `JournalEntry.tsx`, the list into `JournalList.tsx`, and the form into `JournalForm.tsx`.
 - Keep fetching and form logic unchanged.
+- Keep the selects native for now. We convert them in the next substep.
 - Say: feature folders group by what the app does. Route-local folders, like `apps/medix.com/app/products/_components`, are also valid when code belongs to one route.
 
 ## Add an Error Boundary

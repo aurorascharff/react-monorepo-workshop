@@ -21,17 +21,17 @@ export function App() {
     setPage('dashboard')
   }
 
-  function navigate(page: Page) {
-    if (page === 'dashboard') {
-      showDashboard()
-      return
-    }
-
-    showPatients()
-  }
-
   return (
-    <Layout activePage={page} onNavigate={navigate}>
+    <Layout
+      activePage={page}
+      onNavigate={(nextPage) => {
+        if (nextPage === 'dashboard') {
+          showDashboard()
+        } else {
+          showPatients()
+        }
+      }}
+    >
       {page === 'dashboard' ? (
         <Dashboard onNavigate={showPatients} />
       ) : (

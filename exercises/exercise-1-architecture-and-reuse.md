@@ -8,7 +8,7 @@ The app works, but too many responsibilities live in the same places. It is hard
 
 1. Move the shared app shell out of [apps/arena/src/App.tsx](../apps/arena/src/App.tsx) so the sidebar, mobile header, and page wrapper live in a named layout.
 
-2. Start in [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx). Split the patient and journal UI into named components so the page reads more like a workflow than one large file. Put patient UI with patient code, journal UI with journal code, and generic Base UI in [packages/ui/src/base](../packages/ui/src/base).
+2. Start in [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx). Split the patient and journal UI into named components so the page reads more like a workflow than one large file. Put patient UI with patient code and journal UI with journal code. Keep using existing Base UI primitives from `@medix/ui`; do not move feature code into [packages/ui/src/base](../packages/ui/src/base).
 
 3. Add an error boundary with `react-error-boundary` around the page content so the fallback replaces the failed content, not the whole shell. To verify it, temporarily throw a render error inside the page content, confirm the shell stays visible, then remove the throw. Show friendly fallback copy to the user and log the real error with the existing [`logError` helper](../apps/arena/src/lib/logger.ts).
 
