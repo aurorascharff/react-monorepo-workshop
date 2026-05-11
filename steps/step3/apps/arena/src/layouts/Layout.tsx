@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router'
-import { Activity, AlertTriangle, LayoutDashboard, Users } from 'lucide-react'
-import { Button, cn } from '@medix/ui'
+import { AlertTriangle, LayoutDashboard, Users } from 'lucide-react'
+import { BrandMark, Button, cn } from '@medix/ui'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 
 const navLinks = [
@@ -13,13 +13,7 @@ export function Layout() {
     <div className="flex min-h-screen bg-background">
       <aside className="hidden lg:flex w-64 border-r bg-sidebar flex-col shrink-0">
         <div className="p-6 border-b">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <Activity className="h-4 w-4" />
-            </div>
-            <h1 className="text-xl font-bold tracking-tight">Medix Arena</h1>
-          </div>
-          <p className="text-muted-foreground text-sm mt-2">Journal system</p>
+          <BrandMark product="Arena" description="Journal system" />
         </div>
         <nav className="p-3 flex flex-col gap-1">
           {navLinks.map(({ to, label, icon: Icon, end }) => (
@@ -47,10 +41,7 @@ export function Layout() {
         <header className="lg:hidden sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
           <div className="flex items-center justify-between px-4 h-14">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                <Activity className="h-4 w-4" />
-              </div>
-              <span className="font-bold tracking-tight">Medix Arena</span>
+              <BrandMark product="Arena" size="sm" />
             </div>
             <nav className="flex items-center gap-1">
               {navLinks.map(({ to, label, icon: Icon, end }) => (

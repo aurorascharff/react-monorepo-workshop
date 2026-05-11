@@ -1,31 +1,18 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  StatusBadge,
-} from '@medix/ui'
-import type { JournalStatus } from '@medix/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 
 type ProductCardProps = {
   title: string
   description: string
-  status: JournalStatus
 }
 
-export function ProductCard({
-  title,
-  description,
-  status,
-}: ProductCardProps) {
+export function ProductCard({ title, description }: ProductCardProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="mb-4 text-sm text-muted-foreground">{description}</p>
-        <StatusBadge status={status} />
+        <p className="text-sm text-muted-foreground">{description}</p>
       </CardContent>
     </Card>
   )

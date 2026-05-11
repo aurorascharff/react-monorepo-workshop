@@ -8,7 +8,6 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-  StatusBadge,
 } from '@medix/ui'
 import type { Journal } from '../../../types'
 import type { JournalStatus } from '@medix/ui'
@@ -38,7 +37,6 @@ export function JournalEntry({ entry, onStatusChange }: JournalEntryProps) {
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <StatusBadge status={entry.status} />
             <Select
               value={entry.status}
               onValueChange={(value) =>
@@ -46,7 +44,7 @@ export function JournalEntry({ entry, onStatusChange }: JournalEntryProps) {
               }
             >
               <SelectTrigger
-                className="w-32 h-8 text-xs"
+                className="h-9 w-36 text-sm font-medium"
                 aria-label={`Change status for ${entry.title}`}
               >
                 <SelectValue />

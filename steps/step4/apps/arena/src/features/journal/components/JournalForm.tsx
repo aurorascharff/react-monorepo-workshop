@@ -37,43 +37,45 @@ export function JournalForm({ patientId }: JournalFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg border bg-card p-6">
+    <section>
       <h2 className="mb-4 text-lg font-semibold">New journal entry</h2>
 
-      {error && (
-        <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
-          {error.message}
+      <form onSubmit={handleSubmit} className="rounded-lg border bg-card p-6">
+        {error && (
+          <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+            {error.message}
+          </div>
+        )}
+
+        <div className="mb-4 space-y-2">
+          <Label htmlFor="title">Title</Label>
+          <Input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Short description of the entry"
+          />
         </div>
-      )}
 
-      <div className="mb-4 space-y-1">
-        <Label htmlFor="title">Title</Label>
-        <Input
-          id="title"
-          name="title"
-          type="text"
-          placeholder="Short description of the entry"
-        />
-      </div>
+        <div className="mb-4 space-y-2">
+          <Label htmlFor="date">Date</Label>
+          <Input id="date" name="date" type="date" />
+        </div>
 
-      <div className="mb-4 space-y-1">
-        <Label htmlFor="date">Date</Label>
-        <Input id="date" name="date" type="date" />
-      </div>
+        <div className="mb-6 space-y-2">
+          <Label htmlFor="content">Content</Label>
+          <Textarea
+            id="content"
+            name="content"
+            rows={5}
+            placeholder="Clinical observations, interventions, and assessments..."
+          />
+        </div>
 
-      <div className="mb-6 space-y-1">
-        <Label htmlFor="content">Content</Label>
-        <Textarea
-          id="content"
-          name="content"
-          rows={5}
-          placeholder="Clinical observations, interventions, and assessments..."
-        />
-      </div>
-
-      <Button type="submit" disabled={isPending}>
-        {isPending ? 'Saving...' : 'Save entry'}
-      </Button>
-    </form>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? 'Saving...' : 'Save entry'}
+        </Button>
+      </form>
+    </section>
   )
 }

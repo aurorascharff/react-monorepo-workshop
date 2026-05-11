@@ -4,7 +4,7 @@ Work in: `apps/arena`.
 
 ## Problem
 
-Manual data fetching spreads loading, errors, retries, cache, refresh, and mutation behavior across components. Server state needs a consistent place to describe what data the UI depends on.
+Manual data fetching spreads loading, errors, retries, cache, refresh, and mutation behavior across components. Server state needs a consistent place to describe what data the UI depends on, and the UI needs loading, error, empty, busy, and success states that fit the screen.
 
 ## Task
 
@@ -12,11 +12,15 @@ Manual data fetching spreads loading, errors, retries, cache, refresh, and mutat
 
 2. Look at the manual fetching effects and the repeated loading/error state. Replace them with server-state hooks built with TanStack Query. Use query keys that describe the data, including the patient id for patient detail and journal data.
 
-3. Keep loading, error, empty, and success states visible where they matter. Choose the query API that makes those states clear in your solution.
+3. Design loading, error, empty, and success states where they matter. Use shared UI primitives such as `Skeleton` for loading states instead of a generic spinner, and shape the placeholder like the content that is coming.
 
 4. Use mutations for journal status updates and new journal submit. After a successful mutation, invalidate the affected journal data, not the whole app, so the UI refreshes from the server.
 
-5. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit. Look for cache reuse, mutation requests, and refetches after invalidation.
+5. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit. Look for cache reuse, mutation requests, pending states, and refetches after invalidation.
+
+## Bonus
+
+Make the journal status mutation optimistic. The selected status should update immediately, roll back if the request fails, and still refetch the affected journal data afterward.
 
 ## Resources
 

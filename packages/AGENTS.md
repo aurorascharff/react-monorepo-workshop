@@ -7,7 +7,7 @@
 ## Rules
 
 1. Keep packages small, intentional, and reusable.
-2. Do not move app-specific business workflows into `packages/` just to avoid imports. Domain-specific wrappers like `<StatusBadge>` are fine; full feature flows are not.
+2. Do not move app-specific business workflows into `packages/` just to avoid imports. Shared primitives, shared brand/domain components, and shared types are fine; feature-specific presentation stays in the app until reuse is real.
 3. Public surface is exposed through each package's `src/index.ts`. Consumers must not deep-import internals.
 4. If a shared API changes, validate every consuming app.
 5. Put package tests in a nearby `tests/` subfolder. Do not test package-owned components from an app-level test folder.
@@ -16,5 +16,5 @@
 
 - `ui/` (`@medix/ui`) — shared design system
   - `src/base/` — generic shadcn primitives (`Badge`, `Button`, `Card`, `Input`, `Label`, `Select`, `Textarea`)
-  - `src/StatusBadge.tsx`, `src/types.ts`, etc. — domain wrappers and shared types built on top of `base/`
+  - `src/types.ts`, etc. — shared UI-facing types
   - Two-layer pattern: apps consume domain wrappers; wrappers consume primitives. One mapping change updates every app.

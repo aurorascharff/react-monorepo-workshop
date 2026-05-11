@@ -8,7 +8,6 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-  StatusBadge,
 } from '@medix/ui'
 import type { Journal } from '../../../types'
 import type { JournalStatus } from '@medix/ui'
@@ -32,10 +31,32 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
   const { mutate, isPending, error } = useMutation({
     mutationFn: (status: JournalStatus) =>
       updateJournalStatus(entry.id, status),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['journals', patientId],
-      })
+    onMutate: async (status) => {
+      await queryClient.cancelQueries({ queryKey: ['journals', patientId] })
+
+      const previousEntries = queryClient.getQueryData<Journal[]>([
+        'journals',
+        patientId,
+      ])
+
+      queryClient.setQueryData<Journal[]>(['journals', patientId], (entries) =>
+        entries?.map((journal) =>
+          journal.id === entry.id ? { ...journal, status } : journal,
+        ),
+      )
+
+      return { previousEntries }
+    },
+    onError: (_error, _status, context) => {
+      if (context?.previousEntries) {
+        queryClient.setQueryData(
+          ['journals', patientId],
+          context.previousEntries,
+        )
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
     },
   })
 
@@ -52,14 +73,13 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <StatusBadge status={entry.status} />
             <Select
               value={entry.status}
               disabled={isPending}
               onValueChange={(value) => mutate(value as JournalStatus)}
             >
               <SelectTrigger
-                className="w-32 h-8 text-xs"
+                className="h-9 w-36 text-sm font-medium"
                 aria-label={`Change status for ${entry.title}`}
               >
                 <SelectValue />

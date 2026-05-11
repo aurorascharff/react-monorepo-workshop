@@ -7,14 +7,8 @@ import {
   CardContent,
   Input,
   Label,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   Spinner,
   Textarea,
-  cn,
 } from '@medix/ui'
 import {
   fetchJournals,
@@ -74,29 +68,32 @@ export function PatientPage() {
         </p>
       </header>
 
-      <div className="mb-6 flex gap-3">
-        <Input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by name or diagnosis..."
-          className="flex-1"
-        />
-        <Select
-          value={genderFilter}
-          onValueChange={(value) =>
-            setGenderFilter(value as 'all' | 'male' | 'female')
-          }
-        >
-          <SelectTrigger className="w-40">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="male">Male</SelectItem>
-            <SelectItem value="female">Female</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-1 flex-col gap-2">
+          <Label htmlFor="patient-search">Search patients</Label>
+          <Input
+            id="patient-search"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name or diagnosis..."
+          />
+        </div>
+        <div className="flex flex-col gap-2 sm:w-40">
+          <Label htmlFor="gender-filter">Gender</Label>
+          <select
+            id="gender-filter"
+            className="h-9 rounded-md border bg-background px-3 text-sm"
+            value={genderFilter}
+            onChange={(event) =>
+              setGenderFilter(event.target.value as 'all' | 'male' | 'female')
+            }
+          >
+            <option value="all">All</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
       </div>
 
       {filteredPatients.length === 0 ? (
@@ -251,20 +248,6 @@ function PatientDetail({
   )
 }
 
-// --- Status styling -------------------------------------------------------
-const STATUS_STYLES: Record<JournalStatus, string> = {
-  active:
-    'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:border-emerald-500/20',
-  closed: 'bg-muted text-muted-foreground border-transparent',
-  draft:
-    'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20',
-}
-const STATUS_LABEL: Record<JournalStatus, string> = {
-  active: 'Active',
-  closed: 'Closed',
-  draft: 'Draft',
-}
-
 const statusOptions: { value: JournalStatus; label: string }[] = [
   { value: 'draft', label: 'Draft' },
   { value: 'active', label: 'Active' },
@@ -291,31 +274,20 @@ function JournalEntry({
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <span
-              className={cn(
-                'inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium',
-                STATUS_STYLES[entry.status],
-              )}
-            >
-              {STATUS_LABEL[entry.status]}
-            </span>
-            <Select
+            <select
+              className="h-9 w-36 rounded-md border bg-background px-3 text-sm font-medium"
+              aria-label={`Change status for ${entry.title}`}
               value={entry.status}
-              onValueChange={(value) =>
-                onStatusChange(entry.id, value as JournalStatus)
+              onChange={(event) =>
+                onStatusChange(entry.id, event.target.value as JournalStatus)
               }
             >
-              <SelectTrigger className="w-32 h-8 text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {statusOptions.map((s) => (
-                  <SelectItem key={s.value} value={s.value}>
-                    {s.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {statusOptions.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -366,43 +338,45 @@ function JournalForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg border bg-card p-6">
+    <section>
       <h2 className="mb-4 text-lg font-semibold">New journal entry</h2>
 
-      {error && (
-        <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
-          {error}
+      <form onSubmit={handleSubmit} className="rounded-lg border bg-card p-6">
+        {error && (
+          <div className="mb-4 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+            {error}
+          </div>
+        )}
+
+        <div className="mb-4 space-y-2">
+          <Label htmlFor="title">Title</Label>
+          <Input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Short description of the entry"
+          />
         </div>
-      )}
 
-      <div className="mb-4 space-y-1">
-        <Label htmlFor="title">Title</Label>
-        <Input
-          id="title"
-          name="title"
-          type="text"
-          placeholder="Short description of the entry"
-        />
-      </div>
+        <div className="mb-4 space-y-2">
+          <Label htmlFor="date">Date</Label>
+          <Input id="date" name="date" type="date" />
+        </div>
 
-      <div className="mb-4 space-y-1">
-        <Label htmlFor="date">Date</Label>
-        <Input id="date" name="date" type="date" />
-      </div>
+        <div className="mb-6 space-y-2">
+          <Label htmlFor="content">Content</Label>
+          <Textarea
+            id="content"
+            name="content"
+            rows={5}
+            placeholder="Clinical observations, interventions, and assessments..."
+          />
+        </div>
 
-      <div className="mb-6 space-y-1">
-        <Label htmlFor="content">Content</Label>
-        <Textarea
-          id="content"
-          name="content"
-          rows={5}
-          placeholder="Clinical observations, interventions, and assessments..."
-        />
-      </div>
-
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Saving...' : 'Save entry'}
-      </Button>
-    </form>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Saving...' : 'Save entry'}
+        </Button>
+      </form>
+    </section>
   )
 }

@@ -46,7 +46,7 @@
 - Scroll slowly. Do not fix anything yet.
 - This file has patient list, patient detail, journals, form, status styling, fetching, and mutation logic.
 - If you had to change only the status colors, where would you look?
-- Answer to land: right now you have to hunt through app code. After Module 1, status styling should live in `packages/ui`.
+- Answer to land: right now you have to hunt through a large page. After Module 1, it should be easier to find the journal-specific status presentation without pretending it belongs to every app.
 - If you had to change only the form validation, where would you look?
 - Answer to land: right now it is mixed into the form submit handler. After Module 5, the validation rules should live in a schema near the form.
 

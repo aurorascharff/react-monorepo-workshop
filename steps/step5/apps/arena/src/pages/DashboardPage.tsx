@@ -1,19 +1,17 @@
 import { Link } from 'react-router'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
-import { Spinner } from '@medix/ui'
+import { Card, CardContent, CardHeader, CardTitle, Skeleton } from '@medix/ui'
 import { usePatients } from '../features/patients/hooks/usePatients'
+import { ErrorState } from '../components/ErrorState'
 
 export function DashboardPage() {
   const { data: patients, isLoading, error } = usePatients()
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <DashboardLoadingState />
 
   if (error) {
     return (
-      <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">
-        Failed to fetch dashboard data: {error.message}
-      </div>
+      <ErrorState title="Failed to load dashboard" message={error.message} />
     )
   }
 
@@ -111,5 +109,64 @@ export function DashboardPage() {
         </Card>
       </section>
     </div>
+  )
+}
+
+export function DashboardLoadingState() {
+  return (
+    <section
+      role="status"
+      aria-label="Loading dashboard"
+      className="flex flex-col gap-8"
+    >
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-9 w-48" />
+        <Skeleton className="h-5 w-80 max-w-full" />
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <Card key={index}>
+            <CardHeader>
+              <Skeleton className="h-4 w-28" />
+            </CardHeader>
+            <CardContent>
+              <Skeleton className="h-9 w-16" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <Skeleton className="h-5 w-36" />
+            <Skeleton className="h-4 w-48" />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-40" />
+                  <Skeleton className="h-3 w-56" />
+                </div>
+                <Skeleton className="h-4 w-4 rounded-full" />
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Skeleton className="h-6 w-6 rounded-full" />
+            <Skeleton className="h-5 w-32" />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-9 w-40" />
+          </CardContent>
+        </Card>
+      </div>
+    </section>
   )
 }

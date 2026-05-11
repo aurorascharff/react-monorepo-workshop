@@ -31,12 +31,14 @@ describe('JournalList', () => {
     mockedUseJournals.mockReset()
   })
 
-  it('shows a spinner while journal entries load', () => {
+  it('shows a skeleton state while journal entries load', () => {
     mockedUseJournals.mockReturnValue(queryState({ isLoading: true }))
 
     render(<JournalList patientId="p1" />)
 
-    expect(screen.getByRole('status')).toBeInTheDocument()
+    expect(
+      screen.getByRole('status', { name: /loading journal entries/i }),
+    ).toBeInTheDocument()
   })
 
   it('shows an error message when journal entries fail to load', () => {
@@ -47,8 +49,9 @@ describe('JournalList', () => {
     render(<JournalList patientId="p1" />)
 
     expect(
-      screen.getByText(/failed to load journal entries: api unavailable/i),
+      screen.getByText(/failed to load journal entries/i),
     ).toBeInTheDocument()
+    expect(screen.getByText(/api unavailable/i)).toBeInTheDocument()
   })
 
   it('shows an empty state when the patient has no journal entries', () => {

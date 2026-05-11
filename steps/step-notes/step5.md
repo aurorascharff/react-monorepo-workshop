@@ -104,7 +104,7 @@
 
 - Keep validation messages visible before submit.
 - Prevent duplicate submits while `isPending`.
-- Show `Saving...` while pending.
+- Show a clear pending state while saving. Keep it near the submit button because that is where the user acted.
 - Render the mutation error above the fields with `role="alert"`.
 - Server errors need a place in the UI. Client validation cannot catch network errors, permissions, or backend failures.
 - Use Network while submitting a valid form to show the request that still goes to the server.

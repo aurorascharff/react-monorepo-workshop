@@ -41,7 +41,7 @@ export function PatientList({ patients }: PatientListProps) {
       </header>
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
-        <div className="flex flex-1 flex-col gap-1">
+        <div className="flex flex-1 flex-col gap-2">
           <Label htmlFor="patient-search">Search patients</Label>
           <Input
             id="patient-search"
@@ -51,7 +51,7 @@ export function PatientList({ patients }: PatientListProps) {
             placeholder="Search by name or diagnosis..."
           />
         </div>
-        <div className="flex flex-col gap-1 sm:w-40">
+        <div className="flex flex-col gap-2 sm:w-40">
           <Label htmlFor="gender-filter">Gender</Label>
           <Select
             value={genderFilter}

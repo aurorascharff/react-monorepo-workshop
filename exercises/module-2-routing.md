@@ -16,7 +16,7 @@ The app can show different screens, but the browser does not know what screen th
 
 4. Try refresh, back, forward, copied URLs, direct patient detail URLs, and an unknown URL. The browser should understand where the user is and the app should show the right screen.
 
-5. Optional: lazy-load the route pages and look for separate route chunks in Network when you navigate.
+5. Optional: lazy-load the route pages and look for separate route chunks in Network when you navigate. If route code can be loading, keep the app shell visible and show a clear global loading state.
 
 ## Resources
 

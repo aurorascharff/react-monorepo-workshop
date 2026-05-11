@@ -20,12 +20,11 @@ describe('JournalEntry', () => {
     expect(screen.getByRole('heading', { name: entry.title })).toBeVisible()
     expect(screen.getByText('May 10, 2026')).toBeInTheDocument()
     expect(screen.getByText(entry.content)).toBeInTheDocument()
-    expect(screen.getAllByText('Active')).toHaveLength(2)
     expect(
       screen.getByRole('combobox', {
         name: `Change status for ${entry.title}`,
       }),
-    ).toBeVisible()
+    ).toHaveTextContent('Active')
   })
 })
 

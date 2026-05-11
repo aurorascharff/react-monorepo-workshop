@@ -1,14 +1,22 @@
 import { useParams, Link } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
+import { Card, CardContent, Skeleton } from '@medix/ui'
 import { fetchPatient } from '../lib/api'
 import { PatientHeader } from '../features/patients/components/PatientHeader'
-import { JournalList } from '../features/journal/components/JournalList'
+import {
+  JournalList,
+  JournalListLoadingState,
+} from '../features/journal/components/JournalList'
 import { JournalForm } from '../features/journal/components/JournalForm'
-import { Spinner } from '@medix/ui'
+import { ErrorState } from '../components/ErrorState'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const { data: patient, isLoading, error } = useQuery({
+  const {
+    data: patient,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['patient', id],
     queryFn: () => fetchPatient(id as string),
     enabled: Boolean(id),
@@ -24,12 +32,9 @@ export function PatientDetailPage() {
       >
         ← Back to patient list
       </Link>
-      {isLoading && <Spinner />}
+      {isLoading && <PatientDetailLoadingState />}
       {error && (
-        <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive">
-          <p className="font-semibold">Failed to load patient</p>
-          <p className="text-sm">{error.message}</p>
-        </div>
+        <ErrorState title="Failed to load patient" message={error.message} />
       )}
       {patient && (
         <>
@@ -46,5 +51,58 @@ export function PatientDetailPage() {
         </>
       )}
     </div>
+  )
+}
+
+export function PatientDetailLoadingState() {
+  return (
+    <section
+      role="status"
+      aria-label="Loading patient detail"
+      className="space-y-6"
+    >
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-3">
+              <Skeleton className="h-8 w-56" />
+              <Skeleton className="h-4 w-64" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-3 w-16" />
+              <Skeleton className="h-4 w-24" />
+            </div>
+          </div>
+          <Skeleton className="mt-4 h-7 w-36 rounded-full" />
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div>
+          <Skeleton className="mb-4 h-6 w-40" />
+          <JournalListLoadingState />
+        </div>
+        <div>
+          <Skeleton className="mb-4 h-6 w-44" />
+          <Card>
+            <CardContent className="space-y-4 p-6">
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-12" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-10" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-16" />
+                <Skeleton className="h-32 w-full" />
+              </div>
+              <Skeleton className="h-10 w-28" />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
   )
 }

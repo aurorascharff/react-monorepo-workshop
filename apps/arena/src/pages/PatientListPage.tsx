@@ -1,6 +1,9 @@
-import { PatientList } from '../features/patients/components/PatientList'
-import { Spinner } from '@medix/ui'
+import {
+  PatientList,
+  PatientListLoadingState,
+} from '../features/patients/components/PatientList'
 import { usePatients } from '../features/patients/hooks/usePatients'
+import { ErrorState } from '../components/ErrorState'
 
 export function PatientListPage() {
   const { data: patients, isLoading, error } = usePatients()
@@ -9,11 +12,9 @@ export function PatientListPage() {
     <div>
       <h1 className="mb-6 text-2xl font-bold tracking-tight">Patients</h1>
       <div className="flex flex-col gap-4">
-        {isLoading && <Spinner />}
+        {isLoading && <PatientListLoadingState />}
         {error && (
-          <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive text-sm">
-            Failed to fetch patients: {error.message}
-          </div>
+          <ErrorState title="Failed to load patients" message={error.message} />
         )}
         {patients && <PatientList patients={patients} />}
       </div>

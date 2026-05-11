@@ -78,7 +78,7 @@ Participants should clone the workshop-specific participant repo, not the privat
 
 - **Intro: Rendering strategies and browser behavior** — Compare CSR, SSR, static rendering, streaming, and Server Components, then connect those choices to the web platform
 - **Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
-- **Module 1: Architecture and Reuse** — Split large files, create focused components, add shared `StatusBadge`, add an error boundary
+- **Module 1: Architecture and Reuse** — Split large files, create focused components, replace native selects with shared Base UI, add a shared `BrandMark`, add an error boundary
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
 - **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
 - **Module 4: Server State** — Replace manual fetching with server-state hooks, cache identity, mutations, invalidation, and local boundaries

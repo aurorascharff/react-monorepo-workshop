@@ -4,7 +4,7 @@ Work in: `apps/arena` and `packages/ui`.
 
 ## Problem
 
-The app works, but too many responsibilities live in the same places. It is hard to see what belongs to the app workflow, what belongs to shared Domain UI, and what should stay as generic Base UI.
+The app works, but too many responsibilities live in the same places. It is hard to see what belongs to the app workflow, what should be shared, and what should stay as generic Base UI.
 
 ## Task
 
@@ -14,7 +14,9 @@ The app works, but too many responsibilities live in the same places. It is hard
 
 3. Move the shared app shell out of `App.tsx`. Add an error boundary around the page content so the fallback replaces the failed content, not the whole shell.
 
-4. Move the journal status display into `packages/ui` as shared Domain UI. Export it from the package entry point, then use it from both Arena and medix.com so the status labels and styling have one home.
+4. Replace the native selects in the patient filter and journal status control with the shared Base UI `Select` primitive from `@medix/ui`. Keep the status visible without adding a separate badge.
+
+5. Create a shared `BrandMark` domain component in `packages/ui` and use it from both Arena and medix.com.
 
 ## Resources
 

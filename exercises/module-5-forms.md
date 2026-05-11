@@ -18,7 +18,7 @@ The form submits, but validation rules, submit state, and recovery from errors a
 
 5. Keep invalid submit accessible: let the user submit, show field-level validation errors, associate each error with its field, and do not send invalid client-side data to the API.
 
-6. While the request is pending, make the submit state clear and prevent duplicate submits. If the server request fails, show a form-level error that is announced as feedback for the submit.
+6. While the request is pending, make the submit state clear where the submit happens and prevent duplicate submits. If the server request fails, show a form-level error that is announced as feedback for the submit.
 
 ## Resources
 

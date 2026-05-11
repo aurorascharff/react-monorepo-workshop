@@ -8,13 +8,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react'
-import {
-  StatusBadge,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@medix/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@medix/ui'
 
 const solutions = [
   {
@@ -22,21 +16,18 @@ const solutions = [
     title: 'Arena',
     description:
       'A complete journal system for hospitals. Supports every clinical workflow from admission to discharge.',
-    status: 'active' as const,
   },
   {
     icon: Smartphone,
     title: 'Mobility',
     description:
       'Journal access on phone and tablet for clinical staff on the move.',
-    status: 'draft' as const,
   },
   {
     icon: Network,
     title: 'Integration',
     description:
       'API platform for integrating with lab systems, RIS/PACS, and other clinical tooling.',
-    status: 'closed' as const,
   },
 ]
 
@@ -131,7 +122,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {solutions.map(({ icon: Icon, title, description, status }) => (
+          {solutions.map(({ icon: Icon, title, description }) => (
             <Card key={title}>
               <CardHeader>
                 <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent text-accent-foreground mb-2">
@@ -140,10 +131,7 @@ export default function Home() {
                 <CardTitle>{title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  {description}
-                </p>
-                <StatusBadge status={status} />
+                <p className="text-sm text-muted-foreground">{description}</p>
               </CardContent>
             </Card>
           ))}

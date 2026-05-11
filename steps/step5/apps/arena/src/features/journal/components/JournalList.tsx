@@ -1,7 +1,8 @@
 import { useJournals } from '../hooks/useJournals'
 import { JournalEntry } from './JournalEntry'
-import { Spinner } from '@medix/ui'
 import { ErrorBoundary } from '../../../components/ErrorBoundary'
+import { Card, CardContent, Skeleton } from '@medix/ui'
+import { ErrorState } from '../../../components/ErrorState'
 
 type JournalListProps = {
   patientId: string
@@ -10,13 +11,14 @@ type JournalListProps = {
 export function JournalList({ patientId }: JournalListProps) {
   const { data: entries, isLoading, error } = useJournals(patientId)
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <JournalListLoadingState />
 
   if (error) {
     return (
-      <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive text-sm">
-        Failed to load journal entries: {error.message}
-      </div>
+      <ErrorState
+        title="Failed to load journal entries"
+        message={error.message}
+      />
     )
   }
 
@@ -36,5 +38,31 @@ export function JournalList({ patientId }: JournalListProps) {
         ))}
       </div>
     </ErrorBoundary>
+  )
+}
+
+export function JournalListLoadingState() {
+  return (
+    <section
+      role="status"
+      aria-label="Loading journal entries"
+      className="flex flex-col gap-3"
+    >
+      {Array.from({ length: 3 }).map((_, index) => (
+        <Card key={index}>
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-2">
+                <Skeleton className="h-5 w-48" />
+                <Skeleton className="h-4 w-28" />
+              </div>
+              <Skeleton className="h-9 w-36" />
+            </div>
+            <Skeleton className="mt-4 h-4 w-full" />
+            <Skeleton className="mt-2 h-4 w-3/4" />
+          </CardContent>
+        </Card>
+      ))}
+    </section>
   )
 }

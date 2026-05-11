@@ -82,7 +82,7 @@
 - If you want to show one extra final-app best practice, lazy-load the route pages with [`lazy`](https://react.dev/reference/react/lazy) and wrap each route element in [`Suspense`](https://react.dev/reference/react/Suspense). This is code splitting: the app shell can load first, and route code can be fetched when the user navigates there.
 - Open Network and show the extra JavaScript chunk when a lazy route loads.
 - What should happen while route code is loading?
-- Answer to land: the user should get a clear loading state without losing the whole shell.
+- Answer to land: the user should get a clear global loading state without losing the whole shell. Here a spinner is acceptable because the router does not know the shape of the next route yet.
 
 ## App: Read route params
 

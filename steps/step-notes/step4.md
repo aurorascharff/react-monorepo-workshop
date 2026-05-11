@@ -4,13 +4,13 @@
 
 - Say: the problem is not fetch itself. The problem is everything around fetch: waiting, errors, stale data, race conditions, retries, and refresh after mutations.
 - Ask: which parts of this data belong to the server, and what should the UI show while we wait?
-- Land this: server state needs a cache, identity, loading behavior, error behavior, and refresh behavior.
+- Land this: server state needs a cache, identity, loading behavior, error behavior, busy behavior, and refresh behavior.
 - Show Module 4 in [`exercises/module-4-server-state.md`](../../exercises/module-4-server-state.md).
 
 ## Participant work (roughly 10 minutes)
 
 - Ask participants to work in `apps/arena`.
-- Listen for query key shape, where loading UI belongs, where the local error boundary belongs, what to invalidate after a mutation, and whether they over-invalidate.
+- Listen for query key shape, where loading UI belongs, whether loading/error/busy states match the screen, where the local error boundary belongs, what to invalidate after a mutation, and whether they over-invalidate.
 
 ## Group discussion (roughly 5 minutes)
 
@@ -59,6 +59,8 @@
 - Open `pages/PatientListPage.tsx`.
 - Replace local `patients`, `isLoading`, and fetching effect with `usePatients`.
 - Render loading, error, and success states.
+- Use the shared [`Skeleton`](https://ui.shadcn.com/docs/components/skeleton) primitive from `@medix/ui` for loading states, but export each skeleton from the component or page file it represents. A dashboard skeleton belongs with `DashboardPage`. A patient list skeleton belongs with `PatientList`.
+- Keep error presentation in Arena. The app knows what failed and what recovery context the user needs.
 - Open `pages/DashboardPage.tsx`.
 - Replace manual fetching with `usePatients`.
 - Navigate between Dashboard and Patients to verify cache reuse.
@@ -76,6 +78,7 @@
 - Open [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) and show that each patient id gets a separate cache entry.
 - Render loading, error, and success states in the page.
 - This is a little more repetitive, but it is straightforward: we can see exactly what the UI does for each server-state state.
+- Do not treat loading as decoration. It is part of the screen design and should preserve the user's context.
 - Why does `id` belong in the query key?
 - Answer to land: different patients are different cached data.
 
@@ -94,6 +97,7 @@
 - Use `queryFn` to fetch journals for the patient.
 - Use the hook in `JournalList`.
 - Render loading, error, empty, and success states.
+- Empty, loading, and error are three different UI states. They should not look like the same blank gap with different text.
 - Empty state is not an error. It is a valid server response that needs its own UI.
 
 ## App: Update journal status with useMutation
@@ -103,6 +107,7 @@
 - Add [`useQueryClient`](https://tanstack.com/query/latest/docs/framework/react/reference/useQueryClient).
 - On success, invalidate `['journals', patientId]`.
 - Change a status with Network and [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools) open.
+- Point out the busy state on the status control while the mutation is pending.
 - Show the update request, then show `['journals', patientId]` refetching.
 - Mutation: an operation that changes server state.
 - [Invalidation](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation): mark cached data as stale so it refetches.
@@ -110,6 +115,7 @@
 - Answer to land: invalidate or update the affected cached data so the UI reflects the server state.
 - Why invalidate only this patient's journals instead of everything?
 - Answer to land: smaller invalidation means less unnecessary work and fewer surprising updates.
+- Bonus for ambitious participants: make the status update optimistic with TanStack Query's [`onMutate`](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates), rollback on error, and invalidate afterward.
 
 ## App: Submit journal form through mutation
 
@@ -118,6 +124,7 @@
 - On success, invalidate `['journals', patientId]`.
 - Reset the form after a successful submit.
 - Submit once with Network open and show the POST request.
+- Point out the pending submit state near the button, not as a page-level spinner.
 - Show that the journal list refreshes because the journals query is invalidated.
 
 ## Check and module close

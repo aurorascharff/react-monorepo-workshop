@@ -10,7 +10,7 @@
 ## Participant work (roughly 10-12 minutes)
 
 - Ask participants to work in `apps/arena` and `packages/ui`.
-- Listen for where they put components, how small they make components, whether `StatusBadge` belongs in the app or shared package, and whether the error boundary wraps the right part of the UI.
+- Listen for where they put components, how small they make components, what they decide to share, and whether the error boundary wraps the right part of the UI.
 
 ## Group discussion (roughly 5 minutes)
 
@@ -56,27 +56,34 @@
 - In the routing module, the same content slot becomes the route outlet.
 - More specific boundaries can live closer to the thing that may fail.
 
-## App: Build shared StatusBadge
+## App: Extract a real shared domain component
 
-- Open `packages/ui/src/base/badge.tsx`.
-- This is a primitive. Relate it to Pulse: base components define reusable visual behavior, but they should not know anything about journals, statuses, patients, or product workflows.
-- Create `packages/ui/src/StatusBadge.tsx`.
-- Move `JournalStatus` into `@medix/ui`.
-- Add status config for `active`, `closed`, and `draft`.
-- Render `Badge` inside `StatusBadge`.
-- Export `StatusBadge` and `JournalStatus` from `packages/ui/src/index.ts`.
-- Why is the mapping from status to color not just a className in the app?
-- Answer to land: it is a shared domain concept, so it should have one home.
+- Open the Arena layout and the medix.com layout.
+- Both apps render the Medix identity: icon, name, and sometimes product context.
+- Create `packages/ui/src/BrandMark.tsx`.
+- Export `BrandMark` from `packages/ui/src/index.ts`.
+- Use it in `apps/arena/src/layouts/Layout.tsx` as `Medix Arena`.
+- Use it in `apps/medix.com/app/layout.tsx` as the main Medix brand.
+- This is Domain UI because it knows the product brand. It is not Base UI like `Button`, `Card`, or `Select`.
+- Why is this better shared than the journal status control?
+- Answer to land: both apps genuinely need the same brand identity, while journal status is currently part of one journal workflow.
+- Relate it to Pulse: base components define reusable visual behavior, while domain components can encode shared product concepts.
+
+## App: Convert native selects to Base UI
+
+- Open the patient filter and journal entry status control.
+- The starter uses native `<select>` controls. They work, but they do not match the design system interaction or styling.
+- Replace the gender filter with the shared `Select` primitive from `@medix/ui`.
+- Replace the journal status control with the shared `Select` primitive from `@medix/ui`.
+- Add `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectGroup`, `SelectLabel`, and `SelectItem` where they make the control clearer.
+- Base UI primitives are generic. They should not know about patients or journals, but they can give app code accessible, consistent controls.
+- Keep `JournalStatus` as a shared type from `@medix/ui`.
+- Keep the actual status presentation in `JournalEntry`, because the status only has meaning in that journal workflow right now.
+- Use the selected status value in the control. Do not add a separate badge with the same text.
+- Why should we not move this into `packages/ui` just because it repeats a little?
+- Answer to land: shared code needs ownership and real reuse. A product workflow detail can stay local until another app has the same concept and the same behavior.
 - What should live in `packages/ui`, and what should stay in the app?
-- Answer to land: shared primitives and shared domain UI belong in `packages/ui`; feature-specific screens and workflows stay in the app.
-- The layering: base primitives at the bottom, domain-specific UI on top, apps consuming the shared component.
-
-## App: Use StatusBadge
-
-- Replace inline status styling in `JournalEntry`.
-- Use `StatusBadge` in `apps/medix.com/app/page.tsx`.
-- Use `StatusBadge` in `apps/medix.com/app/products/page.tsx`.
-- Change one status style and verify that both apps update from one place.
+- Answer to land: shared primitives and shared types belong in `packages/ui`; feature-specific screens, workflows, and local presentation stay in the app.
 - What should not go into `packages/ui` yet?
 - Answer to land: feature-specific code should stay in the feature until reuse is real.
 

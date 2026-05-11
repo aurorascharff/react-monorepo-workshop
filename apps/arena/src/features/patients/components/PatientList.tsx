@@ -1,6 +1,8 @@
 import {
   Input,
   Label,
+  Card,
+  CardContent,
   Select,
   SelectContent,
   SelectGroup,
@@ -8,6 +10,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
+  Skeleton,
 } from '@medix/ui'
 import { usePatientFilter } from '../hooks/usePatientFilter'
 import { PatientCard } from './PatientCard'
@@ -17,6 +20,37 @@ type PatientListProps = {
   patients: Patient[]
 }
 
+export function PatientListLoadingState() {
+  return (
+    <section role="status" aria-label="Loading patients" className="space-y-6">
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex-1 space-y-2">
+          <Skeleton className="h-4 w-28" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+        <div className="space-y-2 sm:w-40">
+          <Skeleton className="h-4 w-16" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+      </div>
+
+      <div className="grid gap-3">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <Card key={index}>
+            <CardContent className="flex items-center justify-between gap-4 p-4">
+              <div className="space-y-2">
+                <Skeleton className="h-5 w-40" />
+                <Skeleton className="h-4 w-56" />
+              </div>
+              <Skeleton className="h-6 w-20 rounded-full" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export function PatientList({ patients }: PatientListProps) {
   const { search, setSearch, genderFilter, setGenderFilter, filteredPatients } =
     usePatientFilter(patients)
@@ -24,7 +58,7 @@ export function PatientList({ patients }: PatientListProps) {
   return (
     <div>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
-        <div className="flex flex-1 flex-col gap-1">
+        <div className="flex flex-1 flex-col gap-2">
           <Label htmlFor="patient-search">Search patients</Label>
           <Input
             id="patient-search"
@@ -34,7 +68,7 @@ export function PatientList({ patients }: PatientListProps) {
             placeholder="Search by name or diagnosis..."
           />
         </div>
-        <div className="flex flex-col gap-1 sm:w-40">
+        <div className="flex flex-col gap-2 sm:w-40">
           <Label htmlFor="gender-filter">Gender</Label>
           <Select
             value={genderFilter}
