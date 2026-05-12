@@ -2,11 +2,11 @@
 
 This folder is the instructor-facing companion to [`exercises/`](../exercises/). Three pieces work together:
 
-| What                                  | Audience    | Purpose                                                                                                                |
-| ------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------- |
-| [`exercises/`](../exercises/)         | Participant | The task brief. Same wording the participant reads. Lives at the repo root so they can find it from the README.        |
+| What                                         | Audience    | Purpose                                                                                                                |
+| -------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------- |
+| [`exercises/`](../exercises/)                | Participant | The task brief. Same wording the participant reads. Lives at the repo root so they can find it from the README.        |
 | [`steps/step-notes/step{N}.md`](step-notes/) | Instructor  | The teaching script for module `N`: framing, questions, live-coding sequence, gotchas, things to say.                  |
-| [`steps/step{N}/`](.)                 | Both        | Frozen full-repo snapshot of the **end state after module `N`**. `step0` is the starter. `step5` is the finished repo. |
+| [`steps/step{N}/`](.)                        | Both        | Frozen full-repo snapshot of the **end state after module `N`**. `step0` is the starter. `step5` is the finished repo. |
 
 Module `N` is the work that takes `step{N-1}` to `step{N}`. So `step1.md` describes the work that turns `step0` into `step1`, which is the same work `exercise-1-architecture-and-reuse.md` asks the participant to do.
 
