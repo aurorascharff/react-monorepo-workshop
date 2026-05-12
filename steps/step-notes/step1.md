@@ -9,12 +9,14 @@
 
 ## Participant Work
 
-- Work time: roughly 10-12 minutes.
+- Work time: roughly 25-30 minutes.
 - Discussion: roughly 5 minutes.
 - Listen for component boundaries, shared versus local UI, and where the error boundary belongs.
 - Question before live coding: what did you keep local, and what did you decide was shared?
 
 ## Extract the Shell
+
+Execute this part of the task beforehand so it doesn't take too long during the session.
 
 - Open `apps/arena/src/App.tsx`.
 - Move sidebar, mobile header, and page wrapper into `layouts/Layout.tsx`.
@@ -23,7 +25,6 @@
 - Say: this is not routing yet. We are only separating shell from page content.
 - Question: why start with the shell before feature components?
 - Answer: the shell is a clear boundary and avoids patient/journal decisions at first.
-- Mention: in the routing module, this content slot becomes the route outlet.
 
 ## Split Patient and Journal UI
 
