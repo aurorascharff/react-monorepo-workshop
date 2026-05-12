@@ -33,6 +33,14 @@
 - Say: storing derived values creates two sources of truth.
 - Mention [`useMemo`](https://react.dev/reference/react/useMemo) briefly: start with render calculation; use memoization when calculation cost or identity matters. React compiler however makes this not needed most of the time.
 
+## Fix filteredPatients Derived State
+
+- Open `PatientList` (or `PatientPage` depending on participant structure).
+- Find `filteredPatients` synced via `useState` + `useEffect`.
+- Question: can `filteredPatients` be calculated from `patients`, `search`, and `genderFilter`?
+- Answer: yes. It is derived — remove the effect and compute it during render.
+- Say: the same lesson as the dashboard: fewer sources of truth, fewer ways to get out of sync.
+
 ## Extract usePatientFilter
 
 - Open `PatientList`.
