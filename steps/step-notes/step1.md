@@ -50,6 +50,7 @@
 - Question: where should the boundary go if the sidebar should stay visible?
 - Answer: around the part that can fail, not the whole app.
 - Link if useful: React docs on [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary).
+- Mention [[nextjs](https://aurorascharff.no/posts/error-handling-in-nextjs-with-catch-error)] error boundaries are different
 
 ## Convert Native Selects to Base UI
 
