@@ -6,13 +6,15 @@ Some values are stored in state even though they can be calculated from existing
 
 ## Task
 
-1. In the dashboard page at [apps/arena/src/pages/DashboardPage.tsx](../apps/arena/src/pages/DashboardPage.tsx), remove state and effects that duplicate information already available from patient data. Calculate the totals during render instead.
+If your structure differs from the reference files, make the same kind of change in the equivalent place in your app.
 
-2. In the patient list at [apps/arena/src/features/patients/components/PatientList.tsx](../apps/arena/src/features/patients/components/PatientList.tsx), keep state for the user's filter choices, but derive the filtered patients from existing data.
+1. In the dashboard route page, for example [DashboardPage](../apps/arena/src/pages/DashboardPage.tsx), remove state and effects that duplicate information already available from patient data. Calculate the totals during render instead.
 
-3. Extract the patient filtering behavior into a [`usePatientFilter`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts) hook. The component owns the UI, and the hook owns the filtering logic.
+2. In the patient list component, for example [PatientList](../apps/arena/src/features/patients/components/PatientList.tsx), keep state for the user's filter choices, but derive the filtered patients from existing data.
 
-4. Add a [`useDebounce`](../apps/arena/src/hooks/useDebounce.ts) hook for the search value. The timer belongs in an effect because it synchronizes with something outside React, and the effect should clean up after itself.
+3. Extract the patient filtering behavior into a hook. You can call it [`usePatientFilter`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts), or choose another name that fits your structure. The component owns the UI, and the hook owns the filtering logic.
+
+4. Add a debounce hook for the search value. You can call it [`useDebounce`](../apps/arena/src/hooks/useDebounce.ts), or place it with your other reusable hooks. The timer belongs in an effect because it synchronizes with something outside React, and the effect should clean up after itself.
 
 ## Bonus
 
