@@ -81,7 +81,7 @@ npm run test  # Unit and component tests
 npm run e2e   # Browser tests for Arena + API
 ```
 
-Unit and component tests live in nearby `tests/` folders. Browser tests live in `apps/e2e/tests`.
+Unit and component tests live in nearby `tests/` folders. Browser tests live in `apps/e2e/tests`. The first `npm run e2e` downloads the Chromium binary Playwright needs (~150 MB); subsequent runs reuse it.
 
 ## AI
 

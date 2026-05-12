@@ -5,15 +5,14 @@ End-to-end tests for the Medix Arena SPA using Playwright. Tests run against the
 ## Run
 
 ```bash
-# First time only — installs the chromium browser
-npm run e2e:install --workspace=apps/e2e
-
-# Run the full suite
+# Run the full suite (downloads Chromium on first run)
 npm run e2e --workspace=apps/e2e
 
 # Or use the shortcut from repo root
 npm run e2e
 ```
+
+`e2e:install` is also available; it runs `playwright install --with-deps chromium` for CI and Linux dev boxes that need the system browser dependencies.
 
 `globalSetup` reseeds the SQLite DB before every run so tests get a known fixture set.
 
