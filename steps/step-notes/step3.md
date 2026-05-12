@@ -60,6 +60,7 @@
 - Question: why is this effect okay when the previous ones were not?
 - Answer: this synchronizes with a timer, which is outside React.
 - Relate to latency: debounce is one way to handle time in the browser before server state enters the picture.
+- Mention libraries like [use-hooks](https://use-hooks.com/useDebounce).
 
 ## Bonus
 
