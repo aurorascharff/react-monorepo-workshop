@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Input,
   Label,
@@ -23,13 +23,21 @@ export function PatientList({ patients }: PatientListProps) {
     'all',
   )
 
-  const filteredPatients = patients.filter((p) => {
-    const matchesSearch =
-      p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.diagnosis.toLowerCase().includes(search.toLowerCase())
-    const matchesGender = genderFilter === 'all' || p.gender === genderFilter
-    return matchesSearch && matchesGender
-  })
+  const [filteredPatients, setFilteredPatients] = useState(patients)
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFilteredPatients(
+      patients.filter((p) => {
+        const matchesSearch =
+          p.name.toLowerCase().includes(search.toLowerCase()) ||
+          p.diagnosis.toLowerCase().includes(search.toLowerCase())
+        const matchesGender =
+          genderFilter === 'all' || p.gender === genderFilter
+        return matchesSearch && matchesGender
+      }),
+    )
+  }, [patients, search, genderFilter])
 
   return (
     <div>
