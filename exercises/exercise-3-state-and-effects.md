@@ -10,7 +10,7 @@ If your structure differs from the reference files, make the same kind of change
 
 1. In the dashboard route page, for example [DashboardPage](../apps/arena/src/pages/DashboardPage.tsx), the per-gender totals (`total`, `female`, `male`) are duplicated from the patient list via `useState` + `useEffect`. Remove that state and compute the totals during render.
 
-2. In the patient list component, for example [PatientList](../apps/arena/src/features/patients/components/PatientList.tsx), keep state for the user's filter choices, but derive the filtered patients from existing data.
+2. In the patient list component, for example [PatientList](../apps/arena/src/features/patients/components/PatientList.tsx), `filteredPatients` is synced from `patients` via `useState` + `useEffect`. Remove that state and compute the filtered list during render instead. Keep state only for the user's filter choices (`search`, `genderFilter`).
 
 3. Extract the patient filtering behavior into a hook. You can call it [`usePatientFilter`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts), or choose another name that fits your structure. The component owns the UI, and the hook owns the filtering logic.
 
