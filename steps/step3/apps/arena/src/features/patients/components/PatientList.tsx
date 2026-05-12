@@ -23,12 +23,9 @@ export function PatientList({ patients }: PatientListProps) {
 
   return (
     <div>
-      <header className="mb-6 flex flex-col gap-1">
-        <h1 className="text-2xl font-bold tracking-tight">Patients</h1>
-        <p className="text-sm text-muted-foreground">
-          {filteredPatients.length} of {patients.length} patients
-        </p>
-      </header>
+      <p className="mb-4 text-sm text-muted-foreground">
+        {filteredPatients.length} of {patients.length} patients
+      </p>
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
         <div className="flex flex-1 flex-col gap-2">

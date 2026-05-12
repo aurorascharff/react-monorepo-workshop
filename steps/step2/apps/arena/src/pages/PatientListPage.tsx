@@ -14,7 +14,10 @@ export function PatientListPage() {
       .finally(() => setIsLoading(false))
   }, [])
 
-  if (isLoading) return <Spinner />
-
-  return <PatientList patients={patients} />
+  return (
+    <div>
+      <h1 className="mb-6 text-2xl font-bold tracking-tight">Patients</h1>
+      {isLoading ? <Spinner /> : <PatientList patients={patients} />}
+    </div>
+  )
 }
