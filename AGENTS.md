@@ -43,11 +43,11 @@ Medix is an EHR ("electronic health record") platform.
 
 - **Patient**: `id`, `name`, `dateOfBirth`, `gender` (`'male' | 'female'`), `diagnosis`
 - **Journal**: `id`, `patientId`, `title`, `date`, `content`, `status`
-- **JournalStatus**: `'active' | 'closed' | 'draft'` — imported from `@medix/ui`
+- **JournalStatus**: `'active' | 'closed' | 'draft'` — owned by `apps/arena`
 
 ## Code Style
 
-Keep solutions simple and idiomatic. Prefer small focused components, derived state in render, and shared primitives from `@medix/ui` over local re-implementations.
+Keep solutions simple and idiomatic. Prefer small focused components and shared primitives from `@medix/ui` over local re-implementations.
 
 For React best practices and patterns, use the `/react-best-practices` skill.
 

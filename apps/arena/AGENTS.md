@@ -19,13 +19,12 @@ Reusable primitives belong in `packages/ui`, not here.
 
 ## Rules
 
-1. Use `useQuery` for fetching unless a Suspense boundary is intentionally part of the design. Never `useEffect` + `fetch`.
-2. Use `useMutation` + `queryClient.invalidateQueries` after mutations.
-3. Validate forms with a Zod schema wired through `zodResolver`.
-4. Render explicit loading, error, empty, busy, and success states for regular `useQuery` callsites. Build loading UI with shared `@medix/ui` primitives such as `Skeleton`; avoid generic spinners for page and data loading states. If using `useSuspenseQuery`, wrap the callsite in a local `<Suspense>` and contextual `<ErrorBoundary>`.
-5. Import shared primitives such as `Button` and `Card` from `@medix/ui`. Keep app-specific workflow types, such as `JournalStatus`, in Arena until another app genuinely shares the same concept.
-6. Compute derived state in render — do not store it in `useState` and sync via `useEffect`.
-7. Put unit and component tests in a nearby `tests/` subfolder, for example `components/tests/PatientCard.test.tsx` or `hooks/tests/usePatients.test.tsx`.
+1. Server state goes through TanStack Query (`useQuery` / `useMutation` + `queryClient.invalidateQueries`). Forms go through React Hook Form + Zod (`zodResolver`).
+2. Build loading UI with the shared `Skeleton` primitive from `@medix/ui`, shaped like the content. Reserve `Spinner` for inline busy states inside controls.
+3. Import shared primitives such as `Button` and `Card` from `@medix/ui`. Keep app-specific workflow types, such as `JournalStatus`, in Arena until another app genuinely shares the same concept.
+4. Put unit and component tests in a nearby `tests/` subfolder, for example `components/tests/PatientCard.test.tsx` or `hooks/tests/usePatients.test.tsx`.
+
+For React patterns (derived state, effects, memoization, etc.), use the `/react-best-practices` skill.
 
 ## Validation
 

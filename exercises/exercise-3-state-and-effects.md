@@ -8,7 +8,7 @@ Some values are stored in state even though they can be calculated from existing
 
 If your structure differs from the reference files, make the same kind of change in the equivalent place in your app.
 
-1. In the dashboard route page, for example [DashboardPage](../apps/arena/src/pages/DashboardPage.tsx), remove state and effects that duplicate information already available from patient data. Calculate the totals during render instead.
+1. In the dashboard route page, for example [DashboardPage](../apps/arena/src/pages/DashboardPage.tsx), the per-gender totals (`total`, `female`, `male`) are duplicated from the patient list via `useState` + `useEffect`. Remove that state and compute the totals during render.
 
 2. In the patient list component, for example [PatientList](../apps/arena/src/features/patients/components/PatientList.tsx), keep state for the user's filter choices, but derive the filtered patients from existing data.
 

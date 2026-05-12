@@ -6,9 +6,11 @@ The app can show different screens, but the browser does not know what screen th
 
 ## Task
 
+If your structure differs from the reference files, make the same kind of change in the equivalent place in your app.
+
 1. Add React Router in SPA mode. Wrap the app in a browser router from [apps/arena/src/main.tsx](../apps/arena/src/main.tsx), then create routes for `/`, `/patients`, `/patients/:id`, and `*`.
 
-2. Turn the existing Dashboard, Patients, and Patient Detail screens from [apps/arena/src/App.tsx](../apps/arena/src/App.tsx), [apps/arena/src/Dashboard.tsx](../apps/arena/src/Dashboard.tsx), and [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx) into route pages. Add a simple Not Found page for the `*` route.
+2. Turn the existing Dashboard, Patients, and Patient Detail screens into route pages — the dashboard view, the patient list, and the selected-patient detail. Add a simple Not Found page for the `*` route.
 
 3. Use a layout route for the shared shell. Navigation stays in the layout, and the active state comes from the URL.
 

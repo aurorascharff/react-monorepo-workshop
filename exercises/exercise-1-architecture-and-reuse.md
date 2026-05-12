@@ -10,7 +10,7 @@ The app works, but too many responsibilities live in the same places. It is hard
 
 2. Start in [apps/arena/src/PatientPage.tsx](../apps/arena/src/PatientPage.tsx). Split the patient and journal UI into named components so the page reads more like a workflow than one large file. Put patient UI with patient code and journal UI with journal code. Keep using existing Base UI primitives from `@medix/ui`; do not move feature code into [packages/ui/src/base](../packages/ui/src/base).
 
-3. Add an error boundary with `react-error-boundary` around the page content so the fallback replaces the failed content, not the whole shell. To verify it, temporarily throw a render error inside the page content, confirm the shell stays visible, then remove the throw. Show friendly fallback copy to the user and log the real error with the existing [`logError` helper](../apps/arena/src/lib/logger.ts).
+3. Add an error boundary with `react-error-boundary` (already installed in `apps/arena`) around the page content so the fallback replaces the failed content, not the whole shell. To verify it, temporarily throw a render error inside the page content, confirm the shell stays visible, then remove the throw. Show friendly fallback copy to the user and log the real error with the existing [`logError` helper](../apps/arena/src/lib/logger.ts).
 
 4. Replace the native selects in the patient filter and journal status control with the shared Base UI [`Select`](../packages/ui/src/base/select.tsx) primitive from `@medix/ui`. Keep the status inside the control instead of adding a separate badge.
 
