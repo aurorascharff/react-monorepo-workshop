@@ -9,7 +9,7 @@
 
 ## Participant Work
 
-- Work time: roughly 10 minutes.
+- Work time: roughly 25 minutes.
 - Discussion: roughly 5 minutes.
 - Listen for links versus buttons, nested routes, `Outlet`, route params, and URL-owned navigation.
 - Question before live coding: what changed in browser behavior once the URL owned navigation?
