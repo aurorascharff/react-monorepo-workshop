@@ -23,10 +23,6 @@ export function PatientList({ patients }: PatientListProps) {
 
   return (
     <div>
-      <p className="mb-4 text-sm text-muted-foreground">
-        {filteredPatients.length} of {patients.length} patients
-      </p>
-
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
         <div className="flex flex-1 flex-col gap-2">
           <Label htmlFor="patient-search">Search patients</Label>
@@ -60,6 +56,10 @@ export function PatientList({ patients }: PatientListProps) {
           </Select>
         </div>
       </div>
+
+      <p className="mb-4 text-sm text-muted-foreground">
+        {filteredPatients.length} of {patients.length} patients
+      </p>
 
       {filteredPatients.length === 0 ? (
         <p className="text-center text-muted-foreground py-8">
