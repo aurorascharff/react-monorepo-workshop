@@ -6,7 +6,7 @@ Designed for developers who know the basics of React and want more practice with
 
 ## Getting started
 
-**Requirements:** Node.js v20+
+**Requirements:** Node.js v20.19+ (CI runs on v22 — `nvm`/`fnm` users get this automatically via the bundled `.nvmrc`).
 
 Use the participant repo link shared by the instructor.
 
