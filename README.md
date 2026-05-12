@@ -8,7 +8,7 @@ Designed for developers who know the basics of React and want more practice with
 
 **Requirements:** Node.js v20.19+ (CI runs on v22 — `nvm`/`fnm` users get this automatically via the bundled `.nvmrc`).
 
-Use the participant repo link shared by the instructor.
+Use the participant repo link shared by the instructor. If you want to restart from scratch, the starter is available at [github.com/aurorascharff/react-monorepo-workshop-starter](https://github.com/aurorascharff/react-monorepo-workshop-starter).
 
 ```bash
 git clone <participant-repo-url>
@@ -92,3 +92,8 @@ GitHub Copilot is configured via [.github/copilot-instructions.md](.github/copil
 ## CI
 
 GitHub Actions runs `lint`, `typecheck`, `test`, `build`, and `e2e` on every push and pull request to `main`.
+
+## Reference
+
+Finished reference repo:
+[react-monorepo-workshop](https://github.com/aurorascharff/react-monorepo-workshop)
