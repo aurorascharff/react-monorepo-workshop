@@ -43,7 +43,7 @@
 - Use `usePatients` in `PatientListPage` and `DashboardPage`.
 - Render loading, error, and success states.
 - Log real API errors with `logError`, but write friendly route-specific UI messages.
-- Use the shared [`Skeleton`](https://ui.shadcn.com/docs/components/skeleton) primitive from `@medix/ui`, but export each skeleton from the component or page it represents.
+- Build loading UI with the shared [`Skeleton`](https://ui.shadcn.com/docs/components/skeleton) primitive from `@medix/ui`, shaped like the content that's coming. Place each shaped skeleton next to the component or page it represents (for example `PatientList.tsx` exports `PatientListSkeleton`), so the loading shape and the real shape stay in sync when one changes.
 - Open React Query Devtools and show that both screens use `['patients']`.
 - Question: what code disappeared?
 - Answer: local loading state, fetching effects, repeated fetch calls, and manual success/error bookkeeping.

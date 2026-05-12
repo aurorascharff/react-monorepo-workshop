@@ -64,13 +64,19 @@
 ## Extract BrandMark
 
 - Open the Arena layout and medix.com layout.
-- Create `packages/ui/src/BrandMark.tsx` and export it.
-- Use it in `apps/arena/src/layouts/Layout.tsx` as `Medix Arena`.
-- Use it in `apps/medix.com/app/layout.tsx` as the main Medix brand.
+- Create `packages/ui/src/BrandMark.tsx` and export it from `packages/ui/src/index.ts`.
+- Use it in `apps/arena/src/layouts/Layout.tsx` for the desktop sidebar and the mobile header (`Medix Arena`).
+- Use it in `apps/medix.com/app/layout.tsx` for both the header and footer brand spots (main Medix brand).
 - Say: this is Domain UI. It knows the product brand. It is not Base UI like `Button`, `Card`, or `Select`.
 - Question: why is this better shared than journal status?
 - Answer: both apps need the same brand identity, while journal status is still one app workflow.
 - Relate to Pulse: base components define reusable behavior; domain components encode shared product concepts.
+
+## Bonus
+
+- Move the error boundary to a different placement (around the whole layout vs. only around `Outlet`-bound content) and re-trigger the test throw. Compare what stays visible.
+- Question: which placement leaves the user with the most useful recovery path?
+- Answer: the smallest boundary that still lets the user navigate away from the failure.
 
 ## Close
 

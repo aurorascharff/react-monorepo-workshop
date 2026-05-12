@@ -65,7 +65,7 @@
 - Pass `field.value`, `field.onChange`, and `id="date"` to `DatePicker`.
 - Inspect the date picker in Accessibility and confirm the visible label names the control.
 - Render and connect `errors.date?.message`.
-- Say: the shared primitive handles button, popover, calendar, focus, and keyboard behavior. We pass form semantics into it.
+- Say: the shared primitive handles button, popover, calendar, focus, and keyboard behavior. We connect it to the form by passing `field.value` and `field.onChange` from `Controller`.
 - Question: why not use `Controller` for every field?
 - Answer: use the simpler [`register`](https://react-hook-form.com/docs/useform/register) path when the input supports it.
 
@@ -87,6 +87,11 @@
 - Say: server errors need their own place. Client validation cannot catch network errors, permissions, or backend failures.
 - Question: where should server errors be shown so the user can recover?
 - Answer: near the form submit area or above the fields, where it is clear the whole submission failed.
+
+## Bonus
+
+- Add success feedback after a journal entry is saved. Make sure the success message and any field or server errors do not crowd each other — only one of {pending, error, success} should be visible for a given submit cycle.
+- Drive the form with keyboard only: Tab to each field, fix a validation error, submit. Question: do focus moves and error announcements make sense? Answer: each error should be announced once via `role="alert"` or its `aria-describedby` link, and focus should not jump unexpectedly.
 
 ## Close
 

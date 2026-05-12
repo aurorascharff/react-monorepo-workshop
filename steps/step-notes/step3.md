@@ -53,6 +53,11 @@
 - Answer: this synchronizes with a timer, which is outside React.
 - Relate to latency: debounce is one way to handle time in the browser before server state enters the picture.
 
+## Bonus
+
+- Add a clear-filters action that resets `search` and `genderFilter` from `usePatientFilter`. Question: did you need extra state, or are the existing setters enough? Answer: existing setters are enough — derived state stays derived.
+- Try [`useDeferredValue`](https://react.dev/reference/react/useDeferredValue) for the search value instead of `useDebounce`. Compare how each one feels: debounce skips work between keystrokes, `useDeferredValue` keeps the input snappy and renders the previous filtered list while the new one is computed.
+
 ## Close
 
 - Commit and push the module solution.
