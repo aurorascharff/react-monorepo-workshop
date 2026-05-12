@@ -50,10 +50,7 @@ function ResettableBoundary() {
   const [shouldThrow, setShouldThrow] = useState(true)
 
   return (
-    <ErrorBoundary
-      onReset={() => setShouldThrow(false)}
-      resetLabel="Try again"
-    >
+    <ErrorBoundary onReset={() => setShouldThrow(false)} resetLabel="Try again">
       <MaybeBroken shouldThrow={shouldThrow} />
     </ErrorBoundary>
   )
