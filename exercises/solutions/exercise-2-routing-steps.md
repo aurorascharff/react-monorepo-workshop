@@ -1,6 +1,6 @@
 # Exercise Two: Routing — Walkthrough
 
-> Companion to [`exercise-2-routing.md`](exercise-2-routing.md). Read the brief first; come back here for one workable order of operations with the rationale.
+> Companion to [`exercise-2-routing.md`](../exercise-2-routing.md). Read the brief first; come back here for one workable order of operations with the rationale.
 
 ## Problem
 
@@ -25,7 +25,7 @@ The job is to delete the local navigation state in `App.tsx` and let [React Rout
 
 ### 1. Add `BrowserRouter` and create routes
 
-In [`apps/arena/src/main.tsx`](../apps/arena/src/main.tsx), wrap the tree in [`BrowserRouter`](https://reactrouter.com/api/declarative-routers/BrowserRouter):
+In [`apps/arena/src/main.tsx`](../../apps/arena/src/main.tsx), wrap the tree in [`BrowserRouter`](https://reactrouter.com/api/declarative-routers/BrowserRouter):
 
 ```tsx
 import { BrowserRouter } from 'react-router'
@@ -63,10 +63,10 @@ The page imports will fail until step 2 — that's expected.
 
 Create `apps/arena/src/pages/` with one file per route:
 
-- [`DashboardPage.tsx`](../apps/arena/src/pages/DashboardPage.tsx) — move/rename the dashboard view.
-- [`PatientListPage.tsx`](../apps/arena/src/pages/PatientListPage.tsx) — renders the patient list; for now keep its own `useEffect` + `fetchPatients`. Exercise 4 replaces that.
-- [`PatientDetailPage.tsx`](../apps/arena/src/pages/PatientDetailPage.tsx) — reads `id` from the URL (step 4), fetches patient + journals, renders `PatientHeader` / `JournalList` / `JournalForm`.
-- [`NotFoundPage.tsx`](../apps/arena/src/pages/NotFoundPage.tsx) — a small "Page not found" with a link back to `/`.
+- [`DashboardPage.tsx`](../../apps/arena/src/pages/DashboardPage.tsx) — move/rename the dashboard view.
+- [`PatientListPage.tsx`](../../apps/arena/src/pages/PatientListPage.tsx) — renders the patient list; for now keep its own `useEffect` + `fetchPatients`. Exercise 4 replaces that.
+- [`PatientDetailPage.tsx`](../../apps/arena/src/pages/PatientDetailPage.tsx) — reads `id` from the URL (step 4), fetches patient + journals, renders `PatientHeader` / `JournalList` / `JournalForm`.
+- [`NotFoundPage.tsx`](../../apps/arena/src/pages/NotFoundPage.tsx) — a small "Page not found" with a link back to `/`.
 
 Each page owns the data its route needs. Pages don't import each other.
 
@@ -74,7 +74,7 @@ Each page owns the data its route needs. Pages don't import each other.
 
 ### 3. Convert `Layout` to use `Outlet` and `NavLink`
 
-In [`apps/arena/src/layouts/Layout.tsx`](../apps/arena/src/layouts/Layout.tsx):
+In [`apps/arena/src/layouts/Layout.tsx`](../../apps/arena/src/layouts/Layout.tsx):
 
 - Drop the `children`, `activePage`, `onNavigate` props.
 - Render [`<Outlet />`](https://reactrouter.com/api/components/Outlet) inside the existing `<ErrorBoundary>`.
@@ -148,7 +148,7 @@ Try refresh, back, forward, copied URLs, and an unknown URL:
 
 ### Compare with the marketing site
 
-Open [`apps/medix.com/app`](../apps/medix.com/app) and look at `page.tsx`, `layout.tsx`, and the nested route folders. The [Next.js App Router](https://nextjs.org/docs/app) gets routes from files; React Router gets routes from route components. Same core idea: URL maps to UI.
+Open [`apps/medix.com/app`](../../apps/medix.com/app) and look at `page.tsx`, `layout.tsx`, and the nested route folders. The [Next.js App Router](https://nextjs.org/docs/app) gets routes from files; React Router gets routes from route components. Same core idea: URL maps to UI.
 
 Open [localhost:3000](http://localhost:3000) and inspect the document request in DevTools Network. The HTML response already contains meaningful content before any client JS runs. Compare with Arena on [localhost:5173](http://localhost:5173), where the browser receives the SPA shell.
 

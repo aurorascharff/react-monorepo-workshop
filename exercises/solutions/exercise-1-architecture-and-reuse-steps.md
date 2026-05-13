@@ -1,16 +1,16 @@
 # Exercise One: Architecture and Reuse — Walkthrough
 
-> Companion to [`exercise-1-architecture-and-reuse.md`](exercise-1-architecture-and-reuse.md). Read the brief first; come back here for one workable order of operations with the rationale behind each move.
+> Companion to [`exercise-1-architecture-and-reuse.md`](../exercise-1-architecture-and-reuse.md). Read the brief first; come back here for one workable order of operations with the rationale behind each move.
 
 ## Problem
 
 The problem is not that the files are long — it's that responsibilities are hidden. If the status styling, the layout, or the journal form needed to change later, where would you look?
 
-Open [`apps/arena/src/App.tsx`](../apps/arena/src/App.tsx) and [`apps/arena/src/PatientPage.tsx`](../apps/arena/src/PatientPage.tsx) side by side:
+Open [`apps/arena/src/App.tsx`](../../apps/arena/src/App.tsx) and [`apps/arena/src/PatientPage.tsx`](../../apps/arena/src/PatientPage.tsx) side by side:
 
 - `App.tsx` mixes shell (sidebar, mobile header, page wrapper) with navigation state ([`useState<Page>`](https://react.dev/reference/react/useState)).
 - `PatientPage.tsx` holds six responsibilities in one file — list, card, header, journal list, entry, and form — plus an inline `STATUS_STYLES` map.
-- The Medix wordmark is duplicated in `App.tsx` and in [`apps/medix.com/app/layout.tsx`](../apps/medix.com/app/layout.tsx).
+- The Medix wordmark is duplicated in `App.tsx` and in [`apps/medix.com/app/layout.tsx`](../../apps/medix.com/app/layout.tsx).
 
 We work outward from the shell to shared concepts. Shell first creates a clean seam everything else relies on.
 
@@ -18,7 +18,7 @@ We work outward from the shell to shared concepts. Shell first creates a clean s
 
 ### 1. Move the shell into a named layout
 
-Create [`apps/arena/src/layouts/Layout.tsx`](../apps/arena/src/layouts/Layout.tsx) and move the sidebar, mobile header, and `<main>` wrapper out of `App.tsx`. Keep `page` state in `App.tsx` for now — the URL takes it over in Exercise 2.
+Create [`apps/arena/src/layouts/Layout.tsx`](../../apps/arena/src/layouts/Layout.tsx) and move the sidebar, mobile header, and `<main>` wrapper out of `App.tsx`. Keep `page` state in `App.tsx` for now — the URL takes it over in Exercise 2.
 
 ```tsx
 // layouts/Layout.tsx
@@ -70,9 +70,9 @@ apps/arena/src/features/
   journal/components/    JournalList.tsx, JournalEntry.tsx, JournalForm.tsx
 ```
 
-Leave fetching, mutations, and form logic exactly where they were — Exercises [3](exercise-3-state-and-effects.md), [4](exercise-4-server-state.md), and [5](exercise-5-forms.md) each replace one of those. We're moving code, not improving it. The native `<select>` elements stay too — step 4 swaps them.
+Leave fetching, mutations, and form logic exactly where they were — Exercises [3](../exercise-3-state-and-effects.md), [4](../exercise-4-server-state.md), and [5](../exercise-5-forms.md) each replace one of those. We're moving code, not improving it. The native `<select>` elements stay too — step 4 swaps them.
 
-> **What goes in a feature folder, and what doesn't?** Feature folders group by what the app does. A route-local `_components` folder (like [`apps/medix.com/app/products/_components`](../apps/medix.com/app/products)) is fine when code belongs to one specific route. Patient and journal screens are app workflow — they stay in `apps/arena`, not in `packages/ui`.
+> **What goes in a feature folder, and what doesn't?** Feature folders group by what the app does. A route-local `_components` folder (like [`apps/medix.com/app/products/_components`](../../apps/medix.com/app/products)) is fine when code belongs to one specific route. Patient and journal screens are app workflow — they stay in `apps/arena`, not in `packages/ui`.
 
 ### 3. Add an error boundary around the page content
 
@@ -114,13 +114,13 @@ The sidebar should stay visible; only the page content should be replaced by the
 
 > **Why around `<main>` and not the whole `<Layout>`?** The smallest boundary that still lets the user navigate away. Wrapping the whole layout would hide the sidebar — the user would have no exit short of a refresh.
 
-> **Why log with [`logError`](../apps/arena/src/lib/logger.ts) but show friendly copy?** Stack traces aren't actionable for the user, and internal details shouldn't leak into the UI. The fallback gives the user a way forward; `logError` gives you the technical context.
+> **Why log with [`logError`](../../apps/arena/src/lib/logger.ts) but show friendly copy?** Stack traces aren't actionable for the user, and internal details shouldn't leak into the UI. The fallback gives the user a way forward; `logError` gives you the technical context.
 
 > [Next.js error boundaries](https://aurorascharff.no/posts/error-handling-in-nextjs-with-catch-error) work differently — but Arena is an SPA, so this is React's classic [`ErrorBoundary`](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) pattern via `react-error-boundary`.
 
 ### 4. Replace the native selects with Base UI
 
-Two `<select>` elements need to go: the gender filter in `PatientList` and the journal status switcher in `JournalEntry`. Swap both for the shared [`Select`](../packages/ui/src/base/select.tsx) primitive from `@medix/ui` (a [Radix](https://www.radix-ui.com/primitives/docs/components/select) wrapper, generated via the [shadcn/ui](https://ui.shadcn.com/docs/components/select) CLI):
+Two `<select>` elements need to go: the gender filter in `PatientList` and the journal status switcher in `JournalEntry`. Swap both for the shared [`Select`](../../packages/ui/src/base/select.tsx) primitive from `@medix/ui` (a [Radix](https://www.radix-ui.com/primitives/docs/components/select) wrapper, generated via the [shadcn/ui](https://ui.shadcn.com/docs/components/select) CLI):
 
 ```tsx
 <Select value={genderFilter} onValueChange={(v) => setGenderFilter(v as GenderFilter)}>
@@ -141,9 +141,9 @@ Do the same for the three `JournalStatus` options (`draft`, `active`, `closed`) 
 
 ### 5. Extract `BrandMark` to `@medix/ui`
 
-The Medix logo and wordmark live in three places: the Arena desktop sidebar, the Arena mobile header, and [`apps/medix.com/app/layout.tsx`](../apps/medix.com/app/layout.tsx). Arena renders it with the `Arena` product context; medix.com renders the bare brand.
+The Medix logo and wordmark live in three places: the Arena desktop sidebar, the Arena mobile header, and [`apps/medix.com/app/layout.tsx`](../../apps/medix.com/app/layout.tsx). Arena renders it with the `Arena` product context; medix.com renders the bare brand.
 
-Create [`packages/ui/src/BrandMark.tsx`](../packages/ui/src/BrandMark.tsx) and export it from [`packages/ui/src/index.ts`](../packages/ui/src/index.ts):
+Create [`packages/ui/src/BrandMark.tsx`](../../packages/ui/src/BrandMark.tsx) and export it from [`packages/ui/src/index.ts`](../../packages/ui/src/index.ts):
 
 ```tsx
 type BrandMarkProps = {
@@ -161,7 +161,7 @@ Use it in `Layout.tsx` (`<BrandMark product="Arena" />`) and in `apps/medix.com/
 
 > **Why is `BrandMark` better shared than journal status?** Both apps need the same brand identity — change the logo once, both update. Journal status is one app's workflow; sharing it would force `packages/ui` to know about `JournalStatus`. Drag domain concepts into the shared package only when more than one consumer needs them.
 
-> **Base UI vs. domain UI.** [`Button`](../packages/ui/src/base/button.tsx), [`Card`](../packages/ui/src/base/card.tsx), [`Select`](../packages/ui/src/base/select.tsx) know nothing about Medix. `BrandMark` is domain UI — it encodes the product brand. Both belong in `packages/ui`, but in different layers.
+> **Base UI vs. domain UI.** [`Button`](../../packages/ui/src/base/button.tsx), [`Card`](../../packages/ui/src/base/card.tsx), [`Select`](../../packages/ui/src/base/select.tsx) know nothing about Medix. `BrandMark` is domain UI — it encodes the product brand. Both belong in `packages/ui`, but in different layers.
 
 ### Verify
 

@@ -2,7 +2,7 @@
 
 This file holds the stable workshop information: format, schedule, repositories, authoring materials, and module overview.
 
-Use [`exercises/exercise-N-NAME-steps.md`](exercises/) for module walkthroughs (rationale, code, and live-coding flow). Use [`steps/`](steps/) for complete code snapshots after each module.
+Use [`exercises/solutions/exercise-N-NAME-steps.md`](exercises/solutions/) for module walkthroughs (rationale, code, and live-coding flow). Use [`steps/`](steps/) for complete code snapshots after each module.
 
 ## Workshop
 
@@ -21,7 +21,7 @@ Each module follows the same loop:
 1. Slides introduce the concept and the problem in the starter code.
 2. Participants work through the task in the app.
 3. The group discusses what they tried and where they got stuck.
-4. The instructor live-codes the solution using the matching `exercises/exercise-N-NAME-steps.md`.
+4. The instructor live-codes the solution using the matching `exercises/solutions/exercise-N-NAME-steps.md`.
 5. The instructor runs the relevant checks, commits, and pushes the module solution.
 6. Participants get a recovery path: they can keep their own work, or discard local changes and run `git pull` to use the pushed solution.
 7. Pause before the next module so participants can pull the pushed solution if needed.
@@ -67,9 +67,9 @@ Participants should clone the workshop-specific participant repo, not the privat
 
 ## Authoring Materials
 
-- [`exercises/`](exercises/) - participant tasks, walkthroughs, and resources
+- [`exercises/`](exercises/) - participant tasks and resources
   - `exercise-N-NAME.md` - the task brief
-  - `exercise-N-NAME-steps.md` - the step-by-step walkthrough (rationale + code, used for live-coding and participant fallback)
+  - [`exercises/solutions/exercise-N-NAME-steps.md`](exercises/solutions/) - the step-by-step walkthrough (rationale + code, used for live-coding and participant fallback)
 - [`INSTRUCTOR.md`](INSTRUCTOR.md) - day-of checklist, room notes, fallback plan, and follow-up
 - [`steps/`](steps) - complete code snapshots for each workshop module
 - [`steps/step0`](steps/step0) - starter snapshot used for the participant repo

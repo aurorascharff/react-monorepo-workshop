@@ -1,6 +1,6 @@
 # Exercise Three: State and Effects — Walkthrough
 
-> Companion to [`exercise-3-state-and-effects.md`](exercise-3-state-and-effects.md). Read the brief first; come back here for one workable order of operations with the rationale.
+> Companion to [`exercise-3-state-and-effects.md`](../exercise-3-state-and-effects.md). Read the brief first; come back here for one workable order of operations with the rationale.
 
 ## Problem
 
@@ -19,7 +19,7 @@ Two places store what they could compute:
 
 ### 1. Remove dashboard derived state
 
-In [`pages/DashboardPage.tsx`](../apps/arena/src/pages/DashboardPage.tsx), delete the `stats` `useState` and the `useEffect` that resets it. Compute the totals during render:
+In [`pages/DashboardPage.tsx`](../../apps/arena/src/pages/DashboardPage.tsx), delete the `stats` `useState` and the `useEffect` that resets it. Compute the totals during render:
 
 ```tsx
 const total = patients?.length ?? 0
@@ -33,7 +33,7 @@ One source of truth (`patients`) — three derived values.
 
 ### 2. Stop syncing `filteredPatients`
 
-In [`features/patients/components/PatientList.tsx`](../apps/arena/src/features/patients/components/PatientList.tsx), remove `filteredPatients` state and the effect that syncs it. Compute it during render:
+In [`features/patients/components/PatientList.tsx`](../../apps/arena/src/features/patients/components/PatientList.tsx), remove `filteredPatients` state and the effect that syncs it. Compute it during render:
 
 ```tsx
 const filteredPatients = patients.filter((p) => {
@@ -51,7 +51,7 @@ Keep `useState` only for what the user controls: `search` and `genderFilter`. Th
 
 ### 3. Extract `usePatientFilter`
 
-`search`, `setSearch`, `genderFilter`, `setGenderFilter`, and `filteredPatients` belong together. Move them into a [custom hook](https://react.dev/learn/reusing-logic-with-custom-hooks) at [`features/patients/hooks/usePatientFilter.ts`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts):
+`search`, `setSearch`, `genderFilter`, `setGenderFilter`, and `filteredPatients` belong together. Move them into a [custom hook](https://react.dev/learn/reusing-logic-with-custom-hooks) at [`features/patients/hooks/usePatientFilter.ts`](../../apps/arena/src/features/patients/hooks/usePatientFilter.ts):
 
 ```ts
 export function usePatientFilter(patients: Patient[], { search, genderFilter }: PatientFilters) {
@@ -74,7 +74,7 @@ The component owns the UI; the hook owns the filtering logic.
 
 ### 4. Add `useDebounce`
 
-A timer is real synchronization with something outside React, so `useEffect` is the right tool here. Create [`hooks/useDebounce.ts`](../apps/arena/src/hooks/useDebounce.ts):
+A timer is real synchronization with something outside React, so `useEffect` is the right tool here. Create [`hooks/useDebounce.ts`](../../apps/arena/src/hooks/useDebounce.ts):
 
 ```ts
 export function useDebounce<T>(value: T, delayMs = 300): T {

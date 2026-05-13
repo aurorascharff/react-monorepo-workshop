@@ -4,10 +4,10 @@ Frozen full-repo snapshots after each module, used as a recovery path when parti
 
 | What                              | Audience    | Purpose                                                                                                                                                       |
 | --------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`exercises/`](../exercises/)     | Participant | Task brief (`exercise-N-NAME.md`) and step-by-step walkthrough (`exercise-N-NAME-steps.md`). The walkthroughs are the canonical live-coding script too.        |
+| [`exercises/`](../exercises/)     | Participant | Task brief (`exercise-N-NAME.md`) and step-by-step walkthrough in [`exercises/solutions/`](../exercises/solutions/). The walkthroughs are the canonical live-coding script too. |
 | [`steps/step{N}/`](.)             | Both        | Frozen full-repo snapshot of the **end state after module `N`**. `step0` is the starter; `step5` is the finished repo.                                        |
 
-Module `N` is the work that takes `step{N-1}` to `step{N}`. So `exercise-1-architecture-and-reuse-steps.md` describes the work that turns `step0` into `step1`, which is the same work the matching task brief asks the participant to do.
+Module `N` is the work that takes `step{N-1}` to `step{N}`. So `exercises/solutions/exercise-1-architecture-and-reuse-steps.md` describes the work that turns `step0` into `step1`, which is the same work the matching task brief asks the participant to do.
 
 ## Diff between snapshots
 

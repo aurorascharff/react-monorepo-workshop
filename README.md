@@ -32,11 +32,11 @@ npm run dev
 | medix.com   | http://localhost:3000 |
 
 Workshop tasks are listed in [exercises/](exercises/) — each module has a brief
-(`exercise-N-NAME.md`) and an optional step-by-step walkthrough
-(`exercise-N-NAME-steps.md`) for when you get stuck. Step snapshots are in
-[steps/](steps), and this repository is the final reference repo with the
-completed app and tests. The final app also includes selected bonus/reference
-improvements beyond the main step 5 path.
+(`exercise-N-NAME.md`) and an optional step-by-step walkthrough in
+[exercises/solutions/](exercises/solutions/) for when you get stuck. Step
+snapshots are in [steps/](steps), and this repository is the final reference
+repo with the completed app and tests. The final app also includes selected
+bonus/reference improvements beyond the main step 5 path.
 
 ## Monorepo structure
 

@@ -1,6 +1,6 @@
 # Exercise Four: Server State — Walkthrough
 
-> Companion to [`exercise-4-server-state.md`](exercise-4-server-state.md). Read the brief first; come back here for one workable order of operations with the rationale.
+> Companion to [`exercise-4-server-state.md`](../exercise-4-server-state.md). Read the brief first; come back here for one workable order of operations with the rationale.
 
 ## Problem
 
@@ -16,7 +16,7 @@ Open Network in DevTools, filter by Fetch/XHR, and navigate from Dashboard to Pa
 
 ### 1. Add `QueryClientProvider`
 
-In [`apps/arena/src/main.tsx`](../apps/arena/src/main.tsx), create a [`QueryClient`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClient) and wrap the app with [`QueryClientProvider`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider):
+In [`apps/arena/src/main.tsx`](../../apps/arena/src/main.tsx), create a [`QueryClient`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClient) and wrap the app with [`QueryClientProvider`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider):
 
 ```tsx
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -38,7 +38,7 @@ const queryClient = new QueryClient({
 
 ### 2. Create and use `usePatients`
 
-In [`features/patients/hooks/usePatients.ts`](../apps/arena/src/features/patients/hooks/usePatients.ts):
+In [`features/patients/hooks/usePatients.ts`](../../apps/arena/src/features/patients/hooks/usePatients.ts):
 
 ```ts
 import { useQuery } from '@tanstack/react-query'
@@ -51,7 +51,7 @@ export function usePatients() {
 }
 ```
 
-Use `usePatients()` in both `PatientListPage` and `DashboardPage`. Render loading, error, and success from `{ data, isLoading, error }`. Log real API errors with [`logError`](../apps/arena/src/lib/logger.ts); write friendly route-specific UI copy:
+Use `usePatients()` in both `PatientListPage` and `DashboardPage`. Render loading, error, and success from `{ data, isLoading, error }`. Log real API errors with [`logError`](../../apps/arena/src/lib/logger.ts); write friendly route-specific UI copy:
 
 ```tsx
 const { data: patients, isLoading, error } = usePatients()
@@ -60,7 +60,7 @@ if (isLoading) return <DashboardSkeleton />
 if (error) return <ErrorState title="Dashboard is unavailable" error={error} ... />
 ```
 
-Build loading UI with the shared [`Skeleton`](../packages/ui/src/base/skeleton.tsx) primitive ([shadcn/ui](https://ui.shadcn.com/docs/components/skeleton)), shaped like the content that's coming. Place each shaped skeleton next to the component it represents — for example export `PatientListSkeleton` from `PatientList.tsx`. Loading shape and real shape stay in sync when one changes.
+Build loading UI with the shared [`Skeleton`](../../packages/ui/src/base/skeleton.tsx) primitive ([shadcn/ui](https://ui.shadcn.com/docs/components/skeleton)), shaped like the content that's coming. Place each shaped skeleton next to the component it represents — for example export `PatientListSkeleton` from `PatientList.tsx`. Loading shape and real shape stay in sync when one changes.
 
 Open the [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools). Both pages should share one `['patients']` cache entry.
 
@@ -70,7 +70,7 @@ Open the [React Query Devtools](https://tanstack.com/query/latest/docs/framework
 
 ### 3. Use queries for patient detail
 
-In [`pages/PatientDetailPage.tsx`](../apps/arena/src/pages/PatientDetailPage.tsx), replace the manual fetch with [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery):
+In [`pages/PatientDetailPage.tsx`](../../apps/arena/src/pages/PatientDetailPage.tsx), replace the manual fetch with [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery):
 
 ```tsx
 const { data: patient, isLoading, error } = useQuery({
@@ -97,7 +97,7 @@ Render loading, error, success. Write a recovery-oriented visible message; log t
 
 ### 4. Create `useJournals` and render states
 
-In [`features/journal/hooks/useJournals.ts`](../apps/arena/src/features/journal/hooks/useJournals.ts):
+In [`features/journal/hooks/useJournals.ts`](../../apps/arena/src/features/journal/hooks/useJournals.ts):
 
 ```ts
 export function useJournals(patientId: string) {

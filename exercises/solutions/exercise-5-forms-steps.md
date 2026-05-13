@@ -1,16 +1,16 @@
 # Exercise Five: Forms — Walkthrough
 
-> Companion to [`exercise-5-forms.md`](exercise-5-forms.md). Read the brief first; come back here for one workable order of operations with the rationale.
+> Companion to [`exercise-5-forms.md`](../exercise-5-forms.md). Read the brief first; come back here for one workable order of operations with the rationale.
 
 ## Problem
 
 The problem isn't that the form submits — it's that validation rules, submit state, and recovery from errors are hard to see and change. Forms need visible rules, field-level feedback, submit state, and a place for server errors.
 
-Open [`features/journal/components/JournalForm.tsx`](../apps/arena/src/features/journal/components/JournalForm.tsx) in code and in the browser. Inspect title, date, and content in DevTools Elements + Accessibility. What rules can you see from the UI? Required title, required date, content length, server errors. Labels exist, but feedback is generic and not connected well enough to the field that needs fixing.
+Open [`features/journal/components/JournalForm.tsx`](../../apps/arena/src/features/journal/components/JournalForm.tsx) in code and in the browser. Inspect title, date, and content in DevTools Elements + Accessibility. What rules can you see from the UI? Required title, required date, content length, server errors. Labels exist, but feedback is generic and not connected well enough to the field that needs fixing.
 
 Shared primitives already handle a lot of keyboard, focus, and ARIA behavior. The form still owns labels, validation messages, [`aria-invalid`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-invalid), and [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby).
 
-> **Client validation is for UX. The server must still validate.** That's why the [API](../apps/api/src/routes) also has a [Zod](https://zod.dev) schema — client validation makes the form pleasant; server validation keeps the system safe.
+> **Client validation is for UX. The server must still validate.** That's why the [API](../../apps/api/src/routes) also has a [Zod](https://zod.dev) schema — client validation makes the form pleasant; server validation keeps the system safe.
 
 ## Task
 
@@ -46,7 +46,7 @@ const { handleSubmit, reset, control, formState: { errors } } = useForm<JournalF
 })
 ```
 
-Use [`register`](https://react-hook-form.com/docs/useform/register) for plain inputs and [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) for primitives that don't forward refs the way RHF expects. The title and content fields work with either approach — `Controller` keeps consistency with the [`DatePicker`](../packages/ui/src/base/date-picker.tsx) in step 4:
+Use [`register`](https://react-hook-form.com/docs/useform/register) for plain inputs and [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) for primitives that don't forward refs the way RHF expects. The title and content fields work with either approach — `Controller` keeps consistency with the [`DatePicker`](../../packages/ui/src/base/date-picker.tsx) in step 4:
 
 ```tsx
 <Label htmlFor="title">Title</Label>
@@ -69,7 +69,7 @@ Use [`register`](https://react-hook-form.com/docs/useform/register) for plain in
 )}
 ```
 
-Same shape for `content` with a [`Textarea`](../packages/ui/src/base/textarea.tsx). Keep `<Label htmlFor="...">` tied to `id="..."` on the input.
+Same shape for `content` with a [`Textarea`](../../packages/ui/src/base/textarea.tsx). Keep `<Label htmlFor="...">` tied to `id="..."` on the input.
 
 > **Controlled vs. uncontrolled.** Controlled means React owns the value; uncontrolled means the DOM owns it and [React Hook Form](https://react-hook-form.com/) reads it when needed. `register` is uncontrolled (faster, no re-render per keystroke); `Controller` is controlled (works with primitives that need React to drive them). Use the simpler `register` path when the input supports it.
 
@@ -94,7 +94,7 @@ On mutation success, invalidate `['journals', patientId]` and call any `onSucces
 
 ### 4. Use `DatePicker` via `Controller`
 
-Replace the plain date input with the shared [`DatePicker`](../packages/ui/src/base/date-picker.tsx). Wire it through `Controller`:
+Replace the plain date input with the shared [`DatePicker`](../../packages/ui/src/base/date-picker.tsx). Wire it through `Controller`:
 
 ```tsx
 <Label htmlFor="date">Date</Label>
