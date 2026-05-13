@@ -25,7 +25,7 @@ npm run diff:steps -- --path apps/arena --stat  # all pairs, scoped to a path
 
 ## Live-coding workflow
 
-1. Open the matching `exercises/exercise-N-NAME-steps.md` — the walkthrough holds the rationale, code, and ordering.
+1. Open the matching `exercises/solutions/exercise-N-NAME-steps.md` — the walkthrough holds the rationale, code, and ordering.
 2. Give participants their work-time slot.
 3. Live-code the walkthrough.
 4. Commit and push. Tell participants they can `git pull` if they prefer your version, or check out `steps/step{N}/` if they're badly stuck.
