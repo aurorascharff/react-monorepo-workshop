@@ -12,7 +12,7 @@ If your structure differs from the reference files, make the same kind of change
 
 2. Connect the existing title, date, and content fields to React Hook Form. Keep the labels connected to their controls.
 
-3. Submit valid data through the existing create-journal mutation flow and refresh the journal list after a successful submit.
+3. Submit valid data through the existing `useCreateJournal` mutation hook and refresh the journal list after a successful submit.
 
 4. Use shared UI primitives for controls that need more than a plain input. For the date field, use the shared [`DatePicker`](../packages/ui/src/base/date-picker.tsx). Add the form-specific labels and error relationships in the form.
 

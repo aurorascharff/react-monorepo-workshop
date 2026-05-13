@@ -21,10 +21,10 @@ Each module follows the same loop:
 1. Slides introduce the concept and the problem in the starter code.
 2. Participants work through the task in the app.
 3. The group discusses what they tried and where they got stuck.
-4. The instructor live-codes the solution using the matching `exercises/solutions/exercise-N-NAME-steps.md`.
+4. The instructor applies the next `steps/stepN` snapshot to the live-coding repo, then walks through the diff using the matching `exercises/solutions/exercise-N-NAME-steps.md`.
 5. The instructor runs the relevant checks, commits, and pushes the module solution.
-6. Participants get a recovery path: they can keep their own work, or discard local changes and run `git pull` to use the pushed solution.
-7. Pause before the next module so participants can pull the pushed solution if needed.
+6. Participants get a recovery path: they can keep their own work, or discard local changes and run `git pull` to use the latest module version.
+7. Pause before the next module so participants can pull the latest module version if needed.
 
 At the end of each module, say:
 
@@ -78,11 +78,21 @@ Participants should clone the workshop-specific participant repo, not the privat
 
 - **Intro: Rendering strategies and browser behavior** — Compare CSR, SSR, static rendering, streaming, and Server Components, then connect those choices to the web platform
 - **Setup and repo tour** — Run the app, read the README, inspect the starter structure, connect the rendering model to the repo, and confirm the local tools
-- **Module 1: Architecture and Reuse** — Split large files, create focused components, replace native selects with shared Base UI, add a shared `BrandMark`, and add an error boundary
+- **Module 1: Architecture and Reuse** — Split large files, create focused components, replace native selects with shared Base UI, add a shared `BrandMark`, and place contextual error boundaries (layout-level + patient detail) using the same `<ErrorBoundary>` with different `title`/`message`/`logContext` props
 - **Module 2: Routing** — Make the URL the source of truth with React Router routes, links, params, nested layout, and a Next.js rendering comparison
-- **Module 3: State and Effects** — Remove unnecessary state, derive values during render, extract reusable hook logic
-- **Module 4: Server State** — Replace manual fetching with server-state hooks, cache identity, mutations, invalidation, and local boundaries
+- **Module 3: State and Effects** — Organize state so facts stay separate from derived values, avoid impossible states, reset patient-local state with `key`, and extract reusable hook logic
+- **Module 4: Server State** — Push data fetching and mutations into the components that own them, with every query and mutation behind its own hook (`usePatients`, `useJournals`, `useUpdateJournalStatus`, `useCreateJournal`). `PatientList`, `DashboardStats`, `RecentPatients`, `JournalList`, `JournalEntry`, and `JournalForm` each call their own hook — pages stop being data-flow plumbing, no more `onCreated`/`onStatusChange` callbacks threaded through. `<ErrorState>` handles query failures; the inner Exercise One boundaries collapse, the layout-level one stays
 - **Module 5: Forms** — Add React Hook Form and Zod validation with field errors, visible submit state, and server error feedback
+
+### Reference repo vs. step 5
+
+The final reference repo (this repo's `apps/arena`) matches `steps/step5/` plus a few documented bonus improvements:
+
+- `PatientDetailPage` uses [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery) wrapped in a local `<Suspense>` and the patient-detail `<ErrorBoundary>` (step 5 uses plain `useQuery` + inline `ErrorState`).
+- `PatientList` stores search and gender filters in URL search params, with a clear-filters action and small pending hint while the debounced search catches up.
+- `useCreateJournal` runs an optimistic create flow via `onMutate` / `onError` rollback / `onSettled` invalidation (step 5 is the basic invalidate-on-success version). `JournalForm` still calls the hook, but the final app clears the form optimistically and restores the submitted values if the request fails.
+- `router.tsx` lazy-loads every route page.
+- Per-component test suites (`features/**/tests/*.test.tsx`).
 
 ## Module Goals
 
@@ -141,7 +151,7 @@ The goal is to make the codebase readable and reusable.
 - Files are organized by what the app does, not by file type
 - Each component has a single responsibility
 - Shared product UI, like the `BrandMark`, lives in the component library instead of being duplicated across apps
-- An error in one part of the page does not crash the whole app
+- Error boundaries are placed in layers — a generic layout-level catch-all and a contextual one nearer the patient detail — using one `<ErrorBoundary>` component with different `title` / `message` / `logContext` props
 
 ### Module 2: Routing
 
@@ -159,18 +169,20 @@ The goal is to keep state minimal and derived where possible.
 
 - Anything computable is computed, not stored
 - No `useEffect` synchronizes state with other state
+- Local state belongs to the right identity, not to whichever screen happened to render before it
 - Logic used in multiple places is extracted into a hook
 - ESLint reports no `react-hooks` warnings
 
 ### Module 4: Server State
 
-The goal is to handle data declaratively by describing what data we want, not how to fetch it by hand in every component.
+The goal is to handle data declaratively _and_ push it into the components that own it — pages stop holding state and threading callbacks.
 
+- Every query and mutation lives behind its own hook in the feature folder (`usePatients`, `useJournals`, `useUpdateJournalStatus`, `useCreateJournal`). `PatientList`, `DashboardStats`, `RecentPatients`, `JournalList`, `JournalEntry`, and `JournalForm` each call the hook they need — pages and parents stop owning data
 - No `useEffect` is used for data fetching
-- Loading and error states are visible to the user
-- The cache is reused across navigation
-- Mutations update relevant queries automatically
-- Server-state errors are shown where the user can recover while the surrounding shell stays visible
+- Loading/error states are shaped like the content (`Skeleton`); the cache is reused across navigation
+- Mutations invalidate the affected query on success
+- Query errors render via `<ErrorState>`; the layout-level `<ErrorBoundary>` remains as the catch-all. The contextual inner boundaries from Exercise One collapse — same fallback, two mechanisms. (The pattern flips back for `useSuspenseQuery`, which throws — used in the final-reference-app bonus.)
+- Pages become composition: they mount feature components and let them handle their own state
 
 ### Module 5: Forms
 

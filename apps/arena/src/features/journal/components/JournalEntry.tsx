@@ -10,9 +10,7 @@ import {
   SelectValue,
 } from '@medix/ui'
 import type { Journal, JournalStatus } from '@/types'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateJournalStatus } from '@/lib/api'
-import { logError } from '@/lib/logger'
+import { useUpdateJournalStatus } from '../hooks/useUpdateJournalStatus'
 
 type JournalEntryProps = {
   entry: Journal
@@ -26,18 +24,7 @@ const statusOptions: { value: JournalStatus; label: string }[] = [
 ]
 
 export function JournalEntry({ entry, patientId }: JournalEntryProps) {
-  const queryClient = useQueryClient()
-
-  const { mutate, error } = useMutation({
-    mutationFn: (status: JournalStatus) =>
-      updateJournalStatus(entry.id, status),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
-    },
-    onError: (error) => {
-      logError(error, 'Journal status mutation failed')
-    },
-  })
+  const { mutate, error } = useUpdateJournalStatus(entry.id, patientId)
 
   return (
     <Card>

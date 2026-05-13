@@ -1,7 +1,7 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { Spinner } from '@medix/ui'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { JournalForm } from '@/features/journal/components/JournalForm'
 import { JournalList } from '@/features/journal/components/JournalList'
 import { PatientHeader } from '@/features/patients/components/PatientHeader'
@@ -18,6 +18,7 @@ export function PatientDetailPage() {
   useEffect(() => {
     if (!id) return
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoading(true)
     fetchPatient(id)
       .then((data) => setPatient(data))
@@ -27,6 +28,7 @@ export function PatientDetailPage() {
   useEffect(() => {
     if (!id) return
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoadingJournals(true)
     fetchJournals(id)
       .then((data) => setJournals(data))
@@ -56,25 +58,35 @@ export function PatientDetailPage() {
         ← Back to patient list
       </Link>
 
-      {isLoading && <Spinner />}
-      {patient && (
-        <>
-          <PatientHeader patient={patient} />
-          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div>
-              <h2 className="mb-4 text-lg font-semibold">Journal entries</h2>
-              <JournalList
-                journals={journals}
-                isLoading={isLoadingJournals}
-                onStatusChange={handleStatusChange}
-              />
+      <ErrorBoundary
+        title="Patient details are unavailable"
+        message="We could not show this patient right now. Go back to the patient list or refresh the page."
+        logContext="Patient detail boundary"
+      >
+        {isLoading && <Spinner />}
+        {patient && (
+          <>
+            <PatientHeader patient={patient} />
+            <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <div>
+                <h2 className="mb-4 text-lg font-semibold">Journal entries</h2>
+                <JournalList
+                  journals={journals}
+                  isLoading={isLoadingJournals}
+                  onStatusChange={handleStatusChange}
+                />
+              </div>
+              <div>
+                <JournalForm
+                  key={id}
+                  patientId={id}
+                  onCreated={handleCreated}
+                />
+              </div>
             </div>
-            <div>
-              <JournalForm patientId={id} onCreated={handleCreated} />
-            </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </ErrorBoundary>
     </div>
   )
 }

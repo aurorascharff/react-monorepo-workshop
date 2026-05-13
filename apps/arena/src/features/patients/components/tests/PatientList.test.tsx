@@ -2,7 +2,14 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import type { Patient } from '@/types'
+import { usePatients } from '../../hooks/usePatients'
 import { PatientList } from '../PatientList'
+
+vi.mock('../../hooks/usePatients', () => ({
+  usePatients: vi.fn(),
+}))
+
+const mockedUsePatients = vi.mocked(usePatients)
 
 const patients: Patient[] = [
   {
@@ -22,6 +29,36 @@ const patients: Patient[] = [
 ]
 
 describe('PatientList', () => {
+  beforeEach(() => {
+    mockedUsePatients.mockReset()
+    mockedUsePatients.mockReturnValue(queryState({ data: patients }))
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('shows a skeleton while patients load', () => {
+    mockedUsePatients.mockReturnValue(queryState({ isLoading: true }))
+    renderPatientList()
+
+    expect(
+      screen.getByRole('status', { name: /loading patients/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('shows an error message when patients fail to load', () => {
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
+    mockedUsePatients.mockReturnValue(
+      queryState({ error: new Error('API unavailable') }),
+    )
+    renderPatientList()
+
+    expect(screen.getByText(/patient list is unavailable/i)).toBeInTheDocument()
+    expect(screen.queryByText(/api unavailable/i)).not.toBeInTheDocument()
+    expect(console.error).toHaveBeenCalled()
+  })
+
   it('renders patient cards as links to patient detail routes', () => {
     renderPatientList()
 
@@ -72,7 +109,20 @@ describe('PatientList', () => {
 function renderPatientList(initialEntry = '/patients') {
   render(
     <MemoryRouter initialEntries={[initialEntry]}>
-      <PatientList patients={patients} />
+      <PatientList />
     </MemoryRouter>,
   )
+}
+
+function queryState(overrides: {
+  data?: Patient[]
+  isLoading?: boolean
+  error?: Error | null
+}) {
+  return {
+    data: undefined,
+    isLoading: false,
+    error: null,
+    ...overrides,
+  } as ReturnType<typeof usePatients>
 }

@@ -2,21 +2,21 @@
 
 ## Problem
 
-Manual data fetching spreads loading, errors, cache, refresh, and mutation behavior across components. Server state needs a consistent place to describe what data the UI depends on.
+Manual data fetching spreads loading, errors, cache, and mutations across components. And because state lives on the page, callbacks like `onCreated` and `onStatusChange` get threaded down through props — change one thing, several files move. Server state needs one shape, owned by the components that use it.
 
 ## Task
 
 If your structure differs from the reference files, make the same kind of change in the equivalent place in your app.
 
-1. Add TanStack Query to the Arena app setup in [apps/arena/src/main.tsx](../apps/arena/src/main.tsx) with a `QueryClientProvider`.
+1. Add TanStack Query to the Arena app with a `QueryClientProvider`.
 
-2. Replace repeated patient fetching with a shared server-state hook. You can call it [usePatients](../apps/arena/src/features/patients/hooks/usePatients.ts), or choose another name that fits your structure. Use it from the dashboard route page and patient list route page.
+2. Replace repeated patient fetching with a shared hook (e.g. `usePatients`). Components call it directly — `PatientList`, plus dashboard subcomponents like `DashboardStats` and `RecentPatients`. Pages compose them.
 
-3. Replace manual patient detail and journal fetching with query hooks. Start from the selected patient route page, for example [PatientDetailPage](../apps/arena/src/pages/PatientDetailPage.tsx), and move journal entry fetching into a reusable hook such as [useJournals](../apps/arena/src/features/journal/hooks/useJournals.ts).
+3. Replace manual patient detail and journal fetching with query hooks. The page owns the patient query; journal fetching moves into a `useJournals` hook called from `JournalList`. Drop the `journals` / `isLoading` props that used to flow from the page.
 
-4. Design loading, error, empty, and success states where they matter. Use the shared [`Skeleton`](../packages/ui/src/base/skeleton.tsx) primitive for loading states, shaped like the content that is coming. Error messages should be written for the route or workflow, not copied from the API.
+4. Design loading, error, empty, and success states inside each self-fetching component, using the shared `Skeleton` primitive shaped like the content. With `<ErrorState>` covering `useQuery` errors, drop the contextual `<ErrorBoundary>` from Exercise One — the layout-level boundary stays as the catch-all.
 
-5. Use mutations for journal status updates and new journal submit. In the reference structure, those workflows live in [JournalEntry](../apps/arena/src/features/journal/components/JournalEntry.tsx) and [JournalForm](../apps/arena/src/features/journal/components/JournalForm.tsx). Update or invalidate the affected journal data. Log the real mutation error with the existing [`logError` helper](../apps/arena/src/lib/logger.ts) and show a safe recovery message to the user.
+5. Extract mutations into hooks in the same feature folder (e.g. `useUpdateJournalStatus`, `useCreateJournal`). Each hook owns its `mutationFn`, cache invalidation, and error logging. `JournalEntry` and `JournalForm` just call the hook and use `mutate` / `isPending` / `error`.
 
 6. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit. Look for cache reuse, mutation requests, visible UI updates, and refetches after invalidation.
 

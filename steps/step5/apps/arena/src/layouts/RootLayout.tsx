@@ -8,7 +8,7 @@ const navLinks = [
   { to: '/patients', label: 'Patients', icon: Users },
 ]
 
-export function Layout() {
+export function RootLayout() {
   return (
     <div className="flex min-h-screen bg-background">
       <aside className="hidden lg:flex w-64 border-r bg-sidebar flex-col shrink-0">
@@ -72,7 +72,11 @@ export function Layout() {
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
-          <ErrorBoundary>
+          <ErrorBoundary
+            title="This page is unavailable"
+            message="Something on this page failed. Try a different section or refresh the page."
+            logContext="App layout boundary"
+          >
             <Outlet />
           </ErrorBoundary>
         </main>

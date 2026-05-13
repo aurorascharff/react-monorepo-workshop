@@ -2,7 +2,7 @@
 
 Internal notes for Aurora. Keep this open on a second screen.
 
-Use [`WORKSHOP.md`](WORKSHOP.md) for schedule, module goals, and slide outline. Use [`exercises/solutions/exercise-N-NAME-steps.md`](exercises/solutions/) for live coding — the walkthroughs hold the rationale, code, and ordering you'll talk through.
+Use [`WORKSHOP.md`](WORKSHOP.md) for schedule, module goals, and slide outline. Use [`exercises/solutions/exercise-N-NAME-steps.md`](exercises/solutions/) for the explanation you talk through, and use [`steps/stepN`](steps/) as the prepared code snapshot for each module.
 
 ## Prep
 
@@ -111,6 +111,7 @@ If a question is off-topic:
 - Do not announce the next task too early.
 - Commit and push between modules so participants can recover.
 - Pause after everyone is ready, not only after I finish coding.
+- For the instructor walkthrough, apply the next snapshot to the live-coding repo, then read the diff while following the matching solution notes.
 - If people move ahead too soon:
 
 > I will finish this at the end of the workshop. Right now we are staying focused here.
@@ -125,6 +126,21 @@ If fewer than half raise hands:
 - Do the next step on screen together.
 - Name the confusing part.
 - Let faster groups help slower groups.
+
+## Instructor Snapshot Flow
+
+Use this in the workshop-specific live-coding repo, not in the private starter template.
+
+For module `N`, the repo starts from `steps/step{N-1}`. After participants finish the exercise and the group discussion, copy the contents of `steps/stepN/` over the live-coding repo. Keep the repo's `.git` folder.
+
+Then open the diff and walk through it with `exercises/solutions/exercise-N-NAME-steps.md`:
+
+```bash
+git diff --stat
+git diff
+```
+
+Use the diff as the code walkthrough. Explain why each changed file moved, what concept it demonstrates, and which parts are just mechanical. Then run the relevant checks, commit, push, and let participants pull if they want your version.
 
 ## Breaks
 

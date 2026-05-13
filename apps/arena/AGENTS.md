@@ -8,7 +8,7 @@
 
 - `src/main.tsx` — providers (`QueryClientProvider`, `BrowserRouter`)
 - `src/router.tsx` — `<Routes>` declared in an `AppRoutes` component
-- `src/layouts/Layout.tsx` — shared shell with sidebar, mobile header, top-level `<ErrorBoundary>` around `<Outlet>`
+- `src/layouts/RootLayout.tsx` — root layout component used by the `<Route path="/">` parent: sidebar, mobile header, top-level `<ErrorBoundary>` around `<Outlet>`
 - `src/pages/` — route components
 - `src/features/patients/` — patient list, card, header
 - `src/features/journal/` — journal list, entry, form

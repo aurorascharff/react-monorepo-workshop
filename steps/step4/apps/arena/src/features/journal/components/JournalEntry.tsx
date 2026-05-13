@@ -9,10 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@medix/ui'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateJournalStatus } from '@/lib/api'
-import { logError } from '@/lib/logger'
 import type { Journal, JournalStatus } from '@/types'
+import { useUpdateJournalStatus } from '../hooks/useUpdateJournalStatus'
 
 type JournalEntryProps = {
   entry: Journal
@@ -26,18 +24,7 @@ const statusOptions: { value: JournalStatus; label: string }[] = [
 ]
 
 export function JournalEntry({ entry, patientId }: JournalEntryProps) {
-  const queryClient = useQueryClient()
-
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (status: JournalStatus) =>
-      updateJournalStatus(entry.id, status),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
-    },
-    onError: (error) => {
-      logError(error, 'Journal status mutation failed')
-    },
-  })
+  const { mutate, error } = useUpdateJournalStatus(entry.id, patientId)
 
   return (
     <Card>
@@ -51,10 +38,9 @@ export function JournalEntry({ entry, patientId }: JournalEntryProps) {
               {formatDate(entry.date)}
             </p>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex shrink-0 flex-col items-end gap-1">
             <Select
               value={entry.status}
-              disabled={isPending}
               onValueChange={(value) => mutate(value as JournalStatus)}
             >
               <SelectTrigger

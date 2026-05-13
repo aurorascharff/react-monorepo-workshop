@@ -20,24 +20,25 @@ type PatientListProps = {
 
 export function PatientList({ patients, onSelect }: PatientListProps) {
   const [search, setSearch] = useState('')
-  const [genderFilter, setGenderFilter] = useState<'all' | 'male' | 'female'>(
-    'all',
-  )
+  const [showMalePatients, setShowMalePatients] = useState(true)
+  const [showFemalePatients, setShowFemalePatients] = useState(true)
 
   const [filteredPatients, setFilteredPatients] = useState(patients)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilteredPatients(
       patients.filter((p) => {
         const matchesSearch =
           p.name.toLowerCase().includes(search.toLowerCase()) ||
           p.diagnosis.toLowerCase().includes(search.toLowerCase())
         const matchesGender =
-          genderFilter === 'all' || p.gender === genderFilter
+          (p.gender === 'male' && showMalePatients) ||
+          (p.gender === 'female' && showFemalePatients)
         return matchesSearch && matchesGender
       }),
     )
-  }, [patients, search, genderFilter])
+  }, [patients, search, showMalePatients, showFemalePatients])
 
   return (
     <div>
@@ -62,10 +63,11 @@ export function PatientList({ patients, onSelect }: PatientListProps) {
         <div className="flex flex-col gap-2 sm:w-40">
           <Label htmlFor="gender-filter">Gender</Label>
           <Select
-            value={genderFilter}
-            onValueChange={(value) =>
-              setGenderFilter(value as 'all' | 'male' | 'female')
-            }
+            value={getGenderFilterValue(showMalePatients, showFemalePatients)}
+            onValueChange={(value) => {
+              setShowMalePatients(value === 'all' || value === 'male')
+              setShowFemalePatients(value === 'all' || value === 'female')
+            }}
           >
             <SelectTrigger id="gender-filter">
               <SelectValue />
@@ -99,4 +101,11 @@ export function PatientList({ patients, onSelect }: PatientListProps) {
       )}
     </div>
   )
+}
+
+function getGenderFilterValue(showMale: boolean, showFemale: boolean) {
+  if (showMale && showFemale) return 'all'
+  if (showMale) return 'male'
+  if (showFemale) return 'female'
+  return 'all'
 }

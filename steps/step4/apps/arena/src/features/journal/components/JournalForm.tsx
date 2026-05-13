@@ -1,26 +1,13 @@
 import type { ReactEventHandler } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea } from '@medix/ui'
-import { createJournal } from '@/lib/api'
-import { logError } from '@/lib/logger'
+import { useCreateJournal } from '../hooks/useCreateJournal'
 
 type JournalFormProps = {
   patientId: string
 }
 
 export function JournalForm({ patientId }: JournalFormProps) {
-  const queryClient = useQueryClient()
-
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (data: { title: string; date: string; content: string }) =>
-      createJournal(patientId, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
-    },
-    onError: (error) => {
-      logError(error, 'Create journal mutation failed')
-    },
-  })
+  const { mutate, isPending, error } = useCreateJournal(patientId)
 
   const handleSubmit: ReactEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault()

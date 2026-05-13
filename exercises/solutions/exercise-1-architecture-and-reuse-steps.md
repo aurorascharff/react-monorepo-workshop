@@ -18,17 +18,23 @@ We work outward from the shell to shared concepts. Shell first creates a clean s
 
 ### 1. Move the shell into a named layout
 
-Create [`apps/arena/src/layouts/Layout.tsx`](../../apps/arena/src/layouts/Layout.tsx) and move the sidebar, mobile header, and `<main>` wrapper out of `App.tsx`. Keep `page` state in `App.tsx` for now — the URL takes it over in Exercise 2.
+Create `apps/arena/src/layouts/RootLayout.tsx` and move the sidebar, mobile header, and `<main>` wrapper out of `App.tsx`. Keep `page` state in `App.tsx` for now — the URL takes it over in Exercise 2.
+
+> **Why `RootLayout`?** It's the React Router convention for the parent component of every route. The name carries over to framework-style routing too — Next.js, Remix, and Tanstack Router all use `RootLayout` for the same role. Exercise 2 wires it up as the actual parent route; the name is consistent from day one.
 
 ```tsx
-// layouts/Layout.tsx
-type LayoutProps = {
+// layouts/RootLayout.tsx
+type RootLayoutProps = {
   children: ReactNode
   activePage: 'dashboard' | 'patients'
   onNavigate: (page: 'dashboard' | 'patients') => void
 }
 
-export function Layout({ children, activePage, onNavigate }: LayoutProps) {
+export function RootLayout({
+  children,
+  activePage,
+  onNavigate,
+}: RootLayoutProps) {
   return (
     <div className="flex min-h-screen ...">
       <aside>{/* sidebar + nav buttons */}</aside>
@@ -40,9 +46,9 @@ export function Layout({ children, activePage, onNavigate }: LayoutProps) {
 
 ```tsx
 // App.tsx
-<Layout activePage={page} onNavigate={setPage}>
+<RootLayout activePage={page} onNavigate={setPage}>
   {page === 'dashboard' ? <Dashboard /> : <PatientPage />}
-</Layout>
+</RootLayout>
 ```
 
 Keep the inline brand markup in the sidebar — `BrandMark` arrives in step 5.
@@ -53,14 +59,14 @@ Keep the inline brand markup in the sidebar — `BrandMark` arrives in step 5.
 
 Before opening the code, name the components from the running UI alone. There should be six:
 
-| UI region                                  | Component                  |
-| ------------------------------------------ | -------------------------- |
-| Search + gender filter + patient grid      | `PatientList`              |
-| One row in that grid                       | `PatientCard`              |
-| Selected-patient summary card              | `PatientHeader`            |
-| Column of journal entries on detail screen | `JournalList`              |
-| One journal entry with its status select   | `JournalEntry`             |
-| The "new journal entry" form               | `JournalForm`              |
+| UI region                                  | Component       |
+| ------------------------------------------ | --------------- |
+| Search + gender filter + patient grid      | `PatientList`   |
+| One row in that grid                       | `PatientCard`   |
+| Selected-patient summary card              | `PatientHeader` |
+| Column of journal entries on detail screen | `JournalList`   |
+| One journal entry with its status select   | `JournalEntry`  |
+| The "new journal entry" form               | `JournalForm`   |
 
 > If a component name feels fake, the boundary is fake. Decide the shape on paper before the file moves go mechanical.
 
@@ -70,24 +76,25 @@ apps/arena/src/features/
   journal/components/    JournalList.tsx, JournalEntry.tsx, JournalForm.tsx
 ```
 
-Leave fetching, mutations, and form logic exactly where they were — Exercises [3](../exercise-3-state-and-effects.md), [4](../exercise-4-server-state.md), and [5](../exercise-5-forms.md) each replace one of those. We're moving code, not improving it. The native `<select>` elements stay too — step 4 swaps them.
+Leave fetching, mutations, and form logic exactly where they were — Exercises [3](../exercise-3-state-and-effects.md), [4](../exercise-4-server-state.md), and [5](../exercise-5-forms.md) each replace one of those. We're moving code, not improving it. The native `<select>` elements stay during this extraction substep; the next substep swaps them.
 
 > **What goes in a feature folder, and what doesn't?** Feature folders group by what the app does. A route-local `_components` folder (like [`apps/medix.com/app/products/_components`](../../apps/medix.com/app/products)) is fine when code belongs to one specific route. Patient and journal screens are app workflow — they stay in `apps/arena`, not in `packages/ui`.
 
 ### 3. Add an error boundary around the page content
 
-[`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) is already a dependency. Create `apps/arena/src/components/ErrorBoundary.tsx` so it owns the fallback UI; callers only choose placement and copy.
+Create `apps/arena/src/components/ErrorBoundary.tsx` wrapping [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) (already installed). It owns the fallback UI; callers pick the props:
 
 ```tsx
-import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
-import { logError } from '@/lib/logger'
-
 export function ErrorBoundary({ children, title, message, logContext }: Props) {
   return (
     <ReactErrorBoundary
       onError={(error) => logError(error, logContext)}
       fallbackRender={({ resetErrorBoundary }) => (
-        <Fallback title={title} message={message} onRetry={resetErrorBoundary} />
+        <Fallback
+          title={title}
+          message={message}
+          onRetry={resetErrorBoundary}
+        />
       )}
     >
       {children}
@@ -96,35 +103,48 @@ export function ErrorBoundary({ children, title, message, logContext }: Props) {
 }
 ```
 
-In `Layout.tsx`, wrap the `<main>` slot:
+Use it twice — same component, different props. A generic layout-level catch-all in `RootLayout.tsx`:
 
 ```tsx
-<main>
-  <ErrorBoundary>{children}</ErrorBoundary>
-</main>
+<ErrorBoundary
+  title="This page is unavailable"
+  message="Something on this page failed. Try a different section or refresh the page."
+  logContext="App layout boundary"
+>
+  {children}
+</ErrorBoundary>
 ```
 
-To verify, throw an error inside `PatientList`:
+And a contextual one in `PatientPage.tsx` with copy that names _that_ failure:
 
 ```tsx
-throw new Error('Test boundary')
+<ErrorBoundary
+  title="Patient details are unavailable"
+  message="We could not show this patient right now. Go back to the patient list or refresh the page."
+  logContext="Patient detail boundary"
+>
+  <PatientDetail patient={selectedPatient} onBack={onBack} />
+</ErrorBoundary>
 ```
 
-The sidebar should stay visible; only the page content should be replaced by the fallback. Remove the throw.
+Verify by throwing inside `PatientDetail` — only that area should be replaced. Remove the throw.
 
-> **Why around `<main>` and not the whole `<Layout>`?** The smallest boundary that still lets the user navigate away. Wrapping the whole layout would hide the sidebar — the user would have no exit short of a refresh.
+> **Why two boundaries?** The layout one catches anything that escapes; the inner one names the failure and offers a fit-for-purpose recovery. Exercise Four will flip this: once `<ErrorState>` from `useQuery` covers query failures, the inner boundary on the same region becomes duplicate work. Boundaries earn their place when nothing else is already showing the error.
 
-> **Why log with [`logError`](../../apps/arena/src/lib/logger.ts) but show friendly copy?** Stack traces aren't actionable for the user, and internal details shouldn't leak into the UI. The fallback gives the user a way forward; `logError` gives you the technical context.
-
-> [Next.js error boundaries](https://aurorascharff.no/posts/error-handling-in-nextjs-with-catch-error) work differently — but Arena is an SPA, so this is React's classic [`ErrorBoundary`](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) pattern via `react-error-boundary`.
+> **`logError` + friendly copy.** Stack traces aren't actionable for the user; internal details shouldn't leak into the UI. The `logContext` prop tells you which boundary caught it. ([Next.js error boundaries](https://aurorascharff.no/posts/error-handling-in-nextjs-with-catch-error) work differently — Arena is an SPA, so this is the classic [React boundary pattern](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary).)
 
 ### 4. Replace the native selects with Base UI
 
 Two `<select>` elements need to go: the gender filter in `PatientList` and the journal status switcher in `JournalEntry`. Swap both for the shared [`Select`](../../packages/ui/src/base/select.tsx) primitive from `@medix/ui` (a [Radix](https://www.radix-ui.com/primitives/docs/components/select) wrapper, generated via the [shadcn/ui](https://ui.shadcn.com/docs/components/select) CLI):
 
 ```tsx
-<Select value={genderFilter} onValueChange={(v) => setGenderFilter(v as GenderFilter)}>
-  <SelectTrigger><SelectValue /></SelectTrigger>
+<Select
+  value={genderFilter}
+  onValueChange={(v) => setGenderFilter(v as GenderFilter)}
+>
+  <SelectTrigger>
+    <SelectValue />
+  </SelectTrigger>
   <SelectContent>
     <SelectItem value="all">All</SelectItem>
     <SelectItem value="male">Male</SelectItem>
@@ -137,7 +157,7 @@ Do the same for the three `JournalStatus` options (`draft`, `active`, `closed`) 
 
 > **Why swap the native `<select>`?** Focus, keyboard, and screen-reader behavior vary across browsers and OSes. Radix handles all of that. Accessibility in a healthcare app isn't optional. Base primitives know nothing about your domain — they only handle the hard parts of the browser.
 
-> **What goes in `packages/ui` and what stays in the app?** Shared primitives (Base UI) and real shared product concepts (Step 5's `BrandMark`) belong in `packages/ui`. Journal status presentation only has meaning in this workflow today, so it stays in `JournalEntry`.
+> **What goes in `packages/ui` and what stays in the app?** Shared primitives (Base UI) and real shared product concepts like `BrandMark` belong in `packages/ui`. Journal status presentation only has meaning in this workflow today, so it stays in `JournalEntry`.
 
 ### 5. Extract `BrandMark` to `@medix/ui`
 
@@ -157,7 +177,7 @@ export function BrandMark({ product, size = 'md', className }: BrandMarkProps) {
 }
 ```
 
-Use it in `Layout.tsx` (`<BrandMark product="Arena" />`) and in `apps/medix.com/app/layout.tsx` (`<BrandMark />`).
+Use it in `RootLayout.tsx` (`<BrandMark product="Arena" />`) and in `apps/medix.com/app/layout.tsx` (`<BrandMark />`).
 
 > **Why is `BrandMark` better shared than journal status?** Both apps need the same brand identity — change the logo once, both update. Journal status is one app's workflow; sharing it would force `packages/ui` to know about `JournalStatus`. Drag domain concepts into the shared package only when more than one consumer needs them.
 
@@ -170,15 +190,15 @@ npm run typecheck --workspace=apps/arena
 npm test --workspace=apps/arena -- --run
 ```
 
-Visually: sidebar and mobile header look unchanged; the gender filter and journal status switcher use the new `Select`; `BrandMark` appears in both apps; a thrown error inside the page content shows the fallback while the sidebar stays clickable.
+Visually: sidebar and mobile header look unchanged; the gender filter and journal status switcher use the new `Select`; `BrandMark` appears in both apps. A thrown error inside the patient detail shows the contextual "Patient details are unavailable" fallback while the sidebar and patient list stay clickable; a thrown error elsewhere on the page falls through to the layout-level "This page is unavailable" fallback.
 
 ## Bonus
 
-### 1. Compare error boundary placements
+### 1. Compare boundary placements
 
-Move the boundary so it wraps the whole `<Layout>` instead of only `<main>`. Re-trigger the throw and compare what stays visible.
+Move the patient-detail boundary up so it wraps the `PatientPage` instead of just the detail render — re-trigger the throw and notice the patient list also disappears. Then try moving it down so it wraps only the journal section. Compare what stays visible and clickable in each placement.
 
-> The smallest boundary that still lets the user navigate away from the failure. Wrapping the whole layout hides the sidebar — no exit short of a refresh.
+> The smallest boundary that still lets the user navigate away from the failure. Boundaries are a layering decision — they're worth keeping when they catch something nothing else does. Exercise Four puts that to the test: `<ErrorState>` from TanStack Query covers query failures, so an inner boundary on the same region collapses into the layout-level catch-all.
 
 ### 2. Find one more reusable piece
 

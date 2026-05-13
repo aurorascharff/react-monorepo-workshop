@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Dashboard } from './Dashboard'
 import { PatientPage } from './PatientPage'
-import { Layout } from './layouts/Layout'
+import { RootLayout } from './layouts/RootLayout'
 
 type Page = 'dashboard' | 'patients'
 
@@ -22,7 +22,7 @@ export function App() {
   }
 
   return (
-    <Layout
+    <RootLayout
       activePage={page}
       onNavigate={(nextPage) => {
         if (nextPage === 'dashboard') {
@@ -41,6 +41,6 @@ export function App() {
           onBack={() => setSelectedPatientId(null)}
         />
       )}
-    </Layout>
+    </RootLayout>
   )
 }

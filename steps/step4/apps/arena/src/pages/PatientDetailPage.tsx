@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import { Card, CardContent, Skeleton } from '@medix/ui'
+import { ErrorState } from '@/components/ErrorState'
 import { JournalForm } from '@/features/journal/components/JournalForm'
 import {
   JournalList,
@@ -8,19 +9,9 @@ import {
 } from '@/features/journal/components/JournalList'
 import { PatientHeader } from '@/features/patients/components/PatientHeader'
 import { fetchPatient } from '@/lib/api'
-import { ErrorState } from '@/components/ErrorState'
 
 export function PatientDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const {
-    data: patient,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['patient', id],
-    queryFn: () => fetchPatient(id as string),
-    enabled: Boolean(id),
-  })
 
   if (!id) return null
 
@@ -32,7 +23,23 @@ export function PatientDetailPage() {
       >
         ← Back to patient list
       </Link>
+      <PatientDetailContent id={id} />
+    </div>
+  )
+}
 
+function PatientDetailContent({ id }: { id: string }) {
+  const {
+    data: patient,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['patient', id],
+    queryFn: () => fetchPatient(id),
+  })
+
+  return (
+    <>
       {isLoading && <PatientDetailSkeleton />}
       {error && (
         <ErrorState
@@ -51,12 +58,12 @@ export function PatientDetailPage() {
               <JournalList patientId={id} />
             </div>
             <div>
-              <JournalForm patientId={id} />
+              <JournalForm key={id} patientId={id} />
             </div>
           </div>
         </>
       )}
-    </div>
+    </>
   )
 }
 

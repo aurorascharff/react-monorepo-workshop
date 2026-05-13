@@ -22,9 +22,15 @@ Import [`z`](https://zod.dev/basics) and define `journalSchema`:
 import { z } from 'zod'
 
 const journalSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(100, 'Title cannot be longer than 100 characters'),
+  title: z
+    .string()
+    .min(1, 'Title is required')
+    .max(100, 'Title cannot be longer than 100 characters'),
   date: z.string().min(1, 'Date is required'),
-  content: z.string().min(1, 'Content is required').min(10, 'Content must be at least 10 characters'),
+  content: z
+    .string()
+    .min(1, 'Content is required')
+    .min(10, 'Content must be at least 10 characters'),
 })
 
 type JournalFormData = z.infer<typeof journalSchema>
@@ -39,14 +45,19 @@ Use `JournalFormData` as the form's value type — don't write a parallel handwr
 Import [`useForm`](https://react-hook-form.com/docs/useform), [`Controller`](https://react-hook-form.com/docs/usecontroller/controller), and [`zodResolver`](https://github.com/react-hook-form/resolvers#zod). Create the form with `mode: 'onChange'` so feedback updates as the user types:
 
 ```tsx
-const { handleSubmit, reset, control, formState: { errors } } = useForm<JournalFormData>({
+const {
+  handleSubmit,
+  reset,
+  control,
+  formState: { errors },
+} = useForm<JournalFormData>({
   resolver: zodResolver(journalSchema),
   mode: 'onChange',
   defaultValues: { title: '', date: '', content: '' },
 })
 ```
 
-Use [`register`](https://react-hook-form.com/docs/useform/register) for plain inputs and [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) for primitives that don't forward refs the way RHF expects. The title and content fields work with either approach — `Controller` keeps consistency with the [`DatePicker`](../../packages/ui/src/base/date-picker.tsx) in step 4:
+Use [`register`](https://react-hook-form.com/docs/useform/register) for plain inputs and [`Controller`](https://react-hook-form.com/docs/usecontroller/controller) for primitives that don't forward refs the way RHF expects. The title and content fields work with either approach — `Controller` keeps consistency with the [`DatePicker`](../../packages/ui/src/base/date-picker.tsx) substep:
 
 ```tsx
 <Label htmlFor="title">Title</Label>
@@ -75,17 +86,18 @@ Same shape for `content` with a [`Textarea`](../../packages/ui/src/base/textarea
 
 ### 3. Submit through the existing mutation
 
-Keep the `useMutation` for `createJournal` from Exercise 4. Replace manual submit handling with `handleSubmit(submitFn)`:
+Keep the `useCreateJournal` hook from Exercise 4. Replace manual submit handling with `handleSubmit(submitFn)`:
 
 ```tsx
+const { mutate, isPending, error } = useCreateJournal(patientId)
+
 function submitJournal(data: JournalFormData) {
-  reset({ title: '', date: '', content: '' })
-  mutate(data)
+  mutate(data, {
+    onSuccess: () => reset({ title: '', date: '', content: '' }),
+  })
 }
 
-<form onSubmit={handleSubmit(submitJournal)}>
-  {/* fields */}
-</form>
+;<form onSubmit={handleSubmit(submitJournal)}>{/* fields */}</form>
 ```
 
 On mutation success, invalidate `['journals', patientId]` and call any `onSuccess` callback. Watch DevTools Network — invalid client-side data should not produce a POST request.
@@ -167,7 +179,9 @@ useMutation({
   onSuccess: () => setSuccessMessage('Journal entry saved.'),
 })
 
-{successMessage && !error && <div role="status">{successMessage}</div>}
+{
+  successMessage && !error && <div role="status">{successMessage}</div>
+}
 ```
 
 ### 2. Test with the keyboard only

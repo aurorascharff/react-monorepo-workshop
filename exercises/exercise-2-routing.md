@@ -12,7 +12,7 @@ If your structure differs from the reference files, make the same kind of change
 
 2. Turn the existing Dashboard, Patients, and Patient Detail screens into route pages — the dashboard view, the patient list, and the selected-patient detail. Add a simple Not Found page for the `*` route.
 
-3. Use a layout route for the shared shell. Navigation stays in the layout, and the active state comes from the URL.
+3. Use a layout route so the sidebar and header stay mounted across pages. Navigation lives in the layout, and the active link comes from the URL.
 
 4. Replace local navigation state with URL-based navigation. Use links for navigation, keep buttons for actions, and read the patient id from the route on the patient detail page.
 

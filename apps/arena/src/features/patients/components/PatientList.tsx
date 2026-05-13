@@ -14,23 +14,21 @@ import {
   Skeleton,
 } from '@medix/ui'
 import { useSearchParams } from 'react-router'
+import { usePatients } from '../hooks/usePatients'
 import { usePatientFilter } from '../hooks/usePatientFilter'
 import type { GenderFilter } from '../hooks/usePatientFilter'
 import { PatientCard } from './PatientCard'
-import type { Patient } from '@/types'
+import { ErrorState } from '@/components/ErrorState'
 
-type PatientListProps = {
-  patients: Patient[]
-}
-
-export function PatientList({ patients }: PatientListProps) {
+export function PatientList() {
+  const { data: patients, isLoading, error } = usePatients()
   const [searchParams, setSearchParams] = useSearchParams()
   const search = searchParams.get('search') ?? ''
   const genderFilter = parseGenderFilter(searchParams.get('gender'))
-  const { filteredPatients, isFilteringPending } = usePatientFilter(patients, {
-    search,
-    genderFilter,
-  })
+  const { filteredPatients, isFilteringPending } = usePatientFilter(
+    patients ?? [],
+    { search, genderFilter },
+  )
   const hasFilters = search !== '' || genderFilter !== 'all'
 
   function updateFilters(next: {
@@ -58,6 +56,19 @@ export function PatientList({ patients }: PatientListProps) {
 
   function clearFilters() {
     setSearchParams({}, { replace: true })
+  }
+
+  if (isLoading) return <PatientListSkeleton />
+
+  if (error) {
+    return (
+      <ErrorState
+        title="Patient list is unavailable"
+        message="We could not load the patient list right now. Try refreshing the page."
+        error={error}
+        logContext="Patient list query failed"
+      />
+    )
   }
 
   return (

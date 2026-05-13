@@ -1,15 +1,14 @@
-import { Card, CardContent, Skeleton } from '@medix/ui'
-import { JournalEntry } from './JournalEntry'
-import { ErrorBoundary } from '@/components/ErrorBoundary'
-import { ErrorState } from '@/components/ErrorState'
 import { useJournals } from '../hooks/useJournals'
+import { JournalEntry } from './JournalEntry'
+import { Card, CardContent, Skeleton } from '@medix/ui'
+import { ErrorState } from '@/components/ErrorState'
 
 type JournalListProps = {
   patientId: string
 }
 
 export function JournalList({ patientId }: JournalListProps) {
-  const { data: journals, isLoading, error } = useJournals(patientId)
+  const { data: entries, isLoading, error } = useJournals(patientId)
 
   if (isLoading) return <JournalListSkeleton />
 
@@ -24,7 +23,7 @@ export function JournalList({ patientId }: JournalListProps) {
     )
   }
 
-  if (!journals || journals.length === 0) {
+  if (!entries || entries.length === 0) {
     return (
       <p className="text-center text-muted-foreground py-8">
         No journal entries yet
@@ -33,18 +32,11 @@ export function JournalList({ patientId }: JournalListProps) {
   }
 
   return (
-    <ErrorBoundary
-      title="Journal entries are unavailable"
-      message="We could not render the journal entries for this patient. Try again or refresh the page."
-      logContext="Journal entry render failed"
-      className="mt-0"
-    >
-      <div className="flex flex-col gap-3">
-        {journals.map((entry) => (
-          <JournalEntry key={entry.id} entry={entry} patientId={patientId} />
-        ))}
-      </div>
-    </ErrorBoundary>
+    <div className="flex flex-col gap-3">
+      {entries.map((entry) => (
+        <JournalEntry key={entry.id} entry={entry} patientId={patientId} />
+      ))}
+    </div>
   )
 }
 

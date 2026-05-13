@@ -52,7 +52,7 @@ function PatientDetailContent({ id }: { id: string }) {
           <JournalList patientId={id} />
         </div>
         <div>
-          <JournalForm patientId={id} />
+          <JournalForm key={id} patientId={id} />
         </div>
       </div>
     </>

@@ -12,17 +12,28 @@ import {
   SelectValue,
   Skeleton,
 } from '@medix/ui'
+import { usePatients } from '../hooks/usePatients'
 import { usePatientFilter } from '../hooks/usePatientFilter'
 import { PatientCard } from './PatientCard'
-import type { Patient } from '@/types'
+import { ErrorState } from '@/components/ErrorState'
 
-type PatientListProps = {
-  patients: Patient[]
-}
-
-export function PatientList({ patients }: PatientListProps) {
+export function PatientList() {
+  const { data: patients, isLoading, error } = usePatients()
   const { search, setSearch, genderFilter, setGenderFilter, filteredPatients } =
-    usePatientFilter(patients)
+    usePatientFilter(patients ?? [])
+
+  if (isLoading) return <PatientListSkeleton />
+
+  if (error) {
+    return (
+      <ErrorState
+        title="Patient list is unavailable"
+        message="We could not load the patient list right now. Try refreshing the page."
+        error={error}
+        logContext="Patient list query failed"
+      />
+    )
+  }
 
   return (
     <div>
@@ -60,9 +71,12 @@ export function PatientList({ patients }: PatientListProps) {
         </div>
       </div>
 
-      <p className="mb-4 text-sm text-muted-foreground">
-        {filteredPatients.length} of {patients.length} patients
-      </p>
+      <div className="mb-4 flex min-h-9 items-center justify-between gap-3">
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {filteredPatients.length} patient
+          {filteredPatients.length === 1 ? '' : 's'} shown
+        </p>
+      </div>
 
       {filteredPatients.length === 0 ? (
         <p className="text-center text-muted-foreground py-8">

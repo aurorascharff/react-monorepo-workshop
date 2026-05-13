@@ -2,11 +2,8 @@ import { useState } from 'react'
 import { z } from 'zod'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea, DatePicker } from '@medix/ui'
-import { createJournal } from '@/lib/api'
-import { logError } from '@/lib/logger'
-import type { Journal } from '@/types'
+import { useCreateJournal } from '../hooks/useCreateJournal'
 
 const journalSchema = z.object({
   title: z
@@ -34,7 +31,6 @@ const emptyJournalForm: JournalFormData = {
 }
 
 export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
-  const queryClient = useQueryClient()
   const [successMessage, setSuccessMessage] = useState('')
 
   const {
@@ -49,75 +45,22 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
     defaultValues: emptyJournalForm,
   })
 
-  const { mutate, error } = useMutation({
-    mutationFn: (data: JournalFormData) => createJournal(patientId, data),
-    onMutate: async (data) => {
-      setSuccessMessage('')
-      await queryClient.cancelQueries({ queryKey: ['journals', patientId] })
-
-      const previousEntries = queryClient.getQueryData<Journal[]>([
-        'journals',
-        patientId,
-      ])
-      const optimisticId = `optimistic-${Date.now()}`
-
-      queryClient.setQueryData<Journal[]>(['journals', patientId], (entries) =>
-        sortJournalsByDate([
-          {
-            id: optimisticId,
-            patientId,
-            title: data.title,
-            date: data.date,
-            content: data.content,
-            status: 'draft',
-          },
-          ...(entries ?? []),
-        ]),
-      )
-
-      return { previousEntries, optimisticId, submittedData: data }
-    },
-    onError: (error, _data, context) => {
-      logError(error, 'Create journal mutation failed')
-      if (context) {
-        queryClient.setQueryData<Journal[]>(
-          ['journals', patientId],
-          context.previousEntries ?? [],
-        )
-        reset(context.submittedData)
-        clearErrors()
-      }
-    },
-    onSuccess: (createdEntry, _data, context) => {
-      queryClient.setQueryData<Journal[]>(
-        ['journals', patientId],
-        (entries) => {
-          if (!entries) return [createdEntry]
-
-          return sortJournalsByDate(
-            entries.map((entry) =>
-              entry.id === context?.optimisticId ? createdEntry : entry,
-            ),
-          )
-        },
-      )
-      setSuccessMessage('Journal entry saved.')
-      onSuccess?.()
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
-    },
-  })
+  const { mutate, error } = useCreateJournal(patientId)
 
   function submitJournal(data: JournalFormData) {
-    reset(emptyJournalForm, {
-      keepDirty: false,
-      keepErrors: false,
-      keepTouched: false,
-      keepValues: false,
-    })
+    setSuccessMessage('')
+    reset(emptyJournalForm)
     clearErrors()
-    mutate(data)
+    mutate(data, {
+      onSuccess: () => {
+        setSuccessMessage('Journal entry saved.')
+        onSuccess?.()
+      },
+      onError: () => {
+        reset(data)
+        clearErrors()
+      },
+    })
   }
 
   return (
@@ -228,8 +171,4 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
       </form>
     </section>
   )
-}
-
-function sortJournalsByDate(entries: Journal[]) {
-  return [...entries].sort((a, b) => b.date.localeCompare(a.date))
 }

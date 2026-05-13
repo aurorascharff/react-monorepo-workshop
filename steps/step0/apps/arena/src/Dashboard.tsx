@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { ArrowRight, Activity, Users, UserRound } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, Spinner } from '@medix/ui'
@@ -21,6 +20,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
 
   const [stats, setStats] = useState({ total: 0, female: 0, male: 0 })
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStats({
       total: patients.length,
       female: patients.filter((p) => p.gender === 'female').length,

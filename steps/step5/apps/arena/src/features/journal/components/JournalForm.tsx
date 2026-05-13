@@ -1,10 +1,8 @@
 import { z } from 'zod'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Input, Label, Textarea, DatePicker } from '@medix/ui'
-import { createJournal } from '@/lib/api'
-import { logError } from '@/lib/logger'
+import { useCreateJournal } from '../hooks/useCreateJournal'
 
 const journalSchema = z.object({
   title: z
@@ -26,8 +24,6 @@ type JournalFormProps = {
 }
 
 export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
-  const queryClient = useQueryClient()
-
   const {
     register,
     handleSubmit,
@@ -44,24 +40,23 @@ export function JournalForm({ patientId, onSuccess }: JournalFormProps) {
     },
   })
 
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (data: JournalFormData) => createJournal(patientId, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journals', patientId] })
-      reset()
-      onSuccess?.()
-    },
-    onError: (error) => {
-      logError(error, 'Create journal mutation failed')
-    },
-  })
+  const { mutate, isPending, error } = useCreateJournal(patientId)
+
+  function submitJournal(data: JournalFormData) {
+    mutate(data, {
+      onSuccess: () => {
+        reset()
+        onSuccess?.()
+      },
+    })
+  }
 
   return (
     <section>
       <h2 className="mb-4 text-lg font-semibold">New journal entry</h2>
 
       <form
-        onSubmit={handleSubmit((data) => mutate(data))}
+        onSubmit={handleSubmit(submitJournal)}
         aria-busy={isPending}
         className="rounded-lg border bg-card p-6"
       >

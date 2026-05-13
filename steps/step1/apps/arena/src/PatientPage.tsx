@@ -1,7 +1,7 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { Spinner } from '@medix/ui'
 import { fetchJournals, fetchPatients, updateJournalStatus } from './lib/api'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { JournalForm } from './features/journal/components/JournalForm'
 import { JournalList } from './features/journal/components/JournalList'
 import { PatientHeader } from './features/patients/components/PatientHeader'
@@ -30,13 +30,22 @@ export function PatientPage({
 
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedPatient(patients.find((p) => p.id === selectedId) ?? null)
   }, [patients, selectedId])
 
   if (isLoadingPatients) return <Spinner />
 
   if (selectedPatient) {
-    return <PatientDetail patient={selectedPatient} onBack={onBack} />
+    return (
+      <ErrorBoundary
+        title="Patient details are unavailable"
+        message="We could not show this patient right now. Go back to the patient list or refresh the page."
+        logContext="Patient detail boundary"
+      >
+        <PatientDetail patient={selectedPatient} onBack={onBack} />
+      </ErrorBoundary>
+    )
   }
 
   return <PatientList patients={patients} onSelect={onSelectPatient} />
@@ -53,6 +62,7 @@ function PatientDetail({
   const [isLoadingJournals, setIsLoadingJournals] = useState(true)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoadingJournals(true)
     fetchJournals(patient.id)
       .then((data) => setJournals(data))

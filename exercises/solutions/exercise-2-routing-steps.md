@@ -14,12 +14,12 @@ Prove the problem in 30 seconds:
 
 The job is to delete the local navigation state in `App.tsx` and let [React Router](https://reactrouter.com/) own it. Decide the route table before writing code:
 
-| Route           | Page component       |
-| --------------- | -------------------- |
-| `/`             | `DashboardPage`      |
-| `/patients`     | `PatientListPage`    |
-| `/patients/:id` | `PatientDetailPage`  |
-| `*`             | `NotFoundPage`       |
+| Route           | Page component      |
+| --------------- | ------------------- |
+| `/`             | `DashboardPage`     |
+| `/patients`     | `PatientListPage`   |
+| `/patients/:id` | `PatientDetailPage` |
+| `*`             | `NotFoundPage`      |
 
 ## Task
 
@@ -30,8 +30,7 @@ In [`apps/arena/src/main.tsx`](../../apps/arena/src/main.tsx), wrap the tree in 
 ```tsx
 import { BrowserRouter } from 'react-router'
 import { AppRoutes } from './router'
-
-<BrowserRouter>
+;<BrowserRouter>
   <AppRoutes />
 </BrowserRouter>
 ```
@@ -42,7 +41,7 @@ Then create `apps/arena/src/router.tsx` with [`Routes`](https://reactrouter.com/
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={<DashboardPage />} />
         <Route path="patients" element={<PatientListPage />} />
         <Route path="patients/:id" element={<PatientDetailPage />} />
@@ -57,7 +56,7 @@ The page imports will fail until step 2 — that's expected.
 
 > [`BrowserRouter`](https://reactrouter.com/api/declarative-routers/BrowserRouter) uses the [browser History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API) so navigation happens without a full reload. This is [React Router declarative SPA mode](https://reactrouter.com/start/declarative/installation), not framework mode.
 
-> **Why nested routes?** The shell (sidebar, mobile header) stays mounted as you navigate. Nesting tells React Router "render `Layout` once; swap only the [`<Outlet />`](https://reactrouter.com/api/components/Outlet) content when the child URL changes." That's free state preservation — scroll, focus, in-progress UI — for nothing.
+> **Why nested routes?** The shell (sidebar, mobile header) stays mounted as you navigate. Nesting tells React Router "render `RootLayout` once; swap only the [`<Outlet />`](https://reactrouter.com/api/components/Outlet) content when the child URL changes." That's free state preservation — scroll, focus, in-progress UI — for nothing.
 
 ### 2. Turn screens into route pages
 
@@ -65,19 +64,19 @@ Create `apps/arena/src/pages/` with one file per route:
 
 - [`DashboardPage.tsx`](../../apps/arena/src/pages/DashboardPage.tsx) — move/rename the dashboard view.
 - [`PatientListPage.tsx`](../../apps/arena/src/pages/PatientListPage.tsx) — renders the patient list; for now keep its own `useEffect` + `fetchPatients`. Exercise 4 replaces that.
-- [`PatientDetailPage.tsx`](../../apps/arena/src/pages/PatientDetailPage.tsx) — reads `id` from the URL (step 4), fetches patient + journals, renders `PatientHeader` / `JournalList` / `JournalForm`.
+- [`PatientDetailPage.tsx`](../../apps/arena/src/pages/PatientDetailPage.tsx) — reads `id` from the URL (step 4), fetches patient + journals, renders `PatientHeader` / `JournalList` / `JournalForm`. Carry over the contextual `<ErrorBoundary>` that wrapped the detail render in Exercise One — it now sits around the conditional patient content inside this page.
 - [`NotFoundPage.tsx`](../../apps/arena/src/pages/NotFoundPage.tsx) — a small "Page not found" with a link back to `/`.
 
 Each page owns the data its route needs. Pages don't import each other.
 
 > **One page per URL** is the seam that lets the router lazy-load each independently (see the bonus). With local state, one component could conditionally render either view; with routing, each URL is a different page.
 
-### 3. Convert `Layout` to use `Outlet` and `NavLink`
+### 3. Convert the root layout to use `Outlet` and `NavLink`
 
-In [`apps/arena/src/layouts/Layout.tsx`](../../apps/arena/src/layouts/Layout.tsx):
+In [`apps/arena/src/layouts/RootLayout.tsx`](../../apps/arena/src/layouts/RootLayout.tsx) — the component you extracted in Exercise 1, now wired up as the [parent route](https://reactrouter.com/start/declarative/routing#nested-routes):
 
 - Drop the `children`, `activePage`, `onNavigate` props.
-- Render [`<Outlet />`](https://reactrouter.com/api/components/Outlet) inside the existing `<ErrorBoundary>`.
+- Render [`<Outlet />`](https://reactrouter.com/api/components/Outlet) inside the existing layout-level `<ErrorBoundary>` (keep its contextual props — `title`, `message`, `logContext` — from Exercise One).
 - Replace navigation `<button>` elements with [`<NavLink>`](https://reactrouter.com/api/components/NavLink). Use `isActive` from the `className` callback.
 
 ```tsx
@@ -97,7 +96,11 @@ const navLinks = [
 </NavLink>
 
 <main>
-  <ErrorBoundary>
+  <ErrorBoundary
+    title="This page is unavailable"
+    message="Something on this page failed. Try a different section or refresh the page."
+    logContext="App layout boundary"
+  >
     <Outlet />
   </ErrorBoundary>
 </main>

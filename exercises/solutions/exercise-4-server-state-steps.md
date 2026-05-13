@@ -4,13 +4,9 @@
 
 ## Problem
 
-The problem isn't `fetch` — it's waiting, errors, stale data, race conditions, retries, and refresh after mutations. Server state needs a standard shape: cache identity, loading, error, busy, refresh.
+Two problems on top of each other: server-state mechanics (loading, errors, cache, retries, refresh) spread across components, plus state lifted to the page and threaded back down through callbacks (`onCreated`, `onStatusChange`). [TanStack Query](https://tanstack.com/query) fixes both — [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery) and [`useMutation`](https://tanstack.com/query/latest/docs/framework/react/guides/mutations) sit inside the components that care, and the shared [`QueryClient`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClient) cache dedupes their requests. Pages stop being data-flow plumbing.
 
-Open Network in DevTools, filter by Fetch/XHR, and navigate from Dashboard to Patients. Both screens fetch patients independently — and we're manually handling loading, errors, retries, stale data, cache, race conditions, and refetching. [TanStack Query](https://tanstack.com/query) gives all of that one place to live.
-
-> An intermediate option is to wrap [`useEffect` + `fetch`](https://react.dev/reference/react/useEffect#fetching-data-with-effects) in a custom hook — but you still own cache, dedupe, stale data, invalidation, and race conditions. That's what we're trading away here.
-
-> **Before installing anything: supply-chain hygiene.** Recent TanStack releases were part of a supply-chain incident — see the [Socket write-up](https://socket.dev/blog/tanstack-npm-packages-compromised-mini-shai-hulud-supply-chain-attack), the [Mini Shai-Hulud incident tracker](https://socket.dev/supply-chain-attacks/mini-shai-hulud), and [TanStack issue #7383](https://github.com/TanStack/router/issues/7383). The habit isn't panic — verify the package name, use pinned versions and a committed lockfile, check advisories when something is fresh, and be careful with install-time scripts.
+> **Supply-chain hygiene before installing anything.** Recent TanStack releases were part of a supply-chain incident — see the [Socket write-up](https://socket.dev/blog/tanstack-npm-packages-compromised-mini-shai-hulud-supply-chain-attack), the [Mini Shai-Hulud tracker](https://socket.dev/supply-chain-attacks/mini-shai-hulud), and [TanStack issue #7383](https://github.com/TanStack/router/issues/7383). Verify the package name, use the committed lockfile, check advisories.
 
 ## Task
 
@@ -34,70 +30,59 @@ const queryClient = new QueryClient({
 </QueryClientProvider>
 ```
 
-> [`staleTime`](https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults) is how long data stays fresh — refetches skipped within the window. `retry` is how many times a failed request retries. Both are project defaults; individual queries can override them.
+> [`staleTime`](https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults) is how long data stays fresh — refetches skipped within the window. `retry` is how many times a failed request retries. Both are project defaults; individual queries can override them. The shared `QueryClient` is what makes the rest of this module possible: any component, any depth, can hit the same cache.
 
-### 2. Create and use `usePatients`
+### 2. Shared data through a hook (`usePatients`) — called from components, not pages
 
-In [`features/patients/hooks/usePatients.ts`](../../apps/arena/src/features/patients/hooks/usePatients.ts):
+Define the query once and let each component call it directly. In [`features/patients/hooks/usePatients.ts`](../../apps/arena/src/features/patients/hooks/usePatients.ts):
 
 ```ts
-import { useQuery } from '@tanstack/react-query'
-
 export function usePatients() {
-  return useQuery({
-    queryKey: ['patients'],
-    queryFn: fetchPatients,
-  })
+  return useQuery({ queryKey: ['patients'], queryFn: fetchPatients })
 }
 ```
 
-Use `usePatients()` in both `PatientListPage` and `DashboardPage`. Render loading, error, and success from `{ data, isLoading, error }`. Log real API errors with [`logError`](../../apps/arena/src/lib/logger.ts); write friendly route-specific UI copy:
+`PatientList` drops its `patients` prop and calls `usePatients()` itself, rendering its own loading / error / empty branches. `PatientListPage` collapses to `<h1>` + `<PatientList />`.
+
+For the dashboard, split the page into self-fetching subcomponents — [`DashboardStats`](../../apps/arena/src/features/patients/components/DashboardStats.tsx) and [`RecentPatients`](../../apps/arena/src/features/patients/components/RecentPatients.tsx). Each calls `usePatients()` and renders its own slice. The page becomes pure layout.
+
+Open the [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools): three components all using `['patients']` share **one** cache entry, **one** network request.
+
+> [Query keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) are the stable identity of the data. Include variables when they change the response (`['patient', id]`, `['journals', patientId]`).
+
+> **Three components calling the same hook isn't waste** — TanStack Query dedupes by key. Same `data` reference, one fetch.
+
+### 3. Replace manual patient detail and journal fetching with query hooks
+
+Two pieces, same pattern: the page query is owned by the page, the journal query moves _down_ into the component that renders entries.
+
+**Patient detail in [`pages/PatientDetailPage.tsx`](../../apps/arena/src/pages/PatientDetailPage.tsx)** — keep the route-param guard in the page, then move the query into a child that receives a definite `id: string`:
 
 ```tsx
-const { data: patients, isLoading, error } = usePatients()
+export function PatientDetailPage() {
+  const { id } = useParams<{ id: string }>()
+  if (!id) return null
 
-if (isLoading) return <DashboardSkeleton />
-if (error) return <ErrorState title="Dashboard is unavailable" error={error} ... />
+  return <PatientDetailContent id={id} />
+}
 ```
 
-Build loading UI with the shared [`Skeleton`](../../packages/ui/src/base/skeleton.tsx) primitive ([shadcn/ui](https://ui.shadcn.com/docs/components/skeleton)), shaped like the content that's coming. Place each shaped skeleton next to the component it represents — for example export `PatientListSkeleton` from `PatientList.tsx`. Loading shape and real shape stay in sync when one changes.
-
-Open the [React Query Devtools](https://tanstack.com/query/latest/docs/framework/react/devtools). Both pages should share one `['patients']` cache entry.
-
-> [Query keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) are the stable identity of the data. Include variables when they change the response (the patient `id` in step 3, the `patientId` in step 4).
-
-> **What code disappeared?** Local loading state, the fetching effect, repeated fetch calls, manual error bookkeeping. Same key in two places shares one cache entry — no extra request the second time.
-
-### 3. Use queries for patient detail
-
-In [`pages/PatientDetailPage.tsx`](../../apps/arena/src/pages/PatientDetailPage.tsx), replace the manual fetch with [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery):
+Inside `PatientDetailContent`, replace the manual fetch with [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery):
 
 ```tsx
-const { data: patient, isLoading, error } = useQuery({
+const {
+  data: patient,
+  isLoading,
+  error,
+} = useQuery({
   queryKey: ['patient', id],
   queryFn: () => fetchPatient(id),
 })
 ```
 
-Render loading, error, success. Write a recovery-oriented visible message; log the technical error with `logError`.
+The API helper still receives a required `string`; don't loosen it to accept `undefined`. The page now owns one query and renders three states. It doesn't own journals anymore, and it doesn't pass any callbacks down. `id` belongs in the query key because different patients are different cached data — `['patient', 'abc']` and `['patient', 'def']` are independent entries.
 
-> `id` belongs in the query key because different patients are different cached data. `['patient', 'abc']` and `['patient', 'def']` are independent entries.
-
-> **Alternative: [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery).** Returns `data` directly (no `isLoading`/`error` guards). Loading moves to a parent [`<Suspense>`](https://react.dev/reference/react/Suspense), errors to a parent `<ErrorBoundary>`:
->
-> ```tsx
-> <ErrorBoundary title="Patient details are unavailable" ...>
->   <Suspense fallback={<PatientDetailSkeleton />}>
->     <PatientDetailContent id={id} />
->   </Suspense>
-> </ErrorBoundary>
-> ```
->
-> Cleaner read path, but loading/error UX moves up the tree.
-
-### 4. Create `useJournals` and render states
-
-In [`features/journal/hooks/useJournals.ts`](../../apps/arena/src/features/journal/hooks/useJournals.ts):
+**Journal entries via [`features/journal/hooks/useJournals.ts`](../../apps/arena/src/features/journal/hooks/useJournals.ts):**
 
 ```ts
 export function useJournals(patientId: string) {
@@ -108,78 +93,148 @@ export function useJournals(patientId: string) {
 }
 ```
 
-Use it in `JournalList`. Render loading, error, empty, and success:
+Change `JournalList`'s props to just `{ patientId }`. Call `useJournals(patientId)` inside:
+
+```tsx
+export function JournalList({ patientId }: { patientId: string }) {
+  const { data: entries, isLoading, error } = useJournals(patientId)
+  // …loading / error / empty / success branches
+  return (
+    <div className="flex flex-col gap-3">
+      {entries.map((entry) => (
+        <JournalEntry key={entry.id} entry={entry} patientId={patientId} />
+      ))}
+    </div>
+  )
+}
+```
+
+The page no longer threads `journals` or `isLoading` through. `<JournalList patientId={id} />` is the full call site. The page got smaller; the list got more capable.
+
+### 4. Design loading, error, empty, and success states
+
+Each self-fetching component renders its own states — no spinner at the page level, no error state buried in the parent.
+
+**Skeletons:** use the shared [`Skeleton`](../../packages/ui/src/base/skeleton.tsx) primitive ([shadcn/ui](https://ui.shadcn.com/docs/components/skeleton)) shaped like the content. Export each skeleton from the same file as the real component (`PatientListSkeleton` next to `PatientList`, etc.) — they stay in sync because they live next to each other.
+
+**Errors via `<ErrorState>`:** [`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery) doesn't throw; it returns `{ error }`. Each self-fetching component renders its own inline `<ErrorState>`:
 
 ```tsx
 if (isLoading) return <JournalListSkeleton />
-if (error) return <ErrorState ... />
+if (error) return <ErrorState title="Journal entries are unavailable" error={error} … />
 if (!entries || entries.length === 0) return <p>No journal entries yet</p>
 ```
 
-> Empty is not an error. Loading is "we don't know yet"; empty is "we know, and there's nothing."
+Write messages for the workflow, not the API.
 
-### 5. Use mutations for status updates and submit
+**Drop the inner `<ErrorBoundary>` from Exercise One.** `<ErrorState>` already produces the contextual fallback on query failure; an inner boundary on the same region would only catch render bugs, but it would show the same fallback. Defense in depth with no UX delta. The layout-level boundary remains as the catch-all. The pattern flips for [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery), which throws — there the boundary is the only error path (Bonus 2).
 
-#### Status change in `JournalEntry`
+> **Empty is not an error.** Three branches before success, not two.
+
+### 5. Extract mutations into hooks
+
+Same idea as queries — give each mutation its own hook in the feature folder. The component calls the hook and only handles the parts that are component-local (UI state, form resets).
+
+**`features/journal/hooks/useUpdateJournalStatus.ts`** — owns the mutation, the invalidation, and the error log:
+
+```ts
+export function useUpdateJournalStatus(entryId: string, patientId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (status: JournalStatus) => updateJournalStatus(entryId, status),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['journals', patientId] }),
+    onError: (error) => logError(error, 'Journal status mutation failed'),
+  })
+}
+```
+
+`JournalEntry` shrinks to:
 
 ```tsx
-const queryClient = useQueryClient()
+const { mutate, error } = useUpdateJournalStatus(entry.id, patientId)
 
-const { mutate, error } = useMutation({
-  mutationFn: (status: JournalStatus) => updateJournalStatus(entry.id, status),
-  onSuccess: () => queryClient.invalidateQueries({ queryKey: ['journals', patientId] }),
-  onError: (error) => logError(error, 'Journal status mutation failed'),
-})
-
-<Select value={entry.status} onValueChange={(v) => mutate(v as JournalStatus)}>...</Select>
-
+<Select value={entry.status} onValueChange={(v) => mutate(v as JournalStatus)}>…</Select>
 {error && <p className="text-destructive">We could not update the journal status. Try again.</p>}
 ```
 
-Watch the request in DevTools Network; watch the journals query refetch in the React Query Devtools.
+**`features/journal/hooks/useCreateJournal.ts`** — same shape:
 
-> [Invalidating](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation) only `['journals', patientId]` re-runs that one query — other patients' caches stay intact. Smaller invalidation = less unnecessary work.
+```ts
+export function useCreateJournal(patientId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: NewJournal) => createJournal(patientId, data),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['journals', patientId] }),
+    onError: (error) => logError(error, 'Create journal mutation failed'),
+  })
+}
+```
 
-#### Form submit in `JournalForm`
+`JournalForm` keeps form-local concerns (`reset()`) in a per-call callback:
 
-Keep form validation unchanged for this module — Exercise 5 rewrites it. Replace manual submit handling with [`useMutation`](https://tanstack.com/query/latest/docs/framework/react/guides/mutations) for `createJournal`. On success, invalidate `['journals', patientId]` and reset the form. Show pending state near the button, not as a page-level spinner. Show form-level recovery on failure — without exposing API internals.
+```tsx
+const { mutate, isPending, error } = useCreateJournal(patientId)
+
+function submitJournal(data) {
+  mutate(data, { onSuccess: () => form.reset() })
+}
+```
+
+Show pending state near the button. Render mutation errors form-level — without exposing API internals.
+
+> **Why a hook for two-line mutations?** Same reason as queries: the data layer becomes one named thing per concern. If the cache strategy changes, only the hook moves. The component is just `mutate` + render. It also means the optimistic-update bonus (below) has a natural home — `useCreateJournal` gets richer; `JournalForm` stays unchanged.
+
+> [Invalidating](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation) only `['journals', patientId]` re-runs that one query — other patients' caches stay intact. The page never sees the mutation.
 
 ### 6. Compare via Devtools and Network
 
-- Dashboard → Patients: second visit hits cache (no network call).
-- Journal status change: PATCH in Network, journals query refetching in Devtools.
+- Dashboard → Patients: second visit hits the cache (no network call).
+- Status change: PATCH in Network, journals query refetching in Devtools.
 - New journal submit: POST visible, list refreshes automatically.
-
-> Cache reuse across navigation, mutation requests, visible UI updates, refetches after invalidation — none of it written into individual components.
+- `PatientDetailPage` is now data + pure JSX — no callbacks, no flags, no `useEffect`.
 
 ## Bonus
 
 ### 1. Optimistic journal creation
 
-Use [`onMutate`](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates) to update the cache before the network call, then reconcile in `onSuccess` or roll back in `onError`:
+Push the [`onMutate`](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates) / rollback / replace flow _into the existing hook_ — `useCreateJournal` gets richer; `JournalForm` doesn't change at all:
 
-```tsx
-useMutation({
-  mutationFn: (data) => createJournal(patientId, data),
-  onMutate: async (data) => {
-    await queryClient.cancelQueries({ queryKey: ['journals', patientId] })
-    const previous = queryClient.getQueryData(['journals', patientId])
-    queryClient.setQueryData(['journals', patientId], (entries) => [
-      { id: `optimistic-${Date.now()}`, ...data, status: 'draft' },
-      ...(entries ?? []),
-    ])
-    return { previous }
-  },
-  onError: (_e, _d, ctx) => queryClient.setQueryData(['journals', patientId], ctx?.previous),
-  onSettled: () => queryClient.invalidateQueries({ queryKey: ['journals', patientId] }),
-})
+```ts
+export function useCreateJournal(patientId: string) {
+  const queryClient = useQueryClient()
+  const journalsKey = ['journals', patientId] as const
+
+  return useMutation({
+    mutationFn: (data) => createJournal(patientId, data),
+    onMutate: async (data) => {
+      await queryClient.cancelQueries({ queryKey: journalsKey })
+      const previous = queryClient.getQueryData<Journal[]>(journalsKey)
+      const optimisticId = `optimistic-${Date.now()}`
+      queryClient.setQueryData<Journal[]>(journalsKey, (entries) => [
+        { id: optimisticId, patientId, ...data, status: 'draft' },
+        ...(entries ?? []),
+      ])
+      return { previous, optimisticId }
+    },
+    onError: (_e, _d, ctx) =>
+      queryClient.setQueryData(journalsKey, ctx?.previous),
+    onSuccess: (created, _d, ctx) => {
+      queryClient.setQueryData<Journal[]>(journalsKey, (entries) =>
+        entries?.map((e) => (e.id === ctx?.optimisticId ? created : e)),
+      )
+    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: journalsKey }),
+  })
+}
 ```
 
-> If the request fails after the UI already updated, the `onError` rollback uses the `onMutate` snapshot. `onSettled` reconciles either way.
+> The whole optimistic flow lives inside the hook. `JournalForm` still just calls `useCreateJournal(patientId)` and renders. That's the payoff for extracting mutations into hooks — the strategy changes, the component doesn't.
 
 ### 2. Try `useSuspenseQuery` for one read
 
-Convert the patient detail read to [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery). Wrap the call site in a local `<Suspense>` and `<ErrorBoundary>`. The component body becomes pure data + render — no `isLoading`/`error` guards.
+Convert the patient detail read to [`useSuspenseQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery). Because Exercise Four removed the inner query boundary, add a local `<ErrorBoundary>` back around this experiment and put `<Suspense>` inside it. The component body becomes pure data + render — no `isLoading`/`error` guards.
 
 ## Resources
 

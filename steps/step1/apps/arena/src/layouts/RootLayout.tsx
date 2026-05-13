@@ -5,7 +5,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 type Page = 'dashboard' | 'patients'
 
-type LayoutProps = {
+type RootLayoutProps = {
   activePage: Page
   onNavigate: (page: Page) => void
   children: ReactNode
@@ -16,7 +16,11 @@ const navLinks: { id: Page; label: string; icon: typeof LayoutDashboard }[] = [
   { id: 'patients', label: 'Patients', icon: Users },
 ]
 
-export function Layout({ activePage, onNavigate, children }: LayoutProps) {
+export function RootLayout({
+  activePage,
+  onNavigate,
+  children,
+}: RootLayoutProps) {
   return (
     <div className="flex min-h-screen bg-background">
       <aside className="hidden lg:flex w-64 border-r bg-sidebar flex-col shrink-0">
@@ -67,7 +71,13 @@ export function Layout({ activePage, onNavigate, children }: LayoutProps) {
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
-          <ErrorBoundary>{children}</ErrorBoundary>
+          <ErrorBoundary
+            title="This page is unavailable"
+            message="Something on this page failed. Try a different section or refresh the page."
+            logContext="App layout boundary"
+          >
+            {children}
+          </ErrorBoundary>
         </main>
       </div>
     </div>

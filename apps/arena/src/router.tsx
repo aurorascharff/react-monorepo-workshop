@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react'
 import type { ReactNode } from 'react'
 import { Routes, Route } from 'react-router'
 import { Spinner } from '@medix/ui'
-import { Layout } from './layouts/Layout'
+import { RootLayout } from './layouts/RootLayout'
 
 const DashboardPage = lazy(() =>
   import('./pages/DashboardPage').then((module) => ({
@@ -31,7 +31,7 @@ const NotFoundPage = lazy(() =>
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={routeElement(<DashboardPage />)} />
         <Route path="patients" element={routeElement(<PatientListPage />)} />
         <Route

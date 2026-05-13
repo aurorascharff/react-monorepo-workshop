@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { type ReactEventHandler, useEffect, useState } from 'react'
 import {
   Badge,
@@ -33,9 +32,8 @@ export function PatientPage({
   const [isLoadingPatients, setIsLoadingPatients] = useState(true)
 
   const [search, setSearch] = useState('')
-  const [genderFilter, setGenderFilter] = useState<'all' | 'male' | 'female'>(
-    'all',
-  )
+  const [showMalePatients, setShowMalePatients] = useState(true)
+  const [showFemalePatients, setShowFemalePatients] = useState(true)
 
   useEffect(() => {
     fetchPatients()
@@ -45,6 +43,7 @@ export function PatientPage({
 
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedPatient(patients.find((p) => p.id === selectedId) ?? null)
   }, [patients, selectedId])
 
@@ -52,7 +51,9 @@ export function PatientPage({
     const matchesSearch =
       p.name.toLowerCase().includes(search.toLowerCase()) ||
       p.diagnosis.toLowerCase().includes(search.toLowerCase())
-    const matchesGender = genderFilter === 'all' || p.gender === genderFilter
+    const matchesGender =
+      (p.gender === 'male' && showMalePatients) ||
+      (p.gender === 'female' && showFemalePatients)
     return matchesSearch && matchesGender
   })
 
@@ -87,10 +88,12 @@ export function PatientPage({
           <select
             id="gender-filter"
             className="h-9 rounded-md border bg-background px-3 text-sm"
-            value={genderFilter}
-            onChange={(event) =>
-              setGenderFilter(event.target.value as 'all' | 'male' | 'female')
-            }
+            value={getGenderFilterValue(showMalePatients, showFemalePatients)}
+            onChange={(event) => {
+              const value = event.target.value
+              setShowMalePatients(value === 'all' || value === 'male')
+              setShowFemalePatients(value === 'all' || value === 'female')
+            }}
           >
             <option value="all">All</option>
             <option value="male">Male</option>
@@ -139,6 +142,13 @@ export function PatientPage({
   )
 }
 
+function getGenderFilterValue(showMale: boolean, showFemale: boolean) {
+  if (showMale && showFemale) return 'all'
+  if (showMale) return 'male'
+  if (showFemale) return 'female'
+  return 'all'
+}
+
 function calculateAge(dateOfBirth: string): number {
   const born = new Date(dateOfBirth)
   const today = new Date()
@@ -171,6 +181,7 @@ function PatientDetail({
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoading(true)
     fetchJournals(patient.id)
       .then((data) => setJournals(data))
