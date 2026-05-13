@@ -10,13 +10,13 @@ If your structure differs from the reference files, make the same kind of change
 
 1. Add TanStack Query to the Arena app with a `QueryClientProvider`.
 
-2. Replace repeated patient fetching with a shared hook (e.g. `usePatients`). Components call it directly — `PatientList`, plus dashboard subcomponents like `DashboardStats` and `RecentPatients`. Pages compose them.
+2. Replace repeated patient fetching with a shared hook (e.g. `usePatients`). Components should call it directly — `PatientList`, plus dashboard subcomponents like `DashboardStats` and `RecentPatients`. Pages should compose them.
 
-3. Replace manual patient detail and journal fetching with query hooks. The page owns the patient query; journal fetching moves into a `useJournals` hook called from `JournalList`. Drop the `journals` / `isLoading` props that used to flow from the page.
+3. Replace manual patient detail and journal fetching with query hooks. The page should own the patient query; journal fetching should move into a `useJournals` hook called from `JournalList`. Drop the `journals` / `isLoading` props that used to flow from the page.
 
-4. Design loading, error, empty, and success states inside each self-fetching component, using the shared `Skeleton` primitive shaped like the content. With `<ErrorState>` covering `useQuery` errors, drop the contextual `<ErrorBoundary>` from Exercise One — the layout-level boundary stays as the catch-all.
+4. Design loading, error, empty, and success states inside each self-fetching component, using the shared `Skeleton` primitive shaped like the content. With `<ErrorState>` covering `useQuery` errors, drop the contextual `<ErrorBoundary>` from Exercise One and keep the layout-level boundary as the catch-all.
 
-5. Extract mutations into hooks in the same feature folder (e.g. `useUpdateJournalStatus`, `useCreateJournal`). Each hook owns its `mutationFn`, cache invalidation, and error logging. `JournalEntry` and `JournalForm` just call the hook and use `mutate` / `isPending` / `error`.
+5. Extract mutations into hooks in the same feature folder (e.g. `useUpdateJournalStatus`, `useCreateJournal`). Each hook should own its `mutationFn`, cache invalidation, and error logging. `JournalEntry` and `JournalForm` should call the hook and use `mutate` / `isPending` / `error`.
 
 6. Use React Query Devtools and the Network tab to compare what happens during navigation, status updates, and form submit. Look for cache reuse, mutation requests, visible UI updates, and refetches after invalidation.
 

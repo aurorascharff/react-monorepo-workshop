@@ -12,9 +12,9 @@ If your structure differs from the reference files, make the same kind of change
 
 2. In the patient list component, for example [PatientList](../apps/arena/src/features/patients/components/PatientList.tsx), the gender filter is split into boolean state and `filteredPatients` is synced from `patients` via `useState` + `useEffect`. Replace the boolean filter state with one `genderFilter` value, then compute the filtered list during render instead of storing it.
 
-3. The patient detail screen is driven by the URL patient id. In [PatientDetailPage](../apps/arena/src/pages/PatientDetailPage.tsx), make sure local journal-form state resets when you move between patients.
+3. In [PatientDetailPage](../apps/arena/src/pages/PatientDetailPage.tsx), use the URL patient id as the identity for the detail screen. Make sure local journal-form state resets when you move between patients.
 
-4. Extract the patient filtering behavior into a hook. You can call it [`usePatientFilter`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts), or choose another name that fits your structure. The component owns the UI, and the hook owns the filtering logic.
+4. Extract the patient filtering behavior into a hook. You can call it [`usePatientFilter`](../apps/arena/src/features/patients/hooks/usePatientFilter.ts), or choose another name that fits your structure. The component should own the UI, and the hook should own the filtering logic.
 
 5. Add a debounce hook for the search value. You can call it [`useDebounce`](../apps/arena/src/hooks/useDebounce.ts), or place it with your other reusable hooks. The timer belongs in an effect because it synchronizes with something outside React, and the effect should clean up after itself.
 

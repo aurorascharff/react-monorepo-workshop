@@ -6,9 +6,9 @@ The app works, but too many responsibilities live in the same places. It is hard
 
 ## Task
 
-1. Extract the sidebar, mobile header, and page wrapper from `App.tsx` into a named layout component. The page content stays separate from the surrounding chrome.
+1. Extract the sidebar, mobile header, and page wrapper from `App.tsx` into a named layout component. The page content should stay separate from the surrounding chrome.
 
-2. Split the patient and journal UI into named components so the page reads more like a workflow than one large file. Patient UI with patient code, journal UI with journal code. Keep using existing Base UI primitives from `@medix/ui`; do not move feature code into the shared package.
+2. Split the patient and journal UI into named components so the page reads more like a workflow than one large file. Put patient UI with patient code and journal UI with journal code. Keep using existing Base UI primitives from `@medix/ui`; do not move feature code into the shared package.
 
 3. Add a shared `<ErrorBoundary>` (using [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary), already installed) that takes `title`, `message`, and `logContext` props. Use it twice — a layout-level catch-all and a contextual one around the patient detail with copy that names _that_ failure. Verify by throwing inside the patient detail and confirming only that area is replaced. Log via the existing `logError` helper.
 
