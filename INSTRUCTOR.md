@@ -2,7 +2,7 @@
 
 Internal notes for Aurora. Keep this open on a second screen.
 
-Use [`WORKSHOP.md`](WORKSHOP.md) for schedule, module goals, and slide outline. Use [`steps/step-notes`](steps/step-notes) for live coding.
+Use [`WORKSHOP.md`](WORKSHOP.md) for schedule, module goals, and slide outline. Use [`exercises/exercise-N-NAME-steps.md`](exercises/) for live coding — the walkthroughs hold the rationale, code, and ordering you'll talk through.
 
 ## Prep
 
@@ -33,7 +33,7 @@ Morning:
 - [ ] Open API docs.
 - [ ] Open final reference repo and workshop-specific participant repo.
 - [ ] Use the `.code-workspace` file for the repo you are live coding in.
-- [ ] Open `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and `steps/`.
+- [ ] Open `WORKSHOP.md`, current `exercises/exercise-N-NAME-steps.md`, and `steps/`.
 - [ ] Open README for the setup and repo walkthrough.
 - [ ] Check Copilot ghost text is available.
 - [ ] Check Chrome DevTools is docked where the room can see it.
@@ -57,7 +57,7 @@ Attendee screen:
 Instructor screen:
 
 - Space 1: desktop and browser.
-- Space 2: `WORKSHOP.md`, current `steps/step-notes/stepN.md`, and code.
+- Space 2: `WORKSHOP.md`, current `exercises/exercise-N-NAME-steps.md`, and code.
 - Space 3: completed app or finished snapshot.
 
 Editor:
@@ -131,7 +131,7 @@ If fewer than half raise hands:
 - Stop at the planned break even if the current module got messy.
 - Reset data with `npm run db:seed` if needed.
 - Open the next module files during the break.
-- Check the next `steps/step-notes/stepN.md` before restarting.
+- Check the next `exercises/exercise-N-NAME-steps.md` before restarting.
 - Make sure the last module is committed and pushed before wrap-up if participants need the reference.
 
 ## If Tech Breaks
