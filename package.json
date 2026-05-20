@@ -2,7 +2,7 @@
   "name": "medix-workshop",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "npm@11.13.0",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=20.19.0"
   },
@@ -19,9 +19,9 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,css,md}\"",
     "diff:steps": "node scripts/diff-steps.mjs",
     "test": "turbo test",
-    "test:all": "npm run test && npm run e2e",
-    "e2e": "npm run e2e --workspace=apps/e2e",
-    "db:seed": "npm run db:seed --workspace=apps/api"
+    "test:all": "pnpm test && pnpm e2e",
+    "e2e": "pnpm --filter ./apps/e2e e2e",
+    "db:seed": "pnpm --filter ./apps/api db:seed"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "0.2.3",

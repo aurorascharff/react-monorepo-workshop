@@ -5,8 +5,8 @@
 ## Run
 
 ```bash
-npm run typecheck --workspace=packages/ui
-npm test --workspace=packages/ui
+pnpm --filter ./packages/ui typecheck
+pnpm --filter ./packages/ui test
 ```
 
 ## Structure

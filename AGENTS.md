@@ -34,7 +34,7 @@ packages/
 - React Hook Form + Zod
 - Tailwind CSS v4
 - TypeScript strict
-- Turborepo + npm workspaces
+- Turborepo + pnpm workspaces
 - Vitest + React Testing Library
 
 ## Domain Model

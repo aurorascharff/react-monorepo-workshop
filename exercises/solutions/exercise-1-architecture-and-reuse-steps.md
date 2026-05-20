@@ -186,8 +186,8 @@ Use it in `RootLayout.tsx` (`<BrandMark product="Arena" />`) and in `apps/medix.
 ### Verify
 
 ```bash
-npm run typecheck --workspace=apps/arena
-npm test --workspace=apps/arena -- --run
+pnpm --filter ./apps/arena typecheck
+pnpm --filter ./apps/arena test -- --run
 ```
 
 Visually: sidebar and mobile header look unchanged; the gender filter and journal status switcher use the new `Select`; `BrandMark` appears in both apps. A thrown error inside the patient detail shows the contextual "Patient details are unavailable" fallback while the sidebar and patient list stay clickable; a thrown error elsewhere on the page falls through to the layout-level "This page is unavailable" fallback.

@@ -5,12 +5,12 @@ Arena is the clinician-facing journal app. It is a React Router SPA for authenti
 ## Run
 
 ```bash
-npm run dev --workspace=apps/arena
-npm run typecheck --workspace=apps/arena
-npm test --workspace=apps/arena
+pnpm --filter ./apps/arena dev
+pnpm --filter ./apps/arena typecheck
+pnpm --filter ./apps/arena test
 ```
 
-Arena expects the API to run on `http://localhost:3001`. From the repo root, `npm run dev` starts both.
+Arena expects the API to run on `http://localhost:3001`. From the repo root, `pnpm dev` starts both.
 
 ## Structure
 

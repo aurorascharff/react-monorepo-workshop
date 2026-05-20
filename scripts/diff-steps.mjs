@@ -171,13 +171,13 @@ function fail(message) {
 
 function printHelp() {
   console.log(`Usage:
-  npm run diff:steps
-  npm run diff:steps -- --name-only
-  npm run diff:steps -- --name-status
-  npm run diff:steps -- --all
-  npm run diff:steps -- step0 step1
-  npm run diff:steps -- step0 step1 apps/arena
-  npm run diff:steps -- --path apps/arena --stat
+  pnpm diff:steps
+  pnpm diff:steps -- --name-only
+  pnpm diff:steps -- --name-status
+  pnpm diff:steps -- --all
+  pnpm diff:steps -- step0 step1
+  pnpm diff:steps -- step0 step1 apps/arena
+  pnpm diff:steps -- --path apps/arena --stat
 
 Default:
   Shows a summary for every adjacent step pair.
