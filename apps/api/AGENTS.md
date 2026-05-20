@@ -11,7 +11,7 @@
 - `src/routes/journals.ts` — journal endpoints (list / get / create / update status)
 - `src/schemas.ts` — shared Zod schemas with `.openapi()` metadata
 - `src/db/schema.ts` — Drizzle schema (SQLite tables `patients`, `journals`)
-- `src/db/seed.ts` — deterministic seed data; reset via `npm run db:seed`
+- `src/db/seed.ts` — deterministic seed data; reset via `pnpm db:seed`
 
 ## Rules
 
@@ -36,6 +36,6 @@ Interactive docs: `http://localhost:3001/`
 ## Validation
 
 ```bash
-npm run typecheck --workspace=apps/api
-npm run db:seed --workspace=apps/api
+pnpm --filter ./apps/api typecheck
+pnpm --filter ./apps/api db:seed
 ```

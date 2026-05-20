@@ -12,15 +12,15 @@ Day before:
 - [ ] Push the participant repo before participants begin.
 - [ ] Fresh clone the workshop-specific participant repo.
 - [ ] Open the repo through the `.code-workspace` file in VS Code.
-- [ ] `npm install`
-- [ ] `npm run db:seed`
-- [ ] `npm run dev`
+- [ ] `pnpm install`
+- [ ] `pnpm db:seed`
+- [ ] `pnpm dev`
 - [ ] Check Arena: `http://localhost:5173`
 - [ ] Check API docs: `http://localhost:3001`
 - [ ] Check medix.com: `http://localhost:3000`
-- [ ] `npm run typecheck`
-- [ ] `npm run test`
-- [ ] `npm run e2e`
+- [ ] `pnpm typecheck`
+- [ ] `pnpm test`
+- [ ] `pnpm e2e`
 - [ ] Projector or screen works.
 - [ ] Slides ready and linked from `WORKSHOP.md`.
 - [ ] Participant list ready if needed.
@@ -145,14 +145,14 @@ Use the diff as the code walkthrough. Explain why each changed file moved, what 
 ## Breaks
 
 - Stop at the planned break even if the current module got messy.
-- Reset data with `npm run db:seed` if needed.
+- Reset data with `pnpm db:seed` if needed.
 - Open the next module files during the break.
 - Check the next `exercises/solutions/exercise-N-NAME-steps.md` before restarting.
 - Make sure the last module is committed and pushed before wrap-up if participants need the reference.
 
 ## If Tech Breaks
 
-- `npm run db:seed` if data gets messy.
+- `pnpm db:seed` if data gets messy.
 - Use `steps/stepN` as finished snapshot.
 - Use final reference repo as reference.
 - Use slides, screenshots, or whiteboard for the concept.

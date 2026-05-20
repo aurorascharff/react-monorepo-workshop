@@ -5,9 +5,9 @@ The API is a Hono REST API for patients and journal entries. It is the server bo
 ## Run
 
 ```bash
-npm run dev --workspace=apps/api
-npm run db:seed --workspace=apps/api
-npm run typecheck --workspace=apps/api
+pnpm --filter ./apps/api dev
+pnpm --filter ./apps/api db:seed
+pnpm --filter ./apps/api typecheck
 ```
 
 API docs are available at `http://localhost:3001`.

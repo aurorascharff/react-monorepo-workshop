@@ -29,7 +29,7 @@ For React patterns (derived state, effects, memoization, etc.), use the `/react-
 ## Validation
 
 ```bash
-npm run lint --workspace=apps/arena
-npm run typecheck --workspace=apps/arena
-npm test --workspace=apps/arena -- --run
+pnpm --filter ./apps/arena lint
+pnpm --filter ./apps/arena typecheck
+pnpm --filter ./apps/arena test -- --run
 ```

@@ -23,6 +23,6 @@
 ## Validation
 
 ```bash
-npm run lint --workspace=apps/medix.com
-npm run build --workspace=apps/medix.com
+pnpm --filter ./apps/medix.com lint
+pnpm --filter ./apps/medix.com build
 ```

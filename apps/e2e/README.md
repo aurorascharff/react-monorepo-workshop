@@ -5,9 +5,9 @@ This workspace contains Playwright tests for Arena. The tests run against the re
 ## Run
 
 ```bash
-npm run e2e
-npm run e2e --workspace=apps/e2e
-npm run e2e:ui --workspace=apps/e2e
+pnpm e2e
+pnpm --filter ./apps/e2e e2e
+pnpm --filter ./apps/e2e e2e:ui
 ```
 
 The test setup reseeds the SQLite database before each run. The suite runs with

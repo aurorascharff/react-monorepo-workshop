@@ -23,7 +23,7 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'npm run dev --workspace=apps/api',
+      command: 'pnpm --filter ./apps/api dev',
       url: `${API_URL}/openapi.json`,
       cwd: '../..',
       reuseExistingServer: !process.env.CI,
@@ -32,7 +32,7 @@ export default defineConfig({
       stderr: 'pipe',
     },
     {
-      command: 'npm run dev --workspace=apps/arena',
+      command: 'pnpm --filter ./apps/arena dev',
       url: ARENA_URL,
       cwd: '../..',
       reuseExistingServer: !process.env.CI,

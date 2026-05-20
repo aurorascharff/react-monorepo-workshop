@@ -5,9 +5,9 @@ medix.com is the public Next.js marketing site. It uses the same shared UI packa
 ## Run
 
 ```bash
-npm run dev --workspace=apps/medix.com
-npm run typecheck --workspace=apps/medix.com
-npm run build --workspace=apps/medix.com
+pnpm --filter ./apps/medix.com dev
+pnpm --filter ./apps/medix.com typecheck
+pnpm --filter ./apps/medix.com build
 ```
 
 The site runs on `http://localhost:3000`.
